@@ -1,7 +1,7 @@
 
 
 
-class Ovh:
+class CloudFlareApi:
     def __init__(self):
         pass
 
