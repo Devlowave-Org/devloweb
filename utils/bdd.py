@@ -22,9 +22,18 @@ class DevloBDD:
         self.cursor.execute("SELECT COUNT(*) FROM users WHERE ja_id = ?", (ja_id,))
         return self.cursor.fetchone()
 
+    def activer_ja(self, ja_id: int):
+        self.cursor.execute("UPDATE users SET active = 1 WHERE ja_id = ?", (ja_id,))
+        self.conn.commit()
 
+    def is_active(self, ja_id: int) -> bool:
+        self.cursor.execute("SELECT active FROM users WHERE ja_id = ?", (ja_id,))
+        if self.cursor.fetchone()[0]:
+            return True
+        else:
+            return False
 
 
 if __name__ == '__main__':
     bdd = DevloBDD()
-    bdd.inscire_ja(8166, '<EMAIL>', '<PASSWORD>')
+    print(bdd.is_active(8166))
