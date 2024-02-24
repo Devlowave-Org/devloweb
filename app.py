@@ -3,7 +3,7 @@ from App import inscription
 
 app = Flask(__name__)
 app.debug = True
-app.secret_key = "banane"
+app.secret_key = "banane" 
 
 
 @app.route("/")
