@@ -18,6 +18,12 @@ class DevloBDD:
         self.cursor.execute("INSERT INTO users(ja_id, email, password, date) VALUES (?, ?, ?, ?)", (ja_id, email, password, date))
         self.conn.commit()
 
+    def ja_exists(self, ja_id: int) -> list:
+        self.cursor.execute("SELECT COUNT(*) FROM users WHERE ja_id = ?", (ja_id,))
+        return self.cursor.fetchone()
+
+
+
 
 if __name__ == '__main__':
     bdd = DevloBDD()
