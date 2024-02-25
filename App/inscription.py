@@ -13,6 +13,9 @@ def inscription():
         ja_id = request.form['ja_id']
         email = request.form['email']
         password = request.form['password']
-        print(ja_id)
+
+        #TODO  Je suis sensé vérifier que ja_id est bien dans la BDD de samuel
+
+        
 
     return render_template("inscription.html")
