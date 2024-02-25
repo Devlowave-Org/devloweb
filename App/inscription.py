@@ -10,11 +10,14 @@ def inscription():
     :return:
     """
     if request.method == 'POST':
+        if not request.form['email'] or not request.form['password'] or not request.form['ja_id']:
+            return render_template("inscription.html", error="Veuillez remplir tous les champs")
+
         try:
             ja_id = utils.ja_id_int(ja_id=request.form['ja_id'])
         except ValueError as e:
             return render_template('inscription.html', error=str(e))
-        print("on a pas return")
+
         email = request.form['email']
         password = request.form['password']
 
