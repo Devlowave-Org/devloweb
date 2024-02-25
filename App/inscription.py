@@ -10,7 +10,7 @@ def inscription():
     :return:
     """
     if request.method == 'POST':
-        ja_id = request.form['ja_id']
+        ja_id = utils.ja_id_int(ja_id=request.form['ja_id'])
 
         email = request.form['email']
         password = request.form['password']
