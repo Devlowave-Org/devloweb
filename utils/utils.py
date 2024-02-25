@@ -7,3 +7,11 @@ def email_validator(email: str) -> bool:
         return True
     else:
         return False
+
+
+def ja_id_int(ja_id: str) -> int | ValueError:
+    try:
+        ja_int = int(ja_id.split("-")[1])
+        return ja_int
+    except ValueError as e:
+        return e
