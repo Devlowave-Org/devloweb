@@ -4,15 +4,15 @@
         <title>Inscription</title>
     </head>
     <body>
-        <form method="post">
+        <form method="post" action="">
             <label for="email">Votre mail :</label><br>
             <input type="email" name="email" id="email" placeholder="example@gmail.com" value="{{ request.form['email'] }}"><br>
             <label for="ja_id">Identifiant JA</label><br>
             <input type="text" name="ja_id" id="ja_id" placeholder="JA-0000" value="{{ request.form['ja_id'] }}"><br>
             <label for="password">Mot de passe :</label><br>
             <input type="password" name="password" id="password" placeholder="Un mot de passe compliqué"><br>
-            <button type="submit" name="valider" id="valider">Valider !</button>
+            <input type="submit" name="valider" id="valider" value="Valider">
         </form>
-        <p>{{ message }}</p>
+        <p>{{ error }}</p>
     </body>
 </html>

@@ -10,10 +10,10 @@ app.secret_key = "banane"
 def index():
     return render_template("index.html")
 
-@app.route("/inscription", methods=["GET", "POST"])
+
+@app.route("/inscription", methods=("GET", "POST"))
 def route_inscription():
     return inscription.inscription()
-
 
 
 if __name__ == "__main__":
