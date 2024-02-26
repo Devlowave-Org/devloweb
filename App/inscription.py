@@ -1,7 +1,10 @@
 from flask import render_template, request
 from utils import utils
 from utils import bdd
+from utils import email_api
+from utils import verification
 import bcrypt
+
 
 def inscription():
     """
@@ -49,6 +52,13 @@ def inscription():
         # TODO  Je suis sensé vérifier que ja_id est bien dans la BDD de samuel
         if ja_id == 8166:
             pass
+
+
+def etape_verification(devlobdd, ja_id, mail):
+    code = verification.create_verification_code(devlobdd, ja_id)
+    verification.store_code(devlobdd, ja_id, code)
+
+    email_api.send_verification_email(mail, code)
 
 
 
