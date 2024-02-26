@@ -63,5 +63,4 @@ def etape_verification(devlobdd, ja_id, mail):
     devlomail.send_verification_email(mail, code)
 
 
-
     return render_template("inscription.html", error="AUCUNE ERREUR")
