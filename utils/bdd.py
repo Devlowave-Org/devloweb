@@ -10,9 +10,9 @@ class DevloBDD:
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, password 
         TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, 
-        date INT DEFAULT CURRENT_TIMESTAMP)""")
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS try(ip TEXT NOT NULL,try INT DEFAULT 1, 
-        date INT DEFAULT CURRENT_TIMESTAMP)""")
+        date TEXT DEFAULT CURRENT_TIMESTAMP)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, 
+        first TEXT DEFAULT CURRENT_TIMESTAMP, last TEXT DEFAULT CURRENT_TIMESTAMP, punition TEXT DEFAULT CURRENT_TIMESTAMP)""")
         self.conn.commit()
 
 
@@ -59,13 +59,37 @@ class DevloBDD:
     Partie sécurité :
     -> try
     """
-    def add_try(self, ip):
-        self.cursor.execute("INSERT INTO try(ip) VALUES (?)", (ip,))
+    def init_try(self, ip):
+        self.cursor.execute("INSERT INTO security(ip) VALUES (?)", (ip,))
         self.conn.commit()
 
+    def has_try(self, ip: str) -> bool:
+        self.cursor.execute("SELECT COUNT(*) FROM security WHERE ip = ?", (ip,))
+        if self.cursor.fetchone()[0]:
+            return True
+        else:
+            return False
+
+    def update_try(self, ip: str):
+        self.cursor.execute("UPDATE security SET try = try + 1 WHERE ip = ?", (ip,))
+        self.conn.commit()
+
+    def add_try(self, ip: str):
+        if self.has_try(ip):
+            self.update_try(ip)
+        else:
+            self.init_try(ip)
 
     def quit_bdd(self):
         self.conn.close()
+
+    def get_try(self, ip: str):
+        self.cursor.execute("SELECT * FROM security WHERE ip = ?", (ip,))
+        self.conn.commit()
+
+    def reset_try(self, ip: str):
+        self.cursor.execute("UPDATE security SET try = 0 WHERE ip = ?", (ip,))
+
 
 
 if __name__ == '__main__':
