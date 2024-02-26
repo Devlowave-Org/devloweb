@@ -13,6 +13,7 @@ def index():
 
 @app.route("/inscription", methods=("GET", "POST"))
 def route_inscription():
+    print("Je me situe ici")
     return inscription.inscription()
 
 

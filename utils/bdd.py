@@ -20,9 +20,12 @@ class DevloBDD:
         self.cursor.execute("INSERT INTO users(ja_id, email, password, date) VALUES (?, ?, ?, ?)", (ja_id, email, password, date))
         self.conn.commit()
 
-    def ja_exists(self, ja_id: int) -> list:
+    def ja_exists(self, ja_id: str) -> bool:
         self.cursor.execute("SELECT COUNT(*) FROM users WHERE ja_id = ?", (ja_id,))
-        return self.cursor.fetchone()
+        if self.cursor.fetchone()[0]:
+            return True
+        else:
+            return False
 
     def activer_ja(self, ja_id: int):
         self.cursor.execute("UPDATE users SET active = 1 WHERE ja_id = ?", (ja_id,))

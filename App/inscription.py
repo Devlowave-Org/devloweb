@@ -21,7 +21,7 @@ def inscription():
 
         # Nous ne gardons que l'entier de JA-0000
         try:
-            ja_id = utils.ja_id_int(ja_id=request.form['ja_id'])
+            ja_id = utils.ja_id_only(ja_id=request.form['ja_id'])
         except ValueError as e:
             return render_template('inscription.html', error=str(e))
 
@@ -46,16 +46,18 @@ def inscription():
         if devlobdd.ja_exists(ja_id):
             return render_template("inscription.html", error="Vous avez déjà un compte.")
 
-        devlobdd.inscire_ja(ja_id, email, password)
+        devlobdd.inscire_ja(ja_id, email, hashed_pass)
 
         # TODO je dois vérifier que la JA n'a pas déja un compte
         # TODO  Je suis sensé vérifier que ja_id est bien dans la BDD de samuel
         if ja_id == 8166:
             pass
+        etape_verification(devlobdd, ja_id, email)
 
+    return render_template("inscription.html")
 
 def etape_verification(devlobdd, ja_id, mail):
-    code = verification.create_verification_code(devlobdd, ja_id)
+    code = verification.create_verification_code(devlobdd)
     verification.store_code(devlobdd, ja_id, code)
     devlomail = email_api.DevloMail()
     devlomail.send_verification_email(mail, code)
