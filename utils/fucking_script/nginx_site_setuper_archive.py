@@ -1,8 +1,9 @@
+
 import os
 
 
-ja_name = "azerty" #input("Please enter the name of the JA > ")
-ja_website_files_path = """/var/www/""" "./" + ja_name + "_website_files"
+ja_id = "azerty" #input("Please enter the name of the JA > ")
+ja_website_files_path = """/var/www/""" "./" + ja_id + "_website_files"
 
 # create the folder that will contain website files
 
@@ -23,11 +24,8 @@ with open(f"{ja_website_files_path}/index.html", "w") as html_index:
 # create the conf file
 print("Index created, creating conf file")
 
-with open(f"/etc/nginx/sites-available/{ja_name}_website.conf", "w") as website_conf:
-    website_conf.write(f"server {{\n\n    listen 80;\n\n    listen [::]:80;\n\n    root /var/www/{ja_website_files_path};\n\n    index index.html;\n    server_name {ja_name}.devlowave.fr;\n\n    location / {{\n        try_files $uri $uri/ =404;\n    }}\n}}")
+with open(f"/etc/nginx/sites-available/{ja_id}_website.conf", "w") as website_conf:
+    website_conf.write(f"server {{\n\n    listen 80;\n\n    listen [::]:80;\n\n    root /var/www/{ja_website_files_path};\n\n    index index.html;\n    server_name {ja_id}.devlowave.fr;\n\n    location / {{\n        try_files $uri $uri/ =404;\n    }}\n}}")
 
 print("Config file created, checking syntax")
-os.system(f"sudo ln -s /etc/nginx/sites-available/{ja_name}_website.conf /etc/nginx/sites-enabled/")
-
-
-
+os.system(f"sudo ln -s /etc/nginx/sites-available/{ja_id}_website.conf /etc/nginx/sites-enabled/")
