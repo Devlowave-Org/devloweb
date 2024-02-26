@@ -52,6 +52,7 @@ def inscription():
         if ja_id == 8166:
             pass
         etape_verification(devlobdd, ja_id, email)
+        return render_template("inscription.html", error="AUCUNE ERREUR")
 
     return render_template("inscription.html")
 
@@ -62,4 +63,3 @@ def etape_verification(devlobdd, ja_id, mail):
     devlomail.send_verification_email(mail, code)
 
 
-    return render_template("inscription.html", error="AUCUNE ERREUR")

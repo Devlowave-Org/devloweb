@@ -1,0 +1,14 @@
+<html lang="fr">
+    <head>
+        <link rel="stylesheet" href="/static/base.css">
+        <title>Inscription</title>
+    </head>
+    <body>
+        <form method="post" action="">
+            <label for="verif">Code de vérification</label><br>
+            <input type="text" name="verif" id="verif" placeholder="0000" value="{{ request.form['verif'] }}"><br>
+            <input type="submit" name="valider" id="valider" value="Valider">
+        </form>
+        <p>{{ error }}</p>
+    </body>
+</html>
