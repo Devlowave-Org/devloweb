@@ -2,7 +2,6 @@ from flask import render_template, request
 from utils import utils
 from utils import bdd
 from utils import email_api
-from utils import verification
 import bcrypt
 
 
@@ -57,8 +56,8 @@ def inscription():
     return render_template("inscription.html")
 
 def etape_verification(devlobdd, ja_id, mail):
-    code = verification.create_verification_code(devlobdd)
-    verification.store_code(devlobdd, ja_id, code)
+    code = utils.create_verification_code(devlobdd)
+    utils.store_code(devlobdd, ja_id, code)
     devlomail = email_api.DevloMail()
     devlomail.send_verification_email(mail, code)
 

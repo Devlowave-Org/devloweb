@@ -18,21 +18,20 @@ class DevloMail:
         message["To"] = target
 
         text = """\
-        Hi,
-        How are you?
-        Real Python has many great tutorials:
-        www.realpython.com"""
+        Hey comment tu vas voici ton super code : {code}"""
+        text = text.format(code=code)
+
         html = """\
         <html>
           <body>
             <p>Hi,<br>
-               How are you?<br>
-               <a href="http://www.realpython.com">Real Python</a> 
-               has many great tutorials.
+                How are you?<br>
+                Voici ton code : {code}
             </p>
           </body>
         </html>
         """
+        html = html.format(code=code)
 
         part1 = MIMEText(text, "plain")
         part2 = MIMEText(html, "html")
