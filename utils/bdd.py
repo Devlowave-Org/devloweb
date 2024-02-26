@@ -7,8 +7,10 @@ class DevloBDD:
         self.conn = sqlite3.connect('devloweb.db')
         self.cursor = self.conn.cursor()
         # Creation de la base de donnée utilisateur
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id INT NOT NULL, email TEXT NOT NULL, password 
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, password 
         TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, try 
+                INT NOT NULL, date INT NOT NULL)""")
         self.conn.commit()
 
 
