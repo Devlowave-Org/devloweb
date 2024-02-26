@@ -12,7 +12,7 @@ class DevloBDD:
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, 
         date TEXT DEFAULT datetime('localtime'))""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, 
-        first TEXT DEFAULT datetime('localtime'), last TEXT DEFAULT datetime('localtime'), punition TEXT DEFAULT datetime('localtime'))""")
+        first TEXT DEFAULT datetime('localtime'), last TEXT DEFAULT datetime('localtime'), punition TEXT DEFAULT NULL)""")
         self.conn.commit()
 
 
