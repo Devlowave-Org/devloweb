@@ -57,9 +57,9 @@ def inscription():
 def etape_verification(devlobdd, ja_id, mail):
     code = verification.create_verification_code(devlobdd, ja_id)
     verification.store_code(devlobdd, ja_id, code)
+    devlomail = email_api.DevloMail()
+    devlomail.send_verification_email(mail, code)
 
-    email_api.send_verification_email(mail, code)
 
 
-
-    return render_template("inscription.html")
+    return render_template("inscription.html", error="AUCUNE ERREUR")

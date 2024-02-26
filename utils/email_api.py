@@ -2,20 +2,23 @@ import smtplib
 import ssl
 
 
+class DevloMail:
+    def __init__(self):
+        self.host = 'smtp.gmail.com'
+        self.port = 465
+        self.sender = "devlowave.offi@gmail.com"
+        self.app_pass = "hbbp gnba ftuf ijbt"
+        self.context = ssl.create_default_context()
 
-def send_verification_email(target, verification_code):
-    pass
-port = 465  # For SSL
-smtp_server = "smtp.gmail.com"
-sender_email = "devlowave.offi@gmail.com"  # Enter your address
-receiver_email = "timtonic2@gmail.com"  # Enter receiver address
-password = input("Type your password and press enter: ")
-message = """\
-Subject: Hi there
+    def send_verification_email(self, target, code):
+        message = """\
+        Subject: Verification Devloweb
+        
+        Bonjour et bienvenue sur Devloweb,
+        Voici votre code de vérification : """ + code
+        with smtplib.SMTP_SSL(self.host, self.port, context=self.context) as server:
+            server.login(self.sender, self.app_pass)
+            server.sendmail(self.sender, target, message)
 
-This message is sent from Python."""
 
-context = ssl.create_default_context()
-with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
-    server.login(sender_email, password)
-    server.sendmail(sender_email, receiver_email, message)
+
