@@ -31,6 +31,9 @@ def create_config_file():
 
     return "config file created"
 
+def create_symbolic_link():
+    os.system(f"ln -s /etc/nginx/sites-available/{ja_id}.conf /etc/nginx/sites-enabled/{ja_id}.conf")
+
 
 """CALL USED IN THE FUCKING SCRIPT TO RUN THE NGINX SETUPER"""
 def setup_website():
@@ -39,3 +42,5 @@ def setup_website():
 
     success = create_config_file()
     print(success)
+
+    create_symbolic_link()
