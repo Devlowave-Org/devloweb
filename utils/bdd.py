@@ -9,8 +9,10 @@ class DevloBDD:
         # Creation de la base de donnée utilisateur
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, password 
         TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, try 
-                INT DEFAULT 0, date INT DEFAULT CURRENT_TIMESTAMP)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, 
+        date INT DEFAULT CURRENT_TIMESTAMP)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS try(ip TEXT NOT NULL,try INT DEFAULT 1, 
+        date INT DEFAULT CURRENT_TIMESTAMP)""")
         self.conn.commit()
 
 
@@ -52,6 +54,15 @@ class DevloBDD:
             return True
         else:
             return False
+
+    """
+    Partie sécurité :
+    -> try
+    """
+    def add_try(self, ip):
+        self.cursor.execute("INSERT INTO try(ip) VALUES (?)", (ip,))
+        self.conn.commit()
+
 
     def quit_bdd(self):
         self.conn.close()
