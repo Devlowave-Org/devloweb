@@ -46,7 +46,7 @@ def inscription():
         if devlobdd.ja_exists(ja_id):
             return render_template("inscription.html", error="Vous avez déjà un compte.")
 
-        devlobdd.inscire_ja(ja_id, email, hashed_pass)
+        # devlobdd.inscire_ja(ja_id, email, hashed_pass)
 
         # TODO je dois vérifier que la JA n'a pas déja un compte
         # TODO  Je suis sensé vérifier que ja_id est bien dans la BDD de samuel

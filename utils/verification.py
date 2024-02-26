@@ -6,8 +6,8 @@ def create_verification_code(devlobdd: object) -> str:
     length = 4
     code = ""
     for i in range(length):
-        code += random.choice(string.ascii_letters)
         code += str(random.randint(0, 9))
+
     if devlobdd.code_exists(code):
         create_verification_code(devlobdd)
     return code
