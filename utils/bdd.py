@@ -10,7 +10,7 @@ class DevloBDD:
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, password 
         TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, try 
-                INT NOT NULL, date INT NOT NULL)""")
+                INT DEFAULT 0, date INT DEFAULT CURRENT_TIMESTAMP)""")
         self.conn.commit()
 
 
@@ -34,6 +34,24 @@ class DevloBDD:
             return True
         else:
             return False
+
+
+    """
+    Partie Code de Vérification
+    """
+    def store_code(self, ja_id, code):
+        self.cursor.execute("INSERT INTO verification(ja_id, code) VALUES (?, ?)", (ja_id, code))
+        self.conn.commit()
+
+    def code_exists(self, code: str) -> bool:
+        self.cursor.execute("SELECT COUNT(*) FROM verification WHERE code = ?", (code,))
+        if self.cursor.fetchone()[0]:
+            return True
+        else:
+            return False
+
+    def quit_bdd(self):
+        self.conn.close()
 
 
 if __name__ == '__main__':
