@@ -1,5 +1,6 @@
 from re import fullmatch, compile
 import random
+from datetime import datetime
 
 
 def email_validator(email: str) -> bool:
@@ -33,4 +34,17 @@ def store_code(devlobdd, ja_id, code):
     devlobdd.store_code(ja_id, code)
 
 
+def verif_code(devlobdd, ja_id, code):
+    row = devlobdd.get_by_ja_id(ja_id)
 
+    if not row:
+        return False
+
+    now = datetime.now()
+    code_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S")
+    delta = now - code_date
+
+    if code == row[1] and delta.seconds < 1800:
+        return True
+    else:
+        return False

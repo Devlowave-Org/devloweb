@@ -13,12 +13,12 @@ def index():
 
 @app.route("/inscription", methods=("GET", "POST"))
 def route_inscription():
-    print("Je me situe ici")
     return inscription.inscription()
 
 @app.route("/verification", methods=("GET", "POST"))
 def route_verification():
     return verification.verify_email()
+
 
 if __name__ == "__main__":
     app.run(port=5555)

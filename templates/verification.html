@@ -5,6 +5,8 @@
     </head>
     <body>
         <form method="post" action="">
+            <label for="ja_id">Identifiant JA</label><br>
+            <input type="text" name="ja_id" id="ja_id" placeholder="JA-0000" value="{{ request.form['ja_id'] }}"><br>
             <label for="verif">Code de vérification</label><br>
             <input type="text" name="verif" id="verif" placeholder="0000" value="{{ request.form['verif'] }}" required><br>
             <input type="submit" name="valider" id="valider" value="Valider">
