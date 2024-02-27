@@ -52,6 +52,7 @@ def verif_code(devlobdd, ja_id, code):
 
 
 def add_a_try(devlobdd, ip):
+    print("On ajoute un try")
     devlobdd.add_try(ip)
     user_security = devlobdd.get_try(ip)
     print(user_security)
@@ -64,16 +65,22 @@ def add_a_try(devlobdd, ip):
         return True
     # Et maintenant si il a fait 5 try en <10 minutes on le punit pour 30
     if user_security[1] >= 5:
+        print("On est sensé le punir")
         # voyons comment cela marche
         devlobdd.punish_try(ip, datetime.now() + timedelta(minutes=30))
 
 
 def is_punished(devlobdd, ip):
+    print("On vérifie si il est punit")
     user_security = devlobdd.get_try(ip)
     print(user_security)
     if not user_security:
         return False
-    if user_security[4]:
+    punition = datetime.strptime(user_security[4], "%Y-%m-%d %H:%M:%S")
+    print(f"La punition : {punition}")
+    delta = datetime.now() - punition
+    print(f"Le delta de la punition : {delta.seconds}")
+    if delta.seconds < 0:
         return True
     else:
         return False
