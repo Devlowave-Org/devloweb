@@ -5,11 +5,14 @@ from utils import email_api
 
 
 def verify_email():
+
     if request.method == 'POST':
         if not request.form["verif"] or not request.form["ja_id"]:
             return render_template("verification.html", error="Veuillez remplir tous les champs")
 
         devlobdd = bdd.DevloBDD()
+        if utils.is_punished(devlobdd, request.remote_addr):
+            return render_template("verification.html", error="Vous n'êtes pas vérifié")
         try:
             ja_id = utils.ja_id_only(request.form["ja_id"])
         except ValueError as e:

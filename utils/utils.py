@@ -70,6 +70,9 @@ def add_a_try(devlobdd, ip):
 
 def is_punished(devlobdd, ip):
     user_security = devlobdd.get_try(ip)
+    print(user_security)
+    if not user_security:
+        return False
     if user_security[4]:
         return True
     else:

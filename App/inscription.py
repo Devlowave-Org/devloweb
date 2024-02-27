@@ -1,3 +1,5 @@
+import time
+
 from flask import render_template, request
 from utils import utils
 from utils import bdd
@@ -6,6 +8,7 @@ import bcrypt
 
 
 def inscription():
+    start = time.time()
     """
     Gestion du formulaire d'inscription Flask
 
@@ -52,6 +55,8 @@ def inscription():
         if ja_id == 8166:
             pass
         etape_verification(devlobdd, ja_id, email)
+        end = time.time()
+        print(f"Temps d'execution {end - start}")
         return render_template("inscription.html", error="AUCUNE ERREUR")
 
     return render_template("inscription.html")
