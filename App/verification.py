@@ -10,10 +10,14 @@ def verify_email():
             return render_template("verification.html", error="Veuillez remplir tous les champs")
 
         devlobdd = bdd.DevloBDD()
+        try:
+            ja_id = utils.ja_id_only(request.form["ja_id"])
+        except ValueError as e:
+            return render_template("verification.html", error=e)
 
-        if devlobdd.code_exists(request.form["verif"]):
-            return render_template("verification.html", error="Pas d'erreur")
+        if utils.verif_code(devlobdd, ja_id, request.form["verif"]):
+            return render_template("verification.html", error="Vous êtes vérifié")
+        else:
+            return render_template("verification.html", error="Vous netes pas verifié")
 
-        devlobdd.add_try(request.remote_addr)
-        print("OKKKK")
     return render_template('verification.html')

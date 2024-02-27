@@ -43,7 +43,8 @@ def verif_code(devlobdd, ja_id, code):
     now = datetime.now()
     code_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S")
     delta = now - code_date
-
+    print(delta.seconds)
+    print(row)
     if code == row[1] and delta.seconds < 1800:
         return True
     else:

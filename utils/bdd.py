@@ -54,7 +54,7 @@ class DevloBDD:
             return False
 
     def get_by_ja_id(self, ja_id: str):
-        self.cursor.execute("SELECT * FROM verification WHERE ja_id = ?", (ja_id,))
+        self.cursor.execute("SELECT ja_id, code, datetime(date, 'localtime') FROM verification WHERE ja_id = ?", (ja_id,))
         return self.cursor.fetchone()
 
     def update_code(self, ja_id: int, code: str):
