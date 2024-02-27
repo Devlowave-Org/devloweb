@@ -10,14 +10,13 @@ class DevloBDD:
         # Creation de la base de donnée utilisateur
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, date TEXT DEFAULT CURRENT_TIMESTAMP)""")
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT DEFAULT CURRENT_TIMESTAMP, last TEXT DEFAULT CURRENT_TIMESTAMP, punition TEXT DEFAULT NULL)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT DEFAULT CURRENT_TIMESTAMP, last TEXT DEFAULT CURRENT_TIMESTAMP, punition TEXT DEFAULT FALSE)""")
         self.conn.commit()
 
 
 
     def inscire_ja(self, ja_id, email, password):
-        date = time.time()
-        self.cursor.execute("INSERT INTO users(ja_id, email, password, date) VALUES (?, ?, ?, ?)", (ja_id, email, password, date))
+        self.cursor.execute("INSERT INTO users(ja_id, email, password, date) VALUES (?, ?, ?, CURRENT_TIMESTAMP)", (ja_id, email, password))
         self.conn.commit()
 
     def ja_exists(self, ja_id: str) -> bool:
@@ -27,7 +26,7 @@ class DevloBDD:
         else:
             return False
 
-    def activer_ja(self, ja_id: int):
+    def activer_ja(self, ja_id: str):
         self.cursor.execute("UPDATE users SET active = 1 WHERE ja_id = ?", (ja_id,))
         self.conn.commit()
 
@@ -79,7 +78,7 @@ class DevloBDD:
             return False
 
     def update_try(self, ip: str):
-        self.cursor.execute("UPDATE security SET try = try + 1, last = datetime('localtime') WHERE ip = ?", (ip,))
+        self.cursor.execute("UPDATE security SET try = try + 1, last = CURRENT_TIMESTAMP WHERE ip = ?", (ip,))
         self.conn.commit()
 
     def add_try(self, ip: str):
@@ -88,15 +87,21 @@ class DevloBDD:
         else:
             self.init_try(ip)
 
+    def get_try(self, ip: str):
+        self.cursor.execute("SELECT * FROM security WHERE ip = ?", (ip,))
+        return self.cursor.fetchone()
+
+    def reset_try(self, ip: str):
+        self.cursor.execute("UPDATE security SET try = 1, first = last WHERE ip = ?", (ip,))
+        self.conn.commit()
+
+    def punish_try(self, ip: str, punition):
+        self.cursor.execute("UPDATE security SET punition = ? WHERE ip = ?", (punition, ip))
+        self.conn.commit()
+
     def quit_bdd(self):
         self.conn.close()
 
-    def get_try(self, ip: str):
-        self.cursor.execute("SELECT * FROM security WHERE ip = ?", (ip,))
-        self.conn.commit()
-
-    def reset_try(self, ip: str):
-        self.cursor.execute("UPDATE security SET try = 0 WHERE ip = ?", (ip,))
 
 
 
