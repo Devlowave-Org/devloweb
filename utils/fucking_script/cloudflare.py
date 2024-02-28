@@ -16,8 +16,8 @@ requests_URL = "https://api.cloudflare.com/client/v4/zones/fa0c29fb12a1e4c7b505f
 
 """CODE"""
 # Basically API calls
-def create_subdomain(ja_name, target_ip):
-    response = (
+def create_subdomains(ja_name, target_ip):
+    response1 = (
         requests.post
         (
             url=requests_URL,
@@ -31,22 +31,26 @@ def create_subdomain(ja_name, target_ip):
             })
         )
     )
-    print(response.json())
+    """
+    response2 = (
+        requests.post
+        (
+            url=requests_URL,
+            headers=requests_headers,
+            data=json.dumps
+            ({
+                "content": f"{ja_name}.devlowave.fr",
+                "name": f"www.{ja_name}",
+                "type": "CNAME",
+                "proxied": True
+            })
+        )
+    )
+    """
+    print(response1.json())
+    #print(response2.json())
 
 
 def list_subdomains():
     response = requests.get(url=requests_URL, headers=requests_headers)
     return response.json()
-
-
-# Idk why this is here but timtonix put it her so it must be for a reason
-"""
-curl --request GET \
-  --url https://api.cloudflare.com/client/v4/zones/zone_id/dns_records \
-  --header 'Content-Type: application/json' \
-  --header 'X-Auth-Email: '
-https://developers.cloudflare.com/api/operations/dns-records-for-a-zone-list-dns-records
-
-:return:
-"""
-
