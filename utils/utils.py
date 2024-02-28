@@ -35,7 +35,7 @@ def store_code(devlobdd, ja_id, code):
 
 
 def verif_code(devlobdd, ja_id, code):
-    row = devlobdd.get_by_ja_id(ja_id)
+    row = devlobdd.get_code_via_jaid(ja_id)
 
     if not row:
         return False

@@ -13,8 +13,6 @@ class DevloBDD:
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT DEFAULT CURRENT_TIMESTAMP, last TEXT DEFAULT CURRENT_TIMESTAMP, punition TEXT DEFAULT CURRENT_TIMESTAMP)""")
         self.conn.commit()
 
-
-
     def inscire_ja(self, ja_id, email, password):
         self.cursor.execute("INSERT INTO users(ja_id, email, password, date) VALUES (?, ?, ?, CURRENT_TIMESTAMP)", (ja_id, email, password))
         self.conn.commit()
@@ -37,6 +35,9 @@ class DevloBDD:
         else:
             return False
 
+    def get_ja_by_mail(self, mail: str) -> list:
+        self.cursor.execute("SELECT * FROM users WHERE email = ?", (mail,))
+        return self.cursor.fetchone()[0]
 
     """
     Partie Code de Vérification
@@ -52,7 +53,7 @@ class DevloBDD:
         else:
             return False
 
-    def get_by_ja_id(self, ja_id: str):
+    def get_code_via_jaid(self, ja_id: str):
         self.cursor.execute("SELECT ja_id, code, datetime(date, 'localtime') FROM verification WHERE ja_id = ?", (ja_id,))
         return self.cursor.fetchone()
 
