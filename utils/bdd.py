@@ -37,7 +37,7 @@ class DevloBDD:
 
     def get_ja_by_mail(self, mail: str) -> list:
         self.cursor.execute("SELECT * FROM users WHERE email = ?", (mail,))
-        return self.cursor.fetchone()[0]
+        return self.cursor.fetchone()
 
     """
     Partie Code de Vérification
