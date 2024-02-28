@@ -17,7 +17,7 @@ requests_URL = "https://api.cloudflare.com/client/v4/zones/fa0c29fb12a1e4c7b505f
 """CODE"""
 # Basically API calls
 def create_subdomains(ja_name, target_ip):
-    response1 = (
+    response = (
         requests.post
         (
             url=requests_URL,
@@ -31,24 +31,8 @@ def create_subdomains(ja_name, target_ip):
             })
         )
     )
-    """
-    response2 = (
-        requests.post
-        (
-            url=requests_URL,
-            headers=requests_headers,
-            data=json.dumps
-            ({
-                "content": f"{ja_name}.devlowave.fr",
-                "name": f"www.{ja_name}",
-                "type": "CNAME",
-                "proxied": True
-            })
-        )
-    )
-    """
-    print(response1.json())
-    #print(response2.json())
+    print(response.json())
+
 
 
 def list_subdomains():

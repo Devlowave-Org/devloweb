@@ -44,3 +44,6 @@ def setup_website():
     print(success)
 
     create_symbolic_link()
+
+def restart_nginx():
+    os.system("sudo systemctl restart nginx") # Perms need to be given by the deployer for sudo this command with no password
