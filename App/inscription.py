@@ -30,7 +30,7 @@ def inscription():
         # On vérifie l'email
         email = request.form['email']
         if not utils.email_validator(email):
-            return render_template('inscription.html')
+            return render_template('inscription.html', error="Veuillez remplir un email valide")
 
         # On vérifie le mot de passe
         password = request.form['password']
