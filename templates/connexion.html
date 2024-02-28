@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion</title>
+</head>
+<body>
+<form action="" method="post">
+    <label for="email">Votre mail :</label><br>
+    <input type="email" name="email" id="email" placeholder="example@gmail.com" value="{{ request.form['email'] }}"><br>
+    <label for="password">Mot de passe :</label><br>
+    <input type="password" name="password" id="password" placeholder="Votre mot de passe compliqué"><br>
+    <input type="submit" name="valider" id="valider" value="Connexion">
+</form>
+<p>{{ error }}</p>
+</body>
+</html>
