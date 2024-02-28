@@ -50,10 +50,11 @@ def inscription():
 
         # devlobdd.inscire_ja(ja_id, email, hashed_pass)
 
-        # TODO je dois vérifier que la JA n'a pas déja un compte
         # TODO  Je suis sensé vérifier que ja_id est bien dans la BDD de samuel
         if ja_id == 8166:
             pass
+
+        # On lui envoie un mail avec le code.
         etape_verification(devlobdd, ja_id, email)
         end = time.time()
         print(f"Temps d'execution {end - start}")
