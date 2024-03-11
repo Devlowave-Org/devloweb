@@ -24,7 +24,6 @@ def create_config_file():
     # modify necessitated lines
     conf_template_modified = conf_template[:67] + f"{ja_id}" + conf_template[67:]
     conf_template_modified = conf_template_modified[:122 + len(ja_id)] + f"{ja_name}" + conf_template_modified[123 + len(ja_id):]
-    conf_template_modified = conf_template_modified[:140 + len(ja_id) + len(ja_name)] + f"{ja_name}" + conf_template_modified[141 + len(ja_id) + len(ja_name):]
 
     with open(f"/etc/nginx/sites-available/{ja_id}.conf", "w") as conf_file:
         conf_file.write(conf_template_modified)

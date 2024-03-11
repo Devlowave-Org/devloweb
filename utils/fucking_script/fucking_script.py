@@ -14,4 +14,4 @@ nginx_website_setuper.setup_website()
 nginx_website_setuper.restart_nginx()
 
 # Calling cloudflare API to create a new subdomain
-cloudflare.create_subdomains(ja_name, "82.64.89.33")
+cloudflare.create_subdomain(ja_name, "82.64.89.33")
