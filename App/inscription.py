@@ -30,7 +30,7 @@ def inscription():
         # On vérifie l'email
         email = request.form['email']
         if not utils.email_validator(email):
-            return render_template('inscription.html')
+            return render_template('inscription.html', error="Veuillez remplir un email valide")
 
         # On vérifie le mot de passe
         password = request.form['password']
@@ -48,7 +48,7 @@ def inscription():
         if devlobdd.ja_exists(ja_id):
             return render_template("inscription.html", error="Vous avez déjà un compte.")
 
-        # devlobdd.inscire_ja(ja_id, email, hashed_pass)
+        devlobdd.inscire_ja(ja_id, email, hashed_pass)
 
         # TODO  Je suis sensé vérifier que ja_id est bien dans la BDD de samuel
         if ja_id == 8166:
