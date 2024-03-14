@@ -1,7 +1,5 @@
 from flask import render_template, request
-from utils import utils
-from utils import bdd
-from utils import email_api
+from App.utils import bdd, utils
 
 
 def verify_email():

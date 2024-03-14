@@ -1,5 +1,5 @@
 from flask import request, render_template
-from utils import bdd, utils
+from App.utils import bdd, utils
 import bcrypt
 
 def connexion():

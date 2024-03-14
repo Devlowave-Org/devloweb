@@ -1,5 +1,5 @@
 from app import app
-import pytest
+
 
 def test_mauvais_id():
     response = app.test_client().post('/inscription', data={

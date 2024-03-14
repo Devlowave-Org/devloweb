@@ -1,6 +1,6 @@
 from flask import render_template, Flask
 from App import inscription, verification, connexion
-from utils.bdd import DevloBDD
+from App.utils.bdd import DevloBDD
 
 
 app = Flask(__name__)

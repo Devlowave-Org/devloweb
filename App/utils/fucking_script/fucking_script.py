@@ -1,5 +1,4 @@
 """IMPORTS"""
-import os
 import RNJAPI_caller
 import nginx_website_setuper
 import cloudflare
