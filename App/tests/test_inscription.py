@@ -31,6 +31,16 @@ def test_mauvais_password():
     assert response.status_code == 200
     assert 'Veuillez avoir un mot de passe d&#39;au moins 12 caractères'.encode("utf-8") in response.data
 
+def test_champ_manquant():
+    response = app.test_client().post('/inscription', data={
+        "email": "timtonix@icloud.com",
+        "ja_id": "JA-8166",
+        "password": ""  # -12 caractères
+    })
+
+    assert response.status_code == 200
+    assert 'Veuillez remplir tous les champs'.encode("utf-8") in response.data
+
 def test_simple():
     response = app.test_client().get("/")
     assert b"Hello World" in response.data
