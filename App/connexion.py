@@ -1,4 +1,4 @@
-from flask import request, render_template
+from flask import request, render_template, session, redirect
 from App.utils import bdd, utils
 import bcrypt
 
@@ -32,5 +32,8 @@ def connexion():
             return render_template("connexion.html", error="Mail ou mot de passe incorrect")
 
         print("Il a réussi le parcours du combattant.")
+        session['email'] = email
+        session['ip'] = ip
+        return redirect('/admin')
 
     return render_template("connexion.html")
