@@ -15,9 +15,8 @@ def index():
 
 @app.route("/inscription", methods=("GET", "POST"))
 def route_inscription():
-    if 'email' not in session:
-        return inscription.inscription()
-    return redirect("/admin")
+    return inscription.inscription()
+
 
 @app.route("/verification", methods=("GET", "POST"))
 def route_verification():
@@ -26,9 +25,7 @@ def route_verification():
 
 @app.route("/connexion", methods=("GET", "POST"))
 def route_connexion():
-    if 'email' not in session:
-        return connexion.connexion()
-    return redirect("/admin")
+    return connexion.connexion()
 
 @app.route("/admin")
 def route_admin():
