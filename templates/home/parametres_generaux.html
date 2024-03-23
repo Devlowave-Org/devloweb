@@ -9,8 +9,16 @@
     <div class="antialiased bg-gray-100 dark:bg-gray-900">
     {% include 'home/sidebar.html' %}
     <main class="p-4 md:ml-64 h-auto pt-20 text-gray-900 dark:text-gray-50 min-h-screen">
-      <h1 class="text-2xl font-semibold">Paramètres Généraux</h1>
-      <p>Giga form</p>
+      <h1 class="text-2xl lg:text3xl font-bold">
+        Paramètres Généraux
+        <span class="bg-green-100 text-green-800 font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+          Thème {{ data[2] }}
+      </span>
+      </h1>
+      
+      <div class="rounded-lg border-4 p-4 border-gray-400 bg-gray-300 dark:border-gray-900 dark:bg-gray-950 m-4">
+        {% include 'editor/' + data[2] + '/editor.html' %}
+      </div>
     </main>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>

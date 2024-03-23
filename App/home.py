@@ -7,7 +7,8 @@ def index():
     return render_template('home/index.html')
 
 def parametres_generaux():
-    return render_template('home/parametres_generaux.html')
+    devlobdd = bdd.DevloBDD()
+    return render_template('home/parametres_generaux.html', data=devlobdd.get_site_by_ja(session['ja']))
 
 def site_verification():
     devlobdd = bdd.DevloBDD()

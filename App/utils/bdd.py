@@ -51,7 +51,6 @@ class DevloBDD:
         return self.cursor.fetchone()
     
     def get_site_by_ja(self, ja: str) -> list:
-
         self.cursor.execute("SELECT * FROM sites WHERE ja_id = ?", (ja,))
         return self.cursor.fetchone()
 
