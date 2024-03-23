@@ -49,5 +49,5 @@ def page_not_found(e):
     return render_template('error/404.html'), 404
 
 if __name__ == "__main__":
-    session.clear()
+    # Dégage ça en prod, juste pour initialiser la bdd site web
     app.run(debug=True, port=5555)

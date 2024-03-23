@@ -11,6 +11,7 @@ class DevloBDD:
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, date TEXT DEFAULT CURRENT_TIMESTAMP)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT DEFAULT CURRENT_TIMESTAMP, last TEXT DEFAULT CURRENT_TIMESTAMP, punition TEXT DEFAULT CURRENT_TIMESTAMP)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, url TEXT NOT NULL, creation TEXT DEFAULT CURRENT_TIMESTAMP, titre TEXT NOT NULL, description TEXT NOT NULL)""")
         self.conn.commit()
 
     def inscire_ja(self, ja_id, email, password):
