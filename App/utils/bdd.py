@@ -39,6 +39,11 @@ class DevloBDD:
     def get_ja_by_mail(self, mail: str) -> list:
         self.cursor.execute("SELECT * FROM users WHERE email = ?", (mail,))
         return self.cursor.fetchone()
+    
+    def get_site_by_ja(self, ja: str) -> list:
+        print(ja)
+        self.cursor.execute("SELECT * FROM sites WHERE ja_id = ?", (ja,))
+        return self.cursor.fetchone()
 
     """
     Partie Code de Vérification

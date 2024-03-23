@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <!-- Prérequis du HTML -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Links Fonts -->
+    <link rel="stylesheet" href="Template_fichiers/all.min.css">
+
+    <!-- Links Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+
+     <!-- Css -->
+    <link rel="stylesheet" href="thyo.css">
+
+
+    <title>{{ title }} {{ title_strong }}</title>
+    <script src="thyo.js" id="bw-fido2-page-script"></script>
+    <script src="thyo.js"></script></head>
+<body>
+<nav id="navbar-desktop" class="desktop navbar-animation">
+    <span class="logo"></span>
+
+    <ul class="onglet-container">
+        <li class="onglet"><a href="#header">Home</a></li>
+        <li class="onglet"><a href="#first-section">Projets</a></li>
+        <li class="onglet"><a href="#second-section">A Propos</a></li>
+    </ul>
+
+    <a href="#footer-contact" class="contact-button">Nous Contacter</a>
+
+</nav>
+
+<nav id="navbar-mobile" class="mobile navbar-animation">
+    <span class="logo"></span>
+
+    <span class="burger-menu"></span>
+    <ul class="onglet-container">
+        <span class="cross"></span>
+
+        <li class="onglet"><a href="#header">Home</a></li>
+        <li class="onglet"><a href="#first-section">Projets</a></li>
+        <li class="onglet"><a href="#second-section">A Propos</a></li>
+
+        <a href="#footer-contact" class="contact-button">Nous Contacter</a>
+
+    </ul>
+</nav>
+
+<header id="header">
+    <section class="header-image header-image-animation" style="background-image: url(../../static/assets/header.png)">
+    </section>
+    <section class="header-text-information header-text-animation">
+        <h1>{{ title }} <strong class="green">{{ title_strong }}</strong></h1>
+        <h2>{{ attache }} <strong class="green">{{ attache_strong }}</strong></h2>
+        <p>{{ description }}</p>
+
+        <div class="header-button-container">
+            <a href="" class="contact-button">Nous Contacter</a>
+            <a href="" class="about-button">Plus d'information</a>
+        </div>
+    </section>
+</header>
+
+<main>
+    <section class="end-header">   
+
+        {% for argument in arguments %}
+        <div class="section-items end-header-animation">
+            <img src="{{ argument.image }}" alt="{{ argument.title }} {{ argument.strong }}">
+            <h4>{{ argument.title }} <strong class="green">{{ argument.strong }}</strong></h4>
+        </div>
+        {% endfor %}
+
+    </section>
+
+    <section id="first-section">
+        <h2>Nos Projets</h2>
+        
+        <div class="first-section-container">
+            {% for projet in projets %}
+            <div class="first-section-item">
+                <div class="first-section-item-image" style="background-image: url({{ projet.image }})"></div>
+                <h4 class="first-section-item-title">{{ projet.title }}</h4>
+                <a href="" class="more-information">{{ projet.description }}</a>
+            </div>
+            {% endfor %}
+
+            <a href="" class="all">Voir tous les projets -&gt;</a>
+        </div>
+    </section>
+
+    <section id="second-section">
+        <h2>Qui sommes nous ?</h2>
+
+        <section class="second-section-1-container">
+            <div class="left">
+                <h3 class="second-section-h3-animation">Nos <span class="green">Valeurs</span></h3>
+                <p>{{ valeurs }}</p>
+            </div>
+            <div class="right">
+                <div class="top">
+                    <div class="second-section-1-item second-section-item-animation">
+                        <span><img src="{{ trust[0].image }}" alt=""> <strong class="green">{{ trust[0].title }}</strong></span>
+                        <p>{{ trust[0].description }}</p>
+                    </div>
+                    <div class="second-section-1-item second-section-item-animation" style="border-left: 1px solid grey; padding-left: 20px; border-top-left-radius: 0; border-bottom-left-radius: 0">
+                    <span><img src="{{ trust[1].image }}" alt=""> <strong class="green">{{ trust[1].title }}</strong></span>
+                        <p>{{ trust[1].description }}</p>
+                    </div>
+                </div>
+                <div class="bottom">
+                    <div class="second-section-1-item second-section-item-animation">
+                        <span><img src="{{ trust[2].image }}" alt=""> <strong class="green">{{ trust[2].title }}</strong></span>
+                        <p>{{ trust[2].description }}</p>
+                    </div>
+                    <div class="second-section-1-item second-section-item-animation" style="border-left: 1px solid grey; padding-left: 20px; border-top-left-radius: 0; border-bottom-left-radius: 0">
+                        <span><img src="{{ trust[3].image }}" alt=""> <strong class="green">{{ trust[3].title }}</strong></span>
+                        <p>{{ trust[3].description }}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+
+    <section id="third-section">
+        <div class="left">
+            <div class="little-image-container little-image-container-animation">
+                <img src="Template_fichiers/Design.jpg" alt="">
+            </div>
+            <div class="little-image-container little-image-container-animation">
+                <img src="Template_fichiers/developeur.jpg" alt="">
+            </div>
+        </div>
+        <div class="middle middle-animation">
+            <div class="img-container">
+                <img src="Template_fichiers/CEO.jpg" alt="">
+            </div>
+            <h3>John Doe</h3>
+            <h4>CEO</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+ Accusantium aperiam architecto cupiditate, delectus deserunt dolorem 
+fuga, nemo non nostrum provident quas quisquam quo repellat repudiandae 
+rerum, sunt ullam unde voluptatum!</p>
+            <a href="mailto:CEO@gmail.com" class="contact-member">Me Contacter</a>
+        </div>
+        <div class="right">
+            <div class="little-image-container little-image-container-animation">
+                <img src="Template_fichiers/CM.jpg" alt="">
+            </div>
+            <div class="little-image-container little-image-container-animation">
+                <img src="Template_fichiers/Chef-Projet.jpg" alt="">
+            </div>
+        </div>
+
+        <div class="arrows-container">
+            <span class="arrow-left arrow-left-animation"></span>
+            <span class="arrow-right arrow-right-animation"></span>
+        </div>
+    </section>
+
+    <section id="instagram-section">
+        <div class="img-container instagram-img-container">
+            <img src="{{ images[0] }}" alt="">
+        </div>
+        <div class="imgs-container">
+            <div class="img-container instagram-img-container">
+                <img src="{{ images[1] }}" alt="">
+            </div>
+            <div class="img-container instagram-img-container">
+                <img src="{{ images[2] }}" alt="">
+            </div>
+            <div class="img-container instagram-img-container">
+                <img src="{{ images[3] }}" alt="">
+            </div>
+            <div class="img-container instagram-img-container">
+                <img src="{{ images[4] }}" alt="">
+            </div>
+        </div>
+    </section>
+</main>
+
+<div id="instagram-posts"></div>
+
+<footer>
+    <section id="footer-contact">
+        <h3>Pour nous contacter:</h3>
+        <p class="validation" style="margin-top: -00px"></p>
+        <form action="#">
+            <label class="label-email" for="email">
+                <input type="text" id="email" placeholder="{{ email }}">
+            </label>
+            <label class="label-text" for="text">
+                <textarea id="text" placeholder="{{ email }}"></textarea>
+            </label>
+            <button class="button-form" type="submit">Continuer</button>
+        </form>
+    </section>
+
+    <p style="text-align: center;">© Developed by Devlowave</p>
+</footer>
+
+
+<script src="thyo.js"></script>
+
+
+</body></html>
