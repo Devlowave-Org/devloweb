@@ -30,13 +30,13 @@ def route_connexion():
 @app.route("/admin")
 def route_admin():
     if 'email' not in session:
-        return connexion.connexion()
+        return redirect(url_for('route_connexion'))
     return admin.index()
 
 @app.route("/admin/parametres/generaux", methods=("GET", "POST"))
 def route_parametres_generaux():
     if 'email' not in session:
-        return connexion.connexion()
+        return redirect(url_for('route_connexion'))
     return admin.parametres_generaux()
 
 @app.route('/logout')
@@ -49,4 +49,5 @@ def page_not_found(e):
     return render_template('error/404.html'), 404
 
 if __name__ == "__main__":
+    session.clear()
     app.run(debug=True, port=5555)

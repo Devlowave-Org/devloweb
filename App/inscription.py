@@ -1,6 +1,6 @@
 import time
 
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
 from App.utils import email_api, bdd, utils
 import bcrypt
 
@@ -56,7 +56,7 @@ def inscription():
         etape_verification(devlobdd, ja_id, email)
         end = time.time()
         print(f"Temps d'execution {end - start}")
-        return render_template("inscription.html", error="AUCUNE ERREUR")
+        return redirect(url_for('route_verification'))
 
     return render_template("inscription.html")
 
