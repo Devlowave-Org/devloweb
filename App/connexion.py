@@ -5,7 +5,7 @@ from libgravatar import Gravatar
 
 def connexion():
     if 'email' in session:
-        return redirect(url_for('route_admin'))
+        return redirect(url_for('route_home'))
     
     if request.method == 'POST':
         if not request.form['email'] or not request.form['password']:
@@ -40,6 +40,6 @@ def connexion():
         session['ip'] = ip
         session['ja'] = ja[0]
         session['avatar'] = Gravatar(email).get_image()
-        return redirect('/admin')
+        return redirect('/home')
 
     return render_template("connexion.html")

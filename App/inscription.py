@@ -7,7 +7,7 @@ import bcrypt
 
 def inscription():
     if 'email' in session:
-        return redirect(url_for('route_admin'))
+        return redirect(url_for('route_home'))
     
     start = time.time()
     """

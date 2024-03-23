@@ -11,12 +11,18 @@ class DevloBDD:
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, date TEXT DEFAULT CURRENT_TIMESTAMP)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT DEFAULT CURRENT_TIMESTAMP, last TEXT DEFAULT CURRENT_TIMESTAMP, punition TEXT DEFAULT CURRENT_TIMESTAMP)""")
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, url TEXT NOT NULL, creation TEXT DEFAULT CURRENT_TIMESTAMP, titre TEXT NOT NULL, description TEXT NOT NULL)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, url TEXT, theme TEXT NOT NULL, creation TEXT DEFAULT CURRENT_TIMESTAMP, titre TEXT, description TEXT, logo TEXT)""")
         self.conn.commit()
 
     def inscire_ja(self, ja_id, email, password):
         self.cursor.execute("INSERT INTO users(ja_id, email, password, date) VALUES (?, ?, ?, CURRENT_TIMESTAMP)", (ja_id, email, password))
         self.conn.commit()
+        
+    def create_website(self, ja_id):
+        print("Création du site de l'utilisateur : " + ja_id)
+        self.cursor.execute("INSERT INTO sites(ja_id, url, theme, creation, titre, description, logo) VALUES (?, 'example.com', 'thyo', CURRENT_TIMESTAMP, 'Un titre', 'Une description', 'logo.png')", (ja_id,))
+        self.conn.commit()
+        print("Site créé !")
 
     def ja_exists(self, ja_id: str) -> bool:
         self.cursor.execute("SELECT COUNT(*) FROM users WHERE ja_id = ?", (ja_id,))
@@ -40,8 +46,12 @@ class DevloBDD:
         self.cursor.execute("SELECT * FROM users WHERE email = ?", (mail,))
         return self.cursor.fetchone()
     
+    def view_data_website(self, ja_id: str) -> list:
+        self.cursor.execute("SELECT * FROM sites WHERE ja_id = ?", (ja_id,))
+        return self.cursor.fetchone()
+    
     def get_site_by_ja(self, ja: str) -> list:
-        print(ja)
+
         self.cursor.execute("SELECT * FROM sites WHERE ja_id = ?", (ja,))
         return self.cursor.fetchone()
 
@@ -110,6 +120,21 @@ class DevloBDD:
         self.conn.close()
 
 
+    """
+    Partie Blog
+    Oui j'ai pas de vie
+    """
+    
+    def post_data(self, slug: str) -> list:
+        self.cursor.execute("SELECT * FROM blog WHERE slug = ? AND website = 'PROD'", (slug,))
+        return self.cursor.fetchone()
+    
+    def post_exists(self, slug: str) -> bool:
+        self.cursor.execute("SELECT * FROM sites WHERE slug = ?", (slug,))
+        if self.cursor.fetchone()[0]:
+            return True
+        else:
+            return False
 
 
 if __name__ == '__main__':

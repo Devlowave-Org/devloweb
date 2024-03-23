@@ -1,17 +1,17 @@
-{% include 'admin/nav.html' %}
+{% include 'home/nav.html' %}
 <!-- Sidebar -->
 
 <aside
-  class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+  class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-gray-50 border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
   aria-label="Sidenav"
   id="drawer-navigation"
 >
-  <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
+  <div class="overflow-y-auto py-5 px-3 h-full bg-gray-50 dark:bg-gray-800">
     <ul class="space-y-2">
       <li>
         <a
-          href="/admin"
-          class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+          href="/home"
+          class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
         >
           <svg
             aria-hidden="true"
@@ -29,7 +29,7 @@
       <li>
         <button
           type="button"
-          class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+          class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
           aria-controls="dropdown-params"
           data-collapse-toggle="dropdown-params"
         >
@@ -74,22 +74,22 @@
         <ul id="dropdown-params" class="hidden py-2 space-y-2">
           <li>
             <a
-              href="/admin/parametres/generaux"
-              class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+              href="/parametres/generaux"
+              class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
               >Paramètres Généraux</a
             >
           </li>
           <li>
             <a
-              href="/admin/parametres/plus"
-              class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+              href="/parametres/plus"
+              class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
               >Paramètres Plus</a
             >
           </li>
           <li>
             <a
               href="#"
-              class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+              class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
               >Machin</a
             >
           </li>
@@ -98,7 +98,7 @@
       <li>
         <button
           type="button"
-          class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+          class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
           aria-controls="dropdown-pages"
           data-collapse-toggle="dropdown-pages"
         >
@@ -133,15 +133,15 @@
         <ul id="dropdown-pages" class="hidden py-2 space-y-2">
           <li>
             <a
-              href="/admin/pages/add"
-              class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+              href="/pages/add"
+              class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
               >Ajouter une page</a
             >
           </li>
           <li>
             <a
-              href="/admin/pages/list"
-              class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+              href="/pages/list"
+              class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
               >Liste des pages</a
             >
           </li>
@@ -149,8 +149,8 @@
       </li>
       <li>
         <a
-          href="/admin/domaine"
-          class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+          href="/domaine"
+          class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
           ><svg
             class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
             aria-hidden="true"
@@ -172,8 +172,8 @@
       </li>
       <li>
         <a
-          href="/admin/verification"
-          class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+          href="/site_verification"
+          class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
         >
           <svg
             class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -204,7 +204,7 @@
       <li>
         <a
           href="#"
-          class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
+          class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-white group"
         >
           <svg
             aria-hidden="true"
@@ -226,7 +226,7 @@
       <li>
         <a
           href="#"
-          class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
+          class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-white group"
         >
           <svg
             aria-hidden="true"
@@ -247,7 +247,7 @@
       <li>
         <a
           href="#"
-          class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
+          class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-white group"
         >
           <svg
             class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -269,10 +269,10 @@
     </ul>
   </div>
   <div
-    class="absolute bottom-0 left-0 justify-center p-4 w-full flex flex-col bg-white dark:bg-gray-800 z-20"
+    class="absolute bottom-0 left-0 justify-center p-4 w-full flex flex-col bg-gray-50 dark:bg-gray-800 z-20"
   >
     <div
-      class="flex align-center justify-center text-gray-700 dark:text-gray-200"
+      class="flex align-center justify-center text-gray-700 dark:text-gray-200 mb-1"
     >
       <img
         src="https://github.com/Devlowave-Org.png"
@@ -286,7 +286,7 @@
         alt="logo"
       />
     </div>
-    <div class="text-sm text-gray-700 dark:text-gray-200">
+    <div class="text-sm text-gray-600 dark:text-gray-400">
       <a href="">Copyright © 2023-2024</a> ・ <a href="">ALL</a>
     </div>
   </div>
