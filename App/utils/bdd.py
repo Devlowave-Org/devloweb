@@ -11,8 +11,14 @@ class DevloBDD:
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, date TEXT DEFAULT CURRENT_TIMESTAMP)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT DEFAULT CURRENT_TIMESTAMP, last TEXT DEFAULT CURRENT_TIMESTAMP, punition TEXT DEFAULT CURRENT_TIMESTAMP)""")
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, url TEXT, theme TEXT NOT NULL, creation TEXT DEFAULT CURRENT_TIMESTAMP, titre TEXT, description TEXT, logo TEXT)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, url TEXT, theme TEXT NOT NULL, creation TEXT DEFAULT CURRENT_TIMESTAMP, titre TEXT, soustitre TEXT, description TEXT, projet1 TEXT, projet2 TEXT, projet3 TEXT, valeurs TEXT, valeur1 TEXT, valeur11 TEXT, valeur2 TEXT, valeur22 TEXT, valeur3 TEXT, valeur33 TEXT, valeur4 TEXT, valeur44 TEXT, logo TEXT)""")
         self.conn.commit()
+        
+    def boom_boom(self, form_data, ja_id):
+        for key, value in form_data.items():
+            sqlformated = "UPDATE sites SET {} = (?) WHERE ja_id = (?)".format(key)
+            self.cursor.execute(sqlformated, (value[0], ja_id))
+            self.conn.commit()
 
     def inscire_ja(self, ja_id, email, password):
         self.cursor.execute("INSERT INTO users(ja_id, email, password, date) VALUES (?, ?, ?, CURRENT_TIMESTAMP)", (ja_id, email, password))

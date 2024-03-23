@@ -1,6 +1,6 @@
 <editor class="editor rounded-lg">
   <link rel="stylesheet" href="/static/thyo/base.css" />
-  <form>
+  <form action="" method="post">
     <nav id="navbar-desktop" class="desktop navbar-animation">
       <span class="logo"></span>
 
@@ -17,6 +17,7 @@
       <span class="logo"></span>
 
       <span class="burger-menu"></span>
+
       <ul class="onglet-container">
         <span class="cross"></span>
 
@@ -29,23 +30,74 @@
     </nav>
 
     <header id="header">
-      <section
+      <!--section
         class="header-image header-image-animation"
         style="background-image: url(/static/thyo/header.png);"
-      ></section>
+      ></section-->
       <section class="header-text-information header-text-animation">
-        <h1>Touts <strong class="green">actes</strong></h1>
-        <h2>ont des <strong class="green">conséquances...</strong></h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
-          eligendi eveniet, ipsam officiis ratione unde vero. Adipisci
-          aspernatur cum illo in placeat. Ab cupiditate dolores facere ipsa quis
-          sed voluptatem?
-        </p>
+        <div class="relative z-0 w-full mb-5 group">
+          <input
+            type="text"
+            name="titre"
+            id="titre"
+            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=""
+            required
+          />
+          <label
+            for="titre"
+            class="peer-focus:font-medium absolute text-lg lg:text-2xl text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >Mon super titre</label
+          >
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+          <input
+            type="text"
+            name="soustitre"
+            id="soustitre"
+            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=""
+            required
+          />
+          <label
+            for="soustitre"
+            class="peer-focus:font-medium absolute text-md lg:text-xl text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >Mon super sous-titre</label
+          >
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+          <input
+            type="text"
+            name="description"
+            id="description"
+            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=""
+            required
+          />
+          <label
+            for="description"
+            class="peer-focus:font-medium absolute text-base lg:text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >Lore ipsum ta maman mange du chocolat</label
+          >
+        </div>
 
         <div class="header-button-container">
-          <a href="" class="contact-button">Nous Contacter</a>
-          <a href="" class="about-button">Plus d'information</a>
+          <div class="mb-5">
+            <input
+              placeholder="Mon Boutton"
+              type="text"
+              id="boutton-1"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
+          </div>
+          <div class="mb-5">
+            <input
+              placeholder="Un autre Boutton"
+              type="text"
+              id="boutton-2"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
+          </div>
         </div>
       </section>
     </header>
@@ -54,15 +106,36 @@
       <section class="end-header">
         <div class="section-items end-header-animation">
           <img src="/static/thyo/feuille.svg" alt="" />
-          <h4>Sensibilitée <strong class="green">Ecologique</strong></h4>
+          <div class="mb-5">
+            <input
+              placeholder="Qualité 1"
+              type="text"
+              id="qualite-1"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
+          </div>
         </div>
         <div class="section-items end-header-animation">
           <img src="/static/thyo/feuille.svg" alt="" />
-          <h4>Sensibilitée <strong class="green">Ecologique</strong></h4>
+          <div class="mb-5">
+            <input
+              placeholder="Qualité 2"
+              type="text"
+              id="qualite-2"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
+          </div>
         </div>
         <div class="section-items end-header-animation">
           <img src="/static/thyo/feuille.svg" alt="" />
-          <h4>Sensibilitée <strong class="green">Ecologique</strong></h4>
+          <div class="mb-5">
+            <input
+              placeholder="Qualité 3"
+              type="text"
+              id="qualite-3"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
+          </div>
         </div>
       </section>
 
@@ -75,9 +148,21 @@
               class="first-section-item-image"
               style="background-image: url(/static/thyo/eco1.jpg);"
             ></div>
-            <h4 class="first-section-item-title">
-              Jardinage dans un jardin public
-            </h4>
+            <div class="relative z-0 w-full mb-5 group">
+              <input
+                type="text"
+                name="projet1"
+                id="projet1"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=""
+                required
+              />
+              <label
+                for="projet1"
+                class="peer-focus:font-medium absolute text-md lg:text-xl text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >Projet 1</label
+              >
+            </div>
             <a href="" class="more-information">Plus d'information</a>
           </div>
           <div class="first-section-item">
@@ -85,9 +170,21 @@
               class="first-section-item-image"
               style="background-image: url(/static/thyo/eco1.jpg);"
             ></div>
-            <h4 class="first-section-item-title">
-              Jardinage dans un jardin public
-            </h4>
+            <div class="relative z-0 w-full mb-5 group">
+              <input
+                type="text"
+                name="projet2"
+                id="projet2"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=""
+                required
+              />
+              <label
+                for="projet2"
+                class="peer-focus:font-medium absolute text-md lg:text-xl text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >Projet 2</label
+              >
+            </div>
             <a href="" class="more-information">Plus d'information</a>
           </div>
           <div class="first-section-item">
@@ -95,9 +192,21 @@
               class="first-section-item-image"
               style="background-image: url(/static/thyo/eco1.jpg);"
             ></div>
-            <h4 class="first-section-item-title">
-              Jardinage dans un jardin public
-            </h4>
+            <div class="relative z-0 w-full mb-5 group">
+              <input
+                type="text"
+                name="projet3"
+                id="projet3"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=""
+                required
+              />
+              <label
+                for="projet3"
+                class="peer-focus:font-medium absolute text-md lg:text-xl text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >Projet 2</label
+              >
+            </div>
             <a href="" class="more-information">Plus d'information</a>
           </div>
 
@@ -113,24 +222,58 @@
             <h3 class="second-section-h3-animation">
               Nos <span class="green">Valeurs</span>
             </h3>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Accusantium blanditiis culpa debitis dignissimos fugiat officiis,
-              repellendus repudiandae sequi. Alias architecto at dolore dolorem
-              eligendi eos harum inventore odio repellendus repudiandae?
-            </p>
+            <div class="relative z-0 w-full mb-5 group">
+              <input
+                type="text"
+                name="valeurs"
+                id="valeurs"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=""
+                required
+              />
+              <label
+                for="valeurs"
+                class="peer-focus:font-medium absolute text-base lg:text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >Lore ipsum ton papa mange du caramel</label
+              >
+            </div>
           </div>
           <div class="right">
             <div class="top">
               <div class="second-section-1-item second-section-item-animation">
                 <span
-                  ><img src="" alt="" />
-                  <strong class="green">Trust</strong></span
+                  ><img src="/static/thyo/feuille.svg" alt="" />
+                  <div class="relative z-0 w-full mb-5 group">
+                    <input
+                      type="text"
+                      name="valeur1"
+                      id="valeur1"
+                      class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      placeholder=""
+                      required
+                    />
+                    <label
+                      for="valeur1"
+                      class="peer-focus:font-medium absolute text-base lg:text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                      >Valeur 1</label
+                    >
+                  </div></span
                 >
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Assumenda at cum
-                </p>
+                <div class="relative z-0 w-full mb-5 group">
+                  <input
+                    type="text"
+                    name="valeur11"
+                    id="valeur11"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=""
+                    required
+                  />
+                  <label
+                    for="valeur11"
+                    class="peer-focus:font-medium absolute text-base lg:text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                    >Description Valeur 1</label
+                  >
+                </div>
               </div>
               <div
                 class="second-section-1-item second-section-item-animation"
@@ -142,25 +285,75 @@
                 "
               >
                 <span
-                  ><img src="" alt="" />
-                  <strong class="green">Trust</strong></span
+                  ><img src="/static/thyo/feuille.svg" alt="" />
+                  <div class="relative z-0 w-full mb-5 group">
+                    <input
+                      type="text"
+                      name="valeur2"
+                      id="valeur2"
+                      class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      placeholder=""
+                      required
+                    />
+                    <label
+                      for="valeur2"
+                      class="peer-focus:font-medium absolute text-base lg:text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                      >Valeur 2</label
+                    >
+                  </div></span
                 >
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Assumenda at cum
-                </p>
+                <div class="relative z-0 w-full mb-5 group">
+                  <input
+                    type="text"
+                    name="valeur22"
+                    id="valeur22"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=""
+                    required
+                  />
+                  <label
+                    for="valeur22"
+                    class="peer-focus:font-medium absolute text-base lg:text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                    >Description Valeur 2</label
+                  >
+                </div>
               </div>
             </div>
             <div class="bottom">
               <div class="second-section-1-item second-section-item-animation">
                 <span
-                  ><img src="" alt="" />
-                  <strong class="green">Trust</strong></span
+                  ><img src="/static/thyo/feuille.svg" alt="" />
+                  <div class="relative z-0 w-full mb-5 group">
+                    <input
+                      type="text"
+                      name="valeur3"
+                      id="valeur3"
+                      class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      placeholder=""
+                      required
+                    />
+                    <label
+                      for="valeur3"
+                      class="peer-focus:font-medium absolute text-base lg:text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                      >Valeur 3</label
+                    >
+                  </div></span
                 >
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Assumenda at cum
-                </p>
+                <div class="relative z-0 w-full mb-5 group">
+                  <input
+                    type="text"
+                    name="valeur33"
+                    id="valeur33"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=""
+                    required
+                  />
+                  <label
+                    for="valeur33"
+                    class="peer-focus:font-medium absolute text-base lg:text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                    >Description Valeur 3</label
+                  >
+                </div>
               </div>
               <div
                 class="second-section-1-item second-section-item-animation"
@@ -172,20 +365,45 @@
                 "
               >
                 <span
-                  ><img src="" alt="" />
-                  <strong class="green">Trust</strong></span
+                  ><img src="/static/thyo/feuille.svg" alt="" />
+                  <div class="relative z-0 w-full mb-5 group">
+                    <input
+                      type="text"
+                      name="valeur4"
+                      id="valeur4"
+                      class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      placeholder=""
+                      required
+                    />
+                    <label
+                      for="valeur4"
+                      class="peer-focus:font-medium absolute text-base lg:text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                      >Valeur 4</label
+                    >
+                  </div></span
                 >
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Assumenda at cum
-                </p>
+                <div class="relative z-0 w-full mb-5 group">
+                  <input
+                    type="text"
+                    name="valeur44"
+                    id="valeur44"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=""
+                    required
+                  />
+                  <label
+                    for="valeur44"
+                    class="peer-focus:font-medium absolute text-base lg:text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                    >Description Valeur 4</label
+                  >
+                </div>
               </div>
             </div>
           </div>
         </section>
       </section>
 
-      <section id="third-section">
+      <!--section id="third-section">
         <div class="left">
           <div class="little-image-container little-image-container-animation">
             <img src="/static/thyo/Design.jpg" alt="" />
@@ -221,7 +439,7 @@
           <span class="arrow-left arrow-left-animation"></span>
           <span class="arrow-right arrow-right-animation"></span>
         </div>
-      </section>
+      </section-->
 
       <section id="instagram-section">
         <div class="img-container instagram-img-container">
@@ -247,28 +465,31 @@
     <div id="instagram-posts"></div>
 
     <footer>
-      <section id="footer-contact">
+      <section id="footer-contact" class="text-center">
         <h3>Pour nous contacter:</h3>
-        <p class="validation" style="margin-top: -00px;"></p>
-        <form action="#">
-          <label class="label-email" for="email">
-            <input
-              type="text"
-              id="email"
-              placeholder="exemple@exemple.exemple"
-            />
-          </label>
-          <label class="label-text" for="text">
-            <textarea
-              id="text"
-              placeholder="exemple@exemple.exemple"
-            ></textarea>
-          </label>
-          <button class="button-form" type="submit">Continuer</button>
-        </form>
+        <div class="mb-5">
+          <label
+            for="base-input"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Votre adresse email pour les contacts</label
+          >
+          <input
+            placeholder="monemail@jesuisswag.fr"
+            type="mail"
+            id="mail"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
+        </div>
       </section>
 
       <p style="text-align: center;">© Developed by Devlowave</p>
     </footer>
+
+    <button
+      type="submit"
+      class="my-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    >
+      Submit
+    </button>
   </form>
 </editor>

@@ -7,19 +7,38 @@
   </head>
   <body>
     <div class="antialiased bg-gray-100 dark:bg-gray-900">
-    {% include 'home/sidebar.html' %}
-    <main class="p-4 md:ml-64 h-auto pt-20 text-gray-900 dark:text-gray-50 min-h-screen">
-      <h1 class="text-2xl lg:text3xl font-bold">
-        Paramètres Généraux
-        <span class="bg-green-100 text-green-800 font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
-          Thème {{ data[2] }}
-      </span>
-      </h1>
-      
-      <div class="rounded-lg border-4 p-4 border-gray-400 bg-gray-300 dark:border-gray-900 dark:bg-gray-950 m-4">
-        {% include 'editor/' + data[2] + '/editor.html' %}
-      </div>
-    </main>
+      {% include 'home/sidebar.html' %}
+      <main
+        class="p-4 md:ml-64 h-auto pt-20 text-gray-900 dark:text-gray-50 min-h-screen"
+      >
+        <h1 class="text-2xl lg:text3xl font-bold">
+          Paramètres Généraux
+          <span
+            class="bg-green-100 text-green-800 font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
+            style="font-family: monospace;"
+          >
+            Thème {{ data[2] }}
+          </span>
+        </h1>
+        
+          <div
+            class="rounded-lg border-4 p-4 border-gray-400 bg-gray-300 dark:border-gray-900 dark:bg-gray-950 m-4"
+          >
+          <div class="flex items-center justify-center font-normal text-gray-500 list-inside">
+            <div
+              id="toast-undo"
+              class="flex items-center w-full p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+              role="alert"
+            >
+              <div class="text-sm font-normal">
+                La navbar se génerera toute seule sur cette page. Pour modifier des images, rendez vous sur la page Paramètres > Images.
+              </div>
+            </div>
+          </div>
+
+          {% include 'editor/' + data[2] + '/editor.html' %}
+        </div>
+      </main>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
   </body>
