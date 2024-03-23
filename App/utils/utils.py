@@ -80,7 +80,8 @@ def is_punished(devlobdd, ip):
     print(f"La punition : {punition}")
     delta = datetime.now() - punition
     print(f"Le delta de la punition : {delta.seconds}")
-    if delta.seconds < 0:
+    if delta.seconds > 0:
+        print("Il est punit")
         return True
     else:
         return False
