@@ -1,8 +1,11 @@
-from flask import request, render_template, session, redirect
+from flask import request, render_template, session, redirect, url_for
 from App.utils import bdd, utils
 import bcrypt
 
 def connexion():
+    if 'email' in session:
+        return redirect(url_for('route_admin'))
+    
     if request.method == 'POST':
         if not request.form['email'] or not request.form['password']:
             return render_template('connexion.html', error='Veuillez remplir tous les champs')

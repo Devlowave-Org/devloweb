@@ -9,11 +9,14 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body style="font-family: 'Inter', sans-serif;">
+    <div class="antialiased bg-gray-50 dark:bg-gray-900">
     {% include 'admin/sidebar.html' %}
-    <main class="lg:ml-72">
+    <main class="p-4 md:ml-64 h-auto pt-20 text-gray-900 dark:text-gray-50 min-h-screen">
+      <h1 class="text-2xl font-semibold">Mon compte :</h1>
       <p>{{ session['email'] }}</p>
     </main>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
   </body>
 </html>

@@ -1,11 +1,14 @@
 import time
 
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, session
 from App.utils import email_api, bdd, utils
 import bcrypt
 
 
 def inscription():
+    if 'email' in session:
+        return redirect(url_for('route_admin'))
+    
     start = time.time()
     """
     Gestion du formulaire d'inscription Flask
