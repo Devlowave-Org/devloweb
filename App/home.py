@@ -14,6 +14,12 @@ def parametres_generaux():
         devlobdd.boom_boom(form_data, session['ja'])
     return render_template('home/parametres_generaux.html', data=devlobdd.get_site_by_ja(session['ja']))
 
+def parametres_theme():
+    devlobdd = bdd.DevloBDD()
+    if request.method == 'POST':
+        devlobdd.change_theme(session['ja'], request.form.get('theme'))
+    return render_template('home/parametres_theme.html', data=devlobdd.get_site_by_ja(session['ja']))
+                                                                                         
 def site_verification():
     devlobdd = bdd.DevloBDD()
     return render_template('home/verification.html', data=devlobdd.get_site_by_ja(session['ja']))

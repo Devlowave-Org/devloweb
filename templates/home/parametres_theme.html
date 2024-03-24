@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Connexion</title>
+    {% include 'tailwind.html' %}
+  </head>
+  <body style="font-family: 'Inter', sans-serif;">
+    {% include 'home/sidebar.html' %}
+    <main
+      class="p-4 md:ml-64 h-auto pt-20 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-50"
+    >
+      <h1 class="text-2xl lg:text3xl font-bold">
+        Changer de thème - Thème actuel :
+        <span
+          class="bg-green-100 text-green-800 font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
+          style="font-family: monospace;"
+        >
+          {{ data[2] }}
+        </span>
+      </h1>
+      <!-- Dropdown menu -->
+
+      <form class="max-w-sm mx-auto flex min-w-screen m-4" action="" method="post">
+        <select
+          id="theme"
+          name="theme"
+          class="mr-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 min-w-fit dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option selected>Choississez un nouveau thème</option>
+          <option value="thyo">Thyo</option>
+          <option value="dream">Dream</option>
+          <option value="cloud">Cloud</option>
+        </select>
+        <button
+          type="submit"
+          class="w-full text-white bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 min-w-fit font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800"
+        >
+          Mettre à jour
+        </button>
+      </form>
+
+      <div class="min-h-fit my-4">
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div
+            class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+          ></div>
+          <div
+            class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+          ></div>
+          <div
+            class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+          ></div>
+          <div
+            class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+          ></div>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+  </body>
+</html>
