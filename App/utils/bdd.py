@@ -11,7 +11,7 @@ class DevloBDD:
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, date TEXT DEFAULT CURRENT_TIMESTAMP)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT DEFAULT CURRENT_TIMESTAMP, last TEXT DEFAULT CURRENT_TIMESTAMP, punition TEXT DEFAULT CURRENT_TIMESTAMP)""")
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, url TEXT, theme TEXT NOT NULL, creation TEXT DEFAULT CURRENT_TIMESTAMP, titre TEXT, soustitre TEXT, description TEXT, projet1 TEXT, projet2 TEXT, projet3 TEXT, valeurs TEXT, valeur1 TEXT, valeur11 TEXT, valeur2 TEXT, valeur22 TEXT, valeur3 TEXT, valeur33 TEXT, valeur4 TEXT, valeur44 TEXT, logo TEXT)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, url TEXT, theme TEXT NOT NULL, creation TEXT DEFAULT CURRENT_TIMESTAMP, titre TEXT, soustitre TEXT, description TEXT, projet1 TEXT, projet11 TEXT, projet2 TEXT, projet22 TEXT, projet3 TEXT, projet33 TEXT, valeurs TEXT, valeur1 TEXT, valeur11 TEXT, valeur2 TEXT, valeur22 TEXT, valeur3 TEXT, valeur33 TEXT, valeur4 TEXT, valeur44 TEXT, text1 TEXT, text2 TEXT, titre1 TEXT, titre2 TEXT)""")
         self.conn.commit()
         
     def boom_boom(self, form_data, ja_id):
@@ -29,7 +29,15 @@ class DevloBDD:
         self.cursor.execute("INSERT INTO sites(ja_id, url, theme, creation, titre, description, logo) VALUES (?, 'example.com', 'thyo', CURRENT_TIMESTAMP, 'Un titre', 'Une description', 'logo.png')", (ja_id,))
         self.conn.commit()
         print("Site créé !")
+        
+    def change_theme(self, ja_id: str, theme : str):
+        self.cursor.execute("UPDATE sites SET theme = ? WHERE ja_id = ?", (theme, ja_id))
+        self.conn.commit()
 
+    def change_domain(self, ja_id: str, url: str, domain : str):
+        self.cursor.execute("UPDATE sites SET url = ?, domain = ? WHERE ja_id = ?", (url, domain, ja_id))
+        self.conn.commit()
+        
     def ja_exists(self, ja_id: str) -> bool:
         self.cursor.execute("SELECT COUNT(*) FROM users WHERE ja_id = ?", (ja_id,))
         if self.cursor.fetchone()[0]:

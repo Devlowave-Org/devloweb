@@ -1,5 +1,5 @@
-from flask import request, render_template, session, redirect
-from App.utils import bdd, utils
+from flask import request, render_template, session, redirect, flash
+from App.utils import bdd, utils, cloudflare
 import bcrypt
 
 
@@ -26,7 +26,30 @@ def site_verification():
 
 def domaine():
     devlobdd = bdd.DevloBDD()
-    return render_template('home/domaine.html', data=devlobdd.get_site_by_ja(session['ja']))
+    if request.method == 'POST':
+        name = request.form.get('name')
+        domain = request.form.get('domain')
+        data=devlobdd.get_site_by_ja(session['ja'])
+        if data[1] == f"{name.lower()}.{domain.lower()}":
+            flash("Rien n'as changé !")
+            data=devlobdd.get_site_by_ja(session['ja'])
+            return render_template('home/domaine.html', data=data)
+        
+        if cloudflare.subdomain_exist(name, domain) == False:
+            # Fonction magique
+            test = cloudflare.create_subdomain(name, "1.2.3.4", domain)
+            if test == True:
+                cloudflare.delete_subdomain({data[1]}, {data[2]})
+                devlobdd.change_domain(session['ja'], name.lower(), domain.lower())
+                flash("Votre domaine a été enregistré ! ")
+                data=devlobdd.get_site_by_ja(session['ja'])
+                return render_template('home/domaine.html', data=data)
+            else:
+                flash("Erreur : " + str(test))
+        else:
+            flash("Erreur : ce nom de domaine existe de déjà !")
+    data=devlobdd.get_site_by_ja(session['ja'])
+    return render_template('home/domaine.html', data=data)
 
 def add_page():
     return render_template('home/add_page.html')

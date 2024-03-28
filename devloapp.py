@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.debug = True
 app.secret_key = "banane" 
 
-devlobdd = DevloBDD
+devlobdd = DevloBDD()
 
 @app.route("/")
 def index():

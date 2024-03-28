@@ -1,7 +1,7 @@
 """IMPORTS"""
 import RNJAPI_caller
 import nginx_website_setuper
-import cloudflare
+import App.utils.cloudflare as cloudflare
 
 """FUCKING SCRIPT 🔥🔥"""
 # Getting ja's name and id
