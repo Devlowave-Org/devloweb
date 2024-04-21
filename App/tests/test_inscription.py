@@ -1,5 +1,4 @@
-from devloapp import app
-
+from devloapp import app, devlobdd
 
 
 def test_mauvais_id():
@@ -51,6 +50,7 @@ def test_inscription():
         "ja_id": "JA-8166",
         "password": "jesuisunebananeavecdespouvoirsmagiques"  # -12 caractères
     })
+
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com") == ('8166', 'timtonix@icloud.com', b'$2b$12$40xDYE0d0naHJaHWcrCtYOKg4Z.ej2tqah4G2qco7NUXW6m6N.1Oq', '2024-04-21 16:29:28', 0)
 
 def test_code_verification():

@@ -2,13 +2,12 @@ from flask import render_template, request, redirect, url_for
 from App.utils import bdd, utils
 
 
-def verify_email():
+def verify_email(devlobdd):
 
     if request.method == 'POST':
         if not request.form["verif"] or not request.form["ja_id"]:
             return render_template("verification.html", error="Veuillez remplir tous les champs")
 
-        devlobdd = bdd.DevloBDD()
         if utils.is_punished(devlobdd, request.remote_addr):
             return render_template("verification.html", error="Vous n'êtes pas vérifié")
         try:

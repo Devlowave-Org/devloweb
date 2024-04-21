@@ -4,8 +4,8 @@ import time
 
 
 class DevloBDD:
-    def __init__(self):
-        self.conn = sqlite3.connect('devloweb.db')
+    def __init__(self, name: str = "devlobdd"):
+        self.conn = sqlite3.connect(name+".db")
         self.cursor = self.conn.cursor()
         # Creation de la base de donnée utilisateur
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
