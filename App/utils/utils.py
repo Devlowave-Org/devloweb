@@ -52,21 +52,22 @@ def verif_code(devlobdd, ja_id, code):
 
 
 def add_a_try(devlobdd, ip):
-    print("On ajoute un try")
+    print("On lui ajoute un try")
     devlobdd.add_try(ip)
+
     user_security = devlobdd.get_try(ip)
-    print(user_security)
     first = datetime.strptime(user_security[2], "%Y-%m-%d %H:%M:%S")
     last = datetime.strptime(user_security[3], "%Y-%m-%d %H:%M:%S")
     delta = last - first
-    # On vérifie si le temps entre la première tentative et la derniere < 10 minutes
+    # On vérifie si le temps entre la première tentative et la derniere > 10 minutes
     if delta.seconds > 600:
-        devlobdd.remove_try(ip)
+        devlobdd.reset_try(ip)
         return True
     # Et maintenant si il a fait 5 try en <10 minutes on le punit pour 30
     if user_security[1] >= 5:
-        print("On est sensé le punir")
+        print(f"Il sera punit de {datetime.now() + timedelta(minutes=30)}")
         # voyons comment cela marche
+
         devlobdd.punish_try(ip, datetime.now() + timedelta(minutes=30))
 
 
@@ -77,10 +78,12 @@ def is_punished(devlobdd, ip):
     if not user_security:
         return False
     punition = datetime.strptime(user_security[4], "%Y-%m-%d %H:%M:%S")
-    print(f"La punition : {punition}")
-    delta = datetime.now() - punition
-    print(f"Le delta de la punition : {delta.seconds}")
-    if delta.seconds < 0:
+    """
+    Date aujourd'hui - son dernier essai.
+    -> Donc si positif alors il n'est plus punit car la date de la punition > aujourd'hui
+    """
+    if punition < datetime.now():
+        print("Il est punit")
         return True
     else:
         return False

@@ -1,8 +1,12 @@
-from flask import request, render_template
-from utils import bdd, utils
+from flask import request, render_template, session, redirect, url_for
+from App.utils import bdd, utils
 import bcrypt
+from libgravatar import Gravatar
 
 def connexion():
+    if 'email' in session:
+        return redirect(url_for('route_home'))
+    
     if request.method == 'POST':
         if not request.form['email'] or not request.form['password']:
             return render_template('connexion.html', error='Veuillez remplir tous les champs')
@@ -32,5 +36,10 @@ def connexion():
             return render_template("connexion.html", error="Mail ou mot de passe incorrect")
 
         print("Il a réussi le parcours du combattant.")
+        session['email'] = email
+        session['ip'] = ip
+        session['ja'] = ja[0]
+        session['avatar'] = Gravatar(email).get_image()
+        return redirect('/home')
 
     return render_template("connexion.html")

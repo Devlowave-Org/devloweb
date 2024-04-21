@@ -1,13 +1,14 @@
 import time
 
-from flask import render_template, request
-from utils import utils
-from utils import bdd
-from utils import email_api
+from flask import render_template, request, redirect, url_for, session
+from App.utils import email_api, bdd, utils
 import bcrypt
 
 
 def inscription():
+    if 'email' in session:
+        return redirect(url_for('route_home'))
+    
     start = time.time()
     """
     Gestion du formulaire d'inscription Flask
@@ -58,7 +59,7 @@ def inscription():
         etape_verification(devlobdd, ja_id, email)
         end = time.time()
         print(f"Temps d'execution {end - start}")
-        return render_template("inscription.html", error="AUCUNE ERREUR")
+        return redirect(url_for('route_verification'))
 
     return render_template("inscription.html")
 
