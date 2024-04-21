@@ -23,7 +23,11 @@ class DevloBDD:
     def inscire_ja(self, ja_id, email, password):
         self.cursor.execute("INSERT INTO users(ja_id, email, password, date) VALUES (?, ?, ?, CURRENT_TIMESTAMP)", (ja_id, email, password))
         self.conn.commit()
-        
+
+    def delete_ja(self, email):
+        self.cursor.execute("DELETE FROM users WHERE email = ?", (email,))
+        self.conn.commit()
+
     def create_website(self, ja_id):
         print("Création du site de l'utilisateur : " + ja_id)
         self.cursor.execute("INSERT INTO sites(ja_id, url, theme, creation, titre, description, logo) VALUES (?, 'example.com', 'thyo', CURRENT_TIMESTAMP, 'Un titre', 'Une description', 'logo.png')", (ja_id,))
