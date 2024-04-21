@@ -80,7 +80,11 @@ def is_punished(devlobdd, ip):
     print(f"La punition : {punition}")
     delta = datetime.now() - punition
     print(f"Le delta de la punition : {delta.seconds}")
-    if delta.seconds > 0:
+    """
+    Date aujourd'hui - son dernier essai.
+    -> Donc si positif alors il n'est plus punit car la date de la punition > aujourd'hui
+    """
+    if delta.seconds < 0:
         print("Il est punit")
         return True
     else:
