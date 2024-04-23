@@ -1,4 +1,7 @@
+import time
 from datetime import datetime
+
+import pytest
 
 from devloapp import app, devlobdd
 
@@ -86,6 +89,9 @@ def test_punition_verif_code():
     delta = punish_date - datetime.now()
     assert punish_date > datetime.now()
     assert 1700 < delta.seconds < 1900
+    response = req_code_verif("JA-8166", 1234)
+    response = req_code_verif("JA-8166", 1234)
+    assert devlobdd.get_try("127.0.0.1")[1] == 5
 
 
 def test_code_verif_after_punished():
@@ -95,6 +101,7 @@ def test_code_verif_after_punished():
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 0
     assert response.status_code == 200
 
+
 def test_code_verification():
     devlobdd.delete_try("127.0.0.1")
     code = devlobdd.get_code_via_jaid("8166")[1]
@@ -103,3 +110,28 @@ def test_code_verification():
     # Le compte existe et il est activé
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 1
 
+
+@pytest.mark.long
+def test_wait_punition_time():
+    test_punition_verif_code()
+    time.sleep(1810)
+    code = devlobdd.get_code_via_jaid("8166")[1]
+    response = req_code_verif("JA-8166", 1234)
+    assert devlobdd.get_try("127.0.0.1")[1] == 1
+    response = req_code_verif("JA-8166", code)
+    assert response.status_code == 302
+    # Le compte existe et il est activé
+    assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 1
+
+@pytest.mark.long
+def test_reset_try():
+    devlobdd.delete_try("127.0.0.1")
+    response = req_code_verif("JA-8166", 1234)
+    assert response.status_code == 200
+    assert devlobdd.get_try("127.0.0.1")[1] == 1
+    response = req_code_verif("JA-8166", 1234)
+    response = req_code_verif("JA-8166", 1234)
+    assert devlobdd.get_try("127.0.0.1")[1] == 3
+    time.sleep(610)
+    response = req_code_verif("JA-8166", 1234)
+    assert devlobdd.get_try("127.0.0.1")[1] == 1
