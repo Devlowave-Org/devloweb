@@ -1,3 +1,5 @@
+import os
+
 from flask import render_template, Flask, session, redirect, url_for
 from App import home, inscription, verification, connexion
 from App.utils.bdd import DevloBDD
@@ -8,6 +10,7 @@ app.secret_key = "banane"
 
 devlobdd = None
 if __name__ != "__main__":
+    os.system("rm devlotest.db")
     devlobdd = DevloBDD("devlotest")
 else:
     devlobdd = DevloBDD()

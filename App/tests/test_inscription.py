@@ -51,7 +51,9 @@ def test_inscription():
         "password": "jesuisunebananeavecdespouvoirsmagiques"  # -12 caractères
     })
 
-    assert devlobdd.get_ja_by_mail("timtonix@icloud.com") == ('8166', 'timtonix@icloud.com', b'$2b$12$40xDYE0d0naHJaHWcrCtYOKg4Z.ej2tqah4G2qco7NUXW6m6N.1Oq', '2024-04-21 16:29:28', 0)
+    assert devlobdd.get_ja_by_mail("timtonix@icloud.com") is not None
+    # Le compte existe et il est pas activé
+    assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 0
 
 def test_code_verification():
     code = devlobdd.get_code_via_jaid("8166")
@@ -59,7 +61,5 @@ def test_code_verification():
         "ja_id": "JA-8166",
         "verif": code[1]
     })
-
-    assert devlobdd.get_ja_by_mail("timtonix@icloud.com") == (
-    '8166', 'timtonix@icloud.com', b'$2b$12$40xDYE0d0naHJaHWcrCtYOKg4Z.ej2tqah4G2qco7NUXW6m6N.1Oq',
-    '2024-04-21 16:29:28', 1)
+    # Le compte existe et il est activé
+    assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 1
