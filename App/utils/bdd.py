@@ -111,7 +111,7 @@ class DevloBDD:
             return False
 
     def update_try(self, ip: str):
-        self.cursor.execute("UPDATE security SET try = try + 1, last = CURRENT_TIMESTAMP WHERE ip = ?", (ip,))
+        self.cursor.execute("UPDATE security SET try = try + 1, last = ? WHERE ip = ?", (datetime.now(), ip,))
         self.conn.commit()
 
     def add_try(self, ip: str):
@@ -135,6 +135,10 @@ class DevloBDD:
 
     def punish_try(self, ip: str, punition):
         self.cursor.execute("UPDATE security SET punition = ? WHERE ip = ?", (punition, ip))
+        self.conn.commit()
+
+    def delete_try(self, ip: str):
+        self.cursor.execute("DELETE FROM security WHERE ip = ?", (ip,))
         self.conn.commit()
 
     def quit_bdd(self):
