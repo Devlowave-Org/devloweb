@@ -80,11 +80,10 @@ def is_punished(devlobdd, ip):
         return False
     punition = datetime.strptime(user_security[4], "%Y-%m-%d %H:%M:%S")
     """
-    Date aujourd'hui - son dernier essai.
-    -> Donc si positif alors il n'est plus punit car la date de la punition > aujourd'hui
+    La date de la punition doit être plus grande que la date actuelle pour prouver qu'il est punit.
     """
-    if punition < datetime.now():
+    print(f"Voilà ce qu'on test : {punition} > {datetime.now()} = {punition > datetime.now()}")
+    if punition > datetime.now():
         print("Il est punit")
         return True
-    else:
-        return False
+    return False

@@ -71,7 +71,7 @@ def test_code_verification():
         "ja_id": "JA-8166",
         "verif": code[1]
     })
-    assert response.status_code== 302
+    assert response.status_code == 302
     # Le compte existe et il est activé
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 1
 
