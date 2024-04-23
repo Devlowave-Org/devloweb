@@ -88,14 +88,17 @@ def test_punition_verif_code():
     assert 1700 < delta.seconds < 1900
 
 
+def test_code_verif_after_punished():
+    # Bon en gros on reset pas la BDD après la punition ci-dessus. Et donc meme si on à le bon code ça marche pas
+    code = devlobdd.get_code_via_jaid("8166")[1]
+    response = req_code_verif("JA-8166", code)
+    assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 0
+    assert response.status_code == 200
 
 def test_code_verification():
     devlobdd.delete_try("127.0.0.1")
-    code = devlobdd.get_code_via_jaid("8166")
-    response = app.test_client().post('/verification', data={
-        "ja_id": "JA-8166",
-        "verif": code[1]
-    })
+    code = devlobdd.get_code_via_jaid("8166")[1]
+    response = req_code_verif("JA-8166", code)
     assert response.status_code == 302
     # Le compte existe et il est activé
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 1
