@@ -1,7 +1,6 @@
-import datetime
 import sqlite3
 import time
-
+from datetime import datetime
 
 class DevloBDD:
     def __init__(self, name: str = "devlobdd"):
@@ -101,7 +100,7 @@ class DevloBDD:
     -> try
     """
     def init_try(self, ip):
-        self.cursor.execute("INSERT INTO security(ip) VALUES (?)", (ip,))
+        self.cursor.execute("INSERT INTO security(ip, first, last, punition) VALUES (?, ?, ?, ?)", (ip, datetime.now(), datetime.now(), datetime.now()))
         self.conn.commit()
 
     def has_try(self, ip: str) -> bool:
