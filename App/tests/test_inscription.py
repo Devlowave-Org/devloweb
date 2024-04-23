@@ -50,10 +50,20 @@ def test_inscription():
         "ja_id": "JA-8166",
         "password": "jesuisunebananeavecdespouvoirsmagiques"  # -12 caractères
     })
-
+    assert response.status_code== 302
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com") is not None
     # Le compte existe et il est pas activé
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 0
+
+
+def test_mauvais_code_verif():
+    response = app.test_client().post('/verification', data={
+        "ja_id": "JA-8166",
+        "verif": 1234
+    })
+    assert response.status_code == 200
+    assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 0
+
 
 def test_code_verification():
     code = devlobdd.get_code_via_jaid("8166")
@@ -61,5 +71,7 @@ def test_code_verification():
         "ja_id": "JA-8166",
         "verif": code[1]
     })
+    assert response.status_code== 302
     # Le compte existe et il est activé
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 1
+

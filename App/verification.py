@@ -23,6 +23,6 @@ def verify_email(devlobdd):
         else:
             # Sinon je lui fais passer un sale quart d'heure
             utils.add_a_try(devlobdd, request.remote_addr)
-            return render_template("verification.html", error="Vous netes pas verifié")
+            return render_template("verification.html", error="Vous n'êtes pas verifié")
 
     return render_template('verification.html')
