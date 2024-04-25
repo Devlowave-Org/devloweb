@@ -54,7 +54,7 @@ def inscription(devlobdd):
             pass
 
         # On lui envoie un mail avec le code.
-        utils.etape_verification(devlobdd, ja_id, email)
+        utils.etape_verification(devlobdd, ja_id)
         end = time.time()
         print(f"Temps d'execution {end - start}")
         return redirect(url_for('route_verification'))

@@ -202,7 +202,7 @@ def test_good_connection():
     assert devlobdd.get_try("127.0.0.1") is None
 
 
-@pytest.mark.long
+@pytest.mark.slow
 def test_ask_new_code():
     devlobdd.reset_bdd()
     devlobdd.__init__("devlotest")
@@ -226,7 +226,18 @@ def test_ask_new_code():
     # Et on vérifie qu'elle s'active bien avec le nouveau code
     test_good_code_verification()
 
-
+def test_ask_new_code_already_active():
+    devlobdd.reset_bdd()
+    devlobdd.__init__("devlotest")
+    # On simule une inscritpion
+    test_good_inscription()
+    test_good_code_verification()
+    resp = app.test_client().post('/resend', data={
+        "ja_id": "JA-8166"
+    })
+    assert devlobdd.get_code_via_jaid("JA-8166") is None
+    assert resp.status_code == 200
+    assert "Votre JA est déjà activée" in resp.data.decode('utf-8')
 
 
 

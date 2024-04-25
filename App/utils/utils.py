@@ -1,7 +1,7 @@
 from re import fullmatch, compile
 import random
 from datetime import datetime, timedelta
-import email_api
+import App.utils.email_api as email_api
 
 
 def email_validator(email: str) -> bool:
@@ -49,7 +49,7 @@ def verif_code(devlobdd, ja_id, code):
         return False
 
     now = datetime.now()
-    code_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S.f")
+    code_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S.%f")
     delta = now - code_date
     print(delta.seconds)
     print(row)
@@ -60,7 +60,7 @@ def verif_code(devlobdd, ja_id, code):
         return False
 
 def update_verif_code(devlobdd, row):
-    create_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S.f")
+    create_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S.%f")
     mail = devlobdd.get_ja_byid(ja_id=row[0])[0]
 
     delta = datetime.now() - create_date

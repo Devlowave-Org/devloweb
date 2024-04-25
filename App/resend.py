@@ -2,7 +2,7 @@ from flask import render_template, request, redirect, url_for
 from App.utils import bdd, utils
 
 
-def verify_email(devlobdd):
+def resend_email(devlobdd):
 
     if request.method == 'POST':
         if not request.form["ja_id"]:

@@ -10,7 +10,7 @@ class DevloBDD:
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, date TEXT NOT NULL)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT NOT NULL, last TEXT NOT NULL, punition TEXT NOT NULL)""")
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, url TEXT, theme TEXT NOT NULL, creation TEXT DEFAULT CURRENT_TIMESTAMP, titre TEXT, soustitre TEXT, description TEXT, logo TEXT NOT NULL, projet1 TEXT, projet11 TEXT, projet2 TEXT, projet22 TEXT, projet3 TEXT, projet33 TEXT, valeurs TEXT, valeur1 TEXT, valeur11 TEXT, valeur2 TEXT, valeur22 TEXT, valeur3 TEXT, valeur33 TEXT, valeur4 TEXT, valeur44 TEXT, text1 TEXT, text2 TEXT, titre1 TEXT, titre2 TEXT)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, url TEXT, theme TEXT NOT NULL, creation TEXT NOT NULL, titre TEXT, soustitre TEXT, description TEXT, logo TEXT NOT NULL, projet1 TEXT, projet11 TEXT, projet2 TEXT, projet22 TEXT, projet3 TEXT, projet33 TEXT, valeurs TEXT, valeur1 TEXT, valeur11 TEXT, valeur2 TEXT, valeur22 TEXT, valeur3 TEXT, valeur33 TEXT, valeur4 TEXT, valeur44 TEXT, text1 TEXT, text2 TEXT, titre1 TEXT, titre2 TEXT)""")
         self.conn.commit()
 
     def reset_bdd(self):
@@ -27,7 +27,7 @@ class DevloBDD:
             self.conn.commit()
 
     def inscire_ja(self, ja_id, email, password):
-        self.cursor.execute("INSERT INTO users(ja_id, email, password, date) VALUES (?, ?, ?, CURRENT_TIMESTAMP)", (ja_id, email, password))
+        self.cursor.execute("INSERT INTO users(ja_id, email, password, date) VALUES (?, ?, ?, ?)", (ja_id, email, password, datetime.now()))
         self.conn.commit()
 
     def delete_ja(self, email):
@@ -36,7 +36,7 @@ class DevloBDD:
 
     def create_website(self, ja_id):
         print("Création du site de l'utilisateur : " + ja_id)
-        self.cursor.execute("INSERT INTO sites(ja_id, url, theme, creation, titre, description, logo) VALUES (?, 'example.com', 'thyo', CURRENT_TIMESTAMP, 'Un titre', 'Une description', 'logo.png')", (ja_id,))
+        self.cursor.execute("INSERT INTO sites(ja_id, url, theme, creation, titre, description, logo) VALUES (?, 'example.com', 'thyo', ?, 'Un titre', 'Une description', 'logo.png')", (ja_id, datetime.now()))
         self.conn.commit()
         print("Site créé !")
         
@@ -104,7 +104,7 @@ class DevloBDD:
             return False
 
     def get_code_via_jaid(self, ja_id: str):
-        self.cursor.execute("SELECT ja_id, code, datetime(date, 'localtime') FROM verification WHERE ja_id = ?", (ja_id,))
+        self.cursor.execute("SELECT ja_id, code, date FROM verification WHERE ja_id = ?", (ja_id,))
         return self.cursor.fetchone()
 
     def update_code(self, ja_id: int, code: str):
