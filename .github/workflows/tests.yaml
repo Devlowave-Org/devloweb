@@ -24,8 +24,4 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --upgrade pip flask pytest bcrypt libgravatar
       - name: lauch tests
-        run: | 
-          export PYTHONPATH=.
-          pwd
-          env
-          pytest -v
+        run: python -m pytest -v
