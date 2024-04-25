@@ -12,7 +12,14 @@ class DevloBDD:
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT NOT NULL, last TEXT NOT NULL, punition TEXT NOT NULL)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, url TEXT, theme TEXT NOT NULL, creation TEXT DEFAULT CURRENT_TIMESTAMP, titre TEXT, soustitre TEXT, description TEXT, logo TEXT NOT NULL, projet1 TEXT, projet11 TEXT, projet2 TEXT, projet22 TEXT, projet3 TEXT, projet33 TEXT, valeurs TEXT, valeur1 TEXT, valeur11 TEXT, valeur2 TEXT, valeur22 TEXT, valeur3 TEXT, valeur33 TEXT, valeur4 TEXT, valeur44 TEXT, text1 TEXT, text2 TEXT, titre1 TEXT, titre2 TEXT)""")
         self.conn.commit()
-        
+
+    def reset_bdd(self):
+        self.cursor.execute("DROP TABLE IF EXISTS users")
+        self.cursor.execute("DROP TABLE IF EXISTS verification")
+        self.cursor.execute("DROP TABLE IF EXISTS security")
+        self.cursor.execute("DROP TABLE IF EXISTS sites")
+        self.conn.commit()
+
     def boom_boom(self, form_data, ja_id):
         for key, value in form_data.items():
             sqlformated = "UPDATE sites SET {} = (?) WHERE ja_id = (?)".format(key)
