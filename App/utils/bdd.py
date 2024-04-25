@@ -97,6 +97,9 @@ class DevloBDD:
         self.cursor.execute("UPDATE verification SET code = ? WHERE ja_id = ?", (code, ja_id))
         self.conn.commit()
 
+    def delete_code(self, code: str) -> None:
+        self.cursor.execute("DELETE FROM verification WHERE code = ?", (code,))
+        self.conn.commit()
 
 
     """

@@ -16,6 +16,7 @@ def test_mauvais_id():
     assert response.status_code == 200
     assert b"Invalid JA ID" in response.data
 
+
 def test_mauvais_mail():
     response = app.test_client().post('/inscription', data={
         "email": "timtoniicloud.com",
@@ -36,6 +37,7 @@ def test_mauvais_password():
 
     assert response.status_code == 200
     assert 'Veuillez avoir un mot de passe d&#39;au moins 12 caractères'.encode("utf-8") in response.data
+
 
 def test_champ_manquant():
     response = app.test_client().post('/inscription', data={
@@ -60,6 +62,7 @@ def test_good_inscription():
     # Le compte existe et il est pas activé
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 0
 
+
 def test_account_already_exists():
     response = app.test_client().post('/inscription', data={
         "email": "timtonix@icloud.com",
@@ -83,6 +86,7 @@ def test_mauvais_code_verif():
     assert response.status_code == 200
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 0
     assert devlobdd.get_try("127.0.0.1") is not None
+
 
 def test_punition_verif_code():
     devlobdd.delete_try("127.0.0.1")
@@ -119,11 +123,16 @@ def test_good_code_verification():
     assert response.status_code == 302
     # Le compte existe et il est activé
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 1
+    # On vérifie que le code a bien été supprimé
+    code = devlobdd.get_code_via_jaid("8166")
+    assert code is None
+
 
 def test_already_activated_ja():
     devlobdd.delete_try("127.0.0.1")
-    code = devlobdd.get_code_via_jaid("8166")[1]
+    code = devlobdd.get_code_via_jaid("8166")
     assert code is None
+
 
 @pytest.mark.slow
 def test_wait_punition_time():
