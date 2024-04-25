@@ -61,6 +61,17 @@ def verif_code(devlobdd, ja_id, code):
 
 def update_verif_code(devlobdd, row):
     create_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S.f")
+    mail = devlobdd.get_ja_byid(ja_id=row[0])[0]
+
+    delta = datetime.now() - create_date
+    if delta.seconds < 120:
+        return False
+    else:
+        code = create_verification_code(devlobdd)
+        devlobdd.update_code(row[0], code)
+        devlomail = email_api.DevloMail()
+        devlomail.send_verification_email(mail, code)
+        return True
 
 
 def add_a_try(devlobdd, ip):
