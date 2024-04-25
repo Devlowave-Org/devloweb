@@ -19,7 +19,9 @@ def ja_id_only(ja_id: str) -> str:
     except (ValueError, IndexError) as e:
         raise ValueError(f"Invalid JA ID: {ja_id}")
 
-def etape_verification(devlobdd, ja_id, mail):
+def etape_verification(devlobdd, ja_id):
+    ja = devlobdd.get_ja_byid(ja_id)
+    mail = ja[1]
     code = create_verification_code(devlobdd)
     store_code(devlobdd, ja_id, code)
     devlomail = email_api.DevloMail()

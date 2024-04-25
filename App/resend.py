@@ -19,7 +19,7 @@ def verify_email(devlobdd):
             return render_template("resend.html", ok="Le code a bien été envoyé")
 
         if not row and devlobdd.ja_exists(ja_id):
-            code = utils.create_verification_code(devlobdd)
+            utils.etape_verification(devlobdd, ja_id)
         if []:
 
 

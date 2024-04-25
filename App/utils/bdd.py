@@ -69,6 +69,10 @@ class DevloBDD:
     def get_ja_by_mail(self, mail: str) -> list:
         self.cursor.execute("SELECT * FROM users WHERE email = ?", (mail,))
         return self.cursor.fetchone()
+
+    def get_ja_byid(self, ja_id: str) -> list:
+        self.cursor.execute("SELECT * FROM users WHERE ja_id = ?", (ja_id,))
+        return self.cursor.fetchone()
     
     def view_data_website(self, ja_id: str) -> list:
         self.cursor.execute("SELECT * FROM sites WHERE ja_id = ?", (ja_id,))
