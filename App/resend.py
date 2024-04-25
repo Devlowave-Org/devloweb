@@ -13,14 +13,15 @@ def verify_email(devlobdd):
         except ValueError as e:
             return render_template("resend.html", error=e)
 
-
-        row = devlobdd.get_code_via_jaid(ja_id)
         if devlobdd.is_active(ja_id):
             return render_template("resend.html", ok="Le code a bien été envoyé")
 
+        row = devlobdd.get_code_via_jaid(ja_id)
         if not row and devlobdd.ja_exists(ja_id):
             utils.etape_verification(devlobdd, ja_id)
-        if []:
+        else:
+            utils.update_verif_code(devlobdd, row)
+
 
 
 

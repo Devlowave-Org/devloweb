@@ -49,7 +49,7 @@ def verif_code(devlobdd, ja_id, code):
         return False
 
     now = datetime.now()
-    code_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S")
+    code_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S.f")
     delta = now - code_date
     print(delta.seconds)
     print(row)
@@ -58,6 +58,9 @@ def verif_code(devlobdd, ja_id, code):
         return True
     else:
         return False
+
+def update_verif_code(devlobdd, row):
+    create_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S.f")
 
 
 def add_a_try(devlobdd, ip):

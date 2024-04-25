@@ -8,7 +8,7 @@ class DevloBDD:
         self.cursor = self.conn.cursor()
         # Creation de la base de donnée utilisateur
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, date TEXT DEFAULT CURRENT_TIMESTAMP)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, date TEXT NOT NULL)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT NOT NULL, last TEXT NOT NULL, punition TEXT NOT NULL)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, url TEXT, theme TEXT NOT NULL, creation TEXT DEFAULT CURRENT_TIMESTAMP, titre TEXT, soustitre TEXT, description TEXT, logo TEXT NOT NULL, projet1 TEXT, projet11 TEXT, projet2 TEXT, projet22 TEXT, projet3 TEXT, projet33 TEXT, valeurs TEXT, valeur1 TEXT, valeur11 TEXT, valeur2 TEXT, valeur22 TEXT, valeur3 TEXT, valeur33 TEXT, valeur4 TEXT, valeur44 TEXT, text1 TEXT, text2 TEXT, titre1 TEXT, titre2 TEXT)""")
         self.conn.commit()
@@ -86,7 +86,7 @@ class DevloBDD:
     Partie Code de Vérification
     """
     def store_code(self, ja_id, code):
-        self.cursor.execute("INSERT INTO verification(ja_id, code) VALUES (?, ?)", (ja_id, code))
+        self.cursor.execute("INSERT INTO verification(ja_id, code, date) VALUES (?, ?, ?)", (ja_id, code, datetime.now()))
         self.conn.commit()
 
     def code_exists(self, code: str) -> bool:
