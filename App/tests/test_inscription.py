@@ -120,20 +120,28 @@ def test_good_code_verification():
     # Le compte existe et il est activé
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 1
 
-
+def test_already_activated_ja():
+    devlobdd.delete_try("127.0.0.1")
+    code = devlobdd.get_code_via_jaid("8166")[1]
+    assert code is None
 
 @pytest.mark.slow
 def test_wait_punition_time():
+    # On l'inscrit
+    test_good_inscription()
     # On attend 30 minutes après la punition et on peut ensuite activer le compte
     test_punition_verif_code()
+    # On désactive la JA manuellement au cas ou elle  était déjà ativé à cause du test du dessus
+    devlobdd.desactiver_ja("JA-8166")
     time.sleep(1810)
     code = devlobdd.get_code_via_jaid("8166")[1]
     response = req_code_verif("JA-8166", 1234)
     assert devlobdd.get_try("127.0.0.1")[1] == 1
     response = req_code_verif("JA-8166", code)
-    assert response.status_code == 302
-    # Le compte existe et il est activé
-    assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 1
+    # Il ne s'active pas car le code a plus de 30 minutes
+    assert response.status_code == 200
+    # Le compte existe et il n'est pas activé
+    assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 0
 
 
 @pytest.mark.slow
