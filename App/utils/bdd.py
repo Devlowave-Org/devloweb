@@ -52,6 +52,10 @@ class DevloBDD:
         self.cursor.execute("UPDATE users SET active = 1 WHERE ja_id = ?", (ja_id,))
         self.conn.commit()
 
+    def desactiver_ja(self, ja_id: str):
+        self.cursor.execute("UPDATE users SET active = 0 WHERE ja_id = ?", (ja_id,))
+        self.conn.commit()
+
     def is_active(self, ja_id: int) -> bool:
         self.cursor.execute("SELECT active FROM users WHERE ja_id = ?", (ja_id,))
         if self.cursor.fetchone()[0]:
@@ -93,6 +97,9 @@ class DevloBDD:
         self.cursor.execute("UPDATE verification SET code = ? WHERE ja_id = ?", (code, ja_id))
         self.conn.commit()
 
+    def delete_code(self, code: str) -> None:
+        self.cursor.execute("DELETE FROM verification WHERE code = ?", (code,))
+        self.conn.commit()
 
 
     """
