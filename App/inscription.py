@@ -1,11 +1,10 @@
 import time
-
 from flask import render_template, request, redirect, url_for, session
 from App.utils import email_api, bdd, utils
 import bcrypt
 
 
-def inscription():
+def inscription(devlobdd):
     if 'email' in session:
         return redirect(url_for('route_home'))
     
@@ -45,7 +44,6 @@ def inscription():
         - Vérifier que la JA n'a pas déjà un compte
         - Enregistre le compte
         """
-        devlobdd = bdd.DevloBDD()
         if devlobdd.ja_exists(ja_id):
             return render_template("inscription.html", error="Vous avez déjà un compte.")
 
@@ -62,6 +60,7 @@ def inscription():
         return redirect(url_for('route_verification'))
 
     return render_template("inscription.html")
+
 
 def etape_verification(devlobdd, ja_id, mail):
     code = utils.create_verification_code(devlobdd)

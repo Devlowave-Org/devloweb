@@ -3,7 +3,7 @@ from App.utils import bdd, utils
 import bcrypt
 from libgravatar import Gravatar
 
-def connexion():
+def connexion(devlobdd):
     if 'email' in session:
         return redirect(url_for('route_home'))
     
@@ -15,7 +15,6 @@ def connexion():
         password = request.form["password"]
         ip = request.remote_addr
 
-        devlobdd = bdd.DevloBDD()
         if utils.is_punished(devlobdd, ip):
             return render_template('connexion.html', error="Mail ou mot de passe incorrect")
 

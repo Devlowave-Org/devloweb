@@ -45,6 +45,7 @@ def verif_code(devlobdd, ja_id, code):
     delta = now - code_date
     print(delta.seconds)
     print(row)
+    # Le code est valable 30 minutes
     if code == row[1] and delta.seconds < 1800:
         return True
     else:
@@ -56,8 +57,8 @@ def add_a_try(devlobdd, ip):
     devlobdd.add_try(ip)
 
     user_security = devlobdd.get_try(ip)
-    first = datetime.strptime(user_security[2], "%Y-%m-%d %H:%M:%S")
-    last = datetime.strptime(user_security[3], "%Y-%m-%d %H:%M:%S")
+    first = datetime.strptime(user_security[2], "%Y-%m-%d %H:%M:%S.%f")
+    last = datetime.strptime(user_security[3], "%Y-%m-%d %H:%M:%S.%f")
     delta = last - first
     # On vérifie si le temps entre la première tentative et la derniere > 10 minutes
     if delta.seconds > 600:
@@ -77,13 +78,12 @@ def is_punished(devlobdd, ip):
     print(user_security)
     if not user_security:
         return False
-    punition = datetime.strptime(user_security[4], "%Y-%m-%d %H:%M:%S")
+    punition = datetime.strptime(user_security[4], "%Y-%m-%d %H:%M:%S.%f")
     """
-    Date aujourd'hui - son dernier essai.
-    -> Donc si positif alors il n'est plus punit car la date de la punition > aujourd'hui
+    La date de la punition doit être plus grande que la date actuelle pour prouver qu'il est punit.
     """
-    if punition < datetime.now():
+    print(f"Voilà ce qu'on test : {punition} > {datetime.now()} = {punition > datetime.now()}")
+    if punition > datetime.now():
         print("Il est punit")
         return True
-    else:
-        return False
+    return False

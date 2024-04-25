@@ -1,3 +1,5 @@
+import os
+
 from flask import render_template, Flask, session, redirect, url_for
 from App import home, inscription, verification, connexion
 from App.utils.bdd import DevloBDD
@@ -6,7 +8,13 @@ app = Flask(__name__)
 app.debug = True
 app.secret_key = "banane" 
 
-devlobdd = DevloBDD()
+devlobdd = None
+if __name__ != "__main__":
+    os.system("rm devlotest.db")
+    devlobdd = DevloBDD("devlotest")
+else:
+    devlobdd = DevloBDD()
+
 
 @app.route("/")
 def index():
@@ -15,17 +23,17 @@ def index():
 
 @app.route("/inscription", methods=("GET", "POST"))
 def route_inscription():
-    return inscription.inscription()
+    return inscription.inscription(devlobdd)
 
 
 @app.route("/verification", methods=("GET", "POST"))
 def route_verification():
-    return verification.verify_email()
+    return verification.verify_email(devlobdd)
 
 
 @app.route("/connexion", methods=("GET", "POST"))
 def route_connexion():
-    return connexion.connexion()
+    return connexion.connexion(devlobdd)
 
 @app.route("/home")
 def route_home():
@@ -88,6 +96,7 @@ def route_blog_post(slug):
     if DevloBDD.post_exists(slug) == True:
         return render_template('blog/post.html', post=DevloBDD.post_data(slug))
     return render_template('error/404.html'), 404
+
 
 if __name__ == "__main__":
     # therms-and-conditions
