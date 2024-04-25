@@ -112,7 +112,7 @@ def test_code_verif_after_punished():
     assert response.status_code == 200
 
 
-def test_code_verification():
+def test_good_code_verification():
     devlobdd.delete_try("127.0.0.1")
     code = devlobdd.get_code_via_jaid("8166")[1]
     response = req_code_verif("JA-8166", code)
@@ -121,8 +121,10 @@ def test_code_verification():
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 1
 
 
+
 @pytest.mark.slow
 def test_wait_punition_time():
+    # On attend 30 minutes après la punition et on peut ensuite activer le compte
     test_punition_verif_code()
     time.sleep(1810)
     code = devlobdd.get_code_via_jaid("8166")[1]
