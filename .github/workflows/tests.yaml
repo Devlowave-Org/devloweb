@@ -23,5 +23,7 @@ jobs:
         run: python -c "import sys; print(sys.version)"
       - name: Install dependencies
         run: python -m pip install --upgrade pip flask pytest bcrypt libgravatar
+      - name: export python path
+        run: export PYTHONPATH=$PYTHONPATH:/home/runner/work/devloweb/devloweb/
       - name: lauch tests
         run: pytest -v
