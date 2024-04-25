@@ -1,7 +1,7 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <title>Vérification</title>
+    <title>Nouveau Code</title>
     {% include 'tailwind.html' %}
   </head>
   <body>
@@ -71,7 +71,7 @@
             <h1
               class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
             >
-              Vérifiez votre compte
+              Renvoyer un nouveau code de vérification
             </h1>
             <form class="space-y-4 md:space-y-6" action="" method="post">
               <div>
@@ -90,27 +90,11 @@
                   required=""
                 />
               </div>
-              <div>
-                <label
-                  for="verif"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Code de vérification</label
-                >
-                <input
-                  type="text"
-                  name="verif"
-                  id="verif"
-                  placeholder="0000"
-                  value="{{ request.form['verif'] }}"
-                  required
-                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                />
-              </div>
               <button
                 type="submit"
                 name="valider"
                 id="valider"
-                value="Valider"
+                value="Renvoyer"
                 class="w-full text-white bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800"
               >
                 Create an account
