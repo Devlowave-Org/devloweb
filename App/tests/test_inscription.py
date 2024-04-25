@@ -72,6 +72,7 @@ def test_account_already_exists():
     assert response.status_code == 200
     assert 'Vous avez déjà un compte' in response.data.decode('utf-8')
 
+
 def req_code_verif(ja_id, code):
     resp = app.test_client().post('/verification', data={
         "ja_id": ja_id,
@@ -112,8 +113,10 @@ def test_code_verif_after_punished():
     # Bon en gros on reset pas la BDD après la punition ci-dessus. Et donc meme si on à le bon code ça marche pas
     code = devlobdd.get_code_via_jaid("8166")[1]
     response = req_code_verif("JA-8166", code)
+    assert devlobdd.get_try("127.0.0.1")[1] == 5
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 0
     assert response.status_code == 200
+
 
 
 def test_good_code_verification():
@@ -199,6 +202,44 @@ def test_good_connection():
     assert devlobdd.get_try("127.0.0.1") is None
 
 
+@pytest.mark.slow
+def test_ask_new_code():
+    devlobdd.reset_bdd()
+    devlobdd.__init__("devlotest")
+    # On simule une inscritpion
+    test_good_inscription()
+    assert devlobdd.get_code_via_jaid("JA-8166") is not None
+    code = devlobdd.get_code_via_jaid("JA-8166")[1]
+    resp = app.test_client().post('/resend', data={
+        "ja_id": "JA-8166"
+    })
+    assert resp.status_code == 200
+    # On vérifie que le code n'a pas changé
+    assert devlobdd.get_code_via_jaid("JA-8166")[1] == code
+    time.sleep(120)
+    resp = app.test_client().post('/resend', data={
+        "ja_id": "JA-8166"
+    })
+    # Le code a bien été mis à jour
+    assert devlobdd.get_code_via_jaid("JA-8166")[1] != code
+    assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 0
+    # Et on vérifie qu'elle s'active bien avec le nouveau code
+    test_good_code_verification()
+
+
+def test_ask_new_code_already_active():
+    devlobdd.reset_bdd()
+    devlobdd.__init__("devlotest")
+    # On simule une inscritpion
+    test_good_inscription()
+    test_good_code_verification()
+    resp = app.test_client().post('/resend', data={
+        "ja_id": "JA-8166"
+    })
+    # On ne lui a pas crée de nouveau code
+    assert devlobdd.get_code_via_jaid("JA-8166") is None
+    assert resp.status_code == 200
+    assert 'Votre JA est déjà activée' in resp.data.decode('utf-8')
 
 
 

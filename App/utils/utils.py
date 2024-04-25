@@ -1,6 +1,7 @@
 from re import fullmatch, compile
 import random
 from datetime import datetime, timedelta
+import App.utils.email_api as email_api
 
 
 def email_validator(email: str) -> bool:
@@ -18,6 +19,13 @@ def ja_id_only(ja_id: str) -> str:
     except (ValueError, IndexError) as e:
         raise ValueError(f"Invalid JA ID: {ja_id}")
 
+def etape_verification(devlobdd, ja_id):
+    ja = devlobdd.get_ja_byid(ja_id)
+    mail = ja[1]
+    code = create_verification_code(devlobdd)
+    store_code(devlobdd, ja_id, code)
+    devlomail = email_api.DevloMail()
+    devlomail.send_verification_email(mail, code)
 
 def create_verification_code(devlobdd: object) -> str:
     length = 4
@@ -41,7 +49,7 @@ def verif_code(devlobdd, ja_id, code):
         return False
 
     now = datetime.now()
-    code_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S")
+    code_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S.%f")
     delta = now - code_date
     print(delta.seconds)
     print(row)
@@ -50,6 +58,20 @@ def verif_code(devlobdd, ja_id, code):
         return True
     else:
         return False
+
+def update_verif_code(devlobdd, row):
+    create_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S.%f")
+    mail = devlobdd.get_ja_byid(ja_id=row[0])[0]
+
+    delta = datetime.now() - create_date
+    if delta.seconds < 120:
+        return False
+    else:
+        code = create_verification_code(devlobdd)
+        devlobdd.update_code(row[0], code)
+        devlomail = email_api.DevloMail()
+        devlomail.send_verification_email(mail, code)
+        return True
 
 
 def add_a_try(devlobdd, ip):

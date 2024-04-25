@@ -1,7 +1,7 @@
 import os
 
 from flask import render_template, Flask, session, redirect, url_for
-from App import home, inscription, verification, connexion
+from App import home, inscription, verification, connexion, resend
 from App.utils.bdd import DevloBDD
 
 app = Flask(__name__)
@@ -34,6 +34,10 @@ def route_verification():
 @app.route("/connexion", methods=("GET", "POST"))
 def route_connexion():
     return connexion.connexion(devlobdd)
+
+@app.route("/resend", methods=("GET", "POST"))
+def route_resend():
+    return resend.resend_email(devlobdd)
 
 @app.route("/home")
 def route_home():
