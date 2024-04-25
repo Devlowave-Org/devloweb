@@ -1,6 +1,6 @@
 import time
 from flask import render_template, request, redirect, url_for, session
-from App.utils import email_api, bdd, utils
+from App.utils import utils
 import bcrypt
 
 
@@ -54,7 +54,7 @@ def inscription(devlobdd):
             pass
 
         # On lui envoie un mail avec le code.
-        etape_verification(devlobdd, ja_id, email)
+        utils.etape_verification(devlobdd, ja_id, email)
         end = time.time()
         print(f"Temps d'execution {end - start}")
         return redirect(url_for('route_verification'))
@@ -62,10 +62,6 @@ def inscription(devlobdd):
     return render_template("inscription.html")
 
 
-def etape_verification(devlobdd, ja_id, mail):
-    code = utils.create_verification_code(devlobdd)
-    utils.store_code(devlobdd, ja_id, code)
-    devlomail = email_api.DevloMail()
-    devlomail.send_verification_email(mail, code)
+
 
 

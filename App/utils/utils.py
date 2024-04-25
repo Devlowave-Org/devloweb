@@ -1,6 +1,7 @@
 from re import fullmatch, compile
 import random
 from datetime import datetime, timedelta
+import email_api
 
 
 def email_validator(email: str) -> bool:
@@ -18,6 +19,11 @@ def ja_id_only(ja_id: str) -> str:
     except (ValueError, IndexError) as e:
         raise ValueError(f"Invalid JA ID: {ja_id}")
 
+def etape_verification(devlobdd, ja_id, mail):
+    code = create_verification_code(devlobdd)
+    store_code(devlobdd, ja_id, code)
+    devlomail = email_api.DevloMail()
+    devlomail.send_verification_email(mail, code)
 
 def create_verification_code(devlobdd: object) -> str:
     length = 4
