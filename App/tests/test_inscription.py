@@ -226,6 +226,7 @@ def test_ask_new_code():
     # Et on vérifie qu'elle s'active bien avec le nouveau code
     test_good_code_verification()
 
+
 def test_ask_new_code_already_active():
     devlobdd.reset_bdd()
     devlobdd.__init__("devlotest")
@@ -235,9 +236,10 @@ def test_ask_new_code_already_active():
     resp = app.test_client().post('/resend', data={
         "ja_id": "JA-8166"
     })
+    # On ne lui a pas crée de nouveau code
     assert devlobdd.get_code_via_jaid("JA-8166") is None
     assert resp.status_code == 200
-    assert "Votre JA est déjà activée" in resp.data.decode('utf-8')
+    assert 'Votre JA est déjà activée' in resp.data.decode('utf-8')
 
 
 

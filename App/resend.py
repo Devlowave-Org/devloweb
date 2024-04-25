@@ -19,8 +19,9 @@ def resend_email(devlobdd):
         row = devlobdd.get_code_via_jaid(ja_id)
         if not row and devlobdd.ja_exists(ja_id):
             utils.etape_verification(devlobdd, ja_id)
-        else:
+        if devlobdd.ja_exists(ja_id):
             utils.update_verif_code(devlobdd, row)
             return render_template("verification.html", ok="Le code a bien été envoyé")
+        return render_template("resend.html", ok="Une erreur est survenue")
 
     return render_template('resend.html')
