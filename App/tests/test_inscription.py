@@ -1,12 +1,17 @@
+import os
 import time
 from datetime import datetime
-
+from App.utils.bdd import DevloBDD
 import pytest
+from devloapp import app
 
-from devloapp import app, devlobdd
+app.which = "devlotest"
+os.system("rm -rf ~/PycharmProjects/devloweb/devlotest.db")
+@pytest.fixture()
+def devlobdd():
+    return DevloBDD("devlotest")
 
-
-def test_mauvais_id():
+def test_mauvais_id(devlobdd):
     response = app.test_client().post('/inscription', data={
         "email": "timtonix@icloud.com",
         "ja_id": "azerty?",
@@ -50,7 +55,7 @@ def test_champ_manquant():
     assert 'Veuillez remplir tous les champs'.encode("utf-8") in response.data
 
 
-def test_good_inscription():
+def test_good_inscription(devlobdd):
     devlobdd.delete_ja("timtonix@icloud.com")
     response = app.test_client().post('/inscription', data={
         "email": "timtonix@icloud.com",
@@ -81,7 +86,7 @@ def req_code_verif(ja_id, code):
     return resp
 
 
-def test_mauvais_code_verif():
+def test_mauvais_code_verif(devlobdd):
     response = req_code_verif("JA-8166", 1234)
 
     assert response.status_code == 200
@@ -89,7 +94,7 @@ def test_mauvais_code_verif():
     assert devlobdd.get_try("127.0.0.1") is not None
 
 
-def test_punition_verif_code():
+def test_punition_verif_code(devlobdd):
     devlobdd.delete_try("127.0.0.1")
     response = req_code_verif("JA-8166", 1234)
     assert response.status_code == 200
@@ -109,7 +114,7 @@ def test_punition_verif_code():
     assert devlobdd.get_try("127.0.0.1")[1] == 5
 
 
-def test_code_verif_after_punished():
+def test_code_verif_after_punished(devlobdd):
     # Bon en gros on reset pas la BDD après la punition ci-dessus. Et donc meme si on à le bon code ça marche pas
     code = devlobdd.get_code_via_jaid("8166")[1]
     response = req_code_verif("JA-8166", code)
@@ -119,7 +124,7 @@ def test_code_verif_after_punished():
 
 
 
-def test_good_code_verification():
+def test_good_code_verification(devlobdd):
     devlobdd.delete_try("127.0.0.1")
     code = devlobdd.get_code_via_jaid("8166")[1]
     response = req_code_verif("JA-8166", code)
@@ -131,18 +136,18 @@ def test_good_code_verification():
     assert code is None
 
 
-def test_already_activated_ja():
+def test_already_activated_ja(devlobdd):
     devlobdd.delete_try("127.0.0.1")
     code = devlobdd.get_code_via_jaid("8166")
     assert code is None
 
 
 @pytest.mark.slow
-def test_wait_punition_time():
+def test_wait_punition_time(devlobdd):
     # On l'inscrit
-    test_good_inscription()
+    test_good_inscription(devlobdd)
     # On attend 30 minutes après la punition et on peut ensuite activer le compte
-    test_punition_verif_code()
+    test_punition_verif_code(devlobdd)
     # On désactive la JA manuellement au cas ou elle  était déjà ativé à cause du test du dessus
     devlobdd.desactiver_ja("JA-8166")
     time.sleep(1810)
@@ -157,7 +162,7 @@ def test_wait_punition_time():
 
 
 @pytest.mark.slow
-def test_reset_try():
+def test_reset_try(devlobdd):
     devlobdd.delete_try("127.0.0.1")
     response = req_code_verif("JA-8166", 1234)
     assert response.status_code == 200
@@ -177,7 +182,8 @@ def req_connection(mail, password):
     })
     return resp
 
-def test_bad_mail_connexion():
+
+def test_bad_mail_connexion(devlobdd):
     devlobdd.delete_try("127.0.0.1")
     resp = req_connection("jambon@.com", "azertyuiopqsdfghjklm")
     assert resp.status_code == 200
@@ -188,14 +194,14 @@ def test_bad_mail_connexion():
     assert devlobdd.get_try("127.0.0.1")[1] == 1
 
 
-def test_wrong_password_connection():
+def test_wrong_password_connection(devlobdd):
     devlobdd.delete_try("127.0.0.1")
     resp = req_connection("timtonix@icloud.com", "azertyuiopqsdfghjklm")
     assert resp.status_code == 200
     assert devlobdd.get_try("127.0.0.1")[1] == 1
 
 
-def test_good_connection():
+def test_good_connection(devlobdd):
     devlobdd.delete_try("127.0.0.1")
     resp = req_connection("timtonix@icloud.com", "jesuisunebananeavecdespouvoirsmagiques")
     assert resp.status_code == 302
@@ -203,11 +209,11 @@ def test_good_connection():
 
 
 @pytest.mark.slow
-def test_ask_new_code():
+def test_ask_new_code(devlobdd):
     devlobdd.reset_bdd()
     devlobdd.__init__("devlotest")
     # On simule une inscritpion
-    test_good_inscription()
+    test_good_inscription(devlobdd)
     assert devlobdd.get_code_via_jaid("JA-8166") is not None
     code = devlobdd.get_code_via_jaid("JA-8166")[1]
     resp = app.test_client().post('/resend', data={
@@ -227,12 +233,12 @@ def test_ask_new_code():
     test_good_code_verification()
 
 
-def test_ask_new_code_already_active():
+def test_ask_new_code_already_active(devlobdd):
     devlobdd.reset_bdd()
     devlobdd.__init__("devlotest")
     # On simule une inscritpion
-    test_good_inscription()
-    test_good_code_verification()
+    test_good_inscription(devlobdd)
+    test_good_code_verification(devlobdd)
     resp = app.test_client().post('/resend', data={
         "ja_id": "JA-8166"
     })

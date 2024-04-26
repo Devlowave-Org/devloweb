@@ -3,6 +3,7 @@ from App.utils import bdd, utils
 
 
 def resend_email(devlobdd):
+    devlobdd.ja_exists("8166")
 
     if request.method == 'POST':
         if not request.form["ja_id"]:
@@ -14,7 +15,7 @@ def resend_email(devlobdd):
             return render_template("resend.html", error=e)
 
         if devlobdd.is_active(ja_id):
-            return render_template("resend.html", ok="Votre JA est déjà activée")
+            return render_template("resend.html", error="Votre JA est déjà activée")
 
         row = devlobdd.get_code_via_jaid(ja_id)
         if not row and devlobdd.ja_exists(ja_id):
@@ -22,6 +23,6 @@ def resend_email(devlobdd):
         if devlobdd.ja_exists(ja_id):
             utils.update_verif_code(devlobdd, row)
             return render_template("verification.html", ok="Le code a bien été envoyé")
-        return render_template("resend.html", ok="Une erreur est survenue")
+        return render_template("resend.html", error="Une erreur est survenue")
 
     return render_template('resend.html')

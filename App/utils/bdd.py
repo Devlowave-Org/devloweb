@@ -12,6 +12,7 @@ class DevloBDD:
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT NOT NULL, last TEXT NOT NULL, punition TEXT NOT NULL)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, url TEXT, theme TEXT NOT NULL, creation TEXT NOT NULL, titre TEXT, soustitre TEXT, description TEXT, logo TEXT NOT NULL, projet1 TEXT, projet11 TEXT, projet2 TEXT, projet22 TEXT, projet3 TEXT, projet33 TEXT, valeurs TEXT, valeur1 TEXT, valeur11 TEXT, valeur2 TEXT, valeur22 TEXT, valeur3 TEXT, valeur33 TEXT, valeur4 TEXT, valeur44 TEXT, text1 TEXT, text2 TEXT, titre1 TEXT, titre2 TEXT)""")
         self.conn.commit()
+        print(f"{name} est prêt")
 
     def reset_bdd(self):
         self.cursor.execute("DROP TABLE IF EXISTS users")
@@ -65,13 +66,11 @@ class DevloBDD:
 
     def is_active(self, ja_id: int) -> bool:
         self.cursor.execute("SELECT active FROM users WHERE ja_id = ?", (ja_id,))
-        try:
-            if self.cursor.fetchone()[0]:
-                return True
-            else:
-                return False
-        except IndexError as e:
+        if self.cursor.fetchone()[0]:
+            return True
+        else:
             return False
+
 
     def get_ja_by_mail(self, mail: str) -> list:
         self.cursor.execute("SELECT * FROM users WHERE email = ?", (mail,))
@@ -181,7 +180,6 @@ class DevloBDD:
             return True
         else:
             return False
-
 
 if __name__ == '__main__':
     bdd = DevloBDD()
