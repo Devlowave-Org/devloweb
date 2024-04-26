@@ -245,7 +245,6 @@ def test_ask_new_code_already_active(devlobdd):
     # On ne lui a pas crée de nouveau code
     assert devlobdd.get_code_via_jaid("JA-8166") is None
     assert resp.status_code == 200
-    print(resp.data.decode('utf-8'))
     assert 'Votre JA est déjà activée' in resp.data.decode('utf-8')
 
 
