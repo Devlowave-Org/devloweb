@@ -1,15 +1,15 @@
+import os
 import time
 from datetime import datetime
-
+from App.utils.bdd import DevloBDD
 import pytest
+from devloapp import app
 
-from devloapp import app, get_db
-
+app.which = "devlotest"
+os.system("rm -rf ~/PycharmProjects/devloweb/devlotest.db")
 @pytest.fixture()
 def devlobdd():
-    with app.app_context():
-        app.which = "devlotest"
-        return get_db()
+    return DevloBDD("devlotest")
 
 def test_mauvais_id(devlobdd):
     response = app.test_client().post('/inscription', data={
@@ -145,9 +145,9 @@ def test_already_activated_ja(devlobdd):
 @pytest.mark.slow
 def test_wait_punition_time(devlobdd):
     # On l'inscrit
-    test_good_inscription()
+    test_good_inscription(devlobdd)
     # On attend 30 minutes après la punition et on peut ensuite activer le compte
-    test_punition_verif_code()
+    test_punition_verif_code(devlobdd)
     # On désactive la JA manuellement au cas ou elle  était déjà ativé à cause du test du dessus
     devlobdd.desactiver_ja("JA-8166")
     time.sleep(1810)
@@ -182,6 +182,7 @@ def req_connection(mail, password):
     })
     return resp
 
+
 def test_bad_mail_connexion(devlobdd):
     devlobdd.delete_try("127.0.0.1")
     resp = req_connection("jambon@.com", "azertyuiopqsdfghjklm")
@@ -212,7 +213,7 @@ def test_ask_new_code(devlobdd):
     devlobdd.reset_bdd()
     devlobdd.__init__("devlotest")
     # On simule une inscritpion
-    test_good_inscription()
+    test_good_inscription(devlobdd)
     assert devlobdd.get_code_via_jaid("JA-8166") is not None
     code = devlobdd.get_code_via_jaid("JA-8166")[1]
     resp = app.test_client().post('/resend', data={
@@ -236,8 +237,8 @@ def test_ask_new_code_already_active(devlobdd):
     devlobdd.reset_bdd()
     devlobdd.__init__("devlotest")
     # On simule une inscritpion
-    test_good_inscription()
-    test_good_code_verification()
+    test_good_inscription(devlobdd)
+    test_good_code_verification(devlobdd)
     resp = app.test_client().post('/resend', data={
         "ja_id": "JA-8166"
     })

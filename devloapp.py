@@ -1,6 +1,4 @@
-import os
-
-from flask import render_template, Flask, session, redirect, url_for, g
+from flask import render_template, Flask, session, redirect, url_for, g, has_app_context
 from App import home, inscription, verification, connexion, resend
 from App.utils.bdd import DevloBDD
 
@@ -9,20 +7,21 @@ app.debug = True
 app.secret_key = "banane"
 app.which = "devlobdd"
 
+
 def get_db():
     db = getattr(g, "_database", None)
     if db is None:
-        if app.which == "devlotest":
-            os.system("rm devlotest.db")
-            print("On est sur DevloTest actuellement")
-
         db = g._database = DevloBDD(app.which)
+        print(db.get_ja_byid("JA-8166"))
     return db
+
+
 
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
     if db is not None:
+        print("Je close la bdd")
         db.quit_bdd()
 
 """devlobdd = None
