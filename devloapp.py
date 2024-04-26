@@ -1,21 +1,38 @@
 import os
 
-from flask import render_template, Flask, session, redirect, url_for
+from flask import render_template, Flask, session, redirect, url_for, g
 from App import home, inscription, verification, connexion, resend
 from App.utils.bdd import DevloBDD
 
 app = Flask(__name__)
 app.debug = True
-app.secret_key = "banane" 
+app.secret_key = "banane"
+app.which = "devlobdd"
 
-devlobdd = None
+def get_db():
+    db = getattr(g, "_database", None)
+    if db is None:
+        if app.which == "devlotest":
+            os.system("rm devlotest.db")
+            print("On est sur DevloTest actuellement")
+
+        db = g._database = DevloBDD(app.which)
+    return db
+
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.quit_bdd()
+
+"""devlobdd = None
 if __name__ != "__main__":
     os.system("rm devlotest.db")
     devlobdd = DevloBDD("devlotest")
     print("On est sur DevloTest actuellement")
 else:
     devlobdd = DevloBDD()
-
+"""
 
 @app.route("/")
 def index():
@@ -24,22 +41,22 @@ def index():
 
 @app.route("/inscription", methods=("GET", "POST"))
 def route_inscription():
-    return inscription.inscription(devlobdd)
+    return inscription.inscription(get_db())
 
 
 @app.route("/verification", methods=("GET", "POST"))
 def route_verification():
-    return verification.verify_email(devlobdd)
+    return verification.verify_email(get_db())
 
 
 @app.route("/connexion", methods=("GET", "POST"))
 def route_connexion():
-    return connexion.connexion(devlobdd)
+    return connexion.connexion(get_db())
 
 
 @app.route("/resend", methods=("GET", "POST"))
 def route_resend():
-    return resend.resend_email(devlobdd)
+    return resend.resend_email(get_db())
 
 @app.route("/home")
 def route_home():

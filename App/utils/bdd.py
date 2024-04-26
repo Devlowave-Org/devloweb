@@ -180,7 +180,6 @@ class DevloBDD:
         else:
             return False
 
-
 if __name__ == '__main__':
     bdd = DevloBDD()
     print(bdd.is_active(8166))
