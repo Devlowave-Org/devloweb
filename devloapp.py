@@ -12,6 +12,7 @@ devlobdd = None
 if __name__ != "__main__":
     os.system("rm devlotest.db")
     devlobdd = DevloBDD("devlotest")
+    print("On est sur DevloTest actuellement")
 else:
     devlobdd = DevloBDD()
 
@@ -35,6 +36,7 @@ def route_verification():
 def route_connexion():
     return connexion.connexion(devlobdd)
 
+
 @app.route("/resend", methods=("GET", "POST"))
 def route_resend():
     return resend.resend_email(devlobdd)
@@ -44,6 +46,7 @@ def route_home():
     if 'email' not in session:
         return redirect(url_for('route_connexion'))
     return home.index()
+
 
 @app.route("/parametres/generaux", methods=("GET", "POST"))
 def route_parametres_generaux():

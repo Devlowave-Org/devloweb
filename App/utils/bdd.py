@@ -65,13 +65,11 @@ class DevloBDD:
 
     def is_active(self, ja_id: int) -> bool:
         self.cursor.execute("SELECT active FROM users WHERE ja_id = ?", (ja_id,))
-        try:
-            if self.cursor.fetchone()[0]:
-                return True
-            else:
-                return False
-        except IndexError as e:
+        if self.cursor.fetchone()[0]:
+            return True
+        else:
             return False
+
 
     def get_ja_by_mail(self, mail: str) -> list:
         self.cursor.execute("SELECT * FROM users WHERE email = ?", (mail,))
