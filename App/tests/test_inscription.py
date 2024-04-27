@@ -188,15 +188,20 @@ def test_bad_mail_connexion(devlobdd):
     resp = req_connection("jambon@.com", "azertyuiopqsdfghjklm")
     assert resp.status_code == 200
     assert devlobdd.get_try("127.0.0.1") is None
+    assert "Veuillez rentrer un vrai email" in resp.data.decode("utf-8")
+
     # Ici le mail est bon dans sa forme mais n'a pas de compte
     resp = req_connection("timtonix@gmail.com", "azertyuiopqsdfghjklm")
     assert resp.status_code == 200
     assert devlobdd.get_try("127.0.0.1")[1] == 1
+    assert "Mail ou mot de passe incorrect" in resp.data.decode("utf-8")
+
 
 
 def test_wrong_password_connection(devlobdd):
     devlobdd.delete_try("127.0.0.1")
     resp = req_connection("timtonix@icloud.com", "azertyuiopqsdfghjklm")
+    assert "Mail ou mot de passe incorrect" in resp.data.decode("utf-8")
     assert resp.status_code == 200
     assert devlobdd.get_try("127.0.0.1")[1] == 1
 
