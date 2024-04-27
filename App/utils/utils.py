@@ -2,6 +2,7 @@ from re import fullmatch, compile
 import random
 from datetime import datetime, timedelta
 import App.utils.email_api as email_api
+from threading import Thread
 
 
 def email_validator(email: str) -> bool:
@@ -25,7 +26,8 @@ def etape_verification(devlobdd, ja_id):
     code = create_verification_code(devlobdd)
     store_code(devlobdd, ja_id, code)
     devlomail = email_api.DevloMail()
-    devlomail.send_verification_email(mail, code)
+    mailer_thread = Thread(target=devlomail.send_verification_email, args=(mail, code))
+    mailer_thread.start()
 
 def create_verification_code(devlobdd: object) -> str:
     length = 4
@@ -70,7 +72,8 @@ def update_verif_code(devlobdd, row):
         code = create_verification_code(devlobdd)
         devlobdd.update_code(row[0], code)
         devlomail = email_api.DevloMail()
-        devlomail.send_verification_email(mail, code)
+        mailer_thread = Thread(target=devlomail.send_verification_email, args=(mail, code))
+        mailer_thread.start()
         return True
 
 
