@@ -6,26 +6,22 @@ import bcrypt
 def index():
     return render_template('home/index.html')
 
-def parametres_generaux():
-    devlobdd = bdd.DevloBDD()
+def parametres_generaux(devlobdd):
     if request.method == 'POST':
         form_data = request.form.to_dict(flat=False)  # Convert ImmutableMultiDict to regular dict
         print(form_data)
         devlobdd.boom_boom(form_data, session['ja'])
     return render_template('home/parametres_generaux.html', data=devlobdd.get_site_by_ja(session['ja']))
 
-def parametres_theme():
-    devlobdd = bdd.DevloBDD()
+def parametres_theme(devlobdd):
     if request.method == 'POST':
         devlobdd.change_theme(session['ja'], request.form.get('theme'))
     return render_template('home/parametres_theme.html', data=devlobdd.get_site_by_ja(session['ja']))
                                                                                          
-def site_verification():
-    devlobdd = bdd.DevloBDD()
+def site_verification(devlobdd):
     return render_template('home/verification.html', data=devlobdd.get_site_by_ja(session['ja']))
 
-def domaine():
-    devlobdd = bdd.DevloBDD()
+def domaine(devlobdd):
     if request.method == 'POST':
         name = request.form.get('name')
         domain = request.form.get('domain')
