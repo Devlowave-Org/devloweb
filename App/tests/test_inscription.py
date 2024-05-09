@@ -60,7 +60,7 @@ def test_good_inscription(devlobdd):
     response = app.test_client().post('/inscription', data={
         "email": "timtonix@icloud.com",
         "ja_id": "JA-8166",
-        "password": "jesuisunebananeavecdespouvoirsmagiques"  # -12 caractères
+        "password": "jesuisunebananeavecdespouvoirsmagiques"  # +12 caractères
     })
     assert response.status_code == 302
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com") is not None
@@ -201,8 +201,8 @@ def test_bad_mail_connexion(devlobdd):
 def test_wrong_password_connection(devlobdd):
     devlobdd.delete_try("127.0.0.1")
     resp = req_connection("timtonix@icloud.com", "azertyuiopqsdfghjklm")
-    assert "Mail ou mot de passe incorrect" in resp.data.decode("utf-8")
     assert resp.status_code == 200
+    assert "Mail ou mot de passe incorrect" in resp.data.decode("utf-8")
     assert devlobdd.get_try("127.0.0.1")[1] == 1
 
 
