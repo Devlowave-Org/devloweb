@@ -1,8 +1,10 @@
+import os
 from re import fullmatch, compile
 import random
 from datetime import datetime, timedelta
 import App.utils.email_api as email_api
 from threading import Thread
+import shutil
 
 
 def email_validator(email: str) -> bool:
@@ -112,3 +114,16 @@ def is_punished(devlobdd, ip):
         print("Il est punit")
         return True
     return False
+
+"""
+Création du dossier JA
+"""
+def create_ja_folder(jaid):
+    folder_path = os.path.join(os.getcwd(), "tmp/" + str(jaid))
+    base_path = os.path.join(os.getcwd(), "base")
+    print("création du dossier JA : ", folder_path)
+    try:
+        os.mkdir(folder_path)
+        shutil.copytree(base_path, folder_path)
+    except NotImplementedError:
+        print("Le dossier JA existe déjà")
