@@ -20,7 +20,7 @@ def verify_email(devlobdd):
             devlobdd.activer_ja(ja_id)
             # et je supprime e code de verif
             devlobdd.delete_code(request.form["verif"])
-            devlobdd.create_website(ja_id)
+
             return redirect(url_for("route_home"))
         else:
             # Sinon je lui fais passer un sale quart d'heure
