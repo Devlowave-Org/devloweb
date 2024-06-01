@@ -3,7 +3,7 @@
 
 from jinja2 import Environment, PackageLoader, select_autoescape, FileSystemLoader
 
-loader = FileSystemLoader('./resources/theme')
+loader = FileSystemLoader('./ressources/theme')
 
 env = Environment(
     loader = loader,

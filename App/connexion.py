@@ -38,7 +38,7 @@ def connexion(devlobdd):
         print("Il a réussi le parcours du combattant.")
         session['email'] = email
         session['ip'] = ip
-        session['ja'] = ja[0]
+        session['ja_id'] = ja[0]
         session['avatar'] = Gravatar(email).get_image()
         return redirect('/home')
 
