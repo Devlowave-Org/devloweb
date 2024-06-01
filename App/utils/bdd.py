@@ -10,7 +10,7 @@ class DevloBDD:
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, date TEXT NOT NULL)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT NOT NULL, last TEXT NOT NULL, punition TEXT NOT NULL)""")
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, url TEXT, theme TEXT NOT NULL, creation TEXT NOT NULL, titre TEXT, soustitre TEXT, description TEXT, logo TEXT NOT NULL, projet1 TEXT, projet11 TEXT, projet2 TEXT, projet22 TEXT, projet3 TEXT, projet33 TEXT, valeurs TEXT, valeur1 TEXT, valeur11 TEXT, valeur2 TEXT, valeur22 TEXT, valeur3 TEXT, valeur33 TEXT, valeur4 TEXT, valeur44 TEXT, text1 TEXT, text2 TEXT, titre1 TEXT, titre2 TEXT)""")
+        # self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, url TEXT, theme TEXT NOT NULL, creation TEXT NOT NULL, titre TEXT, soustitre TEXT, description TEXT, logo TEXT NOT NULL, projet1 TEXT, projet11 TEXT, projet2 TEXT, projet22 TEXT, projet3 TEXT, projet33 TEXT, valeurs TEXT, valeur1 TEXT, valeur11 TEXT, valeur2 TEXT, valeur22 TEXT, valeur3 TEXT, valeur33 TEXT, valeur4 TEXT, valeur44 TEXT, text1 TEXT, text2 TEXT, titre1 TEXT, titre2 TEXT)""")
         self.conn.commit()
         print(f"{name} est prêt")
 
@@ -21,11 +21,6 @@ class DevloBDD:
         self.cursor.execute("DROP TABLE IF EXISTS sites")
         self.conn.commit()
 
-    def boom_boom(self, form_data, ja_id):
-        for key, value in form_data.items():
-            sqlformated = "UPDATE sites SET {} = (?) WHERE ja_id = (?)".format(key)
-            self.cursor.execute(sqlformated, (value[0], ja_id))
-            self.conn.commit()
 
     def inscire_ja(self, ja_id, email, password):
         self.cursor.execute("INSERT INTO users(ja_id, email, password, date) VALUES (?, ?, ?, ?)", (ja_id, email, password, datetime.now()))
@@ -35,19 +30,16 @@ class DevloBDD:
         self.cursor.execute("DELETE FROM users WHERE email = ?", (email,))
         self.conn.commit()
 
-    def create_website(self, ja_id):
-        print("Création du site de l'utilisateur : " + ja_id)
-        self.cursor.execute("INSERT INTO sites(ja_id, url, theme, creation, titre, description, logo) VALUES (?, 'example.com', 'thyo', ?, 'Un titre', 'Une description', 'logo.png')", (ja_id, datetime.now()))
-        self.conn.commit()
-        print("Site créé !")
+
         
-    def change_theme(self, ja_id: str, theme : str):
+    """ def change_theme(self, ja_id: str, theme : str):
         self.cursor.execute("UPDATE sites SET theme = ? WHERE ja_id = ?", (theme, ja_id))
         self.conn.commit()
 
     def change_domain(self, ja_id: str, url: str, domain : str):
         self.cursor.execute("UPDATE sites SET url = ?, domain = ? WHERE ja_id = ?", (url, domain, ja_id))
         self.conn.commit()
+        """
         
     def ja_exists(self, ja_id: str) -> bool:
         self.cursor.execute("SELECT COUNT(*) FROM users WHERE ja_id = ?", (ja_id,))
@@ -169,7 +161,7 @@ class DevloBDD:
     Partie Blog
     Oui j'ai pas de vie
     """
-    
+    """
     def post_data(self, slug: str) -> list:
         self.cursor.execute("SELECT * FROM blog WHERE slug = ? AND website = 'PROD'", (slug,))
         return self.cursor.fetchone()
@@ -180,6 +172,7 @@ class DevloBDD:
             return True
         else:
             return False
+    """
 
 if __name__ == '__main__':
     bdd = DevloBDD()

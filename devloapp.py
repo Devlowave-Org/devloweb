@@ -1,5 +1,5 @@
 from flask import render_template, Flask, session, redirect, url_for, g, has_app_context
-from App import home, inscription, verification, connexion, resend
+from App import home, inscription, verification, connexion, resend, pof
 from App.utils.bdd import DevloBDD
 
 app = Flask(__name__)
@@ -56,6 +56,10 @@ def route_connexion():
 @app.route("/resend", methods=("GET", "POST"))
 def route_resend():
     return resend.resend_email(get_db())
+
+@app.route("/pof", methods=("GET", "POST"))
+def route_pof():
+    return pof.proof_of_concept()
 
 @app.route("/home")
 def route_home():
