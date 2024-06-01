@@ -17,10 +17,11 @@ def verify_email(devlobdd):
 
         if utils.verif_code(devlobdd, ja_id, request.form["verif"]):
             # J'active la JA
-            devlobdd.activer_ja(ja_id)
             # et je supprime e code de verif
-            devlobdd.delete_code(request.form["verif"])
             utils.create_ja_folder(ja_id)
+            devlobdd.activer_ja(ja_id)
+            devlobdd.delete_code(request.form["verif"])
+
             return redirect(url_for("route_home"))
         else:
             # Sinon je lui fais passer un sale quart d'heure
