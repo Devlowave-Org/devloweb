@@ -3,7 +3,6 @@
   <title>Proof Of concept</title>
 </head>
 <body>
-
     <form action="" method="post">
         <div>
         <input
@@ -11,7 +10,7 @@
                   name="titre"
                   id="titre"
                   placeholder="J'aime les bananes"
-                  value="{{ request.form['titre'] }}"
+                  value="{{ data['titre'] }}"
                   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required=""
                 />
@@ -22,7 +21,7 @@
                   name="valeur1"
                   id="valeur1"
                   placeholder="Ma valeur"
-                  value="{{ request.form['valeur1'] }}"
+                  value="{{ data['valeur1'] }}"
                   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required=""
                 />

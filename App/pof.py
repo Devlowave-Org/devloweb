@@ -5,14 +5,13 @@ def proof_of_concept():
     if 'email' not in session:
         return redirect(url_for('route_connexion'))
 
-    if request.method != "POST":
-        return render_template("pof.html", error="Veuillez remplir tous les champs")
+    json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
+    print(json_site)
 
-    if not request.form['titre'] or not request.form['valeur1']:
-        return render_template("pof.html", error="Veuillez remplir tous les champs")
+    if request.method == "POST":
+        form = request.form.to_dict()
+        with open(f"tmp/{session['ja_id']}/site.json", "w") as f:
+            json.dump(form, f)
+        print(form)
 
-    form = request.form.to_dict()
-    json_site = open(f"tmp/{session['ja_id']}/site.json")
-    print(form)
-
-    return render_template("pof.html")
+    return render_template("pof.html", data=json_site)
