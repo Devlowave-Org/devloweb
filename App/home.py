@@ -11,7 +11,7 @@ def parametres_generaux(devlobdd):
         form_data = request.form.to_dict(flat=False)  # Convert ImmutableMultiDict to regular dict
         print(form_data)
         devlobdd.boom_boom(form_data, session['ja'])
-    return render_template('home/parametres_generaux.html', data=devlobdd.get_site_by_ja(session['ja']))
+    return render_template('home/editeur.html', data=devlobdd.get_site_by_ja(session['ja']))
 
 def parametres_theme(devlobdd):
     if request.method == 'POST':
