@@ -68,14 +68,14 @@ def route_home():
 def route_parametres_generaux():
     if 'email' not in session:
         return redirect(url_for('route_connexion'))
-    return home.parametres_generaux()
+    return home.parametres_generaux(get_db())
 
 
 @app.route("/parametres/theme", methods=("GET", "POST"))
 def route_parametres_theme():
     if 'email' not in session:
         return redirect(url_for('route_connexion'))
-    return home.parametres_theme()
+    return home.parametres_theme(get_db())
 
 @app.route("/pages/add", methods=("GET", "POST"))
 def route_add_page():
@@ -87,13 +87,13 @@ def route_add_page():
 def route_site_verification():
     if 'email' not in session:
         return redirect(url_for('route_connexion'))
-    return home.site_verification()
+    return home.site_verification(get_db())
 
 @app.route("/domaine", methods=("GET", "POST"))
 def route_domaine():
     if 'email' not in session:
         return redirect(url_for('route_connexion'))
-    return home.domaine()
+    return home.domaine(get_db())
 
 
 @app.route("/preview/<string:slug>")
