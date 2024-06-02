@@ -68,11 +68,11 @@ def route_home():
     return home.index()
 
 
-@app.route("/parametres/generaux", methods=("GET", "POST"))
-def route_parametres_generaux():
+@app.route("/home/editeur", methods=("GET", "POST"))
+def route_editeur():
     if 'email' not in session:
         return redirect(url_for('route_connexion'))
-    return home.parametres_generaux(get_db())
+    return home.editeur(get_db())
 
 
 @app.route("/parametres/theme", methods=("GET", "POST"))

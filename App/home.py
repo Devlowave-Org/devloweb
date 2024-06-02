@@ -1,17 +1,22 @@
 from flask import request, render_template, session, redirect, flash
 from App.utils import bdd, utils, cloudflare
-import bcrypt
+import json
 
 
 def index():
     return render_template('home/index.html')
 
-def parametres_generaux(devlobdd):
-    if request.method == 'POST':
-        form_data = request.form.to_dict(flat=False)  # Convert ImmutableMultiDict to regular dict
-        print(form_data)
-        devlobdd.boom_boom(form_data, session['ja'])
-    return render_template('home/editeur.html', data=devlobdd.get_site_by_ja(session['ja']))
+def editeur(devlobdd):
+    json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
+    print(json_site)
+
+    if request.method == "POST":
+        form = request.form.to_dict()
+        with open(f"tmp/{session['ja_id']}/site.json", "w") as f:
+            json.dump(form, f)
+
+    return render_template("home/editeur.html", data=json_site)
+
 
 def parametres_theme(devlobdd):
     if request.method == 'POST':
