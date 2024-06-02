@@ -134,6 +134,7 @@ def test_good_code_verification(devlobdd):
     # On vérifie que le code a bien été supprimé
     code = devlobdd.get_code_via_jaid("8166")
     assert code is None
+    # On vérifie aussi que les dossier des JA ont été crées
 
 
 def test_already_activated_ja(devlobdd):
