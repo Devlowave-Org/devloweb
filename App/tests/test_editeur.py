@@ -1,14 +1,7 @@
 import os
 import pytest
 from test_inscription import devlobdd, req_connection, req_code_verif
-from devloapp import app
-
-app.which = "devlotest"
-os.system("rm -rf ~/PycharmProjects/devloweb/devlotest.db")
-os.system("rm -rf devlotest.db")
-
-
-
+from flask import session
 
 
 def setup_account(client, devlobdd):
@@ -19,8 +12,8 @@ def setup_account(client, devlobdd):
         "password": "jesuisunebananeavecdespouvoirsmagiques"  # +12 caractères
     })
     code = devlobdd.get_code_via_jaid("8166")[1]
-    req_code_verif("JA-8166", code)
-    req_connection("timtonix@icloud.com", "jesuisunebananeavecdespouvoirsmagiques")
+    req_code_verif(client, "JA-8166", code)
+    req_connection(client, "timtonix@icloud.com", "jesuisunebananeavecdespouvoirsmagiques")
 
 
 def test_editor_access_without_account(client):
@@ -30,6 +23,6 @@ def test_editor_access_without_account(client):
 
 def test_good_editor_access(client, devlobdd):
     setup_account(client, devlobdd)
-    response = app.test_client().get('/home/editeur')
+    response = client.get('/home/editeur')
 
     assert response.status_code == 200
