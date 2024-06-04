@@ -5,6 +5,7 @@ from App.utils.bdd import DevloBDD
 import pytest
 from devloapp import app
 
+
 app.which = "devlotest"
 os.system("rm -rf ~/PycharmProjects/devloweb/devlotest.db")
 @pytest.fixture()
@@ -17,12 +18,13 @@ def test_mauvais_id(devlobdd):
         "ja_id": "azerty?",
         "password": "aefkdnbùgkfxdgbmfvlkbeshf"
     })
+    assert b"Invalid JA ID" in response.data
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com") is None
     assert response.status_code == 200
-    assert b"Invalid JA ID" in response.data
 
 
-def test_mauvais_mail():
+
+def test_mauvais_mail(devlobdd):
     response = app.test_client().post('/inscription', data={
         "email": "timtoniicloud.com",
         "ja_id": "JA-8166",
@@ -31,9 +33,11 @@ def test_mauvais_mail():
 
     assert response.status_code == 200
     assert b"Veuillez remplir un email valide" in response.data
+    assert devlobdd.get_ja_by_mail("timtonix@icloud.com") is None
 
 
-def test_mauvais_password():
+
+def test_mauvais_password(devlobdd):
     response = app.test_client().post('/inscription', data={
         "email": "timtonix@icloud.com",
         "ja_id": "JA-8166",
@@ -42,9 +46,11 @@ def test_mauvais_password():
 
     assert response.status_code == 200
     assert 'Veuillez avoir un mot de passe d&#39;au moins 12 caractères'.encode("utf-8") in response.data
+    assert devlobdd.get_ja_by_mail("timtonix@icloud.com") is None
 
 
-def test_champ_manquant():
+
+def test_champ_manquant(devlobdd):
     response = app.test_client().post('/inscription', data={
         "email": "timtonix@icloud.com",
         "ja_id": "JA-8166",
@@ -53,6 +59,8 @@ def test_champ_manquant():
 
     assert response.status_code == 200
     assert 'Veuillez remplir tous les champs'.encode("utf-8") in response.data
+    assert devlobdd.get_ja_by_mail("timtonix@icloud.com") is None
+
 
 
 def test_good_inscription(devlobdd):

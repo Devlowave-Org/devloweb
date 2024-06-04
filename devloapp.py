@@ -12,9 +12,7 @@ def get_db():
     db = getattr(g, "_database", None)
     if db is None:
         db = g._database = DevloBDD(app.which)
-        print(db.get_ja_byid("JA-8166"))
     return db
-
 
 
 @app.teardown_appcontext
