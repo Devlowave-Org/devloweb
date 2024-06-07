@@ -6,6 +6,7 @@ import json
 def index():
     return render_template('home/index.html')
 
+
 def editeur(devlobdd):
     json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
     print(json_site)
