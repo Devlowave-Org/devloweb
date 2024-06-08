@@ -71,8 +71,13 @@ def route_editeur():
     print(session)
     if 'email' not in session:
         return redirect(url_for('route_connexion'))
-    return home.editeur(get_db())
+    return render_template("home/editeur.html")
 
+@app.route("/editeur/pof", methods=("GET", "POST"))
+def route_editeur_pof():
+    if 'email' not in session:
+        return redirect(url_for('route_connexion'))
+    return home.editeur()
 
 @app.route("/parametres/theme", methods=("GET", "POST"))
 def route_parametres_theme():

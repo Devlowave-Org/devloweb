@@ -7,7 +7,7 @@ def index():
     return render_template('home/index.html')
 
 
-def editeur(devlobdd):
+def editeur():
     json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
     print(json_site)
 
@@ -16,7 +16,7 @@ def editeur(devlobdd):
         with open(f"tmp/{session['ja_id']}/site.json", "w") as f:
             json.dump(form, f)
 
-    return render_template("home/editeur.html", data=json_site)
+    return render_template("editor/pof.html", data=json_site)
 
 
 def parametres_theme(devlobdd):

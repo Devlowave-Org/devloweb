@@ -27,3 +27,11 @@ def test_good_editor_access(client, devlobdd):
 
     assert response.status_code == 200
 
+def test_modify_site(client, devlobdd):
+    response = client.post('/home/editeur', data={
+        "titre": "test",
+        "valeur1": "test",
+        "valider": ""
+    })
+
+    assert response.status_code == 200

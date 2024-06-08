@@ -14,4 +14,4 @@ def proof_of_concept():
             json.dump(form, f)
         print(form)
 
-    return render_template("pof.html", data=json_site)
+    return render_template("editor/pof.html", data=json_site)
