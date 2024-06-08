@@ -26,3 +26,4 @@ def test_good_editor_access(client, devlobdd):
     response = client.get('/home/editeur')
 
     assert response.status_code == 200
+

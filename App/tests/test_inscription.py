@@ -142,7 +142,9 @@ def test_good_code_verification(client, devlobdd):
     code = devlobdd.get_code_via_jaid("8166")
     assert code is None
     # On vérifie aussi que les dossier des JA ont été crées
-
+    assert os.path.isdir("tmp/8166") is True
+    assert os.path.isfile("tmp/8166/site.json") is True
+    assert os.path.isfile("tmp/8166/site.html") is True
 
 def test_already_activated_ja(devlobdd):
     devlobdd.delete_try("127.0.0.1")
