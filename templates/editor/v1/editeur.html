@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Nonprofit Name</title>
+    <link rel="stylesheet" href="/static/v1/style.css">
+    <style>
+        .text-input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<form action="" method="post">
+    <header>
+        <div class="container">
+            <input type="text" id="header-title" name="header-title" class="text-input" value="Your Nonprofit Name">
+            <nav>
+                <ul id="nav-links">
+                    <li><input type="text" class="text-input nav-link" name="nav-link-1" value="About Us"></li>
+                    <li><input type="text" class="text-input nav-link" name="nav-link-2" value="Programs"></li>
+                    <li><input type="text" class="text-input nav-link" name="nav-link-3" value="Events"></li>
+                    <li><input type="text" class="text-input nav-link" name="nav-link-4" value="Donate"></li>
+                    <li><input type="text" class="text-input nav-link" name="nav-link-5" value="Contact"></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <input type="text" id="hero-headline" name="hero-headline" class="text-input" value="Making a Difference, One Step at a Time">
+            <input type="text" id="hero-subheadline" name="hero-subheadline" class="text-input" value="Join us in our mission to create a better world for everyone.">
+            <input type="text" class="btn text-input" id="hero-cta" name="hero-cta" value="Donate Now">
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <input type="text" id="about-title" name="about-title" class="text-input" value="About Us">
+            <textarea id="about-description" name="about-description" class="text-input">Your Nonprofit Name is dedicated to [your mission]. We strive to [explain your goals and vision].</textarea>
+        </div>
+    </section>
+
+    <section id="programs" class="programs">
+        <div class="container">
+            <input type="text" id="programs-title" name="programs-title" class="text-input" value="Our Programs">
+            <div class="program-list" id="program-list">
+                <div class="program-item">
+                    <input type="text" class="text-input program-title" name="program-title-1" value="Program 1">
+                    <textarea class="text-input program-description" name="program-description-1">Description of your first program.</textarea>
+                </div>
+                <div class="program-item">
+                    <input type="text" class="text-input program-title" name="program-title-2" value="Program 2">
+                    <textarea class="text-input program-description" name="program-description-2">Description of your second program.</textarea>
+                </div>
+                <div class="program-item">
+                    <input type="text" class="text-input program-title" name="program-title-3" value="Program 3">
+                    <textarea class="text-input program-description" name="program-description-3">Description of your third program.</textarea>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="events" class="events">
+        <div class="container">
+            <input type="text" id="events-title" name="events-title" class="text-input" value="Upcoming Events">
+            <div class="event-list" id="event-list">
+                <div class="event-item">
+                    <input type="text" class="text-input event-title" name="event-title-1" value="Event 1">
+                    <textarea class="text-input event-description" name="event-description-1">Date and details of your first event.</textarea>
+                </div>
+                <div class="event-item">
+                    <input type="text" class="text-input event-title" name="event-title-2" value="Event 2">
+                    <textarea class="text-input event-description" name="event-description-2">Date and details of your second event.</textarea>
+                </div>
+                <div class="event-item">
+                    <input type="text" class="text-input event-title" name="event-title-3" value="Event 3">
+                    <textarea class="text-input event-description" name="event-description-3">Date and details of your third event.</textarea>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="donate" class="donate">
+        <div class="container">
+            <input type="text" id="donate-title" name="donate-title" class="text-input" value="Support Us">
+            <textarea id="donate-description" name="donate-description" class="text-input">Your donation helps us continue our mission. Thank you for your generosity.</textarea>
+            <input type="text" class="btn text-input" id="donate-cta" name="donate-cta" value="Donate Now">
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <input type="text" id="contact-title" name="contact-title" class="text-input" value="Contact Us">
+            <textarea id="contact-description" name="contact-description" class="text-input">Have questions or want to get involved? Reach out to us!</textarea>
+            <form action="submit_form.php" method="post">
+                <input type="text" name="name" id="contact-name" class="text-input" placeholder="Your Name" required>
+                <input type="email" name="email" id="contact-email" class="text-input" placeholder="Your Email" required>
+                <textarea name="message" id="contact-message" class="text-input" placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn" id="contact-submit" name="contact-submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <input type="text" id="footer-copyright" name="footer-copyright" class="text-input" value="© 2024 Your Nonprofit Name. All rights reserved.">
+            <ul id="footer-social-links">
+                <li><input type="text" class="text-input social-link" name="social-link-1" value="Facebook"></li>
+                <li><input type="text" class="text-input social-link" name="social-link-2" value="Twitter"></li>
+                <li><input type="text" class="text-input social-link" name="social-link-3" value="Instagram"></li>
+            </ul>
+        </div>
+    </footer>
+    <button type="submit" class="btn" name="enregistrer" id="enregistrer">ENREGISTRER</button>
+</form>
+</body>
+</html>

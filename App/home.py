@@ -1,4 +1,4 @@
-from flask import request, render_template, session, redirect, flash
+from flask import request, render_template, session, redirect, flash, url_for
 from App.utils import bdd, utils, cloudflare
 import json
 
@@ -17,7 +17,22 @@ def editeur():
             json.dump(form, f)
         json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
 
-    return render_template("editor/pof.html", data=json_site)
+    return render_template("editor/v1/editeur.html", data=json_site)
+
+def v1():
+    if 'email' not in session:
+        return redirect(url_for('route_connexion'))
+
+    json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
+    print(json_site)
+
+    if request.method == "POST":
+        form = request.form.to_dict()
+        with open(f"tmp/{session['ja_id']}/site.json", "w") as f:
+            json.dump(form, f)
+        print(form)
+
+    return render_template("editor/v1/editeur.html", data=json_site)
 
 
 def parametres_theme(devlobdd):

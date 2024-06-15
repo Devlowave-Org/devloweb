@@ -35,7 +35,9 @@ else:
 def index():
     return render_template("index.html")
 
-
+"""
+ESPACE INSCRIPTION/CONNEXION
+"""
 @app.route("/inscription", methods=("GET", "POST"))
 def route_inscription():
     return inscription.inscription(get_db())
@@ -55,9 +57,11 @@ def route_connexion():
 def route_resend():
     return resend.resend_email(get_db())
 
-@app.route("/pof", methods=("GET", "POST"))
-def route_pof():
-    return pof.proof_of_concept()
+
+"""
+ESPACE MODIFICATION DU SITE
+"""
+
 
 @app.route("/home")
 def route_home():
@@ -68,10 +72,24 @@ def route_home():
 
 @app.route("/home/editeur", methods=("GET", "POST"))
 def route_editeur():
+    # C'est le DASHBOARD Éditeur
     print(session)
     if 'email' not in session:
         return redirect(url_for('route_connexion'))
     return render_template("home/editeur.html")
+
+
+@app.route("/pof", methods=("GET", "POST"))
+def route_pof():
+    return pof.proof_of_concept()
+
+
+@app.route("/editeur/v1/editeur", methods=("GET", "POST"))
+def route_v1():
+    if 'email' not in session:
+        return redirect(url_for('route_connexion'))
+    return home.editeur()
+
 
 @app.route("/editeur/pof", methods=("GET", "POST"))
 def route_editeur_pof():
@@ -79,6 +97,10 @@ def route_editeur_pof():
         return redirect(url_for('route_connexion'))
     return home.editeur()
 
+
+"""
+ESPACE GESTION DU THÈME
+"""
 @app.route("/parametres/theme", methods=("GET", "POST"))
 def route_parametres_theme():
     if 'email' not in session:
