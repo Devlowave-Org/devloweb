@@ -1,3 +1,4 @@
+import json
 import os
 import pytest
 from test_inscription import devlobdd, req_connection, req_code_verif
@@ -28,10 +29,21 @@ def test_good_editor_access(client, devlobdd):
     assert response.status_code == 200
 
 def test_modify_site(client, devlobdd):
-    response = client.post('/home/editeur', data={
+    with client.session_transaction() as c:
+        c["ja_id"] = "8166"
+        c["email"] = "timtonix@icloud.com"
+        c["ip"] = "127.0.0.1"
+        c["avatar"] = "https://gravatar.com/avatar/8166.png?d=mp"
+
+    response = client.post('/editeur/pof', data={
         "titre": "test",
         "valeur1": "test",
         "valider": ""
     })
 
+
+    json_site = json.loads(open(f"tmp/8166/site.json").read())
+
     assert response.status_code == 200
+    assert json_site["titre"] == "test"
+    assert json_site["valeur1"] == "test"
