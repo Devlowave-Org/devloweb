@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "🤌 Flask",
+            "name": "🚀 Flask",
             "type": "debugpy",
             "request": "launch",
             "module": "flask",
@@ -17,6 +17,21 @@
                 "run",
                 "--no-debugger",
                 "--no-reload"
+            ],
+            "jinja": true,
+            "autoStartBrowser": false
+        },
+        {
+            "name": "🐛 Flask",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "flask",
+            "env": {
+                "FLASK_APP": "devloapp.py",
+                "FLASK_DEBUG": "1"
+            },
+            "args": [
+                "run"
             ],
             "jinja": true,
             "autoStartBrowser": false

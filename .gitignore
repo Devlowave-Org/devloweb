@@ -316,4 +316,5 @@ devlobdd.db-journal
 ./devlobdd.db
 *devlobdd.db
 *devlobdd.db-journal
-tmp/
+tmp/*
+data/*

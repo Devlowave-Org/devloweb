@@ -1,6 +1,6 @@
 from flask import request, render_template, session, redirect, flash
 from App.utils import bdd, utils, cloudflare
-import bcrypt
+import os
 import json
 
 
@@ -9,7 +9,7 @@ def index():
 
 def parametres_generaux(devlobdd):
     if request.method == 'POST':
-        form_data = request.form.to_dict(flat=False)  # Convert ImmutableMultiDict to regular dict
+        form_data = request.form.to_dict(flat=True)  # Convert ImmutableMultiDict to regular dict
         
         # Ancienne ligine qui boom boom la bdd
         #devlobdd.boom_boom(form_data, session['ja_id'])
@@ -18,11 +18,19 @@ def parametres_generaux(devlobdd):
         form_data['ja_id'] = session['ja_id']
         form_data['ip'] = session['ip']
         
+        print(form_data)
+        
         with open(f'data/{session["ja_id"]}.json', 'w', encoding='utf-8') as f:
             json.dump(form_data, f, ensure_ascii=False, indent=4)
             
+    
+    json_data = {}
+    
+    if os.path.isfile(f'data/{session["ja_id"]}.json') and os.path.getsize(f'data/{session["ja_id"]}.json') > 0:
+        with open(f'data/{session["ja_id"]}.json', 'r', encoding='utf-8') as f:
+            json_data = json.loads(f.read())
             
-    return render_template('home/parametres_generaux.html', data=devlobdd.get_site_by_ja(session['ja_id']))
+    return render_template('home/parametres_generaux.html', json_data=json_data, data=devlobdd.get_site_by_ja(session['ja_id']))
 
 def parametres_theme(devlobdd):
     if request.method == 'POST':
