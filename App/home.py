@@ -10,14 +10,15 @@ def index():
 def parametres_generaux(devlobdd):
     if request.method == 'POST':
         form_data = request.form.to_dict(flat=False)  # Convert ImmutableMultiDict to regular dict
-        print(form_data)
         
-
         # Ancienne ligine qui boom boom la bdd
         #devlobdd.boom_boom(form_data, session['ja_id'])
         
         # Mais maintenant, on fait du JSON 😏
-        with open(f'data/{session["user"]}.json', 'w', encoding='utf-8') as f:
+        form_data['ja_id'] = session['ja_id']
+        form_data['ip'] = session['ip']
+        
+        with open(f'data/{session["ja_id"]}.json', 'w', encoding='utf-8') as f:
             json.dump(form_data, f, ensure_ascii=False, indent=4)
             
             
