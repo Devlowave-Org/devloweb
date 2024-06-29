@@ -5,6 +5,8 @@ import os
 
 app.which = "devlotest"
 os.system("rm -rf ~/PycharmProjects/devloweb/devlotest.db")
+os.system("rm -rf ~/PycharmProjects/devloweb/App/tests/devlotest.db")
+
 
 @pytest.fixture
 def client():

@@ -1,8 +1,5 @@
 import json
-import os
-import pytest
 from test_inscription import devlobdd, req_connection, req_code_verif
-from flask import session
 
 
 def setup_account(client, devlobdd):
@@ -40,7 +37,6 @@ def test_modify_site(client, devlobdd):
         "valeur1": "test",
         "valider": ""
     })
-
 
     json_site = json.loads(open(f"tmp/8166/site.json").read())
 
