@@ -1,4 +1,15 @@
 import pytest
+from devloapp import app
+import os
+
+
+app.which = "devlotest"
+os.system("rm -rf ~/PycharmProjects/devloweb/devlotest.db")
+
+@pytest.fixture
+def client():
+    with app.test_client() as client:
+        yield client
 
 
 def pytest_addoption(parser):

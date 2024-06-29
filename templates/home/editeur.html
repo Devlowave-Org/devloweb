@@ -17,10 +17,15 @@
             class="bg-green-100 text-green-800 font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
             style="font-family: monospace;"
           >
-            Thème {{ data[3] }}
           </span>
         </h1>
-        
+        <iframe
+          id="inlineFrameExample"
+          title="Inline Frame Example"
+          width="100%"
+          height="700"
+          src="{{ url_for('route_v1') }}">
+        </iframe>
           <div
             class="rounded-lg border-4 p-4 border-gray-400 bg-gray-300 dark:border-gray-900 dark:bg-gray-950 m-4"
           >
@@ -36,7 +41,6 @@
             </div>
           </div>
 
-          {% include 'editor/' + data[3] + '/editor.html' %}
         </div>
       </main>
     </div>
