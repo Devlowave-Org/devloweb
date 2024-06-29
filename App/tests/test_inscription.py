@@ -5,13 +5,13 @@ from App.utils.bdd import DevloBDD
 import pytest
 
 
-
 @pytest.fixture()
 def devlobdd():
     return DevloBDD("devlotest")
 
 
 def test_mauvais_id(client, devlobdd):
+    devlobdd.delete_ja("timtonix@icloud.com") # Dans l'execution des test, le compte existe deja mdr
     response = client.post('/inscription', data={
         "email": "timtonix@icloud.com",
         "ja_id": "azerty?",
