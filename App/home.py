@@ -1,6 +1,6 @@
-from flask import request, render_template, session, redirect, flash
+from flask import request, render_template, session, redirect, flash, url_for
 from App.utils import bdd, utils, cloudflare
-import bcrypt
+import json
 
 
 def index():
@@ -68,7 +68,7 @@ def domaine(devlobdd):
                 flash("Erreur : " + str(test))
         else:
             flash("Erreur : ce nom de domaine existe de déjà !")
-    data=devlobdd.get_site_by_ja(session['ja_id'])
+    data = devlobdd.get_site_by_ja(session['ja_id'])
     return render_template('home/domaine.html', data=data)
 
 def add_page():

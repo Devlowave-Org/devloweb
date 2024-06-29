@@ -136,6 +136,16 @@ def logout():
     session.clear()
     return redirect(url_for('index'))
 
+
+"""
+ESPACE SOUS-DOMAINES
+"""
+@app.route("/", subdomain="<ja_domain>")
+def ja_website(username):
+    return username + ".your-domain.tld"
+"""
+ESPACE ERREURS
+"""
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('error/404.html'), 404
@@ -143,12 +153,6 @@ def page_not_found(e):
 @app.errorhandler(500)
 def internal_error(e):
     return render_template('error/500.html', error=e), 500
-
-@app.route("/blog/<string:slug>")
-def route_blog_post(slug):
-    if DevloBDD.post_exists(slug) == True:
-        return render_template('blog/post.html', post=DevloBDD.post_data(slug))
-    return render_template('error/404.html'), 404
 
 
 if __name__ == "__main__":
