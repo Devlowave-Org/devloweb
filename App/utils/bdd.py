@@ -10,7 +10,7 @@ class DevloBDD:
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, date TEXT NOT NULL)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT NOT NULL, last TEXT NOT NULL, punition TEXT NOT NULL)""")
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, theme TEXT NOT NULL)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, theme TEXT NOT NULL, active INT DEFAULT 0)""")
         self.conn.commit()
         print(f"{name} est prêt")
 
@@ -153,6 +153,17 @@ class DevloBDD:
         self.cursor.execute("DELETE FROM security WHERE ip = ?", (ip,))
         self.conn.commit()
 
+
+    """
+    Partie site web
+    """
+    def init_website(self, ja_id, domain, theme="basic"):
+        self.cursor.execute("INSERT INTO sites(ja_id, domain, theme) VALUES (?, ?, ?)", (ja_id, domain, theme))
+        self.conn.commit()
+
+    def enable_website(self, ja_id):
+        self.cursor.execute("UPDATE sites SET active = 1 WHERE ja_id = ?", (ja_id,))
+        self.conn.commit()
     def quit_bdd(self):
         self.conn.close()
 
