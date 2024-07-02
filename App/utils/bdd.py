@@ -165,9 +165,13 @@ class DevloBDD:
         self.cursor.execute("UPDATE sites SET active = 1 WHERE ja_id = ?", (ja_id,))
         self.conn.commit()
 
-    def get_ja_by_domain(self,domain):
-        self.cursor.execute("SELECT * FROM sites  WHERE domain=?", (ja_id, domain, theme))
+    def get_ja_by_domain(self, domain):
+        self.cursor.execute("SELECT * FROM sites  WHERE domain=?", (domain,))
         return self.cursor.fetchall()
+
+    def set_domain_name(self, ja_id, domain):
+        self.cursor.execute("UPDATE sites SET domain = ? WHERE ja_id = ?", (domain, ja_id))
+        self.conn.commit()
 
 
 
