@@ -12,10 +12,11 @@ def editeur():
     print(json_site)
 
     if request.method == "POST":
+        print(request.form["form"])
         form = request.form.to_dict()
         with open(f"tmp/{session['ja_id']}/site.json", "w") as f:
             json.dump(form, f)
-        json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
+        json_site = form
 
     return render_template("editor/v1/editeur.html", data=json_site)
 
