@@ -157,13 +157,20 @@ class DevloBDD:
     """
     Partie site web
     """
-    def init_website(self, ja_id, domain, theme="basic"):
+    def init_website(self, ja_id, domain="", theme="basic"):
         self.cursor.execute("INSERT INTO sites(ja_id, domain, theme) VALUES (?, ?, ?)", (ja_id, domain, theme))
         self.conn.commit()
 
     def enable_website(self, ja_id):
         self.cursor.execute("UPDATE sites SET active = 1 WHERE ja_id = ?", (ja_id,))
         self.conn.commit()
+
+    def get_ja_by_domain(self,domain):
+        self.cursor.execute("SELECT * FROM sites  WHERE domain=?", (ja_id, domain, theme))
+        return self.cursor.fetchall()
+
+
+
     def quit_bdd(self):
         self.conn.close()
 
