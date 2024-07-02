@@ -167,7 +167,10 @@ class DevloBDD:
 
     def get_ja_by_domain(self, domain):
         self.cursor.execute("SELECT * FROM sites  WHERE domain=?", (domain,))
-        return self.cursor.fetchall()[0]
+        try:
+            return self.cursor.fetchall()[0]
+        except IndexError:
+            return None
 
     def set_domain_name(self, ja_id, domain):
         self.cursor.execute("UPDATE sites SET domain = ? WHERE ja_id = ?", (domain, ja_id))
