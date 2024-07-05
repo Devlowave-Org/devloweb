@@ -1,6 +1,6 @@
 {
   "header": {
-    "title": "",
+    "title": "<script>alert(\"hello\");</script>",
     "nav": [
       "",
       "",

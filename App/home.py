@@ -14,8 +14,7 @@ def editeur():
     if request.method == "POST":
         print(request.form.keys())
         form = request.form.to_dict()
-        #with open(f"tmp/{session['ja_id']}/site.json", "w") as f:
-            #json.dump(form, f)
+        utils.editeur_form_processing(form, json_site)
         json_site = form
 
     return render_template("editor/v1/editeur.html", data=json_site)

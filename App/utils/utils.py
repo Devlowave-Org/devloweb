@@ -129,3 +129,27 @@ def create_ja_folder(jaid):
         shutil.copytree(base_path, folder_path, dirs_exist_ok=True)
     except RuntimeError:
         print("Une erreur s'est produite")
+
+
+"""
+Gestion de l'éditeur
+"""
+def editeur_form_processing(form_dict: dict, json_site: dict):
+
+    for key in form_dict.keys():
+        try:
+            section = key.split("-")[0]
+            item = key.split("-")[1]
+            position = key.split("-")[2]
+        except (IndexError, ValueError):
+            continue
+
+        try:
+            if position:
+                json_site[section][item].append(form_dict[key])
+            else:
+                json_site[section][item] = form_dict[key]
+        except KeyError:
+            continue
+
+    print(json_site)
