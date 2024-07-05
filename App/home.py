@@ -15,7 +15,6 @@ def editeur():
         print(request.form.keys())
         form = request.form.to_dict()
         utils.editeur_form_processing(form, json_site)
-        json_site = form
 
     return render_template("editor/v1/editeur.html", data=json_site)
 

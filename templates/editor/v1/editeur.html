@@ -18,7 +18,7 @@
 <form name="v1" action="" method="post">
     <header>
         <div class="container">
-            <input type="text" id="header-title" name="header-title" class="text-input" value="{%  if data["header"]["title"] %} {{  data["header"]["title"] }} {% else %} Your name {%  endif %}">
+            <input type="text" id="header-title" name="header-title" class="text-input" value="{{  data["header"]["title"] }}">
             <nav>
                 <ul id="header-nav-links">
                     <li><input type="text" class="text-input nav-link" name="header-navlink-1" value="About Us"></li>

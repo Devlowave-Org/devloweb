@@ -137,11 +137,14 @@ Gestion de l'éditeur
 def editeur_form_processing(form_dict: dict, json_site: dict):
 
     for key in form_dict.keys():
+        print(key)
         try:
-            section = key.split("-")[0]
-            item = key.split("-")[1]
+            splited = key.split("-")
+            section = splited[0]
+            item = splited[1]
             position = key.split("-")[2]
-        except (IndexError, ValueError):
+        except (IndexError, ValueError) as e:
+            print("An error occurd in the first try" + str(e))
             continue
 
         try:
@@ -149,7 +152,9 @@ def editeur_form_processing(form_dict: dict, json_site: dict):
                 json_site[section][item].append(form_dict[key])
             else:
                 json_site[section][item] = form_dict[key]
-        except KeyError:
+        except KeyError as e:
+            print("An error occurd in the second try" + str(e))
             continue
 
     print(json_site)
+    print("IS IT OK ???")
