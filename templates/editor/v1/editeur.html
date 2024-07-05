@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-<form id="header" action="" method="post">
+<form name="v1" action="" method="post">
     <header>
         <div class="container">
             <input type="text" id="header-title" name="header-title" class="text-input" value="{%  if ["header"]["title"] %} {{  data["header"]["title"] }} {% else %} Your name {%  endif %}">
@@ -30,8 +30,6 @@
             </nav>
         </div>
     </header>
-</form>
-<form id="hero" action="" method="post">
     <section class="hero">
         <div class="container">
             <input type="text" id="hero-headline" name="hero-headline" class="text-input" value="Making a Difference, One Step at a Time">
@@ -114,15 +112,6 @@
     </footer>
 </form>
 <button type="submit" class="btn" name="enregistrer" id="enregistrer">ENREGISTRER</button>
- <script>
-        document.getElementById('enregistrer').addEventListener('click', function() {
-            // Submit the first form
-            document.getElementById('header').submit();
-            // After a short delay, submit the second form
-            setTimeout(function() {
-                document.getElementById('hero').submit();
-            }, 1000); // Adjust the delay as needed
-        });
-    </script>
+
 </body>
 </html>
