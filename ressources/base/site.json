@@ -1,78 +1,68 @@
 {
   "header": {
-    "title": "Your Nonprofit Name",
+    "title": "",
     "nav": [
-      "About Us",
-      "Programs",
-      "Events",
-      "Donate",
-      "Contact"
+      "",
+      "",
+      "",
+      "",
+      ""
     ]
   },
   "hero": {
-    "headline": "Making a Difference, One Step at a Time",
-    "subheadline": "Join us in our mission to create a better world for everyone.",
-    "cta": "Donate Now"
+    "headline": "",
+    "subheadline": "",
+    "cta": ""
   },
   "about": {
-    "title": "About Us",
-    "description": "Your Nonprofit Name is dedicated to [your mission]. We strive to [explain your goals and vision]."
+    "title": "",
+    "description": ""
   },
   "programs": {
-    "title": "Our Programs",
+    "title": "",
     "program_list": [
       {
-        "title": "Program 1",
-        "description": "Description of your first program."
+        "title": "",
+        "description": ""
       },
       {
-        "title": "Program 2",
-        "description": "Description of your second program."
+        "title": "",
+        "description": ""
       },
       {
-        "title": "Program 3",
-        "description": "Description of your third program."
+        "title": "",
+        "description": ""
       }
     ]
   },
   "events": {
-    "title": "Upcoming Events",
+    "title": "",
     "event_list": [
       {
-        "title": "Event 1",
-        "description": "Date and details of your first event."
+        "title": "",
+        "description": ""
       },
       {
-        "title": "Event 2",
-        "description": "Date and details of your second event."
+        "title": "",
+        "description": ""
       },
       {
-        "title": "Event 3",
-        "description": "Date and details of your third event."
+        "title": "",
+        "description": ""
       }
     ]
   },
   "donate": {
-    "title": "Support Us",
-    "description": "Your donation helps us continue our mission. Thank you for your generosity.",
-    "cta": "Donate Now"
-  },
-  "contact": {
-    "title": "Contact Us",
-    "description": "Have questions or want to get involved? Reach out to us!",
-    "form": {
-      "name_placeholder": "Your Name",
-      "email_placeholder": "Your Email",
-      "message_placeholder": "Your Message",
-      "submit_text": "Send Message"
-    }
+    "title": "",
+    "description": "",
+    "cta": ""
   },
   "footer": {
-    "copyright": "© 2024 Your Nonprofit Name. All rights reserved.",
+    "copyright": "",
     "social_links": [
-      "Facebook",
-      "Twitter",
-      "Instagram"
+      "",
+      "",
+      ""
     ]
   }
 }
