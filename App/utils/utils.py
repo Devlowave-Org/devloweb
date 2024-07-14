@@ -142,19 +142,15 @@ def editeur_form_processing(form_dict: dict, json_site: dict):
             splited = key.split("-")
             section = splited[0]
             item = splited[1]
-            position = key.split("-")[2]
-        except (IndexError, ValueError) as e:
-            print("An error occurd in the first try" + str(e))
-            continue
-
-        try:
-            if position:
+            if len(splited) >= 3:
+                print()
                 json_site[section][item].append(form_dict[key])
             else:
                 json_site[section][item] = form_dict[key]
-        except KeyError as e:
-            print("An error occurd in the second try" + str(e))
-            continue
+        except (IndexError, ValueError, KeyError) as e:
+            print("An error occurd in the first try " + str(e))
+
+
 
     print(json_site)
     print("IS IT OK ???")

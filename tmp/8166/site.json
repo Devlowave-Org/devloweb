@@ -1,12 +1,7 @@
 {
   "header": {
-    "title": "<script>alert(\"hello\");</script>",
-    "nav": [
-      "",
-      "",
-      "",
-      "",
-      ""
+    "title": "Devlowave",
+    "navlink": [
     ]
   },
   "hero": {
