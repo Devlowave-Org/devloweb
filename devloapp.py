@@ -1,5 +1,5 @@
 from flask import render_template, Flask, session, redirect, url_for, g, has_app_context
-from App import home, inscription, verification, connexion, resend, pof
+from App import home, inscription, verification, connexion, resend, pof, onthefly
 from App.utils.bdd import DevloBDD
 
 app = Flask(__name__)
@@ -107,11 +107,13 @@ def route_parametres_theme():
         return redirect(url_for('route_connexion'))
     return home.parametres_theme(get_db())
 
+
 @app.route("/pages/add", methods=("GET", "POST"))
 def route_add_page():
     if 'email' not in session:
         return redirect(url_for('route_connexion'))
     return home.add_page()
+
 
 @app.route("/site_verification", methods=("GET", "POST"))
 def route_site_verification():
@@ -119,16 +121,12 @@ def route_site_verification():
         return redirect(url_for('route_connexion'))
     return home.site_verification(get_db())
 
+
 @app.route("/domaine", methods=("GET", "POST"))
 def route_domaine():
     if 'email' not in session:
         return redirect(url_for('route_connexion'))
     return home.domaine(get_db())
-
-
-@app.route("/preview/<string:slug>")
-def route_preview(slug):
-    return render_template(f'preview/{slug}.html', slug=slug)
 
 
 @app.route('/logout')
@@ -155,6 +153,15 @@ def internal_error(e):
     return render_template('error/500.html', error=e), 500
 
 
+"""
+GESTION DE GÉNÉRATION A LA VOLÉE
+"""
+@app.route("/ja/<ja_domain>")
+def route_ja(ja_domain):
+    return onthefly.gen_on_the_fly(ja_domain, get_db())
+
+
+
 if __name__ == "__main__":
     # therms-and-conditions
-    app.run(port=5555)
+    app.run(host="0.0.0.0", port=5555)

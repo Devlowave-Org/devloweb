@@ -1,1 +1,68 @@
-{"titre": "", "valeur1": "", "valider": ""}
+{
+  "header": {
+    "title": "",
+    "nav": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "hero": {
+    "headline": "",
+    "subheadline": "",
+    "cta": ""
+  },
+  "about": {
+    "title": "",
+    "description": ""
+  },
+  "programs": {
+    "title": "",
+    "program_list": [
+      {
+        "title": "",
+        "description": ""
+      },
+      {
+        "title": "",
+        "description": ""
+      },
+      {
+        "title": "",
+        "description": ""
+      }
+    ]
+  },
+  "events": {
+    "title": "",
+    "event_list": [
+      {
+        "title": "",
+        "description": ""
+      },
+      {
+        "title": "",
+        "description": ""
+      },
+      {
+        "title": "",
+        "description": ""
+      }
+    ]
+  },
+  "donate": {
+    "title": "",
+    "description": "",
+    "cta": ""
+  },
+  "footer": {
+    "copyright": "",
+    "social_links": [
+      "",
+      "",
+      ""
+    ]
+  }
+}
