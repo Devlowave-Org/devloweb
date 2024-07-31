@@ -143,8 +143,7 @@ def editeur_form_processing(form_dict: dict, json_site: dict):
             section = splited[0]
             item = splited[1]
             if len(splited) >= 3:
-                print()
-                json_site[section][item].append(form_dict[key])
+                json_site[section][item][splited[2]] = form_dict[key]
             else:
                 json_site[section][item] = form_dict[key]
         except (IndexError, ValueError, KeyError) as e:
