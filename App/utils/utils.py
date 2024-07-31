@@ -1,3 +1,4 @@
+import json
 import os
 from re import fullmatch, compile
 import random
@@ -134,22 +135,30 @@ def create_ja_folder(jaid):
 """
 Gestion de l'éditeur
 """
-def editeur_form_processing(form_dict: dict, json_site: dict):
+def editeur_form_processing(form_dict: dict, json_site: dict, ja_id):
 
     for key in form_dict.keys():
-        print(key)
         try:
             splited = key.split("-")
+            if type(splited[0]) is int:
+                raise ValueError("Utilisateur essaie de rentrer un integer au lieu d'un str")
             section = splited[0]
-            item = splited[1]
+
+            try:
+                splited[1] = int(splited[1])
+            except ValueError:
+                pass
+            try:
+                splited[2] = int(splited[2])
+            except (ValueError, IndexError):
+                pass
+
             if len(splited) >= 3:
-                json_site[section][item][splited[2]] = form_dict[key]
+                json_site[section][splited[1]][splited[2]] = form_dict[key]
             else:
-                json_site[section][item] = form_dict[key]
+                json_site[section][splited[1]] = form_dict[key]
         except (IndexError, ValueError, KeyError) as e:
             print("An error occurd in the first try " + str(e))
 
-
-
-    print(json_site)
-    print("IS IT OK ???")
+    with open(f"tmp/{ja_id}/site.json", "w") as f:
+        json.dump(json_site, f)
