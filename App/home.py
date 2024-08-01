@@ -14,9 +14,9 @@ def editeur():
     if request.method == "POST":
         print(request.form.keys())
         form = request.form.to_dict()
-        utils.editeur_form_processing(form, json_site)
+        utils.editeur_form_processing(form, json_site, session['ja_id'])
 
-    return render_template("editor/v1/editeur.html", data=json_site)
+    return render_template("editor/beta/editeur.html", data=json_site)
 
 
 def parametres_theme(devlobdd):
