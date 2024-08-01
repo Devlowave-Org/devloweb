@@ -124,8 +124,7 @@
                  {{ data['hero']['title'] }}
                 </h1>
                 <p class="mt-4 text-lg text-gray-300">
-                  Avec Devlowave, rejoignez une communauté de jeunes passionnés par la programmation, l'électronique et le bidouillage.
-                  N'attendez plus et participez à l'aventure !
+                    {{  data['hero']['subtitle'] }}
                 </p>
               </div>
             </div>
@@ -164,10 +163,9 @@
                   >
                     <i class="fas fa-award"></i>
                   </div>
-                  <h6 class="text-xl font-semibold">Partage</h6>
+                  <h6 class="text-xl font-semibold">{{  data['valeurs'][0]['title'] }}</h6>
                   <p class="mt-2 mb-4 text-gray-600">
-                    À Devlowave, nous avons à coeur de partager nos connaissances, expériences, idées.
-                    Et nous serions ravi de vous compter parmi nous pour que vous puissez partager les votres avec nous.
+                    {{  data['valeurs'][0]['description'] }}
                   </p>
                 </div>
               </div>
@@ -182,9 +180,9 @@
                   >
                     <i class="fas fa-retweet"></i>
                   </div>
-                  <h6 class="text-xl font-semibold">Junior Association</h6>
+                  <h6 class="text-xl font-semibold">{{  data['valeurs'][1]['title'] }}</h6>
                   <p class="mt-2 mb-4 text-gray-600">
-                    Devlowave c'est avant tout une Junior Association, par les jeunes et pour les jeunes.
+                    {{  data['valeurs'][0]['title'] }}
                   </p>
                 </div>
               </div>
@@ -199,10 +197,9 @@
                   >
                     <i class="fas fa-fingerprint"></i>
                   </div>
-                  <h6 class="text-xl font-semibold">Créativité</h6>
+                  <h6 class="text-xl font-semibold">{{  data['valeurs'][2]['title'] }}</h6>
                   <p class="mt-2 mb-4 text-gray-600">
-                    Ce que nous voulons vraiment mettre en avant chez Devlowave c'est la créativité.
-                    Car c'est graĉe à cela que l'on peut aujourd'hui résoudre les problèmes des plus complèxes.
+                    {{  data['valeurs'][2]['title'] }}
                   </p>
                 </div>
               </div>
@@ -216,25 +213,22 @@
                 <i class="fas fa-user-friends text-xl"></i>
               </div>
               <h3 class="text-3xl mb-2 font-semibold leading-normal">
-                Travailler en équipe, un mot d'ordre
+                {{  data['description']['title'] }}
               </h3>
               <p
                 class="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-700"
               >
-                Vous avez une idée de projet mais il est trop conséquent pour le faire seul ?
-                C'est la raison pour laquelle Devlowave est la pour vous.
-                Rencontrez d'autres gens qui ont la même passion que vous et qui feront équipe avec vous afin de réaliser votre rêve.
+                {{  data['description']['text'][0] }}
               </p>
               <p
                 class="text-lg font-light leading-relaxed mt-0 mb-4 text-gray-700"
               >
-                Parce qu'il est difficile de créer une fusée tout seul, rejoignez notre serveur discord ou notre HackClub afin de rencontrer d'autres passionnés.
+                {{  data['description']['text'][1] }}
               </p>
               <a
-                href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
+                href="{{  data['description']['link']['href'] }}"
                 class="font-bold text-gray-800 mt-8"
-                >Notre serveur discord</a
-              >
+                >{{  data['description']['link']['displayed'] }}</a>
             </div>
             <div class="w-full md:w-4/12 px-4 mr-auto ml-auto">
               <div
@@ -259,10 +253,10 @@
                     ></polygon>
                   </svg>
                   <h4 class="text-xl font-bold text-white">
-                    HackClub Lille
+                    {{  data['image']['title'] }}
                   </h4>
                   <p class="text-md font-light mt-2 text-white">
-                    Si vous habitez près de Lille, alors viens nous voir IRL afin de partager une expérience inoubliable.
+                      {{  data['image']['description'] }}
                   </p>
                 </blockquote>
               </div>
@@ -306,9 +300,9 @@
                 >
                   <i class="fas fa-rocket text-xl"></i>
                 </div>
-                <h3 class="text-3xl font-semibold">Des projets toujours plus fous</h3>
+                <h3 class="text-3xl font-semibold">{{  data['project']['title'] }}</h3>
                 <p class="mt-4 text-lg leading-relaxed text-gray-600">
-                  Chez Devlowave, on veut tout d'abord faire des choses utiles tout en nous amusant. Ainsi, voici la liste de quelques uns de nos projets.
+                  {{  data['project']['description'] }}
                 </p>
                 <ul class="list-none mt-6">
                   <li class="py-2">
@@ -321,7 +315,7 @@
                       </div>
                       <div>
                         <h4 class="text-gray-600">
-                          Devloweb
+                          {{  data['project']['list'][0] }}
                         </h4>
                       </div>
                     </div>
@@ -335,7 +329,7 @@
                         ></span>
                       </div>
                       <div>
-                        <h4 class="text-gray-600">Station Météo</h4>
+                        <h4 class="text-gray-600">{{  data['project']['list'][1] }}</h4>
                       </div>
                     </div>
                   </li>
@@ -348,7 +342,7 @@
                         ></span>
                       </div>
                       <div>
-                        <h4 class="text-gray-600">Pas d'idées</h4>
+                        <h4 class="text-gray-600">{{  data['project']['list'][2] }}</h4>
                       </div>
                     </div>
                   </li>
@@ -362,9 +356,9 @@
         <div class="container mx-auto px-4">
           <div class="flex flex-wrap justify-center text-center mb-24">
             <div class="w-full lg:w-6/12 px-4">
-              <h2 class="text-4xl font-semibold">Mais qui vois là-je ?</h2>
+              <h2 class="text-4xl font-semibold">{{  data['team']['title'] }}</h2>
               <p class="text-lg leading-relaxed m-4 text-gray-600">
-                C'est nous !
+               {{  data['team']['description'] }}
               </p>
             </div>
           </div>
@@ -378,9 +372,9 @@
                   style="max-width: 120px;"
                 />
                 <div class="pt-6 text-center">
-                  <h5 class="text-xl font-bold">Timtonix</h5>
+                  <h5 class="text-xl font-bold">{{  data['team']['members'][0]['name'] }}</h5>
                   <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                    GigaChad
+                    {{  data['team']['members'][0]['description'] }}
                   </p>
                   <div class="mt-6">
                     <button
@@ -412,9 +406,9 @@
                   style="max-width: 120px;"
                 />
                 <div class="pt-6 text-center">
-                  <h5 class="text-xl font-bold">Eloi</h5>
+                  <h5 class="text-xl font-bold">{{  data['team']['members'][1]['name'] }}</h5>
                   <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                    Ingénieur en idée Offshore
+                    {{  data['team']['members'][1]['description'] }}
                   </p>
                   <div class="mt-6">
                     <button
@@ -441,9 +435,9 @@
                   style="max-width: 120px;"
                 />
                 <div class="pt-6 text-center">
-                  <h5 class="text-xl font-bold">Samuela</h5>
+                  <h5 class="text-xl font-bold">{{  data['team']['members'][2]['name'] }}</h5>
                   <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                    Directrice en planctons
+                    {{  data['team']['members'][2]['description'] }}
                   </p>
                   <div class="mt-6">
                     <button
