@@ -18,9 +18,8 @@
     "title": "",
     "description": ""
   },
-  "programs": {
-    "title": "",
-    "program_list": [
+  "valeurs":
+     [
       {
         "title": "",
         "description": ""
@@ -33,33 +32,25 @@
         "title": "",
         "description": ""
       }
-    ]
-  },
-  "events": {
+    ],
+  "membres": {
     "title": "",
-    "event_list": [
+    "list": [
       {
-        "title": "",
-        "description": ""
-      },
-      {
-        "title": "",
-        "description": ""
-      },
-      {
-        "title": "",
-        "description": ""
+        "image": "",
+        "name": "",
+        "role": ""
       }
     ]
-  },
-  "donate": {
-    "title": "",
-    "description": "",
-    "cta": ""
   },
   "footer": {
     "copyright": "",
-    "social_links": [
+    "reseaux": [
+      "",
+      "",
+      ""
+    ],
+    "links": [
       "",
       "",
       ""
