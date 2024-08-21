@@ -9,39 +9,27 @@ def forgot_password(devlobdd):
         return redirect(url_for('route_home'))
 
     if request.method == 'POST':
-        if not request.form['email'] or not request.form['password']:
-            return render_template('connexion.html', error='Veuillez remplir tous les champs')
+        if not request.form['ja_id']:
+            return render_template('forgot_password.html', error='Veuillez remplir votre identifiant JA')
 
-        email = request.form['email']
-        password = request.form["password"]
+        try:
+            ja_id = utils.ja_id_only(ja_id=request.form['ja_id'])
+        except ValueError as e:
+            return render_template('forgot_password.html', error="Veuillez transmettre un identifiant valide.")
+
         ip = request.remote_addr
 
         if utils.is_punished(devlobdd, ip):
-            return render_template('connexion.html', error="Mail ou mot de passe incorrect")
+            return render_template('forgot_password.html', error="Une erreur est survenue")
 
-        if not utils.email_validator(email):
-            return render_template('connexion.html', error="Veuillez rentrer un vrai email")
 
-        ja = devlobdd.get_ja_by_mail(email)
-        print(f"Voici la JA slon l'email : {ja}")
+        ja = devlobdd.get_ja_byid(ja_id)
         if not ja:
             utils.add_a_try(devlobdd, ip)
-            return render_template("connexion.html", error="Mail ou mot de passe incorrect")
+            return render_template("forgot_password.html", error="Un mail a été envoyé si le compte existe.")
 
-        if not devlobdd.is_active(ja[0]):
-            return render_template("connexion.html", error="Votre JA n'est pas activé, veuillez regarder vos mails.")
+        email = ja[1]
 
-        if not bcrypt.checkpw(password.encode('utf-8'), ja[2]):
-            print("Tentative de connexion avec un mauvais mot de passe")
-            utils.add_a_try(devlobdd, ip)
-            return render_template("connexion.html", error="Mail ou mot de passe incorrect")
-
-        print("Il a réussi le parcours du combattant.")
-        session['email'] = email
-        session['ip'] = ip
-        session['ja_id'] = ja[0]
-        session['avatar'] = Gravatar(email).get_image()
-        return redirect('/home')
 
     return render_template("connexion.html")
 
