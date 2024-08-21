@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import App.utils.email_api as email_api
 from threading import Thread
 import shutil
-
+import bcrypt
 
 def email_validator(email: str) -> bool:
     regex = compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
@@ -115,6 +115,10 @@ def is_punished(devlobdd, ip):
         print("Il est punit")
         return True
     return False
+
+
+def magic_link(devlobdd, ja_id, mail):
+    pass
 
 """
 Création du dossier JA

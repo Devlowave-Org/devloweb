@@ -29,7 +29,9 @@ def forgot_password(devlobdd):
             return render_template("forgot_password.html", error="Un mail a été envoyé si le compte existe.")
 
         email = ja[1]
+        utils.magic_link(devlobdd, ja_id, email)
+        return render_template("forgot_password.html", error="Un mail a été envoyé si le compte existe.")
 
 
-    return render_template("connexion.html")
+    return render_template("forgot_password.html")
 
