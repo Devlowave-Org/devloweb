@@ -94,6 +94,12 @@ def route_v1():
         return redirect(url_for('route_connexion'))
     return home.editeur()
 
+@app.route("/editeur/beta/editeur", methods=("GET", "POST"))
+def route_beta():
+    if 'email' not in session:
+        return redirect(url_for('route_connexion'))
+    return home.editeur()
+
 
 @app.route("/editeur/pof", methods=("GET", "POST"))
 def route_editeur_pof():
