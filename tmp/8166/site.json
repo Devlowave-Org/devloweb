@@ -1,63 +1,52 @@
 {
-  "header": {
-    "title": "Devlowave",
-    "navlink": [
-    ]
+  "description":{
+    "title":"",
+    "text":[
+      "",
+      ""
+    ],
+    "link":{
+      "href":"",
+      "displayed":""
+    }
   },
-  "hero": {
-    "headline": "",
-    "subheadline": "",
-    "cta": ""
+  "hero":{
+    "title":"",
+    "subtitle":""
   },
-  "about": {
-    "title": "",
-    "description": ""
+  "image":{
+    "title":"",
+    "url":"",
+    "description":""
   },
-  "programs": {
-    "title": "",
-    "program_list": [
-      {
-        "title": "",
-        "description": ""
-      },
-      {
-        "title": "",
-        "description": ""
-      },
-      {
-        "title": "",
-        "description": ""
-      }
-    ]
+  "project":{
+    "title":"",
+    "description":"",
+    "list":[],
+    "desc":""
   },
-  "events": {
-    "title": "",
-    "event_list": [
-      {
-        "title": "",
-        "description": ""
-      },
-      {
-        "title": "",
-        "description": ""
-      },
-      {
-        "title": "",
-        "description": ""
-      }
-    ]
-  },
-  "donate": {
-    "title": "",
-    "description": "",
-    "cta": ""
-  },
-  "footer": {
-    "copyright": "",
-    "social_links": [
+  "team":{
+    "title":"",
+    "description":"",
+    "members":[
       "",
       "",
       ""
     ]
-  }
+  },
+  "template":"beta",
+  "valeurs":[
+    {
+      "title":"segqsgœ",
+      "description":"zqrfdeg"
+    },
+    {
+      "description":"ge<fg",
+      "title":"esg"
+    },
+    {
+      "title":"<sgefestg",
+      "description":"s<egfesrf"
+    }
+  ]
 }
