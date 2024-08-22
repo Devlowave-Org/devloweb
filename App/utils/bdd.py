@@ -11,6 +11,8 @@ class DevloBDD:
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, date TEXT NOT NULL)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT NOT NULL, last TEXT NOT NULL, punition TEXT NOT NULL)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, theme TEXT NOT NULL, active INT DEFAULT 0)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS magic_link(code TEXT NOT NULL, ja_id TEXT NOT NULL, date TEXT NOT NULL)""")
+
         self.conn.commit()
         print(f"{name} est prêt")
 
@@ -28,6 +30,10 @@ class DevloBDD:
 
     def delete_ja(self, email):
         self.cursor.execute("DELETE FROM users WHERE email = ?", (email,))
+        self.conn.commit()
+
+    def change_password(self, ja_id: str, password: str):
+        self.cursor.execute("UPDATE users SET password = ? WHERE ja_id = ?", (password, ja_id))
         self.conn.commit()
 
 
@@ -177,6 +183,31 @@ class DevloBDD:
         self.conn.commit()
 
 
+    """
+    partie magic link
+    """
+    def magic_link_exists(self, code: str) -> bool:
+        self.cursor.execute("SELECT COUNT(*) FROM magic_link WHERE code = ?", (code,))
+        if self.cursor.fetchone()[0]:
+            return True
+        else:
+            return False
+
+    def get_magic_link_by_ja(self, ja_id: str) -> bool:
+        self.cursor.execute("SELECT * FROM magic_link WHERE code = ?", (ja_id,))
+        return self.cursor.fetchone()
+
+    def store_magic_link(self, code, ja_id):
+        self.cursor.execute("INSERT INTO magic_link(code, ja_id, date) VALUES (?, ?, ?)", (code, ja_id, datetime.now()))
+        self.conn.commit()
+
+    def get_magic_link(self, code: str):
+        self.cursor.execute("SELECT * FROM magic_link WHERE code = ?", (code,))
+        return self.cursor.fetchone()
+
+    def delete_magic_link(self, ja_id):
+        self.cursor.execute("DELETE FROM magic_link WHERE ja_id = ?", (ja_id,))
+        self.conn.commit()
 
     def quit_bdd(self):
         self.conn.close()

@@ -10,7 +10,7 @@
       <div
         class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
       >
-        {% if error %}
+        {% if error or request.args.get("error") %}
 
         <div
           id="toast-interactive"
@@ -24,6 +24,7 @@
                 >Information</span
               >
               <div class="mb-2 text-sm font-normal">
+                {{ request.args.get("error") }}
                 {{ error }}
               </div>
             </div>
@@ -124,9 +125,9 @@
                   </div>
                 </div>
                 <a
-                  href="#"
+                  href="/forgotpassword"
                   class="text-sm font-medium text-sky-600 hover:underline dark:text-sky-500"
-                  >Forgot password?</a
+                  >Mot de passe oublié ?</a
                 >
               </div>
               <button

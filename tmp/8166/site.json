@@ -1,52 +1,68 @@
 {
-  "description":{
-    "title":"",
-    "text":[
+  "header": {
+    "title": "",
+    "nav": [
       "",
-      ""
-    ],
-    "link":{
-      "href":"",
-      "displayed":""
-    }
-  },
-  "hero":{
-    "title":"",
-    "subtitle":""
-  },
-  "image":{
-    "title":"",
-    "url":"",
-    "description":""
-  },
-  "project":{
-    "title":"",
-    "description":"",
-    "list":[],
-    "desc":""
-  },
-  "team":{
-    "title":"",
-    "description":"",
-    "members":[
+      "",
       "",
       "",
       ""
     ]
   },
-  "template":"beta",
-  "valeurs":[
-    {
-      "title":"segqsgœ",
-      "description":"zqrfdeg"
-    },
-    {
-      "description":"ge<fg",
-      "title":"esg"
-    },
-    {
-      "title":"<sgefestg",
-      "description":"s<egfesrf"
-    }
-  ]
+  "hero": {
+    "headline": "",
+    "subheadline": "",
+    "cta": ""
+  },
+  "about": {
+    "title": "",
+    "description": ""
+  },
+  "programs": {
+    "title": "",
+    "program_list": [
+      {
+        "title": "",
+        "description": ""
+      },
+      {
+        "title": "",
+        "description": ""
+      },
+      {
+        "title": "",
+        "description": ""
+      }
+    ]
+  },
+  "events": {
+    "title": "",
+    "event_list": [
+      {
+        "title": "",
+        "description": ""
+      },
+      {
+        "title": "",
+        "description": ""
+      },
+      {
+        "title": "",
+        "description": ""
+      }
+    ]
+  },
+  "donate": {
+    "title": "",
+    "description": "",
+    "cta": ""
+  },
+  "footer": {
+    "copyright": "",
+    "social_links": [
+      "",
+      "",
+      ""
+    ]
+  }
 }

@@ -1,5 +1,5 @@
 from flask import render_template, Flask, session, redirect, url_for, g, has_app_context
-from App import home, inscription, verification, connexion, resend, pof, onthefly
+from App import home, inscription, verification, connexion, resend, pof, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
 
 app = Flask(__name__)
@@ -52,6 +52,13 @@ def route_verification():
 def route_connexion():
     return connexion.connexion(get_db())
 
+@app.route("/forgotpassword", methods=("GET", "POST"))
+def route_forgot():
+    return forgot_password.forgot_password(get_db())
+
+@app.route("/reset_password", methods=("GET", "POST"))
+def route_reset():
+    return forgot_password.reset_password(get_db())
 
 @app.route("/resend", methods=("GET", "POST"))
 def route_resend():

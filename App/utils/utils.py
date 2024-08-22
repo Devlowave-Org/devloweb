@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import App.utils.email_api as email_api
 from threading import Thread
 import shutil
-
+import bcrypt
 
 def email_validator(email: str) -> bool:
     regex = compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
@@ -29,10 +29,11 @@ def etape_verification(devlobdd, ja_id):
     code = create_verification_code(devlobdd)
     store_code(devlobdd, ja_id, code)
     devlomail = email_api.DevloMail()
-    mailer_thread = Thread(target=devlomail.send_verification_email, args=(mail, code))
+    mailer_thread = Thread(target=devlomail.verification_email, args=(mail, code))
     mailer_thread.start()
 
-def create_verification_code(devlobdd: object) -> str:
+
+def create_verification_code(devlobdd) -> str:
     length = 4
     code = ""
     for i in range(length):
@@ -63,6 +64,7 @@ def verif_code(devlobdd, ja_id, code):
         return True
     else:
         return False
+
 
 def update_verif_code(devlobdd, row):
     create_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S.%f")
@@ -115,6 +117,27 @@ def is_punished(devlobdd, ip):
         print("Il est punit")
         return True
     return False
+
+
+def magic_link(devlobdd, ja_id, mail):
+    """
+    Crée un code
+    Le stock
+    Demande l'envoie d'un mail
+    """
+    length = 8
+    code = ""
+    for i in range(length):
+        code += str(random.randint(0, 9))
+
+    if devlobdd.magic_link_exists(code):
+        magic_link(devlobdd, ja_id, mail)
+
+    devlobdd.store_magic_link(code, ja_id)
+    devlomail = email_api.DevloMail()
+    mailer_thread = Thread(target=devlomail.magic_link_mail, args=(mail, code))
+    mailer_thread.start()
+
 
 """
 Création du dossier JA
