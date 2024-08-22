@@ -45,7 +45,7 @@ class DevloMail:
             server.login(self.sender, self.app_pass)
             server.sendmail(self.sender, target, message.as_string())
 
-    def forgot_password(self, target):
+    def send_magic_link(self, target, code):
         message = MIMEMultipart("alternative")
         message["Subject"] = "Réinitialisation du mot de passe"
         message["From"] = self.sender

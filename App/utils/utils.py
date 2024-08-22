@@ -118,7 +118,24 @@ def is_punished(devlobdd, ip):
 
 
 def magic_link(devlobdd, ja_id, mail):
-    pass
+    """
+    Crée un code
+    Le stock
+    Demande l'envoie d'un mail
+    """
+    length = 8
+    code = ""
+    for i in range(length):
+        code += str(random.randint(0, 9))
+
+    if devlobdd.magic_link_exists(code):
+        magic_link(devlobdd, ja_id, mail)
+
+    devlobdd.store_magic_link(ja_id, code)
+    devlomail = email_api.DevloMail()
+    mailer_thread = Thread(target=devlomail.send_magic_link, args=(mail, code))
+    mailer_thread.start()
+
 
 """
 Création du dossier JA

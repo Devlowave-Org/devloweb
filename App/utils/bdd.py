@@ -179,6 +179,19 @@ class DevloBDD:
         self.conn.commit()
 
 
+    """
+    partie magic link
+    """
+    def magic_link_exists(self, code: str) -> bool:
+        self.cursor.execute("SELECT COUNT(*) FROM magic_link WHERE code = ?", (code,))
+        if self.cursor.fetchone()[0]:
+            return True
+        else:
+            return False
+
+    def store_magic_link(self, code, ja_id):
+        self.cursor.execute("INSERT INTO magic_link(code, ja_id, date) VALUES (?, ?, ?)", (code, ja_id, datetime.now()))
+        self.conn.commit()
 
     def quit_bdd(self):
         self.conn.close()
