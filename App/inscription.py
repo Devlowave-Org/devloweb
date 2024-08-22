@@ -1,6 +1,6 @@
 import time
 from flask import render_template, request, redirect, url_for, session
-from App.utils import utils
+from App.utils import utils, rnja_api
 import bcrypt
 
 
@@ -32,6 +32,9 @@ def inscription(devlobdd):
         if not utils.email_validator(email):
             return render_template('inscription.html', error="Veuillez remplir un email valide")
 
+        if not rnja_api.ja_exists(ja_id):
+            return render_template("inscription.html", error="Désolé mais cette JA n'existe pas (encore).")
+
         # On vérifie le mot de passe
         password = request.form['password']
         if len(password) < 12:
@@ -48,10 +51,6 @@ def inscription(devlobdd):
             return render_template("inscription.html", error="Vous avez déjà un compte.")
 
         devlobdd.inscire_ja(ja_id, email, hashed_pass)
-
-        # TODO  Je suis sensé vérifier que ja_id est bien dans la BDD de samuel
-        if ja_id == 8166:
-            pass
 
         # On lui envoie un mail avec le code.
         utils.etape_verification(devlobdd, ja_id)
