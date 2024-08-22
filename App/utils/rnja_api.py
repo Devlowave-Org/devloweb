@@ -11,10 +11,12 @@ def ja_exists(ja_id):
         if ja["message"] == "Internal Server Error":
             return False
 
-        if ja["id"] == ja_id:
-            return True
+    except KeyError:
+        pass
+
+    try:
+        if ja["id"] == int(ja_id):
+            return ja
     except KeyError:
         return False
 
-
-print(ja_exists("8166"))

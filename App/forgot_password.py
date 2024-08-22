@@ -77,8 +77,8 @@ def reset_password(devlobdd):
 
 
 
-        if len(request.form['password']) < 12:
-            return render_template('reset_password.html', error="Veuillez avoir un mot de passe d'au moins 12 caractères")
+        if len(request.form['password']) < 9:
+            return render_template('reset_password.html', error="Veuillez avoir un mot de passe d'au moins 9 caractères")
         hashed_pass = bcrypt.hashpw(request.form['password'].encode("utf-8"), bcrypt.gensalt())
         devlobdd.change_password(ja[0], hashed_pass)
         devlobdd.delete_magic_link(ja_id=ja[0])

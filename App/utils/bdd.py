@@ -7,7 +7,7 @@ class DevloBDD:
         self.conn = sqlite3.connect(name+".db")
         self.cursor = self.conn.cursor()
         # Creation de la base de donnée utilisateur
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, name TEXT NOT NULL ,password TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, date TEXT NOT NULL)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT NOT NULL, last TEXT NOT NULL, punition TEXT NOT NULL)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, theme TEXT NOT NULL, active INT DEFAULT 0)""")
@@ -24,8 +24,8 @@ class DevloBDD:
         self.conn.commit()
 
 
-    def inscire_ja(self, ja_id, email, password):
-        self.cursor.execute("INSERT INTO users(ja_id, email, password, date) VALUES (?, ?, ?, ?)", (ja_id, email, password, datetime.now()))
+    def inscire_ja(self, ja_id, email, password, name):
+        self.cursor.execute("INSERT INTO users(ja_id, email, name, password, date) VALUES (?, ?, ?, ?, ?)", (ja_id, email, name, password, datetime.now()))
         self.conn.commit()
 
     def delete_ja(self, email):
