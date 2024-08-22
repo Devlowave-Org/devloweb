@@ -56,6 +56,9 @@ def route_connexion():
 def route_forgot():
     return forgot_password.forgot_password(get_db())
 
+@app.route("/reset_password", methods=("GET", "POST"))
+def route_reset():
+    return forgot_password.reset_password(get_db())
 
 @app.route("/resend", methods=("GET", "POST"))
 def route_resend():

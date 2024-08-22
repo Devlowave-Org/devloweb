@@ -133,7 +133,7 @@ def magic_link(devlobdd, ja_id, mail):
     if devlobdd.magic_link_exists(code):
         magic_link(devlobdd, ja_id, mail)
 
-    devlobdd.store_magic_link(ja_id, code)
+    devlobdd.store_magic_link(code, ja_id)
     devlomail = email_api.DevloMail()
     mailer_thread = Thread(target=devlomail.magic_link_mail, args=(mail, code))
     mailer_thread.start()

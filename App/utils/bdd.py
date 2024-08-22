@@ -32,6 +32,10 @@ class DevloBDD:
         self.cursor.execute("DELETE FROM users WHERE email = ?", (email,))
         self.conn.commit()
 
+    def change_password(self, ja_id: str, password: str):
+        self.cursor.execute("UPDATE users SET password = ? WHERE ja_id = ?", (password, ja_id))
+        self.conn.commit()
+
 
         
     """ def change_theme(self, ja_id: str, theme : str):
@@ -183,6 +187,7 @@ class DevloBDD:
     partie magic link
     """
     def magic_link_exists(self, code: str) -> bool:
+        print(code)
         self.cursor.execute("SELECT COUNT(*) FROM magic_link WHERE code = ?", (code,))
         if self.cursor.fetchone()[0]:
             return True
@@ -192,6 +197,10 @@ class DevloBDD:
     def store_magic_link(self, code, ja_id):
         self.cursor.execute("INSERT INTO magic_link(code, ja_id, date) VALUES (?, ?, ?)", (code, ja_id, datetime.now()))
         self.conn.commit()
+
+    def get_magic_link(self, code: str):
+        self.cursor.execute("SELECT * FROM magic_link WHERE code = ?", (code,))
+        return self.cursor.fetchone()
 
     def quit_bdd(self):
         self.conn.close()
