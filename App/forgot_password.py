@@ -24,7 +24,7 @@ def forgot_password(devlobdd):
         if utils.is_punished(devlobdd, ip):
             return render_template('forgot_password.html', error="Une erreur est survenue")
 
-        if devlobdd.magic_link_exists_by_ja(ja_id):
+        if devlobdd.get_magic_link_by_ja(ja_id):
             row = devlobdd.magic_link_exists_by_ja(ja_id)
             delta = datetime.now() - row[2]
 
@@ -78,10 +78,10 @@ def reset_password(devlobdd):
 
 
         if len(request.form['password']) < 12:
-            return render_template('inscription.html', error="Veuillez avoir un mot de passe d'au moins 12 caractères")
+            return render_template('reset_password.html', error="Veuillez avoir un mot de passe d'au moins 12 caractères")
         hashed_pass = bcrypt.hashpw(request.form['password'].encode("utf-8"), bcrypt.gensalt())
         devlobdd.change_password(ja[0], hashed_pass)
-        devlobdd.delete_magic_link(code=request.form['code'])
+        devlobdd.delete_magic_link(ja_id=ja[0])
 
         return redirect(url_for('route_connexion', error="Mot de passe mis à jour"))
 

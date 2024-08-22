@@ -42,4 +42,4 @@ def connexion(devlobdd):
         session['avatar'] = Gravatar(email).get_image()
         return redirect('/home')
 
-    return render_template("connexion.html", error=request.args["error"])
+    return render_template("connexion.html")
