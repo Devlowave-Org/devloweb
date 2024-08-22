@@ -27,7 +27,7 @@ class DevloMail:
             <p>Salut !<br>
                 Ceci est un message de Devloweb,<br>
                 Nous avons bien reçu ta demande d'inscription !<br>
-                Afin d'activer ton compte voici le code : {code}.<br>
+                Afin d'activer ton compte voici le code : <span style="font-weight: bold;">{code}</span><br>
                 <a href="https://devloweb.fr/verification">Vérifier ici !</a>
             </p>
           </body>
