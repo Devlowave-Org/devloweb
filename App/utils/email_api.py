@@ -11,7 +11,7 @@ class DevloMail:
         self.app_pass = "hbbp gnba ftuf ijbt"
         self.context = ssl.create_default_context()
 
-    def verification_mail(self, target, code):
+    def verification_email(self, target, code):
         message = MIMEMultipart("alternative")
         message["Subject"] = "Code de vérification"
         message["From"] = self.sender
