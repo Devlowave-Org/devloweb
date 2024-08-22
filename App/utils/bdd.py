@@ -187,12 +187,15 @@ class DevloBDD:
     partie magic link
     """
     def magic_link_exists(self, code: str) -> bool:
-        print(code)
         self.cursor.execute("SELECT COUNT(*) FROM magic_link WHERE code = ?", (code,))
         if self.cursor.fetchone()[0]:
             return True
         else:
             return False
+
+    def get_magic_link_by_ja(self, ja_id: str) -> bool:
+        self.cursor.execute("SELECT * FROM magic_link WHERE code = ?", (ja_id,))
+        return self.cursor.fetchone()
 
     def store_magic_link(self, code, ja_id):
         self.cursor.execute("INSERT INTO magic_link(code, ja_id, date) VALUES (?, ?, ?)", (code, ja_id, datetime.now()))
@@ -201,6 +204,10 @@ class DevloBDD:
     def get_magic_link(self, code: str):
         self.cursor.execute("SELECT * FROM magic_link WHERE code = ?", (code,))
         return self.cursor.fetchone()
+
+    def delete_magic_link(self, ja_id):
+        self.cursor.execute("DELETE FROM magic_link WHERE ja_id = ?", (ja_id,))
+        self.conn.commit()
 
     def quit_bdd(self):
         self.conn.close()
