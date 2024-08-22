@@ -29,10 +29,11 @@ def etape_verification(devlobdd, ja_id):
     code = create_verification_code(devlobdd)
     store_code(devlobdd, ja_id, code)
     devlomail = email_api.DevloMail()
-    mailer_thread = Thread(target=devlomail.send_verification_email, args=(mail, code))
+    mailer_thread = Thread(target=devlomail.verification_email, args=(mail, code))
     mailer_thread.start()
 
-def create_verification_code(devlobdd: object) -> str:
+
+def create_verification_code(devlobdd) -> str:
     length = 4
     code = ""
     for i in range(length):
@@ -63,6 +64,7 @@ def verif_code(devlobdd, ja_id, code):
         return True
     else:
         return False
+
 
 def update_verif_code(devlobdd, row):
     create_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S.%f")
@@ -133,7 +135,7 @@ def magic_link(devlobdd, ja_id, mail):
 
     devlobdd.store_magic_link(ja_id, code)
     devlomail = email_api.DevloMail()
-    mailer_thread = Thread(target=devlomail.send_magic_link, args=(mail, code))
+    mailer_thread = Thread(target=devlomail.magic_link_mail, args=(mail, code))
     mailer_thread.start()
 
 

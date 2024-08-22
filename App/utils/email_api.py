@@ -11,7 +11,7 @@ class DevloMail:
         self.app_pass = "hbbp gnba ftuf ijbt"
         self.context = ssl.create_default_context()
 
-    def send_verification_email(self, target, code):
+    def verification_mail(self, target, code):
         message = MIMEMultipart("alternative")
         message["Subject"] = "Code de vérification"
         message["From"] = self.sender
@@ -34,25 +34,16 @@ class DevloMail:
         </html>
         """
         html = html.format(code=code)
+        self.send_mail(text, html, message, target)
 
-        part1 = MIMEText(text, "plain")
-        part2 = MIMEText(html, "html")
-
-        message.attach(part1)
-        message.attach(part2)
-
-        with smtplib.SMTP_SSL(self.host, self.port, context=self.context) as server:
-            server.login(self.sender, self.app_pass)
-            server.sendmail(self.sender, target, message.as_string())
-
-    def send_magic_link(self, target, code):
+    def magic_link_mail(self, target, code):
         message = MIMEMultipart("alternative")
         message["Subject"] = "Réinitialisation du mot de passe"
         message["From"] = self.sender
         message["To"] = target
 
         text = """\
-                Ceci est un message de Devloweb, voici ton code afin d'activer ton compte : {code}"""
+                Ceci est un message de Devloweb"""
         text = text.format(code=code)
 
         html = """\
@@ -60,15 +51,17 @@ class DevloMail:
                   <body>
                     <p>Salut !<br>
                         Ceci est un message de Devloweb,<br>
-                        Nous avons bien reçu ta demande d'inscription !<br>
-                        Afin d'activer ton compte voici le code : {code}.<br>
-                        <a href="https://devloweb.fr/verification">Vérifier ici !</a>
+                        Apparemment tu souhaite réinitialiser ton mot de passe !<br>
+                        Clique sur ce lien pour le réinitialiser : <a href="https://devloweb.fr/new_password?code={code}&email={email}">Réinitialiser !</a><br>
+                        Si tu n'es pas à l'origine de cette demande, répond à ce mail !
                     </p>
                   </body>
                 </html>
                 """
-        html = html.format(code=code)
+        html = html.format(code=code, email=target)
+        self.send_mail(text, html, message, target)
 
+    def send_mail(self, text, html, message, target):
         part1 = MIMEText(text, "plain")
         part2 = MIMEText(html, "html")
 
