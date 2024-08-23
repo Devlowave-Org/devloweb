@@ -10,7 +10,7 @@
     <ul class="space-y-2">
       <li>
         <a
-          href="/home"
+          href="/home/account"
           class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
         >
           <svg
@@ -27,129 +27,22 @@
         </a>
       </li>
       <li>
-        <button
-          type="button"
-          class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
-          aria-controls="dropdown-params"
-          data-collapse-toggle="dropdown-params"
+        <a
+          href="/home/editeur"
+          class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
         >
-          <svg
-            class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
-              clip-rule="evenodd"
-            />
-            <path
-              fill-rule="evenodd"
-              d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
-              clip-rule="evenodd"
-            />
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
+              <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
+              <path d="M16 5l3 3"></path>
           </svg>
-
-          <span class="flex-1 ml-3 text-left whitespace-nowrap"
-            >Éditeur</span
-          >
-          <svg
-            aria-hidden="true"
-            class="w-6 h-6"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-        </button>
-        <ul id="dropdown-params" class="hidden py-2 space-y-2">
-          <li>
-            <a
-              href="/home/editeur"
-              class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
-              >Éditeur</a
-            >
-          </li>
-          <li>
-            <a
-              href="/parametres/theme"
-              class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
-              >Theme</a
-            >
-          </li>
-          <li>
-            <a
-              href="/parametres/images"
-              class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
-              >Images</a
-            >
-          </li>
-        </ul>
-      </li>
-      <li>
-        <button
-          type="button"
-          class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
-          aria-controls="dropdown-pages"
-          data-collapse-toggle="dropdown-pages"
-        >
-          <svg
-            aria-hidden="true"
-            class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="flex-1 ml-3 text-left whitespace-nowrap">Pages</span>
-          <svg
-            aria-hidden="true"
-            class="w-6 h-6"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-        </button>
-        <ul id="dropdown-pages" class="hidden py-2 space-y-2">
-          <li>
-            <a
-              href="/pages/add"
-              class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
-              >Ajouter une page</a
-            >
-          </li>
-          <li>
-            <a
-              href="/pages/list"
-              class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
-              >Liste des pages</a
-            >
-          </li>
-        </ul>
+          <span class="ml-3">Éditeur</span>
+        </a>
       </li>
       <li>
         <a
-          href="/domaine"
+          href="/home/domaine"
           class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
           ><svg
             class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -167,7 +60,7 @@
             />
           </svg>
 
-          <span class="ml-3">Domaine</span>
+          <span class="ml-3">Hébergement</span>
         </a>
       </li>
       <li>
@@ -269,23 +162,7 @@
     </ul>
   </div>
   <div
-    class="absolute bottom-0 left-0 justify-center p-4 w-full flex flex-col bg-gray-50 dark:bg-gray-800 z-20"
-  >
-    <div
-      class="flex align-center justify-center text-gray-700 dark:text-gray-200 mb-1"
-    >
-      <img
-        src="https://github.com/Devlowave-Org.png"
-        class="w-8 h-8 rounded-full"
-        alt="logo"
-      />
-      <a class="px-2 translate-y-1">x</a>
-      <img
-        src="https://github.com/DreamCloud-Development.png"
-        class="w-8 h-8 rounded-full"
-        alt="logo"
-      />
-    </div>
+    class="absolute bottom-0 left-0 justify-center p-4 w-full flex flex-col bg-gray-50 dark:bg-gray-800 z-20">
     <div class="text-sm text-gray-600 dark:text-gray-400">
       <a href="">Copyright © 2023-2024</a> ・ <a href="">ALL</a>
     </div>

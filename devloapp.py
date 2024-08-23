@@ -76,6 +76,12 @@ def route_home():
         return redirect(url_for('route_connexion'))
     return home.index()
 
+@app.route("/home/account")
+def route_account():
+    if 'email' not in session:
+        return redirect(url_for('route_connexion'))
+    return home.account()
+
 
 @app.route("/home/editeur", methods=("GET", "POST"))
 def route_editeur():

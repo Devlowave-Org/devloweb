@@ -19,6 +19,9 @@ def editeur():
     return render_template("editor/beta/editeur.html", data=json_site)
 
 
+def account():
+    return render_template('home/account.html')
+
 def parametres_theme(devlobdd):
     if request.method == 'POST':
         devlobdd.change_theme(session['ja_id'], request.form.get('theme'))
