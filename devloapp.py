@@ -35,6 +35,14 @@ else:
 def index():
     return render_template("index.html")
 
+@app.route("/conditions")
+def index():
+    return render_template("static/conditions.html")
+
+@app.route("/privacy")
+def index():
+    return render_template("static/privacy.html")
+
 """
 ESPACE INSCRIPTION/CONNEXION
 """
@@ -160,6 +168,9 @@ ESPACE SOUS-DOMAINES
 @app.route("/", subdomain="<ja_domain>")
 def ja_website(username):
     return username + ".your-domain.tld"
+    # print request.headers['Host']  # prints "domain1.com"
+
+
 """
 ESPACE ERREURS
 """
