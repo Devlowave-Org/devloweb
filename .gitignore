@@ -315,3 +315,4 @@ $RECYCLE.BIN/
 devloweb.db
 */devloweb.db
 tmp/
+node_modules/
