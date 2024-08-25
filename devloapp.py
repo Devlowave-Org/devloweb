@@ -1,5 +1,5 @@
 from flask import render_template, Flask, session, redirect, url_for, g, has_app_context
-from App import home, inscription, verification, connexion, resend, pof
+from App import home, inscription, verification, connexion, resend, pof, admin_space
 from App.utils.bdd import DevloBDD
 
 app = Flask(__name__)
@@ -143,6 +143,7 @@ ESPACE SOUS-DOMAINES
 @app.route("/", subdomain="<ja_domain>")
 def ja_website(username):
     return username + ".your-domain.tld"
+
 """
 ESPACE ERREURS
 """
@@ -154,7 +155,13 @@ def page_not_found(e):
 def internal_error(e):
     return render_template('error/500.html', error=e), 500
 
+"""
+ESPACE ADMIN
+"""
+@app.route("/admin_space", methods=("GET", "POST"))
+def route_admin_space():
+    return render_template(admin_space.pannel())
 
 if __name__ == "__main__":
     # therms-and-conditions
-    app.run(port=5555)
+    app.run(host="0.0.0.0", port=5555)
