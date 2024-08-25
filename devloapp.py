@@ -160,7 +160,7 @@ ESPACE ADMIN
 """
 @app.route("/admin_space", methods=("GET", "POST"))
 def route_admin_space():
-    return render_template(admin_space.pannel())
+    return admin_space.panel(get_db())
 
 if __name__ == "__main__":
     # therms-and-conditions

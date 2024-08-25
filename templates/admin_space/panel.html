@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Bar Example</title>
+</head>
+<body>
+
+    <form action="/admin_space" method="POST">
+        <input type="text" id="search" name="query" placeholder="ja-1111">
+        <input type="submit" value="Search">
+    </form>
+
+    {% if id %}
+        <p>ja-<strong>{{ id }}</strong>, active : {{ website_status }}</p>
+    {% endif %}
+
+</body>
+</html>
