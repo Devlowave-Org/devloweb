@@ -36,11 +36,11 @@ def index():
     return render_template("index.html")
 
 @app.route("/conditions")
-def index():
+def conditions():
     return render_template("static/conditions.html")
 
 @app.route("/privacy")
-def index():
+def privacy():
     return render_template("static/privacy.html")
 
 """
@@ -165,7 +165,7 @@ def logout():
 """
 ESPACE SOUS-DOMAINES
 """
-@app.route("/", subdomain="<ja_domain>")
+#@app.route("/", subdomain="<ja_domain>")
 def ja_website(username):
     return username + ".your-domain.tld"
     # print request.headers['Host']  # prints "domain1.com"
@@ -193,5 +193,4 @@ def route_ja(ja_domain):
 
 
 if __name__ == "__main__":
-    # therms-and-conditions
     app.run(host="0.0.0.0", port=5555)
