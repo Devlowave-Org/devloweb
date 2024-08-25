@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ data['header']['title'] }}</title>
+    <link rel="stylesheet" href="/static/v1/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>{{ data['header']['title'] }}</h1>
+            <nav>
+                <ul id="nav-links">
+                    {% for link in data['header']['nav'] %}
+                    <li><a href="#">{{ link }}</a></li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>{{ data['hero']['headline'] }}</h2>
+            <p>{{ data['hero']['subheadline'] }}</p>
+            <a href="#" class="btn">{{ data['hero']['cta'] }}</a>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2>{{ data['about']['title'] }}</h2>
+            <p>{{ data['about']['description'] }}</p>
+        </div>
+    </section>
+
+    <section id="programs" class="programs">
+        <div class="container">
+            <h2>{{ data['programs']['title'] }}</h2>
+            <div class="program-list" id="program-list">
+                {% for program in data['programs']['program_list'] %}
+                <div class="program-item">
+                    <h3>{{ program['title'] }}</h3>
+                    <p>{{ program['description'] }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="events" class="events">
+        <div class="container">
+            <h2>{{ data['events']['title'] }}</h2>
+            <div class="event-list" id="event-list">
+                {% for event in data['events']['event_list'] %}
+                <div class="event-item">
+                    <h3>{{ event['title'] }}</h3>
+                    <p>{{ event['description'] }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="donate" class="donate">
+        <div class="container">
+            <h2>{{ data['donate']['title'] }}</h2>
+            <p>{{ data['donate']['description'] }}</p>
+            <a href="#" class="btn">{{ data['donate']['cta'] }}</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>{{ data['footer']['copyright'] }}</p>
+            <ul id="footer-social-links">
+                {% for link in data['footer']['social_links'] %}
+                <li><a href="#">{{ link }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

@@ -7,10 +7,12 @@ class DevloBDD:
         self.conn = sqlite3.connect(name+".db")
         self.cursor = self.conn.cursor()
         # Creation de la base de donnée utilisateur
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, name TEXT NOT NULL ,password TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, date TEXT NOT NULL)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT NOT NULL, last TEXT NOT NULL, punition TEXT NOT NULL)""")
-        # self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, url TEXT, theme TEXT NOT NULL, creation TEXT NOT NULL, titre TEXT, soustitre TEXT, description TEXT, logo TEXT NOT NULL, projet1 TEXT, projet11 TEXT, projet2 TEXT, projet22 TEXT, projet3 TEXT, projet33 TEXT, valeurs TEXT, valeur1 TEXT, valeur11 TEXT, valeur2 TEXT, valeur22 TEXT, valeur3 TEXT, valeur33 TEXT, valeur4 TEXT, valeur44 TEXT, text1 TEXT, text2 TEXT, titre1 TEXT, titre2 TEXT)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, theme TEXT NOT NULL, active INT DEFAULT 0)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS magic_link(code TEXT NOT NULL, ja_id TEXT NOT NULL, date TEXT NOT NULL)""")
+
         self.conn.commit()
         print(f"{name} est prêt")
 
@@ -22,12 +24,16 @@ class DevloBDD:
         self.conn.commit()
 
 
-    def inscire_ja(self, ja_id, email, password):
-        self.cursor.execute("INSERT INTO users(ja_id, email, password, date) VALUES (?, ?, ?, ?)", (ja_id, email, password, datetime.now()))
+    def inscire_ja(self, ja_id, email, password, name):
+        self.cursor.execute("INSERT INTO users(ja_id, email, name, password, date) VALUES (?, ?, ?, ?, ?)", (ja_id, email, name, password, datetime.now()))
         self.conn.commit()
 
     def delete_ja(self, email):
         self.cursor.execute("DELETE FROM users WHERE email = ?", (email,))
+        self.conn.commit()
+
+    def change_password(self, ja_id: str, password: str):
+        self.cursor.execute("UPDATE users SET password = ? WHERE ja_id = ?", (password, ja_id))
         self.conn.commit()
 
 
@@ -151,6 +157,56 @@ class DevloBDD:
 
     def delete_try(self, ip: str):
         self.cursor.execute("DELETE FROM security WHERE ip = ?", (ip,))
+        self.conn.commit()
+
+
+    """
+    Partie site web
+    """
+    def init_website(self, ja_id, domain="", theme="basic"):
+        self.cursor.execute("INSERT INTO sites(ja_id, domain, theme) VALUES (?, ?, ?)", (ja_id, domain, theme))
+        self.conn.commit()
+
+    def enable_website(self, ja_id):
+        self.cursor.execute("UPDATE sites SET active = 1 WHERE ja_id = ?", (ja_id,))
+        self.conn.commit()
+
+    def get_ja_by_domain(self, domain):
+        self.cursor.execute("SELECT * FROM sites  WHERE domain=?", (domain,))
+        try:
+            return self.cursor.fetchall()[0]
+        except IndexError:
+            return None
+
+    def set_domain_name(self, ja_id, domain):
+        self.cursor.execute("UPDATE sites SET domain = ? WHERE ja_id = ?", (domain, ja_id))
+        self.conn.commit()
+
+
+    """
+    partie magic link
+    """
+    def magic_link_exists(self, code: str) -> bool:
+        self.cursor.execute("SELECT COUNT(*) FROM magic_link WHERE code = ?", (code,))
+        if self.cursor.fetchone()[0]:
+            return True
+        else:
+            return False
+
+    def get_magic_link_by_ja(self, ja_id: str) -> bool:
+        self.cursor.execute("SELECT * FROM magic_link WHERE code = ?", (ja_id,))
+        return self.cursor.fetchone()
+
+    def store_magic_link(self, code, ja_id):
+        self.cursor.execute("INSERT INTO magic_link(code, ja_id, date) VALUES (?, ?, ?)", (code, ja_id, datetime.now()))
+        self.conn.commit()
+
+    def get_magic_link(self, code: str):
+        self.cursor.execute("SELECT * FROM magic_link WHERE code = ?", (code,))
+        return self.cursor.fetchone()
+
+    def delete_magic_link(self, ja_id):
+        self.cursor.execute("DELETE FROM magic_link WHERE ja_id = ?", (ja_id,))
         self.conn.commit()
 
     def quit_bdd(self):

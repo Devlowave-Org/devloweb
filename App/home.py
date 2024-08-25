@@ -7,19 +7,20 @@ def index():
     return render_template('home/index.html')
 
 
-
 def editeur():
     json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
     print(json_site)
 
     if request.method == "POST":
+        print(request.form.keys())
         form = request.form.to_dict()
-        with open(f"tmp/{session['ja_id']}/site.json", "w") as f:
-            json.dump(form, f)
-        json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
+        utils.editeur_form_processing(form, json_site, session['ja_id'])
 
-    return render_template("editor/v1/editeur.html", data=json_site)
+    return render_template("editor/beta/editeur.html", data=json_site)
 
+
+def account():
+    return render_template('home/account.html')
 
 def parametres_theme(devlobdd):
     if request.method == 'POST':

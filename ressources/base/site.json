@@ -1,1 +1,59 @@
-{"titre": "", "valeur1": "", "valider": ""}
+{
+  "header": {
+    "title": "",
+    "nav": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "hero": {
+    "headline": "",
+    "subheadline": "",
+    "cta": ""
+  },
+  "about": {
+    "title": "",
+    "description": ""
+  },
+  "valeurs":
+     [
+      {
+        "title": "",
+        "description": ""
+      },
+      {
+        "title": "",
+        "description": ""
+      },
+      {
+        "title": "",
+        "description": ""
+      }
+    ],
+  "membres": {
+    "title": "",
+    "list": [
+      {
+        "image": "",
+        "name": "",
+        "role": ""
+      }
+    ]
+  },
+  "footer": {
+    "copyright": "",
+    "reseaux": [
+      "",
+      "",
+      ""
+    ],
+    "links": [
+      "",
+      "",
+      ""
+    ]
+  }
+}

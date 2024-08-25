@@ -15,22 +15,21 @@
     </style>
 </head>
 <body>
-<form action="" method="post">
+<form name="v1" action="" method="post">
     <header>
         <div class="container">
-            <input type="text" id="header-title" name="header-title" class="text-input" value="Your Nonprofit Name">
+            <input type="text" id="header-title" name="header-title" class="text-input" value="{{  data["header"]["title"] }}">
             <nav>
-                <ul id="nav-links">
-                    <li><input type="text" class="text-input nav-link" name="nav-link-1" value="About Us"></li>
-                    <li><input type="text" class="text-input nav-link" name="nav-link-2" value="Programs"></li>
-                    <li><input type="text" class="text-input nav-link" name="nav-link-3" value="Events"></li>
-                    <li><input type="text" class="text-input nav-link" name="nav-link-4" value="Donate"></li>
-                    <li><input type="text" class="text-input nav-link" name="nav-link-5" value="Contact"></li>
+                <ul id="header-nav-links">
+                    <li><input type="text" class="text-input nav-link" name="header-navlink-1" value="About Us"></li>
+                    <li><input type="text" class="text-input nav-link" name="header-navlink-2" value="Programs"></li>
+                    <li><input type="text" class="text-input nav-link" name="header-navlink-3" value="Events"></li>
+                    <li><input type="text" class="text-input nav-link" name="header-navlink-4" value="Donate"></li>
+                    <li><input type="text" class="text-input nav-link" name="header-navlink-5" value="Contact"></li>
                 </ul>
             </nav>
         </div>
     </header>
-
     <section class="hero">
         <div class="container">
             <input type="text" id="hero-headline" name="hero-headline" class="text-input" value="Making a Difference, One Step at a Time">
@@ -111,7 +110,9 @@
             </ul>
         </div>
     </footer>
-    <button type="submit" class="btn" name="enregistrer" id="enregistrer">ENREGISTRER</button>
+<button type="submit" class="btn" name="enregistrer" id="enregistrer">ENREGISTRER</button>
+
 </form>
+
 </body>
 </html>

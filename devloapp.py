@@ -164,4 +164,4 @@ def route_admin_space():
 
 if __name__ == "__main__":
     # therms-and-conditions
-    app.run(host="0.0.0.0", port=5555)
+    app.run(port=5555)
