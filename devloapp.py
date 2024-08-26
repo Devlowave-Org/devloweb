@@ -214,4 +214,4 @@ def route_ja(ja_domain):
 
 if __name__ == "__main__":
     # therms-and-conditions
-    app.run(port=5555)
+    app.run()
