@@ -1,6 +1,7 @@
 from flask import render_template, Flask, session, redirect, url_for, g, has_app_context
-from App import home, inscription, verification, connexion, resend, pof, admin_space
+from App import home, inscription, verification, connexion, resend, pof
 from App.utils.bdd import DevloBDD
+from App.admin_space import admin_space
 
 app = Flask(__name__)
 app.debug = True
@@ -160,7 +161,7 @@ ESPACE ADMIN
 """
 @app.route("/admin_space", methods=("GET", "POST"))
 def route_admin_space():
-    return admin_space.panel(get_db())
+    return admin_space.load_panel(get_db())
 
 if __name__ == "__main__":
     # therms-and-conditions

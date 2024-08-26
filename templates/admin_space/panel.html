@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Bar Example</title>
+    <title>Admin pannel</title>
 </head>
 <body>
 
@@ -12,13 +12,31 @@
         <input type="submit" value="Search">
     </form>
 
-    {% if ja_id %}
-        <input type="checkbox" {{ website_status }}>
-        JA-{{ ja_id }}
+    {% if search_result[1] %}
+        <table>
+            <thead>
+                <tr>
+                    <th>{{ search_result[0] }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                    {% for cell, checkbox_parameters in zip(search_result[1], search_result[2]) %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" {{ checkbox_parameters }}>
+                                {{ cell | safe }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
     {% endif %}
+
     {% if error %}
         <p>{{ error }}</p>
     {% endif %}
+
+
 
 </body>
 </html>
