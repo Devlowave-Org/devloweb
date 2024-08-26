@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.debug = True
 app.secret_key = "banane"
 app.which = "devlobdd"
-
+app.config["SERVER_NAME"] = "devlowave.fr:5555"
 
 def get_db():
     db = getattr(g, "_database", None)
@@ -31,6 +31,9 @@ if __name__ != "__main__":
 else:
     devlobdd = DevloBDD()
 """
+
+@app.before_request
+def before_request():
 
 
 @app.route("/")
