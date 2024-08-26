@@ -34,7 +34,7 @@ else:
 
 @app.before_request
 def before_request():
-
+    pass
 
 @app.route("/")
 def index():
@@ -214,4 +214,4 @@ def route_ja(ja_domain):
 
 if __name__ == "__main__":
     # therms-and-conditions
-    app.run()
+    app.run(host="0.0.0.0")
