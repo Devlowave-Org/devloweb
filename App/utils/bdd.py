@@ -169,7 +169,7 @@ class DevloBDD:
         self.conn.commit()
 
     def enable_website(self, ja_id):
-        self.cursor.execute("UPDATE sites SET active = 1 WHERE ja_id = ?", (ja_id,))
+        self.cursor.execute("UPDATE sites SET status = 1 WHERE ja_id = ?", (ja_id,))
         self.conn.commit()
 
     def get_ja_by_domain(self, domain):
@@ -182,6 +182,8 @@ class DevloBDD:
     def set_domain_name(self, ja_id, domain):
         self.cursor.execute("UPDATE sites SET domain = ? WHERE ja_id = ?", (domain, ja_id))
         self.conn.commit()
+
+
 
 
     """

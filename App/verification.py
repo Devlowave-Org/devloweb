@@ -21,7 +21,7 @@ def verify_email(devlobdd):
             utils.create_ja_folder(ja_id)
             devlobdd.activer_ja(ja_id)
             devlobdd.delete_code(request.form["verif"])
-            devlobdd.init_website(ja_id, "", "v1")
+            devlobdd.init_website(ja_id, "", "beta")
             return redirect(url_for("route_home"))
         else:
             # Sinon je lui fais passer un sale quart d'heure

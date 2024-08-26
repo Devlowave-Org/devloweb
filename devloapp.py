@@ -68,8 +68,6 @@ def route_resend():
 """
 ESPACE MODIFICATION DU SITE
 """
-
-
 @app.route("/home")
 def route_home():
     if 'email' not in session:
@@ -108,6 +106,12 @@ def route_beta():
     if 'email' not in session:
         return redirect(url_for('route_connexion'))
     return home.editeur()
+
+@app.route("/home/hebergement", methods=("GET", "POST"))
+def route_hebergement():
+    if 'email' not in session:
+        return redirect(url_for('route_connexion'))
+    return home.hebergement(get_db())
 
 
 @app.route("/editeur/pof", methods=("GET", "POST"))
@@ -157,9 +161,13 @@ def logout():
 """
 ESPACE SOUS-DOMAINES
 """
+
+"""
 @app.route("/", subdomain="<ja_domain>")
-def ja_website(username):
-    return username + ".your-domain.tld"
+def ja_website(ja_domain):
+    return ja_domain + "devloweb.local"
+"""
+
 """
 ESPACE ERREURS
 """
