@@ -35,6 +35,14 @@ else:
 def before_request():
     pass
 
+
+
+@app.route("/", subdomain="<ja_domain>")
+def ja_website(ja_domain):
+    print(ja_domain)
+    return ja_domain + "devlowave.fr"
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -173,17 +181,6 @@ def route_domaine():
 def logout():
     session.clear()
     return redirect(url_for('index'))
-
-
-"""
-ESPACE SOUS-DOMAINES
-"""
-
-
-@app.route("/", subdomain="api")
-def ja_website(ja_domain):
-    print(ja_domain)
-    return ja_domain + "devlowave.fr"
 
 
 """
