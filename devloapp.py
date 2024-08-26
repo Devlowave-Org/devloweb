@@ -43,9 +43,6 @@ def ja_website(ja_domain):
     return ja_domain + "devlowave.fr"
 
 
-@app.route("/")
-def index():
-    return render_template("index.html")
 
 
 """
