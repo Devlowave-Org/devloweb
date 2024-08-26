@@ -180,7 +180,7 @@ ESPACE SOUS-DOMAINES
 """
 
 
-@app.route("/", subdomain="<ja_domain>")
+@app.route("/", subdomain="api")
 def ja_website(ja_domain):
     print(ja_domain)
     return ja_domain + "devlowave.fr"
