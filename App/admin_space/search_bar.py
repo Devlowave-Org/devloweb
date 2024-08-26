@@ -34,13 +34,12 @@ def list_generator(received_list, devlobdd, all_ids):
     list_to_return = received_list
 
     if type(all_ids) is list:
-        print("a")
         for index in range(len(all_ids)):
             website_status = website_status_reader(devlobdd, all_ids[index])
             checkbox_parameters = checkbox_parameter_manager(website_status)
             list_to_return[1] = list_to_return[1] + [f"{all_ids[index]}"]
             list_to_return[2] = list_to_return[2] + [f"{checkbox_parameters}"]
-            
+
     elif type(all_ids) is int:
             print(f"1{all_ids}")
             website_status = website_status_reader(devlobdd, all_ids)
