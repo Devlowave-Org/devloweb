@@ -6,6 +6,7 @@ app = Flask(__name__)
 app.debug = True
 app.secret_key = "banane"
 app.which = "devlobdd"
+app.config["SERVER_NAME"] = "devlowave.fr:80"
 
 
 def get_db():
