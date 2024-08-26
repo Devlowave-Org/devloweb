@@ -1,0 +1,23 @@
+name: remote ssh command
+on:
+  push:
+    branches:
+      - beta
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v1.0.1
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: |
+          cd devloweb
+          git pull
+          sudo systemctl restart devloweb.service
+          echo "OK"
