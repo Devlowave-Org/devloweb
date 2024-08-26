@@ -162,11 +162,9 @@ def logout():
 ESPACE SOUS-DOMAINES
 """
 
-"""
 @app.route("/", subdomain="<ja_domain>")
 def ja_website(ja_domain):
     return ja_domain + "devloweb.local"
-"""
 
 """
 ESPACE ERREURS
@@ -191,4 +189,4 @@ def route_ja(ja_domain):
 
 if __name__ == "__main__":
     # therms-and-conditions
-    app.run(host="0.0.0.0", port=5555)
+    app.run(port=5555)
