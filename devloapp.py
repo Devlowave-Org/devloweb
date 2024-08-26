@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.debug = True
 app.secret_key = "banane"
 app.which = "devlobdd"
-app.config["SERVER_NAME"] = "devlowave.fr:5555"
+
 
 def get_db():
     db = getattr(g, "_database", None)
@@ -214,4 +214,4 @@ def route_ja(ja_domain):
 
 if __name__ == "__main__":
     # therms-and-conditions
-    app.run(host="0.0.0.0")
+    app.run(port=5555)
