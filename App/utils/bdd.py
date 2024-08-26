@@ -10,8 +10,9 @@ class DevloBDD:
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, name TEXT NOT NULL ,password TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, date TEXT NOT NULL)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT NOT NULL, last TEXT NOT NULL, punition TEXT NOT NULL)""")
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, theme TEXT NOT NULL, active INT DEFAULT 0)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, theme TEXT NOT NULL, status INT DEFAULT 0)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS magic_link(code TEXT NOT NULL, ja_id TEXT NOT NULL, date TEXT NOT NULL)""")
+
 
         self.conn.commit()
         print(f"{name} est prêt")
