@@ -92,7 +92,7 @@ class DevloBDD:
 
     def get_website_status_based_on_ja_id(self, ja_id):
         self.cursor.execute("SELECT active FROM sites WHERE ja_id = ?", (ja_id,))
-        self.cursor.fetchone()
+        return self.cursor.fetchone()
     
     
     """

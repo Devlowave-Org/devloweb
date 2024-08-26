@@ -12,8 +12,12 @@
         <input type="submit" value="Search">
     </form>
 
-    {% if id %}
-        <p>ja-<strong>{{ id }}</strong>, active : {{ website_status }}</p>
+    {% if ja_id %}
+        <input type="checkbox" {{ website_status }}>
+        JA-{{ ja_id }}
+    {% endif %}
+    {% if error %}
+        <p>{{ error }}</p>
     {% endif %}
 
 </body>
