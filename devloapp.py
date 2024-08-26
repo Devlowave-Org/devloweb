@@ -1,4 +1,4 @@
-from flask import render_template, Flask, session, redirect, url_for, g, has_app_context
+from flask import render_template, Flask, session, redirect, url_for, g
 from App import home, inscription, verification, connexion, resend, pof, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
 
@@ -19,8 +19,9 @@ def get_db():
 def close_connection(exception):
     db = getattr(g, '_database', None)
     if db is not None:
-        print("Je close la bdd")
+        print(f"Je close la bdd : {exception}")
         db.quit_bdd()
+
 
 """devlobdd = None
 if __name__ != "__main__":
@@ -31,13 +32,17 @@ else:
     devlobdd = DevloBDD()
 """
 
+
 @app.route("/")
 def index():
     return render_template("index.html")
 
+
 """
 ESPACE INSCRIPTION/CONNEXION
 """
+
+
 @app.route("/inscription", methods=("GET", "POST"))
 def route_inscription():
     return inscription.inscription(get_db())
@@ -52,13 +57,16 @@ def route_verification():
 def route_connexion():
     return connexion.connexion(get_db())
 
+
 @app.route("/forgotpassword", methods=("GET", "POST"))
 def route_forgot():
     return forgot_password.forgot_password(get_db())
 
+
 @app.route("/reset_password", methods=("GET", "POST"))
 def route_reset():
     return forgot_password.reset_password(get_db())
+
 
 @app.route("/resend", methods=("GET", "POST"))
 def route_resend():
@@ -68,11 +76,14 @@ def route_resend():
 """
 ESPACE MODIFICATION DU SITE
 """
+
+
 @app.route("/home")
 def route_home():
     if 'email' not in session:
         return redirect(url_for('route_connexion'))
     return home.index()
+
 
 @app.route("/home/account")
 def route_account():
@@ -101,11 +112,13 @@ def route_v1():
         return redirect(url_for('route_connexion'))
     return home.editeur()
 
+
 @app.route("/editeur/beta/editeur", methods=("GET", "POST"))
 def route_beta():
     if 'email' not in session:
         return redirect(url_for('route_connexion'))
     return home.editeur()
+
 
 @app.route("/home/hebergement", methods=("GET", "POST"))
 def route_hebergement():
@@ -124,6 +137,8 @@ def route_editeur_pof():
 """
 ESPACE GESTION DU THÈME
 """
+
+
 @app.route("/parametres/theme", methods=("GET", "POST"))
 def route_parametres_theme():
     if 'email' not in session:
@@ -162,16 +177,21 @@ def logout():
 ESPACE SOUS-DOMAINES
 """
 
+
 @app.route("/", subdomain="<ja_domain>")
 def ja_website(ja_domain):
-    return ja_domain + "devloweb.local"
+    return ja_domain + "devlowave.fr"
+
 
 """
 ESPACE ERREURS
 """
+
+
 @app.errorhandler(404)
-def page_not_found(e):
+def page_not_found():
     return render_template('error/404.html'), 404
+
 
 @app.errorhandler(500)
 def internal_error(e):
@@ -181,10 +201,11 @@ def internal_error(e):
 """
 GESTION DE GÉNÉRATION A LA VOLÉE
 """
+
+
 @app.route("/ja/<ja_domain>")
 def route_ja(ja_domain):
     return onthefly.gen_on_the_fly(ja_domain, get_db())
-
 
 
 if __name__ == "__main__":
