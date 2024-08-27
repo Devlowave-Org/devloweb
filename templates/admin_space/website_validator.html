@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-    {{ ja_id }}
+    {% if ja_id %}
+        <p>{{ ja_id }}</p>
+    {% endif %}
 </body>
 </html>

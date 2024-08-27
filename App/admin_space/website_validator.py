@@ -3,6 +3,7 @@ from App.utils import bdd, utils
 import re
 
 
-def load_website_validator():
-    param1 = request.args.get("ja_id")
-    return render_template('admin_space/website_validator.html', ja_id=param1)
+def get_submit_demand():
+    ja_id = request.args.get('ja_id')
+    print(ja_id)
+    return render_template('admin_space/website_validator.html', ja_id=ja_id)

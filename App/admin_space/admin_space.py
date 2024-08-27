@@ -1,28 +1,29 @@
-from select import error
+"""IMPORTS"""
+from calendar import error
 
 from flask import request, render_template, session, redirect, flash, url_for
+
+from App.admin_space.search_engine import search
+from App.admin_space.website_validator import get_submit_demand
 from App.utils import bdd, utils
-from App.admin_space import search_bar, website_details_area
+from App.admin_space import search_engine, website_details_area, connection
 
+
+"""CODE"""
 def load_panel(devlobdd):
-    selected_id = request.args.get("ja_id")
+    search_result = None
+    error = None
+    ja_id = request.args.get("ja_id")
+    is_connected = connection.connect()
 
-    # TODO : Connection thing
-    if selected_id:
-        search_result = None
-        error = None
-        website_details = website_details_area.load_website_details()
-    else:
-        search_result, website_details, error = search_bar.search(devlobdd)
+    if is_connected:
+        if ja_id:
+            website_details_area.load_website_details()
+        else:
+            search_result, error = search_engine.search(devlobdd)
 
-    try:
-        if len(search_result[2]) == 1 or request.form.get("ja_selector") == "1":
-            website_details = website_details_area.load_website_details()
-    except TypeError:
-        pass
+    return render_template("admin_space/panel.html", search_result=search_result, error=error,  zip=zip, url_for=url_for, len=len)
 
-    return render_template("admin_space/panel.html", search_result=search_result, website_details=website_details, error=error, selected_id=selected_id,  zip=zip, url_for=url_for)
 
 def load_website_validator():
-    param1 = request.args.get('param1')
-    return render_template("admin_space/website_validator.html", ja_id=param1)
+    return get_submit_demand()

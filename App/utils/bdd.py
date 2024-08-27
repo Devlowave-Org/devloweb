@@ -87,7 +87,7 @@ class DevloBDD:
         self.cursor.execute("SELECT * FROM sites WHERE ja_id = ?", (ja,))
         return self.cursor.fetchone()
 
-    def get_all_ja_with_website(self):
+    def all_ja_with_website_getter(self):
         self.cursor.execute("SELECT ja_id FROM sites")
         return self.cursor.fetchall()
 
