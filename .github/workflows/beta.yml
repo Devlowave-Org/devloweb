@@ -24,4 +24,4 @@ jobs:
           cd devloweb
           git pull
           sudo systemctl restart devloweb.service
-          env | grep ENV
+          env
