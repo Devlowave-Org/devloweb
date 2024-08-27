@@ -1,5 +1,5 @@
 from flask import render_template, Flask, session, redirect, url_for, g
-from App import home, inscription, verification, connexion, resend, pof, onthefly, forgot_password
+from App import home, inscription, verification, connexion, resend, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
 from App.utils.utils import is_connected
 from werkzeug.middleware.proxy_fix import ProxyFix
