@@ -37,7 +37,7 @@ def before_request():
 
 
 @app.route("/", subdomain="ja")
-def ja_website():
+def ja_redirect():
     return "ja.devlowave.fr FIXE"
 
 @app.route("/", subdomain="<ja_domain>")
