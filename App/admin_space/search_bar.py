@@ -1,6 +1,4 @@
 """IMPORTS"""
-from array import array
-
 from flask import request, render_template, session, redirect, flash, url_for
 from App.utils import bdd, utils
 import re
@@ -12,7 +10,6 @@ def search(devlobdd):
     website_details = None
     all_ids = get_all_ja_with_website(devlobdd)
     id = query_checker(devlobdd)
-    print(id)
 
     if id is "Invalid query" or id is "Ja does not exist nor have a website":
         error = id
@@ -27,7 +24,6 @@ def search(devlobdd):
             list_template = ["Results :", [], []]
             search_result = list_generator(list_template, devlobdd, id)
 
-    print(search_result)
     return search_result, website_details, error
 
 """UTILS FUNCTIONS"""
@@ -42,9 +38,7 @@ def list_generator(received_list, devlobdd, all_ids):
             list_to_return[2] = list_to_return[2] + [f"{checkbox_parameters}"]
 
     elif type(all_ids) is int:
-            print(f"1{all_ids}")
             website_status = website_status_reader(devlobdd, all_ids)
-            print(f"2{all_ids}")
             checkbox_parameters = checkbox_parameter_manager(website_status)
             list_to_return[1] = list_to_return[1] + [f"{all_ids}"]
             list_to_return[2] = list_to_return[2] + [f"{checkbox_parameters}"]
@@ -91,9 +85,9 @@ def website_status_reader(devlobdd, ja_id):
     if website_status is None:
         return "Not available"
     elif website_status == 0:
-        return ""
+        return "disabled"
     elif website_status == 1:
-        return "checked"
+        return "checked disabled"
     elif website_status == 2:
         return "Website submitted but not approved yet"
     elif website_status == 3:

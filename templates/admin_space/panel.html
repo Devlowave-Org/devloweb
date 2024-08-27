@@ -3,48 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin pannel</title>
+    <link rel="stylesheet" href="static/panel.css">
+    <title>Admin panel</title>
 </head>
 <body>
-    <div class="search_area">
-        <form action="/admin_space" method="POST">
-            <input type="text" id="search" name="query" placeholder="ja-1111">
-            <input type="submit" value="Search">
-        </form>
+    <div class="admin_panel">
+        <div class="search_area">
+            <form action="/admin_space" method="POST">
+                <label><strong>Search a particular JA :</strong></label>
+                <input type="text" id="search" name="query" placeholder="ja-xxxx or xxxx">
+                <input type="submit" value="Search">
+            </form>
 
-        {% if search_result[1] %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>
-                            {{ search_result[0] }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                        {% for ja_id, checkbox_parameters in zip(search_result[1], search_result[2]) %}
-                            <tr>
-                                <td>
-                                    <form action="/admin_space" method="POST">
-                                        <input type="checkbox" {{ checkbox_parameters }}>
-                                        <input type="submit" value="{{ ja_id | safe }}">
-                                    </form>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                </tbody>
-            </table>
-        {% endif %}
+            {% if search_result[1] %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                {{ search_result[0] }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            {% for ja_id, checkbox_parameters in zip(search_result[1], search_result[2]) %}
+                                <tr>
+                                    <td>
+                                        <form action="/admin_space" method="POST">
+                                            <input type="checkbox" {{ checkbox_parameters }}>
+                                            <button type="submit" value="1" name="ja_selector">{{ ja_id | safe }}</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
 
-        {% if error %}
-            <p>{{ error }}</p>
-        {% endif %}
-    </div>
-    {% if website_details[1] %}
-        <div>
-            p
+            {% if error %}
+                <p>{{ error }}</p>
+            {% endif %}
+
         </div>
-    {% endif %}
 
+
+        {% if selected_id %}
+            <div class="website_details_area">
+                <div class="website_details_area_website_status">
+                    Status: {{ website_details[1][0] }}
+                    {% if website_details[1][0] == "Standing for validation" %}<a target="_blank" href=" {{ url_for("route_admin_space_website_validator", ja_id=selected_id) }}">Validate</a>{% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+
+    </div>
 </body>
 </html>

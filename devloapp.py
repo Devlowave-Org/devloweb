@@ -2,6 +2,7 @@ from flask import render_template, Flask, session, redirect, url_for, g
 from App import home, inscription, verification, connexion, resend, pof, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
 from werkzeug.middleware.proxy_fix import ProxyFix
+from App.admin_space import admin_space
 
 app = Flask(__name__)
 app.secret_key = "banane"
@@ -199,6 +200,16 @@ def page_not_found(e):
 def internal_error(e):
     return render_template('error/500.html', error=e), 500
 
+"""
+ESPACE ADMIN
+"""
+@app.route("/admin_space", methods=("GET", "POST"))
+def route_admin_space():
+    return admin_space.load_panel(get_db())
+
+@app.route("/admin_space_website_validator", methods=("GET", "POST"))
+def route_admin_space_website_validator():
+    return admin_space.load_website_validator()
 
 
 if __name__ == "__main__":
