@@ -36,21 +36,9 @@ else:
     devlobdd = DevloBDD()
 """
 
-@app.before_request
-def before_request():
-    pass
-
-
-@app.route("/", subdomain="ja")
-def ja_redirect():
-    return "ja.devlowave.fr FIXE"
-
-@app.route("/", subdomain="<ja_domain>")
-def ja_website(ja_domain):
-    print(ja_domain)
-    return ja_domain + "devlowave.fr"
-
-
+@app.route("/")
+def index():
+    return render_template("index.html")
 
 
 """
@@ -206,6 +194,11 @@ def internal_error(e):
 """
 GESTION DE GÉNÉRATION A LA VOLÉE
 """
+
+
+@app.route("/", subdomain="<ja_domain>")
+def ja_website(ja_domain):
+    return onthefly.gen_on_the_fly(ja_domain, get_db())
 
 
 @app.route("/ja/<ja_domain>")
