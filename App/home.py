@@ -1,5 +1,5 @@
 from flask import request, render_template, session, redirect, flash, url_for
-from App.utils import bdd, utils, cloudflare
+from App.utils import utils, cloudflare
 import json
 
 
@@ -18,6 +18,11 @@ def editeur():
 
     return render_template("editor/beta/editeur.html", data=json_site)
 
+def hebergement(devlobdd):
+    if request.method == "POST":
+        print("Reçu")
+    return render_template("home/hebergement.html")
+
 
 def account():
     return render_template('home/account.html')
@@ -28,7 +33,7 @@ def parametres_theme(devlobdd):
     return render_template('home/parametres_theme.html', data=devlobdd.get_site_by_ja(session['ja_id']))
                                                                                          
 def site_verification(devlobdd):
-    return render_template('home/verification.html', data=devlobdd.get_site_by_ja(session['ja_id']))
+    return render_template('home/hebergement.html', data=devlobdd.get_site_by_ja(session['ja_id']))
 
 def domaine(devlobdd):
     if request.method == 'POST':
