@@ -9,7 +9,7 @@ app.which = "devlobdd"
 app.wsgi_app = ProxyFix(
     app.wsgi_app, x_for=1, x_proto=0, x_host=1, x_prefix=1
 )
-app.config["SERVER_NAME"] = "devlowave.fr"
+app.config["SERVER_NAME"] = "127.0.0.1:5555"
 
 
 def get_db():
@@ -94,7 +94,7 @@ ESPACE MODIFICATION DU SITE
 def route_home():
     if 'email' not in session:
         return redirect(url_for('route_connexion'))
-    return home.index()
+    return home.index(get_db())
 
 
 @app.route("/home/account")

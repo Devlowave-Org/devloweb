@@ -179,6 +179,10 @@ class DevloBDD:
         except IndexError:
             return None
 
+    def ask_hebergement(self, ja_id):
+        self.cursor.execute("UPDATE sites SET status = 2 WHERE ja_id = ?", (ja_id,))
+        self.conn.commit()
+
     def set_domain_name(self, ja_id, domain):
         self.cursor.execute("UPDATE sites SET domain = ? WHERE ja_id = ?", (domain, ja_id))
         self.conn.commit()
