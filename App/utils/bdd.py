@@ -1,28 +1,31 @@
 import sqlite3
-import time
+import pymysql
 from datetime import datetime
 
 class DevloBDD:
-    def __init__(self, name: str = "devlobdd"):
-        self.conn = sqlite3.connect(name+".db")
-        self.cursor = self.conn.cursor()
-        # Creation de la base de donnée utilisateur
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, name TEXT NOT NULL ,password TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, date TEXT NOT NULL)""")
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT NOT NULL, last TEXT NOT NULL, punition TEXT NOT NULL)""")
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, theme TEXT NOT NULL, active INT DEFAULT 0)""")
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS magic_link(code TEXT NOT NULL, ja_id TEXT NOT NULL, date TEXT NOT NULL)""")
+    def __init__(self, user, password, host, port, database=None):
+        self.database = database
+        self.port = port
+        self.host = host
+        self.password = password
+        self.user = user
+        self.cursor = None
+        self.connector = None
 
-        self.conn.commit()
-        print(f"{name} est prêt")
+    def connection(self):
+        self.connector = pymysql.connect(user=self.user, password=self.password, host=self.host, port=self.port,
+                                         database=self.database)  # Connection à la base de donnée.
+        self.cursor = self.connector.cursor()  # Création du curseur.
 
     def reset_bdd(self):
+        self.connection()  # Connection avec la base de données.
         self.cursor.execute("DROP TABLE IF EXISTS users")
         self.cursor.execute("DROP TABLE IF EXISTS verification")
         self.cursor.execute("DROP TABLE IF EXISTS security")
         self.cursor.execute("DROP TABLE IF EXISTS sites")
-        self.conn.commit()
-
+        self.cursor.close()  # Fermeture du curseur.
+        self.connector.commit()  # Enregistrement dans la base de donnée.
+        self.connector.close()  # Fermeture de la connexion.
 
     def inscire_ja(self, ja_id, email, password, name):
         self.cursor.execute("INSERT INTO users(ja_id, email, name, password, date) VALUES (?, ?, ?, ?, ?)", (ja_id, email, name, password, datetime.now()))
