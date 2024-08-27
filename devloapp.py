@@ -1,6 +1,8 @@
 from flask import render_template, Flask, session, redirect, url_for, g, has_app_context
 from App import home, inscription, verification, connexion, resend, pof, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
+from os import path, getcwd
+from json import load
 
 app = Flask(__name__)
 app.debug = True
@@ -11,6 +13,11 @@ app.which = "devlobdd"
 def get_db():
     db = getattr(g, "_database", None)
     if db is None:
+        file_path = path.abspath(path.join(getcwd(), "config.json"))  # Trouver le chemin complet du fichier config.json
+
+        # Lecture du fichier JSON
+        with open(file_path, 'r') as file:
+            config_data = load(file)  # Ouverture du fichier config.json
         db = g._database = DevloBDD(app.which)
     return db
 
