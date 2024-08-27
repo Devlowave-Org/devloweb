@@ -1,11 +1,15 @@
 from flask import render_template, Flask, session, redirect, url_for, g
 from App import home, inscription, verification, connexion, resend, pof, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 app = Flask(__name__)
-app.debug = True
 app.secret_key = "banane"
 app.which = "devlobdd"
+app.wsgi_app = ProxyFix(
+    app.wsgi_app, x_for=1, x_proto=0, x_host=1, x_prefix=1
+)
+app.config["SERVER_NAME"] = "devlowave.fr"
 
 
 def get_db():
@@ -33,9 +37,17 @@ else:
 """
 
 
-@app.route("/")
-def index():
+@app.route("/", subdomain="<subdomain>")
+def index(subdomain):
+    print(f"Acces depuis {subdomain} !")
+    if subdomain != "devlowave":
+        return onthefly.gen_on_the_fly(subdomain, get_db())
     return render_template("index.html")
+
+@app.route("/")
+def accueil():
+    return render_template("index.html")
+
 
 
 """
@@ -174,22 +186,12 @@ def logout():
 
 
 """
-ESPACE SOUS-DOMAINES
-"""
-
-
-@app.route("/", subdomain="<ja_domain>")
-def ja_website(ja_domain):
-    return ja_domain + "devlowave.fr"
-
-
-"""
 ESPACE ERREURS
 """
 
 
 @app.errorhandler(404)
-def page_not_found():
+def page_not_found(e):
     return render_template('error/404.html'), 404
 
 
@@ -198,16 +200,7 @@ def internal_error(e):
     return render_template('error/500.html', error=e), 500
 
 
-"""
-GESTION DE GÉNÉRATION A LA VOLÉE
-"""
-
-
-@app.route("/ja/<ja_domain>")
-def route_ja(ja_domain):
-    return onthefly.gen_on_the_fly(ja_domain, get_db())
-
 
 if __name__ == "__main__":
     # therms-and-conditions
-    app.run(port=5555)
+    app.run(host="127.0.0.1", port=5555, debug=True)
