@@ -1,10 +1,15 @@
 from flask import render_template, Flask, session, redirect, url_for, g
 from App import home, inscription, verification, connexion, resend, pof, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 app = Flask(__name__)
 app.secret_key = "banane"
 app.which = "devlobdd"
+app.wsgi_app = ProxyFix(
+    app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
+)
+app.config["SERVER_NAME"] = "devlowave.fr:80"
 
 
 def get_db():
