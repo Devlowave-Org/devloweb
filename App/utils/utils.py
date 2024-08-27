@@ -6,7 +6,17 @@ from datetime import datetime, timedelta
 import App.utils.email_api as email_api
 from threading import Thread
 import shutil
-import bcrypt
+
+
+def is_connected(session, devlobdd):
+    if session.get('ja_id') is None:
+        return False
+    if not devlobdd.ja_exists(session.get('ja_id')):
+        print(f"ON DÉCONNECTE {session['ja_id']} !")
+        session.clear()
+        return False
+    return True
+
 
 def email_validator(email: str) -> bool:
     regex = compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
