@@ -36,6 +36,9 @@ def before_request():
     pass
 
 
+@app.route("/", subdomain="ja")
+def ja_website():
+    return "ja.devlowave.fr FIXE"
 
 @app.route("/", subdomain="<ja_domain>")
 def ja_website(ja_domain):
