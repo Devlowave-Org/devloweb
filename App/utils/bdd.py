@@ -10,8 +10,9 @@ class DevloBDD:
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS users(ja_id TEXT NOT NULL, email TEXT NOT NULL, name TEXT NOT NULL ,password TEXT NOT NULL, date INT NOT NULL, active INT DEFAULT 0)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS verification(ja_id TEXT NOT NULL, code TEXT NOT NULL, date TEXT NOT NULL)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS security(ip TEXT NOT NULL,try INT DEFAULT 1, first TEXT NOT NULL, last TEXT NOT NULL, punition TEXT NOT NULL)""")
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, theme TEXT NOT NULL, active INT DEFAULT 0)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS sites(ja_id TEXT NOT NULL, domain TEXT, theme TEXT NOT NULL, status INT DEFAULT 0)""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS magic_link(code TEXT NOT NULL, ja_id TEXT NOT NULL, date TEXT NOT NULL)""")
+
 
         self.conn.commit()
         print(f"{name} est prêt")
@@ -177,7 +178,7 @@ class DevloBDD:
         self.conn.commit()
 
     def enable_website(self, ja_id):
-        self.cursor.execute("UPDATE sites SET active = 1 WHERE ja_id = ?", (ja_id,))
+        self.cursor.execute("UPDATE sites SET status = 1 WHERE ja_id = ?", (ja_id,))
         self.conn.commit()
 
     def get_ja_by_domain(self, domain):
@@ -187,9 +188,15 @@ class DevloBDD:
         except IndexError:
             return None
 
+    def ask_hebergement(self, ja_id):
+        self.cursor.execute("UPDATE sites SET status = 2 WHERE ja_id = ?", (ja_id,))
+        self.conn.commit()
+
     def set_domain_name(self, ja_id, domain):
         self.cursor.execute("UPDATE sites SET domain = ? WHERE ja_id = ?", (domain, ja_id))
         self.conn.commit()
+
+
 
 
     """
