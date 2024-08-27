@@ -1,6 +1,7 @@
 import pymysql
 from datetime import datetime
 
+
 class DevloBDD:
     def __init__(self, user, password, host, port, database=None):
         self.database = database
@@ -19,10 +20,10 @@ class DevloBDD:
     def reset_bdd(self):
         self.connection()  # Connection avec la base de données.
         # TODO: à enlever
-        self.cursor.execute("DROP TABLE IF EXISTS users")
-        self.cursor.execute("DROP TABLE IF EXISTS verification")
-        self.cursor.execute("DROP TABLE IF EXISTS security")
-        self.cursor.execute("DROP TABLE IF EXISTS sites")
+        self.cursor.execute("DROP TABLE IF EXISTS devloweb.users")
+        self.cursor.execute("DROP TABLE IF EXISTS devloweb.magic_link")
+        self.cursor.execute("DROP TABLE IF EXISTS devloweb.security")
+        self.cursor.execute("DROP TABLE IF EXISTS devloweb.sites")
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -30,123 +31,133 @@ class DevloBDD:
     def inscire_ja(self, ja_id, name, password, email):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("INSERT INTO users(ja_id, email, name, password, date_signin) VALUES (%s, %s, %s, %s, %s)", (ja_id, email, name, password, datetime.now()))
+        self.cursor.execute(
+            "INSERT INTO devloweb.users(ja_id, email, name, password, date_signin) VALUES (%s, %s, %s, %s, %s)",
+            (ja_id, email, name, password, datetime.now()))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
-
 
     def delete_ja(self, email):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("DELETE FROM users WHERE email = %s", (email,))
+        self.cursor.execute("DELETE FROM devloweb.users WHERE email = %s", (email,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
-
 
     def change_password(self, ja_id: str, password: str):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("UPDATE users SET password = %s WHERE ja_id = %s", (password, ja_id))
+        self.cursor.execute("UPDATE devloweb.users SET password = %s WHERE ja_id = %s", (password, ja_id))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
 
-    def change_theme(self, ja_id: str, theme : str):
+    def change_theme(self, ja_id: str, theme: str):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("UPDATE sites SET theme = %s WHERE ja_id = %s", (theme, ja_id))
+        self.cursor.execute("UPDATE devloweb.sites SET theme = %s WHERE ja_id = %s", (theme, ja_id))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
 
-    def change_domain(self, ja_id: str, url: str, domain : str):
+    def change_domain(self, ja_id: str, url: str, domain: str):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("UPDATE sites SET domain = %s WHERE ja_id = %s", (url, domain, ja_id))
+        self.cursor.execute("UPDATE devloweb.sites SET domain = %s WHERE ja_id = %s", (url, domain, ja_id))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
 
-        
     def ja_exists(self, ja_id: str) -> bool:
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT COUNT(*) FROM users WHERE ja_id = %s", (ja_id,))
+        self.cursor.execute("SELECT COUNT(*) FROM devloweb.users WHERE ja_id = %s", (ja_id,))
         if self.cursor.fetchone()[0]:
             return True
         else:
             return False
 
-    def activer_ja(self, ja_id: str):
+    def activer_email_ja(self, ja_id: str):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("UPDATE users SET active = 1 WHERE ja_id = %s", (ja_id,))
+        self.cursor.execute("UPDATE devloweb.users SET email_verified = 1 WHERE ja_id = %s", (ja_id,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
-
 
     def desactiver_ja(self, ja_id: str):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("UPDATE users SET active = 0 WHERE ja_id = %s", (ja_id,))
+        self.cursor.execute("UPDATE devloweb.users SET email_verified = 0 WHERE ja_id = %s", (ja_id,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
 
-
     def is_active(self, ja_id: int) -> bool:
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT active FROM users WHERE ja_id = %s", (ja_id,))
+        self.cursor.execute("SELECT email_verified FROM devloweb.users WHERE ja_id = %s", (ja_id,))
+        self.cursor.close()  # Fermeture du curseur.
+        self.connector.commit()  # Enregistrement dans la base de donnée.
+        self.connector.close()  # Fermeture de la connexion.
         if self.cursor.fetchone()[0]:
             return True
         else:
             return False
 
-
     def get_ja_by_mail(self, mail: str) -> list:
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT * FROM users WHERE email = %s", (mail,))
+        self.cursor.execute("SELECT * FROM devloweb.users WHERE email = %s", (mail,))
+        self.cursor.close()  # Fermeture du curseur.
+        self.connector.commit()  # Enregistrement dans la base de donnée.
+        self.connector.close()  # Fermeture de la connexion.
         return self.cursor.fetchone()
 
     def get_ja_byid(self, ja_id: str) -> list:
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT * FROM users WHERE ja_id = %s", (ja_id,))
+        self.cursor.execute("SELECT * FROM devloweb.users WHERE ja_id = %s", (ja_id,))
+        self.cursor.close()  # Fermeture du curseur.
+        self.connector.commit()  # Enregistrement dans la base de donnée.
+        self.connector.close()  # Fermeture de la connexion.
         return self.cursor.fetchone()
-    
+
     def view_data_website(self, ja_id: str) -> list:
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT * FROM sites WHERE ja_id = %s", (ja_id,))
+        self.cursor.execute("SELECT * FROM devloweb.sites WHERE ja_id = %s", (ja_id,))
+        self.cursor.close()  # Fermeture du curseur.
+        self.connector.commit()  # Enregistrement dans la base de donnée.
+        self.connector.close()  # Fermeture de la connexion.
         return self.cursor.fetchone()
-    
+
     def get_site_by_ja(self, ja: str) -> list:
         self.connection()  # Connection avec la base de données.
-        # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT * FROM sites WHERE ja_id = %s", (ja,))
+        self.cursor.execute("SELECT * FROM devloweb.sites WHERE ja_id = %s", (ja,))
+        self.cursor.close()  # Fermeture du curseur.
+        self.connector.commit()  # Enregistrement dans la base de donnée.
+        self.connector.close()  # Fermeture de la connexion.
         return self.cursor.fetchone()
 
     """
     Partie Code de Vérification
     """
+
     def store_code(self, ja_id, code):
         self.connection()  # Connection avec la base de données.
-        # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("INSERT INTO verification(ja_id, code, date) VALUES (%s, %s, %s)", (ja_id, code, datetime.now()))
+        self.cursor.execute(
+            "UPDATE devloweb.users SET email_verification_code = %s, email_verification_date = %s WHERE ja_id = %s",
+            (code, datetime.now(), ja_id))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
 
-
-    def code_exists(self, code: str) -> bool:
+    def _back_code_exists(self, code: str) -> bool:
         self.connection()  # Connection avec la base de données.
-        # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT COUNT(*) FROM verification WHERE code = %s", (code,))
+        self.cursor.execute("SELECT COUNT(*) FROM devloweb.users WHERE email_verification_code = %s", (code,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -158,7 +169,8 @@ class DevloBDD:
     def get_code_via_jaid(self, ja_id: str):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT ja_id, code, date FROM verification WHERE ja_id = %s", (ja_id,))
+        self.cursor.execute(
+            "SELECT email_verification_code, email_verification_code FROM devloweb.users WHERE ja_id = %s", (ja_id,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -167,39 +179,37 @@ class DevloBDD:
     def update_code(self, ja_id: int, code: str):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("UPDATE verification SET code = %s WHERE ja_id = %s", (code, ja_id))
+        self.cursor.execute("UPDATE devloweb.users SET email_verification_code = %s WHERE ja_id = %s", (code, ja_id))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
 
-
-    def delete_code(self, code: str) -> None:
+    def delete_code(self, ja_id: str) -> None:
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("DELETE FROM verification WHERE code = %s", (code,))
+        self.cursor.execute("UPDATE devloweb.users SET email_verification_code = '' WHERE ja_id = %s", (ja_id,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
-
-
 
     """
     Partie sécurité :
     -> try
     """
+
     def init_try(self, ip):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("INSERT INTO security(ip, first, last, punition) VALUES (%s, %s, %s, %s)", (ip, datetime.now(), datetime.now(), datetime.now()))
+        self.cursor.execute("INSERT INTO devloweb.security(ip, first, last, punition) VALUES (%s, %s, %s, %s)",
+                            (ip, datetime.now(), datetime.now(), datetime.now()))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
 
-
     def has_try(self, ip: str) -> bool:
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT COUNT(*) FROM security WHERE ip = %s", (ip,))
+        self.cursor.execute("SELECT COUNT(*) FROM devloweb.security WHERE ip = %s", (ip,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -211,11 +221,10 @@ class DevloBDD:
     def update_try(self, ip: str):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("UPDATE security SET try = try + 1, last = %s WHERE ip = %s", (datetime.now(), ip,))
+        self.cursor.execute("UPDATE devloweb.security SET try = try + 1, last = %s WHERE ip = %s", (datetime.now(), ip))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
-
 
     def add_try(self, ip: str):
         if self.has_try(ip):
@@ -231,7 +240,7 @@ class DevloBDD:
         """
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT ip, try, first, last, punition FROM security WHERE ip = %s", (ip,))
+        self.cursor.execute("SELECT * FROM devloweb.security WHERE ip = %s", (ip,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -240,56 +249,52 @@ class DevloBDD:
     def reset_try(self, ip: str):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("UPDATE security SET try = 1, first = last WHERE ip = %s", (ip,))
+        self.cursor.execute("UPDATE devloweb.security SET try = 1, first = last WHERE ip = %s", (ip,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
-
 
     def punish_try(self, ip: str, punition):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("UPDATE security SET punition = %s WHERE ip = %s", (punition, ip))
+        self.cursor.execute("UPDATE devloweb.security SET punition = %s WHERE ip = %s", (punition, ip))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
-
 
     def delete_try(self, ip: str):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("DELETE FROM security WHERE ip = %s", (ip,))
+        self.cursor.execute("DELETE FROM devloweb.security WHERE ip = %s", (ip,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
-
-
 
     """
     Partie site web
     """
+
     def init_website(self, ja_id, domain="", theme="basic"):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("INSERT INTO sites(ja_id, domain, theme) VALUES (%s, %s, %s)", (ja_id, domain, theme))
+        self.cursor.execute("INSERT INTO devloweb.sites(ja_id, domain, theme) VALUES (%s, %s, %s)",
+                            (ja_id, domain, theme))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
-
 
     def enable_website(self, ja_id):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("UPDATE sites SET active = 1 WHERE ja_id = %s", (ja_id,))
+        self.cursor.execute("UPDATE devloweb.sites SET status = 1 WHERE ja_id = %s", (ja_id,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
 
-
     def get_ja_by_domain(self, domain):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT * FROM sites  WHERE domain=%s", (domain,))
+        self.cursor.execute("SELECT * FROM devloweb.sites  WHERE domain=%s", (domain,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -301,20 +306,19 @@ class DevloBDD:
     def set_domain_name(self, ja_id, domain):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("UPDATE sites SET domain = %s WHERE ja_id = %s", (domain, ja_id))
+        self.cursor.execute("UPDATE devloweb.sites SET domain = %s WHERE ja_id = %s", (domain, ja_id))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
 
-
-
     """
     partie magic link
     """
+
     def magic_link_exists(self, code: str) -> bool:
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT COUNT(*) FROM magic_link WHERE code = %s", (code,))
+        self.cursor.execute("SELECT COUNT(*) FROM devloweb.magic_link WHERE code = %s", (code,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -326,7 +330,7 @@ class DevloBDD:
     def get_magic_link_by_ja(self, ja_id: str) -> bool:
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT * FROM magic_link WHERE code = %s", (ja_id,))
+        self.cursor.execute("SELECT ja_id, code, date FROM devloweb.magic_link WHERE code = %s", (ja_id,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -335,16 +339,16 @@ class DevloBDD:
     def store_magic_link(self, code, ja_id):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("INSERT INTO magic_link(code, ja_id, date) VALUES (%s, %s, %s)", (code, ja_id, datetime.now()))
+        self.cursor.execute("INSERT INTO devloweb.magic_link(code, ja_id, date) VALUES (%s, %s, %s)",
+                            (code, ja_id, datetime.now()))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
 
-
     def get_magic_link(self, code: str):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT * FROM magic_link WHERE code = %s", (code,))
+        self.cursor.execute("SELECT ja_id, code, date FROM devloweb.magic_link WHERE code = %s", (code,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -353,7 +357,7 @@ class DevloBDD:
     def delete_magic_link(self, ja_id):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("DELETE FROM magic_link WHERE ja_id = %s", (ja_id,))
+        self.cursor.execute("DELETE FROM devloweb.magic_link WHERE ja_id = %s", (ja_id,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.

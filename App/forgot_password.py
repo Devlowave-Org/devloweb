@@ -25,7 +25,7 @@ def forgot_password(devlobdd):
             return render_template('forgot_password.html', error="Une erreur est survenue")
 
         if devlobdd.get_magic_link_by_ja(ja_id):
-            row = devlobdd.magic_link_exists_by_ja(ja_id)
+            row = devlobdd.get_magic_link_exists_by_ja(ja_id)
             delta = datetime.now() - row[2]
 
             if delta.seconds < 30:

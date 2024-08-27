@@ -19,8 +19,8 @@ def verify_email(devlobdd):
             # J'active la JA
             # et je supprime e code de verif
             utils.create_ja_folder(ja_id)
-            devlobdd.activer_ja(ja_id)
-            devlobdd.delete_code(request.form["verif"])
+            devlobdd.activer_email_ja(ja_id)
+            devlobdd.delete_code(ja_id)
             devlobdd.init_website(ja_id, "", "v1")
             return redirect(url_for("route_home"))
         else:

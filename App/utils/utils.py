@@ -39,7 +39,7 @@ def create_verification_code(devlobdd) -> str:
     for i in range(length):
         code += str(random.randint(0, 9))
 
-    if devlobdd.code_exists(code):
+    if devlobdd._back_code_exists(code):
         create_verification_code(devlobdd)
     return code
 
