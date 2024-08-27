@@ -36,8 +36,11 @@ else:
     devlobdd = DevloBDD()
 """
 
-@app.route("/")
-def index():
+@app.route("/", sbdomain="<subdomain>")
+def index(subdomain):
+    print(f"Acces depuis {subdomain} !")
+    if subdomain != "":
+        return onthefly.gen_on_the_fly(subdomain, get_db())
     return render_template("index.html")
 
 
@@ -194,15 +197,8 @@ def internal_error(e):
 """
 GESTION DE GÉNÉRATION A LA VOLÉE
 """
-
-
 @app.route("/", subdomain="<ja_domain>")
 def ja_website(ja_domain):
-    return onthefly.gen_on_the_fly(ja_domain, get_db())
-
-
-@app.route("/ja/<ja_domain>")
-def route_ja(ja_domain):
     return onthefly.gen_on_the_fly(ja_domain, get_db())
 
 
