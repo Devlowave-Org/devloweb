@@ -41,9 +41,6 @@ if __name__ != "__main__":
 else:
     devlobdd = DevloBDD()
 """
-@app.before_request
-def before_request():
-    print(os.environ.keys())
 
 @app.route("/", subdomain="<subdomain>")
 def index(subdomain):
