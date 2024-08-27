@@ -3,8 +3,11 @@ on:
   push:
     branches:
       - beta
-jobs:
 
+env:
+  GMAIL_APP: ${{ secrets.GMAIL_APP }}
+  SERVER_NAME: ${{ secrets.SERVER_NAME }}
+jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
