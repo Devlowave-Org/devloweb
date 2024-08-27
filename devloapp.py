@@ -7,9 +7,9 @@ app = Flask(__name__)
 app.secret_key = "banane"
 app.which = "devlobdd"
 app.wsgi_app = ProxyFix(
-    app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
+    app.wsgi_app, x_for=1, x_proto=0, x_host=1, x_prefix=1
 )
-app.config["SERVER_NAME"] = "devlowave.fr:80"
+app.config["SERVER_NAME"] = "devlowave.fr"
 
 
 def get_db():
@@ -215,4 +215,4 @@ def route_ja(ja_domain):
 
 if __name__ == "__main__":
     # therms-and-conditions
-    app.run(port=5555)
+    app.run()
