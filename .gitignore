@@ -5,6 +5,7 @@
 ### BDD ###
 *.db
 devlobdd.db
+tmp/*
 
 ### Flask ###
 instance/*
