@@ -9,11 +9,12 @@ import re
 def search(devlobdd):
     error = None
     search_result = None
+    website_details = None
     all_ids = get_all_ja_with_website(devlobdd)
     id = query_checker(devlobdd)
     print(id)
 
-    if id is "Invalid query" or id is "Ja does not exist xor have a website":
+    if id is "Invalid query" or id is "Ja does not exist nor have a website":
         error = id
     elif id is "No query":
         list_template = ["List of ja who created a website :", [], []]
@@ -26,8 +27,8 @@ def search(devlobdd):
             list_template = ["Results :", [], []]
             search_result = list_generator(list_template, devlobdd, id)
 
-
-    return search_result, error
+    print(search_result)
+    return search_result, website_details, error
 
 """UTILS FUNCTIONS"""
 def list_generator(received_list, devlobdd, all_ids):
@@ -74,7 +75,7 @@ def query_checker(devlobdd):
                     return "No query"
                 return "Invalid query"
             if search_query not in all_ja_with_website:
-                return "Ja does not exist xor have a website"
+                return "Ja does not exist nor have a website"
             else:
                 return search_query
 
