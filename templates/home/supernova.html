@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Connexion</title>
+    {% include 'tailwind.html' %}
+</head>
+
+<body>
+    <div class="antialiased bg-gray-100 dark:bg-gray-900">
+        {% include 'home/sidebar.html' %}
+        <main class="p-4 md:ml-64 h-auto pt-20 text-gray-900 dark:text-gray-50 min-h-screen max-h-screen">
+
+            <h1 class="text-2xl lg:text-4xl font-bold">
+                Editeur
+
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                    fill="currentColor">
+                    <path
+                        d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-640v560h560v-560h-80v280l-100-60-100 60v-280H200Zm0 560v-560 560Z" />
+                </svg>
+            </h1>
+
+            <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+
+                <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab"
+                    data-tabs-toggle="#default-tab-content" role="tablist">
+
+                    <li class="me-2" role="presentation">
+                        <button class="inline-flex p-4 border-b-2 rounded-t-lg" id="general-tab"
+                            data-tabs-target="#general" type="button" role="tab" aria-controls="general"
+                            aria-selected="false">
+                            <svg class="w-5 h-5 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M20 14h-2.722L11 20.278a5.511 5.511 0 0 1-.9.722H20a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1ZM9 3H4a1 1 0 0 0-1 1v13.5a3.5 3.5 0 1 0 7 0V4a1 1 0 0 0-1-1ZM6.5 18.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2ZM19.132 7.9 15.6 4.368a1 1 0 0 0-1.414 0L12 6.55v9.9l7.132-7.132a1 1 0 0 0 0-1.418Z" />
+                            </svg>
+
+                            General</button>
+                    </li>
+
+                    <li class="me-2" role="presentation">
+                        <button class="inline-flex p-4 border-b-2 rounded-t-lg" id="hero-tab" data-tabs-target="#hero"
+                            type="button" role="tab" aria-controls="hero" aria-selected="false">
+                            <svg class="w-5 h-5 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Hero</button>
+                    </li>
+
+                    <li class="me-2" role="presentation">
+                        <button class="inline-flex p-4 border-b-2 rounded-t-lg" id="valeurs-tab"
+                            data-tabs-target="#valeurs" type="button" role="tab" aria-controls="valeurs"
+                            aria-selected="false">
+                            <svg class="w-5 h-5 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
+                            </svg>
+                            Valeurs</button>
+                    </li>
+
+                    <li class="me-2" role="presentation">
+                        <button class="inline-flex p-4 border-b-2 rounded-t-lg" id="social-tab"
+                            data-tabs-target="#social" type="button" role="tab" aria-controls="social"
+                            aria-selected="false">
+                            <svg class="w-5 h-5 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M17.5 3a3.5 3.5 0 0 0-3.456 4.06L8.143 9.704a3.5 3.5 0 1 0-.01 4.6l5.91 2.65a3.5 3.5 0 1 0 .863-1.805l-5.94-2.662a3.53 3.53 0 0 0 .002-.961l5.948-2.667A3.5 3.5 0 1 0 17.5 3Z" />
+                            </svg>
+
+                            Résaux Sociaux</button>
+                    </li>
+
+                </ul>
+            </div>
+            <div id="default-tab-content" style="height: 60vh;">
+
+                <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="general" role="tabpanel"
+                    aria-labelledby="general-tab" style="height: -webkit-fill-available;">
+
+                    <h2 class="text-xl lg:text-3xl text-bold">Parametres Generaux</h2>
+
+                </div>
+                <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="hero" role="tabpanel"
+                    aria-labelledby="hero-tab" style="height: -webkit-fill-available;">
+                    <h2 class="text-xl lg:text-3xl text-bold relative">Hero
+                        <span
+                            class="ml-2 absolute bottom-50 bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">SECTION</span>
+                    </h2>
+                </div>
+                <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="valeurs" role="tabpanel"
+                    aria-labelledby="valeurs-tab" style="height: -webkit-fill-available;">
+                    <h2 class="text-xl lg:text-3xl text-bold relative">Valeurs
+                        <span
+                            class="ml-2 absolute bottom-50 bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">SECTION</span>
+                    </h2>
+                </div>
+                <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="social" role="tabpanel"
+                    aria-labelledby="social-tab" style="height: -webkit-fill-available;">
+                    <h2 class="text-xl lg:text-3xl text-bold relative">Résaux Sociaux
+                    </h2>
+                </div>
+
+            </div>
+            <button type="button"
+                class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Test
+                Submit</button>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</body>
+
+</html>

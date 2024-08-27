@@ -99,6 +99,13 @@ def route_editeur():
         return redirect(url_for('route_connexion'))
     return render_template("home/editeur.html")
 
+@app.route("/home/supernova", methods=("GET", "POST"))
+def route_supernova():
+    # C'est le DASHBOARD Éditeur
+    print(session)
+    if 'email' not in session:
+        return redirect(url_for('route_connexion'))
+    return render_template("home/supernova.html")
 
 @app.route("/pof", methods=("GET", "POST"))
 def route_pof():
