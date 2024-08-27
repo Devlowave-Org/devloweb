@@ -1,9 +1,8 @@
 {
   "database": {
-    "addr": "",
-    "port": "",
-    "username": "",
-    "password": "",
-    "database_name": ""
+    "addr": "127.0.0.1",
+    "port": 3306,
+    "username": "cantina",
+    "password": "LeMdPDeTest"
   }
 }

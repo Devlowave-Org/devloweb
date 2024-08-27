@@ -10,24 +10,15 @@ app.secret_key = "banane"
 app.which = "devlobdd"
 
 
-def get_db():
-    db = getattr(g, "_database", None)
-    if db is None:
-        file_path = path.abspath(path.join(getcwd(), "config.json"))  # Trouver le chemin complet du fichier config.json
+file_path = path.abspath(path.join(getcwd(), "config.json"))  # Trouver le chemin complet du fichier config.json
 
-        # Lecture du fichier JSON
-        with open(file_path, 'r') as file:
-            config_data = load(file)  # Ouverture du fichier config.json
-        db = g._database = DevloBDD(app.which)
-    return db
+# Lecture du fichier JSON
+with open(file_path, 'r') as file:
+    config_data = load(file)  # Ouverture du fichier config.json
+
+db = DevloBDD(config_data['database']['username'], config_data['database']['password'], config_data['database']['addr'], config_data['database']['port'])
 
 
-@app.teardown_appcontext
-def close_connection(exception):
-    db = getattr(g, '_database', None)
-    if db is not None:
-        print("Je close la bdd")
-        db.quit_bdd()
 
 """devlobdd = None
 if __name__ != "__main__":
@@ -47,29 +38,29 @@ ESPACE INSCRIPTION/CONNEXION
 """
 @app.route("/inscription", methods=("GET", "POST"))
 def route_inscription():
-    return inscription.inscription(get_db())
+    return inscription.inscription(db)
 
 
 @app.route("/verification", methods=("GET", "POST"))
 def route_verification():
-    return verification.verify_email(get_db())
+    return verification.verify_email(db)
 
 
 @app.route("/connexion", methods=("GET", "POST"))
 def route_connexion():
-    return connexion.connexion(get_db())
+    return connexion.connexion(db)
 
 @app.route("/forgotpassword", methods=("GET", "POST"))
 def route_forgot():
-    return forgot_password.forgot_password(get_db())
+    return forgot_password.forgot_password(db)
 
 @app.route("/reset_password", methods=("GET", "POST"))
 def route_reset():
-    return forgot_password.reset_password(get_db())
+    return forgot_password.reset_password(db)
 
 @app.route("/resend", methods=("GET", "POST"))
 def route_resend():
-    return resend.resend_email(get_db())
+    return resend.resend_email(db)
 
 
 """
@@ -131,7 +122,7 @@ ESPACE GESTION DU THÈME
 def route_parametres_theme():
     if 'email' not in session:
         return redirect(url_for('route_connexion'))
-    return home.parametres_theme(get_db())
+    return home.parametres_theme(db)
 
 
 @app.route("/pages/add", methods=("GET", "POST"))
@@ -145,14 +136,14 @@ def route_add_page():
 def route_site_verification():
     if 'email' not in session:
         return redirect(url_for('route_connexion'))
-    return home.site_verification(get_db())
+    return home.site_verification(db)
 
 
 @app.route("/domaine", methods=("GET", "POST"))
 def route_domaine():
     if 'email' not in session:
         return redirect(url_for('route_connexion'))
-    return home.domaine(get_db())
+    return home.domaine(db)
 
 
 @app.route('/logout')
@@ -184,7 +175,7 @@ GESTION DE GÉNÉRATION A LA VOLÉE
 """
 @app.route("/ja/<ja_domain>")
 def route_ja(ja_domain):
-    return onthefly.gen_on_the_fly(ja_domain, get_db())
+    return onthefly.gen_on_the_fly(ja_domain, db)
 
 
 
