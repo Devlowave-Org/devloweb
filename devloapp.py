@@ -15,6 +15,7 @@ app.wsgi_app = ProxyFix(
 if os.environ.keys().__contains__("SERVER_NAME") and os.environ["ENV"] == "prod":
     app.config["SERVER_NAME"] = os.environ["SERVER_NAME"]
 else:
+    print(os.environ)
     app.config["SERVER_NAME"] = "127.0.0.1:5555"
 
 
