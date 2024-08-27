@@ -1,4 +1,3 @@
-import sqlite3
 import pymysql
 from datetime import datetime
 
@@ -54,14 +53,22 @@ class DevloBDD:
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
 
-    """ def change_theme(self, ja_id: str, theme : str):
+    def change_theme(self, ja_id: str, theme : str):
+        self.connection()  # Connection avec la base de données.
+        # TODO: refaire la request avec le nouveau système
         self.cursor.execute("UPDATE sites SET theme = ? WHERE ja_id = ?", (theme, ja_id))
-        self.conn.commit()
+        self.cursor.close()  # Fermeture du curseur.
+        self.connector.commit()  # Enregistrement dans la base de donnée.
+        self.connector.close()  # Fermeture de la connexion.
 
     def change_domain(self, ja_id: str, url: str, domain : str):
+        self.connection()  # Connection avec la base de données.
+        # TODO: refaire la request avec le nouveau système
         self.cursor.execute("UPDATE sites SET url = ?, domain = ? WHERE ja_id = ?", (url, domain, ja_id))
-        self.conn.commit()
-        """
+        self.cursor.close()  # Fermeture du curseur.
+        self.connector.commit()  # Enregistrement dans la base de donnée.
+        self.connector.close()  # Fermeture de la connexion.
+
         
     def ja_exists(self, ja_id: str) -> bool:
         self.connection()  # Connection avec la base de données.
@@ -351,27 +358,6 @@ class DevloBDD:
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
 
-
-    def quit_bdd(self):
-        self.conn.close()
-
-
-    """
-    Partie Blog
-    Oui j'ai pas de vie
-    """
-    """
-    def post_data(self, slug: str) -> list:
-        self.cursor.execute("SELECT * FROM blog WHERE slug = ? AND website = 'PROD'", (slug,))
-        return self.cursor.fetchone()
-    
-    def post_exists(self, slug: str) -> bool:
-        self.cursor.execute("SELECT * FROM sites WHERE slug = ?", (slug,))
-        if self.cursor.fetchone()[0]:
-            return True
-        else:
-            return False
-    """
 
 
 if __name__ == '__main__':
