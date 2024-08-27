@@ -13,6 +13,7 @@
                 <label><strong>Search a particular JA :</strong></label>
                 <input type="text" id="search" name="query" placeholder="ja-xxxx or xxxx">
                 <input type="submit" value="Search">
+                <a href="/admin_space"><button>Back</button></a>
             </form>
 
             {% if search_result[1] %}
@@ -46,11 +47,21 @@
         </div>
 
 
-        {% if False %}
-            <div class="website_details_area">
-                {{ generate }}
+    <div class="website_details_area">
+        {% if website_details == None %}
+            <p>No info available or no ja selected</p>
+        {% endif %}
+        {% if website_details %}
+            <div class="website_details_area_subdomain_name">
+                example.devloweb.fr
+            </div>
+            <div class="website_details_area_website_status">
+                <label>Status of the website :</label>
+                <input type="checkbox" {{ search_result[2][0] }}>
+                {{ website_details[0] }}
             </div>
         {% endif %}
+    </div>
 
 
     </div>

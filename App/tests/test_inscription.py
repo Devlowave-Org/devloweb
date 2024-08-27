@@ -4,7 +4,6 @@ from datetime import datetime
 from App.utils.bdd import DevloBDD
 import pytest
 
-
 @pytest.fixture()
 def devlobdd():
     return DevloBDD("devlotest")
