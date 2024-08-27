@@ -11,11 +11,11 @@ app.which = "devlobdd"
 app.wsgi_app = ProxyFix(
     app.wsgi_app, x_for=1, x_proto=0, x_host=1, x_prefix=1
 )
-
+print(os.environ.values())
 if os.environ.keys().__contains__("SERVER_NAME") and os.environ["ENV"] == "prod":
     app.config["SERVER_NAME"] = os.environ["SERVER_NAME"]
 else:
-    print(os.environ)
+    print(os.environ.values())
     app.config["SERVER_NAME"] = "127.0.0.1:5555"
 
 
