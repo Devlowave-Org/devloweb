@@ -40,9 +40,14 @@ else:
 @app.route("/", subdomain="<subdomain>")
 def index(subdomain):
     print(f"Acces depuis {subdomain} !")
-    if subdomain != "":
+    if subdomain != "devlowave":
         return onthefly.gen_on_the_fly(subdomain, get_db())
     return render_template("index.html")
+
+@app.route("/")
+def accueil():
+    return render_template("index.html")
+
 
 
 """
@@ -198,4 +203,4 @@ def internal_error(e):
 
 if __name__ == "__main__":
     # therms-and-conditions
-    app.run()
+    app.run(host="127.0.0.1", port=5555, debug=True)
