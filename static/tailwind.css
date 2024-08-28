@@ -780,10 +780,6 @@ video {
   margin-inline-end: 0.5rem;
 }
 
-.ml-1 {
-  margin-left: 0.25rem;
-}
-
 .ml-2 {
   margin-left: 0.5rem;
 }
@@ -1660,10 +1656,6 @@ video {
 
 .pr-4 {
   padding-right: 1rem;
-}
-
-.pt-14 {
-  padding-top: 3.5rem;
 }
 
 .pt-16 {
