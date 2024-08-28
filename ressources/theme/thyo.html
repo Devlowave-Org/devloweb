@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="thyo.css">
 
 
-    <title>{{ title }} {{ title_strong }}</title>
+    <title>{{ data.title }} {{ data.title_strong }}</title>
     <script src="thyo.js" id="bw-fido2-page-script"></script>
     <script src="thyo.js"></script></head>
 <body>
@@ -55,9 +55,9 @@
     <section class="header-image header-image-animation" style="background-image: url(../../static/assets/header.png)">
     </section>
     <section class="header-text-information header-text-animation">
-        <h1>{{ title }} <strong class="green">{{ title_strong }}</strong></h1>
-        <h2>{{ attache }} <strong class="green">{{ attache_strong }}</strong></h2>
-        <p>{{ description }}</p>
+        <h1>{{ data.title }} <strong class="green">{{ data.title_strong }}</strong></h1>
+        <h2>{{ data.attache }} <strong class="green">{{ data.attache_strong }}</strong></h2>
+        <p>{{ data.description }}</p>
 
         <div class="header-button-container">
             <a href="" class="contact-button">Nous Contacter</a>
@@ -71,7 +71,7 @@
 
         {% for argument in arguments %}
         <div class="section-items end-header-animation">
-            <img src="{{ argument.image }}" alt="{{ argument.title }} {{ argument.strong }}">
+            <img src="{{ data.argument.image }}" alt="{{ argument.title }} {{ argument.strong }}">
             <h4>{{ argument.title }} <strong class="green">{{ argument.strong }}</strong></h4>
         </div>
         {% endfor %}

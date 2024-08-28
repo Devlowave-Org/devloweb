@@ -28,4 +28,4 @@ def verify_email(devlobdd):
             utils.add_a_try(devlobdd, request.remote_addr)
             return render_template("verification.html", error="Vous n'êtes pas verifié")
 
-    return render_template('verification.html')
+    return render_template('verification.html', key=request.args.get("key") or "", id=request.args.get("id") or "")

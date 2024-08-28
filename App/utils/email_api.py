@@ -2,6 +2,9 @@ import smtplib
 import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from jinja2 import Environment, PackageLoader, select_autoescape, FileSystemLoader
+
+
 
 class DevloMail:
     def __init__(self):
@@ -11,33 +14,26 @@ class DevloMail:
         self.app_pass = "hbbp gnba ftuf ijbt"
         self.context = ssl.create_default_context()
 
-    def send_verification_email(self, target, code):
+    def send_verification_email(self, target, code, ja_id):
+      
+        loader = FileSystemLoader('./templates')
+
+        env = Environment(
+            loader = loader,
+            autoescape=select_autoescape()
+        )
+        
+        
         message = MIMEMultipart("alternative")
         message["Subject"] = "multipart test"
         message["From"] = self.sender
         message["To"] = target
 
-        text = """\
-        Hey comment tu vas voici ton super code : {code}"""
-        text = text.format(code=code)
+        html = env.get_template("email.html").render(code=code, id=ja_id)
+        
+        content = MIMEText(html, "html")
 
-        html = """\
-        <html>
-          <body>
-            <p>Hi,<br>
-                How are you?<br>
-                Voici ton code : {code}
-            </p>
-          </body>
-        </html>
-        """
-        html = html.format(code=code)
-
-        part1 = MIMEText(text, "plain")
-        part2 = MIMEText(html, "html")
-
-        message.attach(part1)
-        message.attach(part2)
+        message.attach(content)
 
         with smtplib.SMTP_SSL(self.host, self.port, context=self.context) as server:
             server.login(self.sender, self.app_pass)

@@ -28,7 +28,7 @@ def etape_verification(devlobdd, ja_id):
     code = create_verification_code(devlobdd)
     store_code(devlobdd, ja_id, code)
     devlomail = email_api.DevloMail()
-    mailer_thread = Thread(target=devlomail.send_verification_email, args=(mail, code))
+    mailer_thread = Thread(target=devlomail.send_verification_email, args=(mail, code, ja_id))
     mailer_thread.start()
 
 def create_verification_code(devlobdd: object) -> str:
