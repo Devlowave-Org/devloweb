@@ -73,7 +73,7 @@
             <h1
               class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
             >
-              Connxion
+              Connexion
             </h1>
             <form class="space-y-4 md:space-y-6" action="" method="post">
               <div>
@@ -93,11 +93,19 @@
                 />
               </div>
               <div>
+                <div class="flex items-center justify-between">
+                 
                 <label
                   for="password"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >Password</label
                 >
+                <button
+                  class="block mb-2 text-sm font-medium text-gray-500 dark:text-gray-300"
+                  onclick="showPassword()"
+                  type="button"
+                  >Dévoiler le mot de passe</button
+                ></div>
                 <input
                   type="password"
                   name="password"
@@ -153,5 +161,16 @@
       </div>
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script>
+      function showPassword() {
+  var x = document.getElementById("password");
+  console.log(x);
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+    </script>
   </body>
 </html>

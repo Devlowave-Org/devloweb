@@ -1,39 +1,28 @@
 {
-  "header": {
-    "title": "",
-    "nav": [
-      "",
-      "",
-      "",
-      "",
-      ""
-    ]
-  },
   "hero": {
+    "enable": true,
     "headline": "",
     "subheadline": "",
     "cta": ""
   },
   "about": {
+    "enable": true,
     "title": "",
     "description": ""
   },
-  "valeurs":
-     [
+  "valeurs": {
+    "enable": true,
+    "title": "",
+    "list": [
       {
-        "title": "",
-        "description": ""
-      },
-      {
-        "title": "",
-        "description": ""
-      },
-      {
-        "title": "",
+        "icon": "",
+        "name": "",
         "description": ""
       }
-    ],
+    ]
+  },
   "membres": {
+    "enable": true,
     "title": "",
     "list": [
       {
@@ -43,17 +32,26 @@
       }
     ]
   },
-  "footer": {
-    "copyright": "",
-    "reseaux": [
-      "",
-      "",
-      ""
-    ],
-    "links": [
-      "",
-      "",
-      ""
-    ]
+  "resaux": {
+    "discord": {
+      "id": 123456789,
+      "invite": ""
+    },
+    "instagram": {
+      "alt": "",
+      "post": ""
+    },
+    "github": {
+      "alt": "",
+      "repo": ""
+    },
+    "youtube": {
+      "alt": "",
+      "video": ""
+    },
+    "twitter": "",
+    "bluesky": "",
+    "mastodon": "",
+    "twitch": ""
   }
 }

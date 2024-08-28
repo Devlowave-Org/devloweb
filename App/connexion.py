@@ -40,6 +40,7 @@ def connexion(devlobdd):
         session['email'] = email
         session['ip'] = ip
         session['ja_id'] = ja[0]
+        session['ja_name'] = ja[2]
         session['avatar'] = Gravatar(email).get_image()
         return redirect('/home')
 
