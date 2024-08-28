@@ -47,7 +47,7 @@
                   />
                 </svg>
 
-                General
+                Général
               </button>
             </li>
 
@@ -166,13 +166,12 @@
             </li>
           </ul>
         </div>
-        <div id="default-tab-content" style="min-height: 60vh;">
+        <div id="default-tab-content">
           <div
             class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
             id="general"
             role="tabpanel"
             aria-labelledby="general-tab"
-            style="height: -webkit-fill-available;"
           >
             <h2 class="text-xl lg:text-3xl font-bold">Parametres Generaux</h2>
             <h3 class="text-lg lg:text-xl font-semibold my-2">Logo</h3>
@@ -292,7 +291,7 @@
                 <input
                   type="text"
                   id="first_name"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="bg-gray-50 border border-red-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-red-950 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="🚫 {{ session['ja_name'] }}"
                   disabled readonly
                 />
@@ -332,7 +331,6 @@
             id="hero"
             role="tabpanel"
             aria-labelledby="hero-tab"
-            style="min-height: -webkit-fill-available;"
           >
             <h2 class="text-xl lg:text-3xl font-bold">Hero</h2>
             <h3 class="text-lg lg:text-xl font-semibold my-2">Logo</h3>
@@ -342,7 +340,6 @@
             id="valeurs"
             role="tabpanel"
             aria-labelledby="valeurs-tab"
-            style="min-height: -webkit-fill-available;"
           >
             <h2 class="text-xl lg:text-3xl font-bold">Valeurs</h2>
             <h3 class="text-lg lg:text-xl font-semibold my-2">Logo</h3>
@@ -352,7 +349,6 @@
             id="membres"
             role="tabpanel"
             aria-labelledby="membres-tab"
-            style="min-height: -webkit-fill-available;"
           >
             <h2 class="text-xl lg:text-3xl font-bold">Membres</h2>
             <h3 class="text-lg lg:text-xl font-semibold my-2">Logo</h3>
@@ -362,7 +358,6 @@
             id="social"
             role="tabpanel"
             aria-labelledby="social-tab"
-            style="min-height: -webkit-fill-available;"
           >
             <h2 class="text-xl lg:text-3xl font-bold">Résaux Sociaux</h2>
             <h3 class="text-lg lg:text-xl font-semibold my-2">Discord</h3>
@@ -419,9 +414,12 @@
         </div>
         <button
           type="button"
-          class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          class="inline-flex mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
         >
-          Test Submit
+          <svg class="w-5 h-5 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+  <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7.414A2 2 0 0 0 20.414 6L18 3.586A2 2 0 0 0 16.586 3H5Zm10 11a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7V5h8v2a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
+</svg>
+Sauvegarder
         </button>
       </main>
     </div>
