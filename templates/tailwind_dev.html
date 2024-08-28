@@ -1,0 +1,58 @@
+<!--
+    Ce code initialise tailwindcss.
+-->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  // Aplique le dark mode
+  if (
+    localStorage.getItem("color-theme") === "dark" ||
+    (!("color-theme" in localStorage) &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches)
+  ) {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+</script>
+<script>
+  tailwind.config = {
+    darkMode: "selector",
+    fontFamily: {
+      body: [
+        "Red Hat Display",
+        "ui-sans-serif",
+        "system-ui",
+        "-apple-system",
+        "system-ui",
+        "Segoe UI",
+        "Roboto",
+        "Helvetica Neue",
+        "Arial",
+        "Noto Sans",
+        "sans-serif",
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji",
+      ],
+      sans: [
+        "Red Hat Display",
+        "ui-sans-serif",
+        "system-ui",
+        "-apple-system",
+        "system-ui",
+        "Segoe UI",
+        "Roboto",
+        "Helvetica Neue",
+        "Arial",
+        "Noto Sans",
+        "sans-serif",
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji",
+      ],
+    },
+  };
+  // Configuration Tailwind
+</script>

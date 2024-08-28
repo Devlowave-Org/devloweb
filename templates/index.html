@@ -1,9 +1,10 @@
 <html lang="fr">
   <head>
     <title>Bienvenue</title>
-    {% include 'tailwind.html' %}
+    {% include 'head.html' %}
   </head>
-  <body class="bg-50 dark:bg-gray-800">
+  {% include 'home/nav.html' %}
+  <body class="bg-50 dark:bg-gray-800 pt-8">
     <section class="bg-white dark:bg-gray-900">
       <div
         class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12"
