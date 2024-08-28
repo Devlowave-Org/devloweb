@@ -83,7 +83,7 @@ def reset_password(devlobdd):
         devlobdd.change_password(ja[0], hashed_pass)
         devlobdd.delete_magic_link(ja_id=ja[0])
 
-        return redirect(url_for('route_connexion', error="Mot de passe mis à jour"))
+        return render_template('connexion.html', error="Mot de passe mis à jour")
 
 
 
