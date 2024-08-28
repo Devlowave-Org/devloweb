@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Connexion</title>
-    {% include 'tailwind.html' %}
+    {% include 'head.html' %}
   </head>
 
   <body>
@@ -14,18 +14,6 @@
       >
         <h1 class="text-2xl lg:text-4xl font-bold">
           Editeur
-
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="24px"
-            viewBox="0 -960 960 960"
-            width="24px"
-            fill="currentColor"
-          >
-            <path
-              d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-640v560h560v-560h-80v280l-100-60-100 60v-280H200Zm0 560v-560 560Z"
-            />
-          </svg>
         </h1>
 
         <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
@@ -193,7 +181,7 @@
               <div class="flex items-center justify-center">
                 <label
                   for="dropzone-file"
-                  class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                  class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                 >
                   <div
                     class="flex flex-col items-center justify-center pt-5 pb-6"
@@ -227,7 +215,7 @@
               <div class="flex items-center justify-center">
                 <label
                   for="dropzone-file"
-                  class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                  class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                 >
                   <div
                     class="flex flex-col items-center justify-center pt-5 pb-6"
@@ -261,7 +249,7 @@
               <div class="flex items-center justify-center">
                 <label
                   for="dropzone-file"
-                  class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                  class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                 >
                   <div
                     class="flex flex-col items-center justify-center pt-5 pb-6"
@@ -380,22 +368,43 @@
             <h3 class="text-lg lg:text-xl font-semibold my-2">Discord</h3>
             <div class="grid gap-2 mb-6 md:grid-cols-2 lg:grid-cols-3">
               <div>
+                <div class="flex items-center justify-between">
+                 
                 <label
-                  for="first_name"
+                  for="discord_id"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >ID Discord</label
+                  >ID du serveur</label
                 >
+                <a
+                  class="flex content-center mb-2 text-sm font-medium bg-gray-100 dark:bg-gray-900 p-1 rounded text-gray-900 dark:text-white"
+                  href="https://doc.devlowave.fr/docs/ressources/id-discord/"
+                  target="_blank"
+                  >
+                  DOC
+                  <svg
+                  class="ml-2 h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+            fill="currentColor"
+          >
+            <path
+              d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-640v560h560v-560h-80v280l-100-60-100 60v-280H200Zm0 560v-560 560Z"
+            />
+          </svg>
+                  </a
+                ></div>
                 <input
                   type="text"
+                  name="discord_id"
                   id="discord_id"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="123456798"
+                  placeholder="13456789"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
               </div>
               <div>
                 <label
                   for="last_name"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white pb-2"
                   >Invitation Discord</label
                 >
                 <input
