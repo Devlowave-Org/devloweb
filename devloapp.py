@@ -3,11 +3,13 @@ from App import home, inscription, verification, connexion, resend, onthefly, fo
 from App.utils.bdd import DevloBDD
 from App.utils.utils import is_connected
 from werkzeug.middleware.proxy_fix import ProxyFix
+from werkzeug.utils import secure_filename
 import os
 
 app = Flask(__name__)
 app.secret_key = "banane"
 app.which = "devlobdd"
+app.config["UPLOAD_FOLDER"] = "tmp/"
 app.wsgi_app = ProxyFix(
     app.wsgi_app, x_for=1, x_proto=0, x_host=1, x_prefix=1
 )

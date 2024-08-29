@@ -3,6 +3,9 @@ import os
 from re import fullmatch, compile
 import random
 from datetime import datetime, timedelta
+
+import flask
+
 import App.utils.email_api as email_api
 from threading import Thread
 import shutil
@@ -168,8 +171,12 @@ def create_ja_folder(jaid):
 """
 Gestion de l'éditeur
 """
-def editeur_form_processing(form_dict: dict, json_site: dict, ja_id):
 
+
+def editeur_form_processing(request: flask.Request, json_site: dict, ja_id):
+
+    form_dict = request.form.to_dict()
+    print(form_dict)
     for key in form_dict.keys():
         try:
             splited = key.split("-")
@@ -191,7 +198,15 @@ def editeur_form_processing(form_dict: dict, json_site: dict, ja_id):
             else:
                 json_site[section][splited[1]] = form_dict[key]
         except (IndexError, ValueError, KeyError) as e:
-            print("An error occurd in the first try " + str(e))
+            print("An error occurred in the first try " + key + " : " + str(e))
 
     with open(f"tmp/{ja_id}/site.json", "w") as f:
         json.dump(json_site, f)
+
+
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'mov'}
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def file_processing(file, ja_id):
+    pass
