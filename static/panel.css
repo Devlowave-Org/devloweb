@@ -22,7 +22,6 @@ input[type="submit"]{
             border: 2px solid black;
 }
 
-
 input[type="checkbox"]{
             width: 15px;
             height: 15px;
@@ -45,6 +44,7 @@ input[type="checkbox"]:checked::before {
         border: solid #002aff;
         border-width: 0 2px 2px 0;
         transform: rotate(30deg);
+        background-color: #002aff;
 }
 
 input[type="checkbox"]:disabled {
@@ -55,4 +55,5 @@ input[type="checkbox"]:disabled {
 
 input[type="checkbox"]:disabled:checked::before {
     border-color: #ff4400;
+    background-color: #ff4400;
 }

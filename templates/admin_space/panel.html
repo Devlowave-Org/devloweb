@@ -60,6 +60,9 @@
                 <input type="checkbox" {{ search_result[2][0] }}>
                 {{ website_details[0] }}
             </div>
+            {% if website_details[1]%}
+                <a href="{{ website_details[1] }}"> <button>Activate</button> </a>
+            {% endif %}
         {% endif %}
     </div>
 

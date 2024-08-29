@@ -207,9 +207,9 @@ ESPACE ADMIN
 def route_admin_space():
     return admin_space.load_panel(get_db())
 
-@app.route("/admin_space_website_validator", methods=("GET", "POST"))
+@app.route("/admin_space/website_validator", methods=("GET", "POST"))
 def route_admin_space_website_validator():
-    return admin_space.load_website_validator()
+    return admin_space.load_website_validator(get_db())
 
 
 if __name__ == "__main__":
