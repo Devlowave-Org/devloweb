@@ -3,6 +3,7 @@ from App import home, inscription, verification, connexion, resend, onthefly, fo
 from App.utils.bdd import DevloBDD
 from App.utils.utils import is_connected
 from werkzeug.middleware.proxy_fix import ProxyFix
+from App.admin_space import admin_space
 import os
 
 app = Flask(__name__)
@@ -152,6 +153,16 @@ def page_not_found(e):
 def internal_error(e):
     return render_template('error/500.html', error=e), 500
 
+"""
+ESPACE ADMIN
+"""
+@app.route("/admin_space", methods=("GET", "POST"))
+def route_admin_space():
+    return admin_space.load_panel(get_db())
+
+@app.route("/admin_space/website_validator", methods=("GET", "POST"))
+def route_admin_space_website_validator():
+    return admin_space.load_website_validator(get_db())
 
 
 if __name__ == "__main__":
