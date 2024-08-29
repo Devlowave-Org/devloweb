@@ -1,8 +1,10 @@
 from flask import render_template, Flask, session, redirect, url_for, g
-from App import home, inscription, verification, connexion, resend, pof, onthefly, forgot_password
+from App import home, inscription, verification, connexion, resend, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
+from App.utils.utils import is_connected
 from werkzeug.middleware.proxy_fix import ProxyFix
 from App.admin_space import admin_space
+import os
 
 app = Flask(__name__)
 app.secret_key = "banane"
@@ -10,7 +12,11 @@ app.which = "devlobdd"
 app.wsgi_app = ProxyFix(
     app.wsgi_app, x_for=1, x_proto=0, x_host=1, x_prefix=1
 )
-app.config["SERVER_NAME"] = "127.0.0.1:5555"
+
+if os.environ.keys().__contains__("SERVER_NAME") and os.environ["ENV"] == "prod":
+    app.config["SERVER_NAME"] = os.environ["SERVER_NAME"]
+else:
+    app.config["SERVER_NAME"] = "127.0.0.1:5555"
 
 
 def get_db():
@@ -36,7 +42,6 @@ if __name__ != "__main__":
 else:
     devlobdd = DevloBDD()
 """
-
 
 @app.route("/", subdomain="<subdomain>")
 def index(subdomain):
@@ -93,91 +98,39 @@ ESPACE MODIFICATION DU SITE
 
 @app.route("/home")
 def route_home():
-    if 'email' not in session:
-        return redirect(url_for('route_connexion'))
-    return home.index(get_db())
+    if is_connected(session, get_db()):
+        return home.index(get_db())
+    return redirect(url_for('route_connexion'))
 
 
 @app.route("/home/account")
 def route_account():
-    if 'email' not in session:
-        return redirect(url_for('route_connexion'))
-    return home.account()
+    if is_connected(session, get_db()):
+        return home.account()
+    return redirect(url_for('route_connexion'))
 
 
 @app.route("/home/editeur", methods=("GET", "POST"))
 def route_editeur():
     # C'est le DASHBOARD Éditeur
-    print(session)
-    if 'email' not in session:
-        return redirect(url_for('route_connexion'))
-    return render_template("home/editeur.html")
+    if is_connected(session, get_db()):
+        return render_template("home/editeur.html")
+    return redirect(url_for('route_connexion'))
 
 
-@app.route("/pof", methods=("GET", "POST"))
-def route_pof():
-    return pof.proof_of_concept()
-
-
-@app.route("/editeur/v1/editeur", methods=("GET", "POST"))
-def route_v1():
-    if 'email' not in session:
-        return redirect(url_for('route_connexion'))
-    return home.editeur()
 
 
 @app.route("/editeur/beta/editeur", methods=("GET", "POST"))
 def route_beta():
-    if 'email' not in session:
-        return redirect(url_for('route_connexion'))
-    return home.editeur()
-
+    if is_connected(session, get_db()):
+        return home.editeur()
+    return redirect(url_for('route_connexion'))
 
 @app.route("/home/hebergement", methods=("GET", "POST"))
 def route_hebergement():
-    if 'email' not in session:
-        return redirect(url_for('route_connexion'))
-    return home.hebergement(get_db())
-
-
-@app.route("/editeur/pof", methods=("GET", "POST"))
-def route_editeur_pof():
-    if 'email' not in session:
-        return redirect(url_for('route_connexion'))
-    return home.editeur()
-
-
-"""
-ESPACE GESTION DU THÈME
-"""
-
-
-@app.route("/parametres/theme", methods=("GET", "POST"))
-def route_parametres_theme():
-    if 'email' not in session:
-        return redirect(url_for('route_connexion'))
-    return home.parametres_theme(get_db())
-
-
-@app.route("/pages/add", methods=("GET", "POST"))
-def route_add_page():
-    if 'email' not in session:
-        return redirect(url_for('route_connexion'))
-    return home.add_page()
-
-
-@app.route("/site_verification", methods=("GET", "POST"))
-def route_site_verification():
-    if 'email' not in session:
-        return redirect(url_for('route_connexion'))
-    return home.site_verification(get_db())
-
-
-@app.route("/domaine", methods=("GET", "POST"))
-def route_domaine():
-    if 'email' not in session:
-        return redirect(url_for('route_connexion'))
-    return home.domaine(get_db())
+    if is_connected(session, get_db()):
+        return home.hebergement(get_db())
+    return redirect(url_for('route_connexion'))
 
 
 @app.route('/logout')

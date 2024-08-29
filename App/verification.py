@@ -9,11 +9,14 @@ def verify_email(devlobdd):
             return render_template("verification.html", error="Veuillez remplir tous les champs")
 
         if utils.is_punished(devlobdd, request.remote_addr):
-            return render_template("verification.html", error="Vous n'êtes pas vérifié")
+            return render_template("verification.html", error="Désolé mais vous avez fait trop de tentatives")
         try:
             ja_id = utils.ja_id_only(request.form["ja_id"])
         except ValueError as e:
             return render_template("verification.html", error=e)
+
+        if devlobdd.is_active(ja_id):
+            return render_template('connexion.html', error="Vous êtes déjà activé")
 
         if utils.verif_code(devlobdd, ja_id, request.form["verif"]):
             # J'active la JA
