@@ -171,38 +171,54 @@ def create_ja_folder(jaid):
 """
 Gestion de l'éditeur
 """
+def set_value_recursively(dictionary, keys, value):
+    """
+    Fonction récursive pour définir une valeur dans un dictionnaire imbriqué.
+
+    dictionary : dictionnaire de base
+    keys : liste de segments de clé
+    value : valeur à insérer
+
+    from : https://chatgpt.com/share/5fc613c9-8e62-46c8-998c-1892688deec2
+    """
+    # Premier segment de la clé
+    key = keys[0]
+
+    # Si le segment est un index numérique (pour une liste)
+    if key.isdigit():
+        key = int(key)
+        if not isinstance(dictionary, list) or key >= len(dictionary):
+            raise ValueError("Index invalide pour une liste.")
+
+    # Si c'est le dernier segment, on met la valeur
+    if len(keys) == 1:
+        dictionary[key] = value
+    else:
+        # Navigue dans la structure imbriquée et appelle récursivement
+        if key in dictionary:
+            set_value_recursively(dictionary[key], keys[1:], value)
+        if type(key) is int:
+            set_value_recursively(dictionary[key], keys[1:], value)
+        raise KeyError(f"Clé introuvable : {key}")
 
 
-def editeur_form_processing(request: flask.Request, json_site: dict, ja_id):
-
+def gestion_editeur(request: flask.Request, json_site: dict, ja_id):
+    # Exemple d'utilisation
     form_dict = request.form.to_dict()
-    print(form_dict)
-    for key in form_dict.keys():
+
+    for key, value in form_dict.items():
+        if value == "":
+            continue
+        print(f"Traitement de la clé {key} avec valeur {value}")
         try:
-            splited = key.split("-")
-            if type(splited[0]) is int:
-                raise ValueError("Utilisateur essaie de rentrer un integer au lieu d'un str")
-            section = splited[0]
+            splited_keys = key.split("-")
+            set_value_recursively(json_site, splited_keys, value)
+        except (KeyError, ValueError) as e:
+            print(f"Erreur lors de la mise à jour pour {key}: {e}")
 
-            try:
-                splited[1] = int(splited[1])
-            except ValueError:
-                pass
-            try:
-                splited[2] = int(splited[2])
-            except (ValueError, IndexError):
-                pass
-
-            if len(splited) >= 3:
-                json_site[section][splited[1]][splited[2]] = form_dict[key]
-            else:
-                json_site[section][splited[1]] = form_dict[key]
-        except (IndexError, ValueError, KeyError) as e:
-            print("An error occurred in the first try " + key + " : " + str(e))
-
+    print(f"SITE À JOUR{json_site}")
     with open(f"tmp/{ja_id}/site.json", "w") as f:
         json.dump(json_site, f)
-
 
 def allowed_file(filename):
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'mov'}

@@ -14,7 +14,7 @@ def editeur():
     print(json_site)
 
     if request.method == "POST":
-        utils.editeur_form_processing(request, json_site, session['ja_id'])
+        utils.gestion_editeur(request, json_site, session['ja_id'])
 
     return render_template("editor/beta/editeur.html", data=json_site)
 
