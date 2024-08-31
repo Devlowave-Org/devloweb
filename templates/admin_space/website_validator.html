@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% if ja_id %}
+        <form action="/admin_space/website_validator?ja_id={{ ja_id }}" method="POST">
+            <label><strong>Treat demand :</strong></label>
+            <input type="submit" name="action" value="Accept">
+            <input type="submit" name="action" value="Reject">
+        </form>
+    {% endif %}
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+    <a href="/admin_space"><button>Get back to panel</button></a>
+</body>
+</html>

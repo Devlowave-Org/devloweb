@@ -1,3 +1,4 @@
+import os
 import smtplib
 import ssl
 from email.mime.text import MIMEText
@@ -8,7 +9,7 @@ class DevloMail:
         self.host = 'smtp.gmail.com'
         self.port = 465
         self.sender = "devlowave.offi@gmail.com"
-        self.app_pass = "hbbp gnba ftuf ijbt"
+        self.app_pass = os.environ['GMAIL_APP']
         self.context = ssl.create_default_context()
 
     def verification_email(self, target, code):
@@ -28,12 +29,12 @@ class DevloMail:
                 Ceci est un message de Devloweb,<br>
                 Nous avons bien reçu ta demande d'inscription !<br>
                 Afin d'activer ton compte voici le code : <span style="font-weight: bold;">{code}</span><br>
-                <a href="http://82.64.89.33:5555/verification?code={code}">Vérifier ici !</a>
+                <a href="https://{server_name}/verification?code={code}">Vérifier ici !</a>
             </p>
           </body>
         </html>
         """
-        html = html.format(code=code)
+        html = html.format(code=code, server_name=os.environ['SERVER_NAME'])
         self.send_mail(text, html, message, target)
 
     def magic_link_mail(self, target, code):
@@ -52,14 +53,14 @@ class DevloMail:
                     <p>Salut !<br>
                         Ceci est un message de Devloweb,<br>
                         Apparemment tu souhaite réinitialiser ton mot de passe !<br>
-                        Clique sur ce lien pour le réinitialiser : <a href="http://82.64.89.33:5555/reset_password?code={code}&email={email}">Réinitialiser !</a><br>
+                        Clique sur ce lien pour le réinitialiser : <a href="https://{server_name}}/reset_password?code={code}&email={email}">Réinitialiser !</a><br>
                         Et voici le code : <span style="font-weight: bold;">{code}</span><br>
                         Si tu n'es pas à l'origine de cette demande, répond à ce mail !
                     </p>
                   </body>
                 </html>
                 """
-        html = html.format(code=code, email=target)
+        html = html.format(code=code, email=target, server_name=os.environ['SERVER_NAME'])
         self.send_mail(text, html, message, target)
 
     def send_mail(self, text, html, message, target):

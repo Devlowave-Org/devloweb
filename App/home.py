@@ -1,9 +1,11 @@
+import re
+
 from flask import request, render_template, session, redirect, flash, url_for
-from App.utils import bdd, utils, cloudflare
+from App.utils import utils, cloudflare
 import json
 
 
-def index():
+def index(devlobdd):
     return render_template('home/index.html')
 
 
@@ -18,46 +20,17 @@ def editeur():
 
     return render_template("editor/beta/editeur.html", data=json_site)
 
+def hebergement(devlobdd):
+    status_dict = {0: "Désactivé", 1: "Hébergé", 2: "En attente", 3: "Refusé"}
+    site = devlobdd.get_site_by_ja(session['ja_id'])
+    if request.method == "POST" and request.form["heberger"] == "heberger":
+        if not re.fullmatch(r"[a-z0-9]{1,15}", request.form["domain"]):
+            return render_template("home/hebergement.html", error="Le nom de domaine doit contenir des lettres minuscules et ne doit avoir plus de 15 caractères")
+        devlobdd.ask_hebergement(session['ja_id'])
+        devlobdd.set_domain_name(session['ja_id'], request.form["domain"])
+
+    return render_template("home/hebergement.html", status=status_dict[site[3]], domain=site[1])
+
 
 def account():
     return render_template('home/account.html')
-
-def parametres_theme(devlobdd):
-    if request.method == 'POST':
-        devlobdd.change_theme(session['ja_id'], request.form.get('theme'))
-    return render_template('home/parametres_theme.html', data=devlobdd.get_site_by_ja(session['ja_id']))
-                                                                                         
-def site_verification(devlobdd):
-    return render_template('home/verification.html', data=devlobdd.get_site_by_ja(session['ja_id']))
-
-def domaine(devlobdd):
-    if request.method == 'POST':
-        name = request.form.get('name')
-        domain = request.form.get('domain')
-        data=devlobdd.get_site_by_ja(session['ja_id'])
-        if data[1] == f"{name.lower()}.{domain.lower()}":
-            flash("Rien n'as changé !")
-            data=devlobdd.get_site_by_ja(session['ja_id'])
-            return render_template('home/domaine.html', data=data)
-        
-        if cloudflare.subdomain_exist(name, domain) == False:
-            # Fonction magique
-            test = cloudflare.create_subdomain(name, "1.2.3.4", domain)
-            if test == True:
-                cloudflare.delete_subdomain({data[1]}, {data[2]})
-                devlobdd.change_domain(session['ja_id'], name.lower(), domain.lower())
-                flash("Votre domaine a été enregistré ! ")
-                data=devlobdd.get_site_by_ja(session['ja_id'])
-                return render_template('home/domaine.html', data=data)
-            else:
-                flash("Erreur : " + str(test))
-        else:
-            flash("Erreur : ce nom de domaine existe de déjà !")
-    data = devlobdd.get_site_by_ja(session['ja_id'])
-    return render_template('home/domaine.html', data=data)
-
-def add_page():
-    return render_template('home/add_page.html')
-
-def list_page():
-    return render_template('home/list_page.html')
