@@ -18,6 +18,7 @@ with open(file_path, 'r') as file:
 
 db = DevloBDD(config_data['database']['username'], config_data['database']['password'], config_data['database']['addr'], config_data['database']['port'])
 
+db.create_bdd()
 
 
 """devlobdd = None

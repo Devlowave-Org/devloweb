@@ -28,6 +28,16 @@ class DevloBDD:
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
 
+    def create_bdd(self):
+        self.connection()
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS devloweb.users (id INT PRIMARY KEY AUTO_INCREMENT, ja_id INT, name TEXT, password TEXT, email TEXT, email_verified BOOL DEFAULT FALSE, email_verification_code TEXT, email_verification_date TEXT, date_signin TEXT, date_last_login TEXT, active BOOL DEFAULT 1, admin BOOL DEFAULT 0);")
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS devloweb.security (id INT PRIMARY KEY AUTO_INCREMENT, ip TEXT, try INT DEFAULT 1,first TEXT, last TEXT, punition TEXT);")
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS devloweb.sites(id INT PRIMARY KEY AUTO_INCREMENT, ja_id TEXT, domain TEXT, theme TEXT, status INT DEFAULT 0);")
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS devloweb.magic_link(id INT PRIMARY KEY AUTO_INCREMENT, ja_id TEXT, code TEXT, date TEXT);")
+        self.cursor.close()  # Fermeture du curseur.
+        self.connector.commit()  # Enregistrement dans la base de donnée.
+        self.connector.close()  # Fermeture de la connexion.
+
     def inscire_ja(self, ja_id, name, password, email):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
