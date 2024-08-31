@@ -51,7 +51,7 @@ def inscription(devlobdd):
         if devlobdd.ja_exists(ja_id):
             return render_template("inscription.html", error="Vous avez déjà un compte.")
 
-        devlobdd.inscire_ja(ja_id, email, hashed_pass, ja_api["name"])
+        devlobdd.inscire_ja(ja_id, ja_api["name"], hashed_pass, email)
 
         # On lui envoie un mail avec le code.
         utils.etape_verification(devlobdd, ja_id)

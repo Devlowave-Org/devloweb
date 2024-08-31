@@ -1,94 +1,57 @@
-from flask import render_template, Flask, session, redirect, url_for, g
-from App import home, inscription, verification, connexion, resend, onthefly, forgot_password
+from flask import render_template, Flask, session, redirect, url_for, g, has_app_context
+from App import home, inscription, verification, connexion, resend, pof, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
-from App.utils.utils import is_connected
-from werkzeug.middleware.proxy_fix import ProxyFix
-from App.admin_space import admin_space
-import os
+from os import path, getcwd
+from json import load
 
 app = Flask(__name__)
+app.debug = True
 app.secret_key = "banane"
 app.which = "devlobdd"
-app.wsgi_app = ProxyFix(
-    app.wsgi_app, x_for=1, x_proto=0, x_host=1, x_prefix=1
-)
-
-if os.environ.keys().__contains__("SERVER_NAME") and os.environ["ENV"] == "prod":
-    app.config["SERVER_NAME"] = os.environ["SERVER_NAME"]
-else:
-    app.config["SERVER_NAME"] = "127.0.0.1:5555"
 
 
-def get_db():
-    db = getattr(g, "_database", None)
-    if db is None:
-        db = g._database = DevloBDD(app.which)
-    return db
+file_path = path.abspath(path.join(getcwd(), "config.json"))  # Trouver le chemin complet du fichier config.json
 
+# Lecture du fichier JSON
+with open(file_path, 'r') as file:
+    config_data = load(file)  # Ouverture du fichier config.json
 
-@app.teardown_appcontext
-def close_connection(exception):
-    db = getattr(g, '_database', None)
-    if db is not None:
-        print(f"Je close la bdd : {exception}")
-        db.quit_bdd()
+db = DevloBDD(config_data['database']['username'], config_data['database']['password'], config_data['database']['addr'], config_data['database']['port'])
 
-
-"""devlobdd = None
-if __name__ != "__main__":
-    os.system("rm devlotest.db")
-    devlobdd = DevloBDD("devlotest")
-    print("On est sur DevloTest actuellement")
-else:
-    devlobdd = DevloBDD()
-"""
-
-@app.route("/", subdomain="<subdomain>")
-def index(subdomain):
-    print(f"Acces depuis {subdomain} !")
-    if subdomain != "devlowave":
-        return onthefly.gen_on_the_fly(subdomain, get_db())
-    return render_template("index.html")
+db.create_bdd()
 
 @app.route("/")
-def accueil():
+def index():
     return render_template("index.html")
-
-
 
 """
 ESPACE INSCRIPTION/CONNEXION
 """
-
-
 @app.route("/inscription", methods=("GET", "POST"))
 def route_inscription():
-    return inscription.inscription(get_db())
+    return inscription.inscription(db)
 
 
 @app.route("/verification", methods=("GET", "POST"))
 def route_verification():
-    return verification.verify_email(get_db())
+    return verification.verify_email(db)
 
 
 @app.route("/connexion", methods=("GET", "POST"))
 def route_connexion():
-    return connexion.connexion(get_db())
-
+    return connexion.connexion(db)
 
 @app.route("/forgotpassword", methods=("GET", "POST"))
 def route_forgot():
-    return forgot_password.forgot_password(get_db())
-
+    return forgot_password.forgot_password(db)
 
 @app.route("/reset_password", methods=("GET", "POST"))
 def route_reset():
-    return forgot_password.reset_password(get_db())
-
+    return forgot_password.reset_password(db)
 
 @app.route("/resend", methods=("GET", "POST"))
 def route_resend():
-    return resend.resend_email(get_db())
+    return resend.resend_email(db)
 
 
 """
@@ -98,39 +61,80 @@ ESPACE MODIFICATION DU SITE
 
 @app.route("/home")
 def route_home():
-    if is_connected(session, get_db()):
-        return home.index(get_db())
-    return redirect(url_for('route_connexion'))
-
+    if 'email' not in session:
+        return redirect(url_for('route_connexion'))
+    return home.index()
 
 @app.route("/home/account")
 def route_account():
-    if is_connected(session, get_db()):
-        return home.account()
-    return redirect(url_for('route_connexion'))
+    if 'email' not in session:
+        return redirect(url_for('route_connexion'))
+    return home.account()
 
 
 @app.route("/home/editeur", methods=("GET", "POST"))
 def route_editeur():
     # C'est le DASHBOARD Éditeur
-    if is_connected(session, get_db()):
-        return render_template("home/editeur.html")
-    return redirect(url_for('route_connexion'))
+    print(session)
+    if 'email' not in session:
+        return redirect(url_for('route_connexion'))
+    return render_template("home/editeur.html")
 
 
+@app.route("/pof", methods=("GET", "POST"))
+def route_pof():
+    return pof.proof_of_concept()
 
+
+@app.route("/editeur/v1/editeur", methods=("GET", "POST"))
+def route_v1():
+    if 'email' not in session:
+        return redirect(url_for('route_connexion'))
+    return home.editeur()
 
 @app.route("/editeur/beta/editeur", methods=("GET", "POST"))
 def route_beta():
-    if is_connected(session, get_db()):
-        return home.editeur()
-    return redirect(url_for('route_connexion'))
+    if 'email' not in session:
+        return redirect(url_for('route_connexion'))
+    return home.editeur()
 
-@app.route("/home/hebergement", methods=("GET", "POST"))
-def route_hebergement():
-    if is_connected(session, get_db()):
-        return home.hebergement(get_db())
-    return redirect(url_for('route_connexion'))
+
+@app.route("/editeur/pof", methods=("GET", "POST"))
+def route_editeur_pof():
+    if 'email' not in session:
+        return redirect(url_for('route_connexion'))
+    return home.editeur()
+
+
+"""
+ESPACE GESTION DU THÈME
+"""
+@app.route("/parametres/theme", methods=("GET", "POST"))
+def route_parametres_theme():
+    if 'email' not in session:
+        return redirect(url_for('route_connexion'))
+    return home.parametres_theme(db)
+
+
+@app.route("/pages/add", methods=("GET", "POST"))
+def route_add_page():
+    if 'email' not in session:
+        return redirect(url_for('route_connexion'))
+    return home.add_page()
+
+
+@app.route("/site_verification", methods=("GET", "POST"))
+def route_site_verification():
+    if 'email' not in session:
+        return redirect(url_for('route_connexion'))
+    return home.site_verification(db)
+
+
+@app.route("/domaine", methods=("GET", "POST"))
+def route_domaine():
+    if 'email' not in session:
+        return redirect(url_for('route_connexion'))
+    return home.domaine(db)
 
 
 @app.route('/logout')
@@ -140,31 +144,32 @@ def logout():
 
 
 """
+ESPACE SOUS-DOMAINES
+"""
+@app.route("/", subdomain="<ja_domain>")
+def ja_website(username):
+    return username + ".your-domain.tld"
+"""
 ESPACE ERREURS
 """
-
-
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('error/404.html'), 404
-
 
 @app.errorhandler(500)
 def internal_error(e):
     return render_template('error/500.html', error=e), 500
 
-"""
-ESPACE ADMIN
-"""
-@app.route("/admin_space", methods=("GET", "POST"))
-def route_admin_space():
-    return admin_space.load_panel(get_db())
 
-@app.route("/admin_space/website_validator", methods=("GET", "POST"))
-def route_admin_space_website_validator():
-    return admin_space.load_website_validator(get_db())
+"""
+GESTION DE GÉNÉRATION A LA VOLÉE
+"""
+@app.route("/ja/<ja_domain>")
+def route_ja(ja_domain):
+    return onthefly.gen_on_the_fly(ja_domain, db)
+
 
 
 if __name__ == "__main__":
     # therms-and-conditions
-    app.run(host="127.0.0.1", port=5555, debug=True)
+    app.run(host="0.0.0.0", port=5555)

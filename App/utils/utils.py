@@ -49,7 +49,7 @@ def create_verification_code(devlobdd) -> str:
     for i in range(length):
         code += str(random.randint(0, 9))
 
-    if devlobdd.code_exists(code):
+    if devlobdd._back_code_exists(code):
         create_verification_code(devlobdd)
     return code
 
@@ -70,7 +70,7 @@ def verif_code(devlobdd, ja_id, code):
     print(delta.seconds)
     print(row)
     # Le code est valable 30 minutes
-    if code == row[1] and delta.seconds < 1800:
+    if code == row[0] and delta.seconds < 1800:
         return True
     else:
         return False
