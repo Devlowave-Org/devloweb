@@ -211,7 +211,6 @@ def gestion_editeur(request: flask.Request, json_site: dict, ja_id):
     form_dict = request.form.to_dict()
 
     for key, value in form_dict.items():
-        print(key, value)
         if value == "":
             continue
         print(f"Traitement de la clé {key} avec valeur {value}")
@@ -225,11 +224,13 @@ def gestion_editeur(request: flask.Request, json_site: dict, ja_id):
     print(request.files.keys())
     for key in request.files.keys():
         file = request.files[key]
-        print(file.filename)
         if file.filename == '':
             continue
+
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
+            filename = nice_filename(filename, key)
+            print(filename)
             try:
                 splited_keys = key.split("-")
                 set_value_recursively(json_site, splited_keys, filename)
@@ -249,6 +250,14 @@ def gestion_editeur(request: flask.Request, json_site: dict, ja_id):
 def allowed_file(filename):
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'mov'}
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+def nice_filename(filename, key):
+    filename = filename.rsplit('.', 1)
+    print(filename)
+    filename[0] = key
+    return filename[0] + '.' + filename[1]
+
 
 def file_processing(file, ja_id):
     pass
