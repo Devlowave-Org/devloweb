@@ -87,6 +87,19 @@ class DevloBDD:
         self.cursor.execute("SELECT * FROM sites WHERE ja_id = ?", (ja,))
         return self.cursor.fetchone()
 
+    """USED BY ADMIN PANNEL AND WEBSITE VALIDATOR"""
+    def all_ja_with_website_getter(self):
+        self.cursor.execute("SELECT ja_id FROM sites")
+        return self.cursor.fetchall()
+
+    def get_website_status_based_on_ja_id(self, ja_id):
+        self.cursor.execute("SELECT status FROM sites WHERE ja_id = ?", (ja_id,))
+        return self.cursor.fetchone()
+
+    def update_website_status_based_on_ja_id(self, ja_id, status):
+        self.cursor.execute("UPDATE sites SET status = ? WHERE ja_id = ?", (status, ja_id))
+        self.conn.commit()
+    
     """
     Partie Code de Vérification
     """
