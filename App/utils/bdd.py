@@ -110,7 +110,7 @@ class DevloBDD:
     def get_ja_by_mail(self, mail: str) -> list:
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT * FROM devloweb.users WHERE email = %s", (mail,))
+        self.cursor.execute("SELECT ja_id, name, password, email, email_verified, email_verification_code, email_verification_date, date_signin, date_last_login, active, admin FROM devloweb.users WHERE email = %s", (mail,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -119,7 +119,7 @@ class DevloBDD:
     def get_ja_byid(self, ja_id: str) -> list:
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT * FROM devloweb.users WHERE ja_id = %s", (ja_id,))
+        self.cursor.execute("SELECT ja_id, name, password, email, email_verified, email_verification_code, email_verification_date, date_signin, date_last_login, active, admin FROM devloweb.users WHERE ja_id = %s", (ja_id,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -128,7 +128,7 @@ class DevloBDD:
     def view_data_website(self, ja_id: str) -> list:
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT * FROM devloweb.sites WHERE ja_id = %s", (ja_id,))
+        self.cursor.execute("SELECT ja_id, domain, theme, status FROM devloweb.sites WHERE ja_id = %s", (ja_id,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -136,7 +136,7 @@ class DevloBDD:
 
     def get_site_by_ja(self, ja: str) -> list:
         self.connection()  # Connection avec la base de données.
-        self.cursor.execute("SELECT * FROM devloweb.sites WHERE ja_id = %s", (ja,))
+        self.cursor.execute("SELECT ja_id, domain, theme, status FROM devloweb.sites WHERE ja_id = %s", (ja,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -169,8 +169,7 @@ class DevloBDD:
     def get_code_via_jaid(self, ja_id: str):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute(
-            "SELECT email_verification_code, email_verification_code FROM devloweb.users WHERE ja_id = %s", (ja_id,))
+        self.cursor.execute("SELECT email_verification_code, ja_id, email_verification_date FROM devloweb.users WHERE ja_id = %s", (ja_id,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -240,7 +239,7 @@ class DevloBDD:
         """
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT * FROM devloweb.security WHERE ip = %s", (ip,))
+        self.cursor.execute("SELECT ip, try, first, last, punition FROM devloweb.security WHERE ip = %s", (ip,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -294,7 +293,7 @@ class DevloBDD:
     def get_ja_by_domain(self, domain):
         self.connection()  # Connection avec la base de données.
         # TODO: refaire la request avec le nouveau système
-        self.cursor.execute("SELECT * FROM devloweb.sites  WHERE domain=%s", (domain,))
+        self.cursor.execute("SELECT ja_id, domain, theme, status FROM devloweb.sites  WHERE domain=%s", (domain,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.

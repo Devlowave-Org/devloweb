@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from App.utils import bdd, utils
+from App.utils import utils
 
 
 def verify_email(devlobdd):

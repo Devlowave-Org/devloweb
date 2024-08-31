@@ -64,13 +64,13 @@ def reset_password(devlobdd):
             return render_template('reset_password.html', error='Code incorrect')
 
         row = devlobdd.get_magic_link(code=request.form['code'])
-        ja = devlobdd.get_ja_byid(row[1])
+        ja = devlobdd.get_ja_byid(row[0])
 
-        if ja[1] != request.form['email']:
+        if ja[3] != request.form['email']:
             utils.add_a_try(devlobdd, ip)
             return render_template('reset_password.html', error='Email incorrect')
 
-        code_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S.%f")
+        code_date = datetime.strptime(str(row[2]), "%Y-%m-%d %H:%M:%S.%f")
         delta = datetime.now() - code_date
         if delta.seconds > 1800:
             return render_template('reset_password.html', error='Le code n\'est plus valide')
