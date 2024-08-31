@@ -20,16 +20,6 @@ db = DevloBDD(config_data['database']['username'], config_data['database']['pass
 
 db.create_bdd()
 
-
-"""devlobdd = None
-if __name__ != "__main__":
-    os.system("rm devlotest.db")
-    devlobdd = DevloBDD("devlotest")
-    print("On est sur DevloTest actuellement")
-else:
-    devlobdd = DevloBDD()
-"""
-
 @app.route("/")
 def index():
     return render_template("index.html")
