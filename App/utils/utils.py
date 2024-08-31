@@ -211,8 +211,6 @@ def gestion_editeur(request: flask.Request, json_site: dict, ja_id):
     form_dict = request.form.to_dict()
 
     for key, value in form_dict.items():
-        if value == "":
-            continue
         print(f"Traitement de la clé {key} avec valeur {value}")
         try:
             splited_keys = key.split("-")
@@ -223,6 +221,9 @@ def gestion_editeur(request: flask.Request, json_site: dict, ja_id):
     # Enregistrement des images potentielles
     print(request.files.keys())
     for key in request.files.keys():
+        # On oblige à ce que la clée soit une image sinon on peut mettre des images partout
+        if "image" not in key:
+            continue
         file = request.files[key]
         if file.filename == '':
             continue
