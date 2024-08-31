@@ -5,6 +5,7 @@ import random
 from datetime import datetime, timedelta
 
 import flask
+from werkzeug.utils import secure_filename
 
 import App.utils.email_api as email_api
 from threading import Thread
@@ -180,6 +181,7 @@ def set_value_recursively(dictionary, keys, value):
     value : valeur à insérer
 
     from : https://chatgpt.com/share/5fc613c9-8e62-46c8-998c-1892688deec2
+    doc : key[1:] donne la prochaine clé
     """
     # Premier segment de la clé
     key = keys[0]
@@ -193,12 +195,14 @@ def set_value_recursively(dictionary, keys, value):
     # Si c'est le dernier segment, on met la valeur
     if len(keys) == 1:
         dictionary[key] = value
+        return
+
+    # Navigue dans la structure imbriquée et appelle récursivement
+    if isinstance(dictionary, dict) and key in dictionary:
+        set_value_recursively(dictionary[key], keys[1:], value)
+    elif isinstance(dictionary, list) and isinstance(key, int):
+        set_value_recursively(dictionary[key], keys[1:], value)
     else:
-        # Navigue dans la structure imbriquée et appelle récursivement
-        if key in dictionary:
-            set_value_recursively(dictionary[key], keys[1:], value)
-        if type(key) is int:
-            set_value_recursively(dictionary[key], keys[1:], value)
         raise KeyError(f"Clé introuvable : {key}")
 
 
@@ -207,6 +211,7 @@ def gestion_editeur(request: flask.Request, json_site: dict, ja_id):
     form_dict = request.form.to_dict()
 
     for key, value in form_dict.items():
+        print(key, value)
         if value == "":
             continue
         print(f"Traitement de la clé {key} avec valeur {value}")
@@ -216,9 +221,30 @@ def gestion_editeur(request: flask.Request, json_site: dict, ja_id):
         except (KeyError, ValueError) as e:
             print(f"Erreur lors de la mise à jour pour {key}: {e}")
 
+    # Enregistrement des images potentielles
+    print(request.files.keys())
+    for key in request.files.keys():
+        file = request.files[key]
+        print(file.filename)
+        if file.filename == '':
+            continue
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            try:
+                splited_keys = key.split("-")
+                set_value_recursively(json_site, splited_keys, filename)
+            except (KeyError, ValueError) as e:
+                print(f"Erreur lors de la mise à jour pour {key}: {e}")
+            file.save(os.path.join(f"tmp/{ja_id}/", filename))
+        else:
+            print("Fichier non autorisé")
+        print(f"Fichier enregistré {key}")
+
+    # Enregistrement du dictionnaire dans le fichier JSON
     print(f"SITE À JOUR{json_site}")
     with open(f"tmp/{ja_id}/site.json", "w") as f:
         json.dump(json_site, f)
+
 
 def allowed_file(filename):
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'mov'}
