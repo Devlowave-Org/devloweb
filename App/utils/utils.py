@@ -207,7 +207,16 @@ def set_value_recursively(dictionary, keys, value):
 
 
 def gestion_editeur(request: flask.Request, json_site: dict, ja_id):
-    # Exemple d'utilisation
+    json_site = gestion_texte(request, json_site)
+    json_site = gestion_fichiers(request, json_site, ja_id)
+
+    # Enregistrement du dictionnaire dans le fichier JSON
+    print(f"SITE À JOUR{json_site}")
+    with open(f"tmp/{ja_id}/site.json", "w") as f:
+        json.dump(json_site, f)
+
+
+def gestion_texte(request: flask.Request, json_site: dict):
     form_dict = request.form.to_dict()
 
     for key, value in form_dict.items():
@@ -218,8 +227,21 @@ def gestion_editeur(request: flask.Request, json_site: dict, ja_id):
         except (KeyError, ValueError) as e:
             print(f"Erreur lors de la mise à jour pour {key}: {e}")
 
-    # Enregistrement des images potentielles
-    print(request.files.keys())
+    return json_site
+
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'mov'}
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+def nice_filename(filename, key):
+    filename = filename.rsplit('.', 1)
+    print(filename)
+    filename[0] = key
+    return filename[0] + '.' + filename[1]
+
+
+def gestion_fichiers(request: flask.Request, json_site: dict, ja_id):
     for key in request.files.keys():
         # On oblige à ce que la clée soit une image sinon on peut mettre des images partout
         if "image" not in key:
@@ -242,23 +264,4 @@ def gestion_editeur(request: flask.Request, json_site: dict, ja_id):
             print("Fichier non autorisé")
         print(f"Fichier enregistré {key}")
 
-    # Enregistrement du dictionnaire dans le fichier JSON
-    print(f"SITE À JOUR{json_site}")
-    with open(f"tmp/{ja_id}/site.json", "w") as f:
-        json.dump(json_site, f)
-
-
-def allowed_file(filename):
-    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'mov'}
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-def nice_filename(filename, key):
-    filename = filename.rsplit('.', 1)
-    print(filename)
-    filename[0] = key
-    return filename[0] + '.' + filename[1]
-
-
-def file_processing(file, ja_id):
-    pass
+    return json_site
