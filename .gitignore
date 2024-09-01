@@ -6,6 +6,7 @@
 *.db
 devlobdd.db
 tmp/*
+__/pycache__/*
 
 ### Flask ###
 instance/*
