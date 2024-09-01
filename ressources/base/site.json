@@ -1,59 +1,54 @@
 {
-  "header": {
-    "title": "",
-    "nav": [
-      "",
-      "",
-      "",
-      "",
-      ""
-    ]
+  "nav": {
+    "ja": "",
+    "link": [
+      {
+        "display": "",
+        "url": ""
+      },
+      {
+        "display": "",
+        "url": ""
+      },
+      {
+        "display": "",
+        "url": ""
+      },
+      {
+        "display": "",
+        "url": ""
+      },
+      {
+        "display": "",
+        "url": ""
+      },{
+        "display": "",
+        "url": ""
+      }]
   },
   "hero": {
     "title": "",
-    "subheadline": "",
-    "cta": ""
-  },
-  "about": {
-    "title": "",
-    "description": ""
-  },
-  "valeurs":
-     [
-      {
-        "title": "",
-        "description": ""
-      },
-      {
-        "title": "",
-        "description": ""
-      },
-      {
-        "title": "",
-        "description": ""
-      }
-    ],
-  "membres": {
-    "title": "",
-    "list": [
-      {
-        "image": "",
-        "name": "",
-        "role": ""
-      }
-    ]
+    "description": "",
+    "image": "",
+    "cta": {
+      "text": "",
+      "url": ""
+    }
   },
   "footer": {
-    "copyright": "",
-    "reseaux": [
-      "",
-      "",
-      ""
-    ],
-    "links": [
-      "",
-      "",
-      ""
-    ]
+    "title": "",
+    "links": ["", "", ""],
+    "logo": {
+      "image": "",
+      "text": ""
+    },
+    "socials": {
+      "facebook": "",
+      "twitter": "",
+      "instagram": "",
+      "youtube": "",
+      "discord": "",
+      "tiktok": ""
+    }
   }
 }

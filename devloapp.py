@@ -121,6 +121,14 @@ def route_editeur():
         return render_template("home/editeur.html")
     return redirect(url_for('route_connexion'))
 
+@app.route("/home/preview", methods=("GET", "POST"))
+def route_preview():
+    # C'est le DASHBOARD Éditeur
+    if is_connected(session, get_db()):
+        return home.preview()
+    return redirect(url_for('route_connexion'))
+
+
 
 
 

@@ -1,212 +1,137 @@
 <!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <link rel="shortcut icon" href="./assets/img/favicon.ico" />
-    <link
-      rel="apple-touch-icon"
-      sizes="76x76"
-      href="./assets/img/apple-icon.png"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css"
-    />
-    <title>Landing | Tailwind Starter Kit by Creative Tim</title>
-  </head>
-  <body class="text-gray-800 antialiased">
-    <nav
-      class="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 "
-    >
-      <div
-        class="container px-4 mx-auto flex flex-wrap items-center justify-between"
-      >
-        <div
-          class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start"
-        >
-          <a
-            class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
-            href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
-            >Tailwind Starter Kit</a
-          ><button
-            class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
-            type="button"
-            onclick="toggleNavbar('example-collapse-navbar')"
-          >
-            <i class="text-white fas fa-bars"></i>
-          </button>
-        </div>
-        <div
-          class="lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none hidden"
-          id="example-collapse-navbar"
-        >
-          <ul class="flex flex-col lg:flex-row list-none mr-auto">
-            <li class="flex items-center">
-              <a
-                class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/landing"
-                ><i
-                  class="lg:text-gray-300 text-gray-500 far fa-file-alt text-lg leading-lg mr-2"
-                ></i>
-                Docs</a
-              >
-            </li>
-          </ul>
-          <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
-            <li class="flex items-center">
-              <a
-                class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                href="#pablo"
-                ><i
-                  class="lg:text-gray-300 text-gray-500 fab fa-facebook text-lg leading-lg "
-                ></i
-                ><span class="lg:hidden inline-block ml-2">Share</span></a
-              >
-            </li>
-            <li class="flex items-center">
-              <a
-                class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                href="#pablo"
-                ><i
-                  class="lg:text-gray-300 text-gray-500 fab fa-twitter text-lg leading-lg "
-                ></i
-                ><span class="lg:hidden inline-block ml-2">Tweet</span></a
-              >
-            </li>
-            <li class="flex items-center">
-              <a
-                class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                href="#pablo"
-                ><i
-                  class="lg:text-gray-300 text-gray-500 fab fa-github text-lg leading-lg "
-                ></i
-                ><span class="lg:hidden inline-block ml-2">Star</span></a
-              >
-            </li>
-            <li class="flex items-center">
-              <button
-                class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
-                type="button"
-                style="transition: all 0.15s ease 0s;"
-              >
-                <i class="fas fa-arrow-alt-circle-down"></i> Download
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <main>
-      <div
-        class="relative pt-16 pb-32 flex content-center items-center justify-center"
-        style="min-height: 75vh;"
-      >
-        <div
-          class="absolute top-0 w-full h-full bg-center bg-cover"
-          style='background-image: url("https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1267&amp;q=80");'
-        >
-          <span
-            id="blackOverlay"
-            class="w-full h-full absolute opacity-75 bg-black"
-          ></span>
-        </div>
-        <div class="container relative mx-auto">
-          <div class="items-center flex flex-wrap">
-            <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
-              <div class="pr-12">
-                <h1 class="text-white font-semibold text-5xl">
-                 {{ data['hero']['title'] }}
-                </h1>
-                <p class="mt-4 text-lg text-gray-300">
-                    {{  data['hero']['subtitle'] }}
-                </p>
-              </div>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>devloweb_template</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div class="drawer">
+            <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+            <div class="drawer-content flex flex-col">
+                <nav class="navbar flex-auto lg:px-0">
+                    <div class="flex-none lg:hidden px-0 sm:px-4">
+                        <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
+                            <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    class="inline-block h-6 w-6 stroke-current">
+                                <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </label>
+                    </div>
+                    <div class="flex-1 justify-end lg:justify-start px-0 sm:px-8">
+                        <a href="./index.html" class="btn btn-ghost text-lg sm:text-xl">Nom_de_votre_JA</a>
+                    </div>
+                    <div class="flex justify-end">
+                        <ul class="menu menu-horizontal list-items-center list-items-px text-base hidden lg:flex">
+                            <li><a>Lien 1</a></li>
+                            <li><a>Lien 2</a></li>
+                            <li><a>Lien 3</a></li>
+                            <li><a>Lien 4</a></li>
+                            <li><a>Lien 5</a></li>
+                            <li><a>Lien 6</a></li>
+                            <li>
+                                <label class="swap swap-rotate">
+                                    <!-- this hidden checkbox controls the state -->
+                                    <input type="checkbox" class="theme-controller" value="cyberpunk" />
+
+                                    <!-- sun icon -->
+                                    <svg
+                                            class="swap-off h-10 w-10 fill-current"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24">
+                                        <path
+                                                d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
+                                    </svg>
+
+                                    <!-- moon icon -->
+                                    <svg
+                                            class="swap-on h-10 w-10 fill-current"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24">
+                                        <path
+                                                d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
+                                    </svg>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <section class="hero min-h-screen pad" style="background-image: url(./bg.jpg);">
+                    <div class="hero-overlay"></div>
+                    <div class="hero-content text-center bg-base-100 rounded-box p-8 sm:p-12 m-4">
+                        <article class="max-w-md">
+                            <h1 class="mb-5 font-bold text-4xl sm:text-5xl text-primary">Nom de votre JA</h1>
+                            <p class="mb-5 text-lg sm:text-xl">
+                                Vous pouvez ecrire ici une courte description d'introduction de votre asso ex: <br><br>
+                                Notre junior association, fondée en 2021, organise des ramassages de déchets et sensibilise à la protection de l'environnement.
+                            </p>
+                            <button class="btn btn-secondary">Découvrez notre asso</button>
+                        </article>
+                    </div>
+                </section>
+                <section class="min-w-screen flex flex-col justify-center items-center py-16 bg-primary px-3 sm:px-5">
+                    <div class="carousel carousel-iframe carousel-div carousel-title max-w-6xl max-w-full">
+                        <div id="item1">
+                            <h2>Nettoyer sa boîte mail</h2>
+                            <iframe src="https://www.youtube.com/embed/d_TJYtcl7Sg?si=OXd5QmtxsD7e-iWE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                        <div id="item2">
+                            <h2>Le marathon des devs</h2>
+                            <iframe src="https://www.youtube.com/embed/Xax0szG4u2k?si=ihh400JB3UMfitrr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                        </div>
+                        <div id="item3">
+                            <h2>HACKER POUR DE VRAI</h2>
+                            <iframe src="https://www.youtube.com/embed/LxxoRLTWEE4?si=PDdZnMm9DYmpK-71" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                        </div>
+                    </div>
+                    <div class="flex w-full justify-center gap-2 py-2">
+                        <a href="#item1" class="btn btn-xs">1</a>
+                        <a href="#item2" class="btn btn-xs">2</a>
+                        <a href="#item3" class="btn btn-xs">3</a>
+                    </div>
+                </section>
             </div>
-          </div>
-        </div>
-        <div
-          class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
-          style="height: 70px;"
-        >
-          <svg
-            class="absolute bottom-0 overflow-hidden"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="none"
-            version="1.1"
-            viewBox="0 0 2560 100"
-            x="0"
-            y="0"
-          >
-            <polygon
-              class="text-gray-300 fill-current"
-              points="2560 0 2560 100 0 100"
-            ></polygon>
-          </svg>
-        </div>
-      </div>
-      <section class="pb-20 bg-gray-300 -mt-24">
-        <div class="container mx-auto px-4">
-          <div class="flex flex-wrap">
-            <div class="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
-              <div
-                class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg"
-              >
-                <div class="px-4 py-5 flex-auto">
-                  <div
-                    class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400"
-                  >
-                    <i class="fas fa-award"></i>
-                  </div>
-                  <h6 class="text-xl font-semibold">{{  data['valeurs'][0]['title'] }}</h6>
-                  <p class="mt-2 mb-4 text-gray-600">
-                    {{  data['valeurs'][0]['description'] }}
-                  </p>
-                </div>
-              </div>
+            <div class="drawer-side">
+                <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
+                <ul class="menu bg-base-200 min-h-full w-4/5 max-w-80 p-4 flex items-start">
+                    <!-- Sidebar content here -->
+                    <li>
+                        <label class="swap swap-rotate justify-start">
+                            <!-- this hidden checkbox controls the state -->
+                            <input type="checkbox" class="theme-controller" value="cupcake" />
+
+                            <!-- sun icon -->
+                            <svg
+                                    class="swap-off h-10 w-10 fill-current"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24">
+                                <path
+                                        d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
+                            </svg>
+
+                            <!-- moon icon -->
+                            <svg
+                                    class="swap-on h-10 w-10 fill-current"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24">
+                                <path
+                                        d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
+                            </svg>
+                        </label>
+                    </li>
+                    <li><a>Lien 1</a></li>
+                    <li><a>Lien 2</a></li>
+                    <li><a>Lien 3</a></li>
+                    <li><a>Lien 4</a></li>
+                    <li><a>Lien 5</a></li>
+                </ul>
             </div>
-            <div class="w-full md:w-4/12 px-4 text-center">
-              <div
-                class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg"
-              >
-                <div class="px-4 py-5 flex-auto">
-                  <div
-                    class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400"
-                  >
-                    <i class="fas fa-retweet"></i>
-                  </div>
-                  <h6 class="text-xl font-semibold">{{  data['valeurs'][1]['title'] }}</h6>
-                  <p class="mt-2 mb-4 text-gray-600">
-                    {{  data['valeurs'][0]['title'] }}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="pt-6 w-full md:w-4/12 px-4 text-center">
-              <div
-                class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg"
-              >
-                <div class="px-4 py-5 flex-auto">
-                  <div
-                    class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400"
-                  >
-                    <i class="fas fa-fingerprint"></i>
-                  </div>
-                  <h6 class="text-xl font-semibold">{{  data['valeurs'][2]['title'] }}</h6>
-                  <p class="mt-2 mb-4 text-gray-600">
-                    {{  data['valeurs'][2]['title'] }}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </section>
-    </main>
-  </body>
+    </body>
 </html>
