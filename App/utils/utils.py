@@ -3,6 +3,10 @@ import os
 from re import fullmatch, compile
 import random
 from datetime import datetime, timedelta
+
+import flask
+from werkzeug.utils import secure_filename
+
 import App.utils.email_api as email_api
 from threading import Thread
 import shutil
@@ -168,30 +172,96 @@ def create_ja_folder(jaid):
 """
 Gestion de l'éditeur
 """
-def editeur_form_processing(form_dict: dict, json_site: dict, ja_id):
+def set_value_recursively(dictionary, keys, value):
+    """
+    Fonction récursive pour définir une valeur dans un dictionnaire imbriqué.
 
-    for key in form_dict.keys():
-        try:
-            splited = key.split("-")
-            if type(splited[0]) is int:
-                raise ValueError("Utilisateur essaie de rentrer un integer au lieu d'un str")
-            section = splited[0]
+    dictionary : dictionnaire de base
+    keys : liste de segments de clé
+    value : valeur à insérer
 
-            try:
-                splited[1] = int(splited[1])
-            except ValueError:
-                pass
-            try:
-                splited[2] = int(splited[2])
-            except (ValueError, IndexError):
-                pass
+    from : https://chatgpt.com/share/5fc613c9-8e62-46c8-998c-1892688deec2
+    doc : key[1:] donne la prochaine clé
+    """
+    # Premier segment de la clé
+    key = keys[0]
 
-            if len(splited) >= 3:
-                json_site[section][splited[1]][splited[2]] = form_dict[key]
-            else:
-                json_site[section][splited[1]] = form_dict[key]
-        except (IndexError, ValueError, KeyError) as e:
-            print("An error occurd in the first try " + str(e))
+    # Si le segment est un index numérique (pour une liste)
+    if key.isdigit():
+        key = int(key)
+        if not isinstance(dictionary, list) or key >= len(dictionary):
+            raise ValueError("Index invalide pour une liste.")
 
+    # Si c'est le dernier segment, on met la valeur
+    if len(keys) == 1:
+        dictionary[key] = value
+        return
+
+    # Navigue dans la structure imbriquée et appelle récursivement
+    if isinstance(dictionary, dict) and key in dictionary:
+        set_value_recursively(dictionary[key], keys[1:], value)
+    elif isinstance(dictionary, list) and isinstance(key, int):
+        set_value_recursively(dictionary[key], keys[1:], value)
+    else:
+        raise KeyError(f"Clé introuvable : {key}")
+
+
+def gestion_editeur(request: flask.Request, json_site: dict, ja_id):
+    json_site = gestion_texte(request, json_site)
+    json_site = gestion_fichiers(request, json_site, ja_id)
+
+    # Enregistrement du dictionnaire dans le fichier JSON
+    print(f"SITE À JOUR{json_site}")
     with open(f"tmp/{ja_id}/site.json", "w") as f:
         json.dump(json_site, f)
+
+
+def gestion_texte(request: flask.Request, json_site: dict):
+    form_dict = request.form.to_dict()
+
+    for key, value in form_dict.items():
+        print(f"Traitement de la clé {key} avec valeur {value}")
+        try:
+            splited_keys = key.split("-")
+            set_value_recursively(json_site, splited_keys, value)
+        except (KeyError, ValueError) as e:
+            print(f"Erreur lors de la mise à jour pour {key}: {e}")
+
+    return json_site
+
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'mov'}
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+def nice_filename(filename, key):
+    filename = filename.rsplit('.', 1)
+    print(filename)
+    filename[0] = key
+    return filename[0] + '.' + filename[1]
+
+
+def gestion_fichiers(request: flask.Request, json_site: dict, ja_id):
+    for key in request.files.keys():
+        # On oblige à ce que la clée soit une image sinon on peut mettre des images partout
+        if "image" not in key:
+            continue
+        file = request.files[key]
+        if file.filename == '':
+            continue
+
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            filename = nice_filename(filename, key)
+            print(filename)
+            try:
+                splited_keys = key.split("-")
+                set_value_recursively(json_site, splited_keys, filename)
+            except (KeyError, ValueError) as e:
+                print(f"Erreur lors de la mise à jour pour {key}: {e}")
+            file.save(os.path.join(f"tmp/{ja_id}/", filename))
+        else:
+            print("Fichier non autorisé")
+        print(f"Fichier enregistré {key}")
+
+    return json_site
