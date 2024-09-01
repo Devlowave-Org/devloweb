@@ -7,7 +7,10 @@ from App.admin_space import admin_space
 import os
 from dotenv import load_dotenv
 
-load_dotenv(".env")
+env = os.path.join(os.getcwd(), '.env')
+if os.path.exists(env):
+    load_dotenv(env)
+
 
 app = Flask(__name__)
 app.secret_key = "banane"
