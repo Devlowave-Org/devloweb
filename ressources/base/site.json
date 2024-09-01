@@ -1,7 +1,30 @@
 {
   "nav": {
     "ja": "",
-    "links": ["", "", "", "", "", ""]
+    "link": [
+      {
+        "display": "",
+        "url": ""
+      },
+      {
+        "display": "",
+        "url": ""
+      },
+      {
+        "display": "",
+        "url": ""
+      },
+      {
+        "display": "",
+        "url": ""
+      },
+      {
+        "display": "",
+        "url": ""
+      },{
+        "display": "",
+        "url": ""
+      }]
   },
   "hero": {
     "title": "",
@@ -9,7 +32,7 @@
     "image": "",
     "cta": {
       "text": "",
-      "link": ""
+      "url": ""
     }
   },
   "footer": {
@@ -19,7 +42,7 @@
       "image": "",
       "text": ""
     },
-    "reseaux": {
+    "socials": {
       "facebook": "",
       "twitter": "",
       "instagram": "",
