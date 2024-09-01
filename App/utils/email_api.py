@@ -53,7 +53,7 @@ class DevloMail:
                     <p>Salut !<br>
                         Ceci est un message de Devloweb,<br>
                         Apparemment tu souhaite réinitialiser ton mot de passe !<br>
-                        Clique sur ce lien pour le réinitialiser : <a href="https://{server_name}}/reset_password?code={code}&email={email}">Réinitialiser !</a><br>
+                        Clique sur ce lien pour le réinitialiser : <a href="https://{server_name}/reset_password?code={code}&email={email}">Réinitialiser !</a><br>
                         Et voici le code : <span style="font-weight: bold;">{code}</span><br>
                         Si tu n'es pas à l'origine de cette demande, répond à ce mail !
                     </p>
