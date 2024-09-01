@@ -11,17 +11,12 @@ def index(devlobdd):
 
 def editeur():
     json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
+    print(json_site)
 
     if request.method == "POST":
-        form = request.form.to_dict()
-        utils.editeur_form_processing(form, json_site, session['ja_id'])
+        utils.gestion_editeur(request, json_site, session['ja_id'])
 
     return render_template("editor/beta/editeur.html", data=json_site)
-
-
-def preview():
-    json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
-    return render_template("sites/beta.html", data=json_site)
 
 def hebergement(devlobdd):
     status_dict = {0: "Désactivé", 1: "Hébergé", 2: "En attente", 3: "Refusé"}
