@@ -5,10 +5,14 @@ from App.utils.utils import is_connected
 from werkzeug.middleware.proxy_fix import ProxyFix
 from App.admin_space import admin_space
 import os
+from dotenv import load_dotenv
+
+load_dotenv(".env")
 
 app = Flask(__name__)
 app.secret_key = "banane"
 app.which = "devlobdd"
+app.config["UPLOAD_FOLDER"] = "tmp/"
 app.wsgi_app = ProxyFix(
     app.wsgi_app, x_for=1, x_proto=0, x_host=1, x_prefix=1
 )
@@ -117,6 +121,14 @@ def route_editeur():
         return render_template("home/editeur.html")
     return redirect(url_for('route_connexion'))
 
+@app.route("/home/preview", methods=("GET", "POST"))
+def route_preview():
+    # C'est le DASHBOARD Éditeur
+    if is_connected(session, get_db()):
+        return home.preview()
+    return redirect(url_for('route_connexion'))
+
+
 
 
 
@@ -136,7 +148,7 @@ def route_hebergement():
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('accueil'))
 
 
 """
