@@ -31,7 +31,7 @@ def connexion(devlobdd):
             return render_template("connexion.html", error="Votre JA n'est pas activé, veuillez regarder vos mails.")
 
 
-        if not bcrypt.checkpw(password.encode('utf-8'), ja[3]):
+        if not bcrypt.checkpw(password.encode('utf-8'), ja[2]):
             print("Tentative de connexion avec un mauvais mot de passe")
             utils.add_a_try(devlobdd, ip)
             return render_template("connexion.html", error="Mail ou mot de passe incorrect")
