@@ -30,8 +30,8 @@ def hebergement(devlobdd):
     return render_template("home/hebergement.html", status=status_dict[site[3]], domain=site[1])
 
 
-def preview():
-    json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
+def preview(ja_id):
+    json_site = json.loads(open(f"tmp/{ja_id}/site.json").read())
     return render_template("sites/beta.html", data=json_site)
 
 
