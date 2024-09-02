@@ -140,6 +140,31 @@ class DevloBDD:
         self.connector.close()  # Fermeture de la connexion.
         return self.cursor.fetchone()
 
+    """USED BY ADMIN PANNEL AND WEBSITE VALIDATOR"""
+
+    def all_ja_with_website_getter(self):
+        self.connection()  # Connection avec la base de données.
+        self.cursor.execute("SELECT devloweb.ja_id FROM sites")
+        self.cursor.close()  # Fermeture du curseur.
+        self.connector.commit()  # Enregistrement dans la base de donnée.
+        self.connector.close()  # Fermeture de la connexion.
+        return self.cursor.fetchall()
+
+    def get_website_status_based_on_ja_id(self, ja_id):
+        self.connection()  # Connection avec la base de données.
+        self.cursor.execute("SELECT devloweb.status FROM sites WHERE ja_id = %s", (ja_id,))
+        self.cursor.close()  # Fermeture du curseur.
+        self.connector.commit()  # Enregistrement dans la base de donnée.
+        self.connector.close()  # Fermeture de la connexion.
+        return self.cursor.fetchone()
+
+    def update_website_status_based_on_ja_id(self, ja_id, status):
+        self.connection()  # Connection avec la base de données.
+        self.cursor.execute("UPDATE devloweb.sites SET status = ? WHERE ja_id = %s", (status, ja_id))
+        self.cursor.close()  # Fermeture du curseur.
+        self.connector.commit()  # Enregistrement dans la base de donnée.
+        self.connector.close()  # Fermeture de la connexion.
+
     """
     Partie Code de Vérification
     """
@@ -286,6 +311,14 @@ class DevloBDD:
             return self.cursor.fetchall()[0]
         except IndexError:
             return None
+
+    def ask_hebergement(self, ja_id):
+        self.connection()  # Connection avec la base de données.
+        self.cursor.execute("UPDATE devloweb.sites SET status = 2 WHERE ja_id = %s", (ja_id,))
+        self.cursor.close()  # Fermeture du curseur.
+        self.connector.commit()  # Enregistrement dans la base de donnée.
+        self.connector.close()  # Fermeture de la connexion.
+
 
     def set_domain_name(self, ja_id, domain):
         self.connection()  # Connection avec la base de données.
