@@ -37,7 +37,14 @@
   },
   "footer": {
     "title": "",
-    "links": ["", "", ""],
+    "links": [
+      {
+        "display": "",
+        "url": ""
+      }, {
+        "display": "",
+        "url": ""
+      }],
     "logo": {
       "image": "",
       "text": ""
