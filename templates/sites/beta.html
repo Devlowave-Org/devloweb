@@ -179,11 +179,9 @@
                             </svg>
                         </label>
                     </li>
-                    <li><a>Lien 1</a></li>
-                    <li><a>Lien 2</a></li>
-                    <li><a>Lien 3</a></li>
-                    <li><a>Lien 4</a></li>
-                    <li><a>Lien 5</a></li>
+                    {% for lien in data["nav"]["link"] %}
+                            <li><a href="{{ lien["url"] }}">{{ lien["display"] }}</a></li>
+                    {%  endfor %}
                 </ul>
             </div>
         </div>
