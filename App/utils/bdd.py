@@ -165,7 +165,7 @@ class DevloBDD:
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
 
-    def _back_code_exists(self, code: str) -> bool:
+    def back_code_exists(self, code: str) -> bool:
         self.connection()  # Connection avec la base de données.
         self.cursor.execute("SELECT COUNT(*) FROM devloweb.users WHERE email_verification_code = %s", (code,))
         self.cursor.close()  # Fermeture du curseur.
