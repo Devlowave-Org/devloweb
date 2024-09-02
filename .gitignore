@@ -319,4 +319,6 @@ $RECYCLE.BIN/
 ./devloweb.db
 devloweb.db
 */devloweb.db
-tmp/
+tmp/*
+config.json
+.idea/
