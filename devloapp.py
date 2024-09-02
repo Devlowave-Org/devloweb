@@ -160,11 +160,8 @@ ESPACE ADMIN
 def route_admin_space():
     return admin_space.load_panel(get_db())
 
-@app.route("/admin_space/website_validator", methods=("GET", "POST"))
-def route_admin_space_website_validator():
-    return admin_space.load_website_validator(get_db())
 
-
+"""TEST"""
 if __name__ == "__main__":
     # therms-and-conditions
     app.run(host="127.0.0.1", port=5555, debug=True)

@@ -17,7 +17,7 @@ ADMIN_SPACE_UTILS_FLAGS = [
 WEBSITE_STATUS_FLAGS=[
     "Ce site n'a pas encore été crée",
     "Ce site a été approuvé",
-    "Ce site requiert",
+    "Ce site requiert une approbation",
     "Ce site a été désapprouvé",
     "Erreur"
 ]

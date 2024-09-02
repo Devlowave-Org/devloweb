@@ -10,13 +10,29 @@
     width: 300px;
 }
 
-.website_details_area_website_status{
+.website_details_area_details{
+    border: 1px solid black;
+    position: relative;
+}
+
+.website_details_area_ja_name, .website_details_area_subdomain_name, .website_details_area_website_status{
     margin: 1px;
     border: 1px solid black;
 }
 
+details {
+    position: relative;
+    left: 5px;
+    width: 75%;
+    border: 1px solid black;
+}
+summary::marker {
+    font-size: 25px;
+}
+
+
 input[type="submit"]{
-            width: 55px;
+            width: 65px;
             height: 20px;
             background-color: lightgrey;
             border: 2px solid black;

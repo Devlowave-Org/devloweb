@@ -20,24 +20,12 @@ def load_panel(devlobdd):
     if is_connected:
         if ja_id == ADMIN_SPACE_UTILS_FLAGS[1] or ja_id == ADMIN_SPACE_UTILS_FLAGS[3]:
             error = ja_id
-            print("a")
         elif ja_id == ADMIN_SPACE_UTILS_FLAGS[0]:
-            print("d")
             search_result, error = search_engine.search(devlobdd)
         else:
-            print("c")
             website_details = load_website_details(devlobdd, ja_id)
             search_result, error = search_engine.search(devlobdd)
     else:
-        print("b")
         error = ADMIN_SPACE_UTILS_FLAGS[4]
 
     return render_template("admin_space/panel.html", search_result=search_result, error=error, website_details=website_details, zip=zip, url_for=url_for, len=len)
-
-
-def load_website_validator(devlobdd):
-    is_connected = connection.connect()
-    if is_connected:
-        return process_submit_demand(devlobdd)
-    else:
-        return render_template("admin_space/website_validator.html", error="You are not authorized to access this page")

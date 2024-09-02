@@ -34,7 +34,7 @@ def ja_id_only(ja_id: str) -> str:
         raise ValueError(f"Invalid JA ID: {ja_id}")
 
 def etape_verification(devlobdd, ja_id):
-    ja = devlobdd.get_ja_byid(ja_id)
+    ja = devlobdd.get_ja_by_id(ja_id)
     mail = ja[1]
     code = create_verification_code(devlobdd)
     store_code(devlobdd, ja_id, code)
@@ -78,7 +78,7 @@ def verif_code(devlobdd, ja_id, code):
 
 def update_verif_code(devlobdd, row):
     create_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S.%f")
-    mail = devlobdd.get_ja_byid(ja_id=row[0])[0]
+    mail = devlobdd.get_ja_by_id(ja_id=row[0])[0]
 
     delta = datetime.now() - create_date
     if delta.seconds < 120:

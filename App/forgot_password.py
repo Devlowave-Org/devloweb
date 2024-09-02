@@ -33,7 +33,7 @@ def forgot_password(devlobdd):
             devlobdd.delete_magic_link(row[0])
 
 
-        ja = devlobdd.get_ja_byid(ja_id)
+        ja = devlobdd.get_ja_by_id(ja_id)
         if not ja:
             utils.add_a_try(devlobdd, ip)
             return render_template("forgot_password.html", error="Un mail a été envoyé si le compte existe.")
@@ -64,7 +64,7 @@ def reset_password(devlobdd):
             return render_template('reset_password.html', error='Code incorrect')
 
         row = devlobdd.get_magic_link(code=request.form['code'])
-        ja = devlobdd.get_ja_byid(row[1])
+        ja = devlobdd.get_ja_by_id(row[1])
 
         if ja[1] != request.form['email']:
             utils.add_a_try(devlobdd, ip)

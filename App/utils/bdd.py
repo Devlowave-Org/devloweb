@@ -75,7 +75,7 @@ class DevloBDD:
         self.cursor.execute("SELECT * FROM users WHERE email = ?", (mail,))
         return self.cursor.fetchone()
 
-    def get_ja_byid(self, ja_id: str) -> list:
+    def get_ja_by_id(self, ja_id: str) -> list:
         self.cursor.execute("SELECT * FROM users WHERE ja_id = ?", (ja_id,))
         return self.cursor.fetchone()
     
@@ -87,7 +87,7 @@ class DevloBDD:
         self.cursor.execute("SELECT * FROM sites WHERE ja_id = ?", (ja,))
         return self.cursor.fetchone()
 
-    """USED BY ADMIN PANNEL AND WEBSITE VALIDATOR"""
+    """USED BY ADMIN SPACE"""
     def all_ja_with_website_getter(self):
         self.cursor.execute("SELECT ja_id FROM sites")
         return self.cursor.fetchall()
@@ -99,6 +99,14 @@ class DevloBDD:
     def update_website_status_based_on_ja_id(self, ja_id, status):
         self.cursor.execute("UPDATE sites SET status = ? WHERE ja_id = ?", (status, ja_id))
         self.conn.commit()
+
+    def get_website_domain_based_on_ja_id(self, ja_id):
+        self.cursor.execute("SELECT domain FROM sites WHERE ja_id = ?", (ja_id,))
+        return self.cursor.fetchone()
+
+    def get_ja_name_by_id(self, ja_id: str) -> list:
+        self.cursor.execute("SELECT name FROM users WHERE ja_id = ?", (ja_id,))
+        return self.cursor.fetchone()
     
     """
     Partie Code de Vérification
