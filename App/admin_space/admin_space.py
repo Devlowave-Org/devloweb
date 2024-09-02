@@ -3,8 +3,8 @@ from flask import request, render_template, session, redirect, flash, url_for
 from App.admin_space.search_engine import search
 from App.admin_space.website_details_area import load_website_details
 from App.admin_space.website_validator import process_submit_demand
-from App.admin_space.admin_space_utils import query_parameter_getter, query_getter_and_checker, website_status_reader, \
-    ADMIN_SPACE_UTILS_FLAGS
+from App.admin_space.admin_space_utils import get_parameter_getter, website_status_reader, ADMIN_SPACE_UTILS_FLAGS
+from App.admin_space.search_engine import query_getter_and_checker
 from App.utils import bdd, utils
 from App.admin_space import search_engine, website_details_area, connection
 

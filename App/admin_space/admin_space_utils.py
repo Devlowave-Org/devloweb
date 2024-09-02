@@ -24,41 +24,25 @@ WEBSITE_STATUS_FLAGS=[
 
 
 """UTILS FUNCTIONS"""
-def query_parameter_getter():
-        query = request.args.get('query')
+def get_parameter_getter(name):
+        parameter = request.args.get(name)
 
-        if query is None or query == '':
+        if parameter is None or parameter == '':
             return ADMIN_SPACE_UTILS_FLAGS[0]
         else:
-            return query
+            return parameter
 
-
-def query_getter_and_checker(devlobdd):
-    query_to_check = query_parameter_getter()
-    all_ja_with_website = all_ja_with_website_getter(devlobdd)
-
-    try:
-        if re.match("^ja-[0-9]{2,5}$", query_to_check):
-            query_to_check = int(utils.ja_id_only(query_to_check))
-        elif re.match("^[0-9]{2,5}$", query_to_check):
-            query_to_check = int(query_to_check)
-        elif query_to_check is ADMIN_SPACE_UTILS_FLAGS[0]:
-            return ADMIN_SPACE_UTILS_FLAGS[0]
-        else:
-            return ADMIN_SPACE_UTILS_FLAGS[1]
-
-        if query_to_check not in all_ja_with_website:
-            return ADMIN_SPACE_UTILS_FLAGS[3]
-        else:
-            return query_to_check
-
-    except ValueError:
-        return 1 # Flag number
-
+def post_parameter_getter(name):
+    parameter = request.form[name]
+    if parameter is None or parameter == '':
+        return None
+    else:
+        return parameter
 
 def website_status_reader(devlobdd, ja_id):
     if ja_id:
         status = devlobdd.get_website_status_based_on_ja_id(ja_id)[0]
+        print(status)
 
         if status is None:
             return WEBSITE_STATUS_FLAGS[0]

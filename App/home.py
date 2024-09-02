@@ -34,3 +34,6 @@ def hebergement(devlobdd):
 
 def account():
     return render_template('home/account.html')
+
+def preview(ja_id):
+    return "https://google.com"

@@ -65,16 +65,14 @@
                     {% if website_details[3]%}
                         <details id="website_details_area_website_validator">
                             <summary>Traiter la demande :</summary>
-                            {% if website_details[3] %}
                                 <a href="{{ website_details[5] }}" target="_blank"><button>Voir le site</button></a>
                                 <form action="/admin_space?query={{ search_result[1][0] }}" method="POST">
-                                    <input type="submit" name="action" value="Accepter">
-                                    <input type="submit" name="action" value="Rejeter">
+                                    <input type="submit" name="process_demand" value="Accepter">
+                                    <input type="submit" name="process_demand" value="Rejeter">
                                 </form>
-                                    {% if error %}
-                                        <p>{{ website_details[4] }}</p>
-                                    {% endif %}
-                            {% endif %}
+                                {% if website_details[4] %}
+                                    <p>{{ website_details[4] }}</p>
+                                {% endif %}
                         </details>
                     {% endif %}
                     {% if website_details[3] == None %}

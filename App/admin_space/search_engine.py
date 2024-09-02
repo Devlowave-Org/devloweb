@@ -50,3 +50,26 @@ def search_result_list_maker(received_list, devlobdd, all_ja_ids):
         list_to_return[2] = list_to_return[2] + [f"{website_status_icon_path}"]
     return list_to_return
 
+
+def query_getter_and_checker(devlobdd):
+    query_to_check = get_parameter_getter('query')
+    all_ja_with_website = all_ja_with_website_getter(devlobdd)
+
+    try:
+        if re.match("^ja-[0-9]{2,5}$", query_to_check):
+            query_to_check = int(utils.ja_id_only(query_to_check))
+        elif re.match("^[0-9]{2,5}$", query_to_check):
+            query_to_check = int(query_to_check)
+        elif query_to_check is ADMIN_SPACE_UTILS_FLAGS[0]:
+            return ADMIN_SPACE_UTILS_FLAGS[0]
+        else:
+            return ADMIN_SPACE_UTILS_FLAGS[1]
+
+        if query_to_check not in all_ja_with_website:
+            return ADMIN_SPACE_UTILS_FLAGS[3]
+        else:
+            return query_to_check
+
+    except ValueError:
+        return 1 # Flag number
+
