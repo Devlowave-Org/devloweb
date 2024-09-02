@@ -144,7 +144,7 @@ class DevloBDD:
 
     def all_ja_with_website_getter(self):
         self.connection()  # Connection avec la base de données.
-        self.cursor.execute("SELECT devloweb.ja_id FROM sites")
+        self.cursor.execute("SELECT ja_id FROM devloweb.sites")
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -152,7 +152,7 @@ class DevloBDD:
 
     def get_website_status_based_on_ja_id(self, ja_id):
         self.connection()  # Connection avec la base de données.
-        self.cursor.execute("SELECT devloweb.status FROM sites WHERE ja_id = %s", (ja_id,))
+        self.cursor.execute("SELECT status FROM devloweb.sites WHERE ja_id = %s", (ja_id,))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -160,7 +160,7 @@ class DevloBDD:
 
     def update_website_status_based_on_ja_id(self, ja_id, status):
         self.connection()  # Connection avec la base de données.
-        self.cursor.execute("UPDATE devloweb.sites SET status = ? WHERE ja_id = %s", (status, ja_id))
+        self.cursor.execute("UPDATE devloweb.sites SET status = %s WHERE ja_id = %s", (status, ja_id))
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
