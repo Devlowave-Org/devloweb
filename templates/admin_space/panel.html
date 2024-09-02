@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/panel.css">
+    <link rel="stylesheet" href="static/admin_space/panel.css">
     <title>Admin panel</title>
 </head>
 <body>
@@ -26,11 +26,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                            {% for ja_id, checkbox_parameters in zip(search_result[1], search_result[2]) %}
+                            {% for ja_id, website_status_icon in zip(search_result[1], search_result[2]) %}
                                 <tr>
                                     <td>
                                         <form action="/admin_space" method="GET">
-                                            <input type="checkbox" {{ checkbox_parameters }}>
+                                            <img src="{{ website_status_icon }}" alt="{{ website_status_icon }}" id="website_status_icon">
                                             <input type="submit" value="{{ ja_id }}" name="query">
                                         </form>
                                     </td>
@@ -56,13 +56,12 @@
                 example.devloweb.fr
             </div>
             <div class="website_details_area_website_status">
-                <label>Status of the website :</label>
-                <input type="checkbox" {{ search_result[2][0] }}>
+                <img src="{{ search_result[2][0] }}" alt="{{ search_result[2][0] }}" id="website_status_icon">
                 {{ website_details[0] }}
+                {% if website_details[1]%}
+                    <a href="{{ website_details[1] }}"> <button>Traiter la demande</button> </a>
+                {% endif %}
             </div>
-            {% if website_details[1]%}
-                <a href="{{ website_details[1] }}"> <button>Activate</button> </a>
-            {% endif %}
         {% endif %}
     </div>
 

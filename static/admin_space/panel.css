@@ -1,0 +1,30 @@
+.admin_panel{
+    height: 97vh;
+    width: 97vw;
+    display: flex;
+    justify-content: center;
+}
+
+.search_area, .website_details_area{
+    border: 2px solid black;
+    width: 300px;
+}
+
+.website_details_area_website_status{
+    margin: 1px;
+    border: 1px solid black;
+}
+
+input[type="submit"]{
+            width: 55px;
+            height: 20px;
+            background-color: lightgrey;
+            border: 2px solid black;
+}
+
+#website_status_icon{
+    position: relative;
+    top:7px;
+    height: 25px;
+    width: 25px;
+}

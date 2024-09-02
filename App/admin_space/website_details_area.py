@@ -1,12 +1,13 @@
 from flask import request, render_template, session, redirect, flash, url_for
-from App.admin_space.admin_space_utils import website_status_reader
+from App.admin_space.admin_space_utils import website_status_reader, ADMIN_SPACE_UTILS_FLAGS
 from App.utils import bdd, utils
 import re
 
 def load_website_details(devlobdd, ja_id):
     website_infos = []
     website_infos.append(get_website_status(devlobdd, ja_id))
-    website_infos.append(make_link_to_ja_validation_page(ja_id))
+    if get_website_status(devlobdd, ja_id) == ADMIN_SPACE_UTILS_FLAGS[3]:
+        website_infos.append(make_link_to_ja_validation_page(ja_id))
     return website_infos
 
 def get_website_status(devlobdd, ja_id):
