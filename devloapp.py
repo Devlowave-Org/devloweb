@@ -8,8 +8,8 @@ from os import path, getcwd, environ
 from json import load
 from dotenv import load_dotenv
 
-env = os.path.join(os.getcwd(), '.env')
-if os.path.exists(env):
+env = path.join(getcwd(), '.env')
+if path.exists(env):
     load_dotenv(env)
 
 
