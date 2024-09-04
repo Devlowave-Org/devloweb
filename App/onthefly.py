@@ -8,7 +8,7 @@ def gen_on_the_fly(domain_name, devlobdd):
     if not ja_site:
         return abort(404)
 
-    if ja_site[3] != 2:
+    if ja_site[3] != 1:
         return abort(404)
 
     json_site = json.loads(open(f"tmp/{ja_site[0]}/site.json").read())
