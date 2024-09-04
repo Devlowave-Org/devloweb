@@ -27,13 +27,11 @@ else:
     app.config["SERVER_NAME"] = "127.0.0.1:5555"
 
 
-file_path = path.abspath(path.join(getcwd(), "config.json"))  # Trouver le chemin complet du fichier config.json
-
 # Lecture du fichier JSON
 with open(file_path, 'r') as file:
     config_data = load(file)  # Ouverture du fichier config.json
 
-db = DevloBDD(config_data['database']['username'], config_data['database']['password'], config_data['database']['addr'], config_data['database']['port'])
+db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306)
 
 db.create_bdd()
 
