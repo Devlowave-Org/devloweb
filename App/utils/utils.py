@@ -39,7 +39,7 @@ def ja_id_only(ja_id: str) -> str:
 
 def etape_verification(devlobdd, ja_id):
     ja = devlobdd.get_ja_byid(ja_id)
-    mail = ja[1]
+    mail = ja[3]
     code = create_verification_code(devlobdd)
     store_code(devlobdd, ja_id, code)
     devlomail = email_api.DevloMail()
