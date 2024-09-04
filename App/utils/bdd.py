@@ -29,15 +29,13 @@ class DevloBDD:
 
 
     def reset_bdd(self):
-        self.connection()  # Connection avec la base de données.
-        self.cursor.execute("DROP TABLE IF EXISTS devloweb.users")
-        self.cursor.execute("DROP TABLE IF EXISTS devloweb.magic_link")
-        self.cursor.execute("DROP TABLE IF EXISTS devloweb.security")
-        self.cursor.execute("DROP TABLE IF EXISTS devloweb.sites")
-        self.create_bdd()
-        self.cursor.close()  # Fermeture du curseur.
-        self.connector.commit()  # Enregistrement dans la base de donnée.
-        self.connector.close()  # Fermeture de la connexion.
+        query = """
+        DROP TABLE IF EXISTS devloweb.users;
+        DROP TABLE IF EXISTS devloweb.magic_link;
+        DROP TABLE IF EXISTS devloweb.security;
+        DROP TABLE IF EXISTS devloweb.sites;
+        """
+        self.execute_query(query)
 
     def create_bdd(self):
         self.connection()
