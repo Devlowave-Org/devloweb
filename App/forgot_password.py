@@ -24,7 +24,7 @@ def forgot_password(devlobdd):
         if utils.is_punished(devlobdd, ip):
             return render_template('forgot_password.html', error="Une erreur est survenue")
 
-        if devlobdd.get_magic_link_exists_by_ja(ja_id):
+        if devlobdd.get_magic_link_by_ja(ja_id):
             row = devlobdd.magic_link_exists_by_ja(ja_id)
             delta = datetime.now() - row[2]
 
@@ -38,7 +38,7 @@ def forgot_password(devlobdd):
             utils.add_a_try(devlobdd, ip)
             return render_template("forgot_password.html", error="Un mail a été envoyé si le compte existe.")
 
-        email = ja[1]
+        email = ja[3]
         utils.magic_link(devlobdd, ja_id, email)
         return render_template("forgot_password.html", error="Un mail a été envoyé si le compte existe.")
 
