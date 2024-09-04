@@ -111,7 +111,7 @@ def route_editeur():
 @app.route("/home/preview", methods=("GET", "POST"))
 def route_preview():
     # C'est le DASHBOARD Éditeur
-    if is_connected(session, get_db()):
+    if is_connected(session, db):
         return home.preview(session["ja_id"])
     return redirect(url_for('route_connexion'))
 
