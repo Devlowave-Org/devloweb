@@ -21,6 +21,11 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
+          export GMAIL_APP="${{secrets.GMAIL_APP}}"
+          export SERVER_NAME=${{secrets.SERVER_NAME}}
+          export ENV=${{secrets.ENV}}
+          export DB_USERNAME="${{secrets.DB_USERNAME}}
+          export DB_PASSWORD="${{secrets.DB_PASSWORD}}
           cd devloweb
           git pull
           sudo systemctl restart devloweb.service
