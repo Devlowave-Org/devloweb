@@ -26,11 +26,6 @@ if environ.keys().__contains__("SERVER_NAME") and environ["ENV"] == "prod":
 else:
     app.config["SERVER_NAME"] = "127.0.0.1:5555"
 
-
-# Lecture du fichier JSON
-with open(file_path, 'r') as file:
-    config_data = load(file)  # Ouverture du fichier config.json
-
 db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306)
 
 db.create_bdd()
