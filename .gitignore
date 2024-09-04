@@ -6,6 +6,7 @@
 *.db
 devlobdd.db
 tmp/*
+__/pycache__/*
 
 ### Flask ###
 instance/*
@@ -319,6 +320,4 @@ $RECYCLE.BIN/
 ./devloweb.db
 devloweb.db
 */devloweb.db
-tmp/*
-config.json
-.idea/
+tmp/
