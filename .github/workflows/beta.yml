@@ -8,10 +8,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    env:
-      GMAIL_APP: ${{ secrets.GMAIL_APP }}
-      SERVER_NAME: ${{ secrets.SERVER_NAME }}
-      ENV: ${{ secrets.ENV }}
     steps:
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@v1.0.1
@@ -21,11 +17,7 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
-          export GMAIL_APP="${{secrets.GMAIL_APP}}"
-          export SERVER_NAME=${{secrets.SERVER_NAME}}
-          export ENV=${{secrets.ENV}}
-          export DB_USERNAME=${{secrets.DB_USERNAME}}
-          export DB_PASSWORD=${{secrets.DB_PASSWORD}}
+          set -e
           cd devloweb
           git pull
           sudo systemctl restart devloweb.service
