@@ -243,7 +243,7 @@ def test_ask_new_code(client, devlobdd):
     assert devlobdd.get_code_via_jaid("JA-8166")[1] == code
     time.sleep(120)
     resp = client.post('/resend', data={
-        "ja_id": "JA-8166"
+        "email": "timtonix@icloud.com"
     })
     # Le code a bien été mis à jour
     assert devlobdd.get_code_via_jaid("JA-8166")[1] != code
@@ -258,7 +258,7 @@ def test_ask_new_code_already_active(client, devlobdd):
     test_good_inscription(client, devlobdd)
     test_good_code_verification(client, devlobdd)
     resp = client.post('/resend', data={
-        "ja_id": "JA-8166"
+        "email": "timtonix@icloud.com"
     })
     # On ne lui a pas crée de nouveau code
     assert devlobdd.get_code_via_jaid("JA-8166") is None
@@ -266,6 +266,18 @@ def test_ask_new_code_already_active(client, devlobdd):
     assert 'Votre JA est déjà activée' in resp.data.decode('utf-8')
 
 
+def test_ask_new_code_wrong_email(client, devlobdd):
+    devlobdd.reset_bdd()
+    # On simule une inscritpion
+    test_good_inscription(client, devlobdd)
+    test_good_code_verification(client, devlobdd)
+    resp = client.post('/resend', data={
+        "email": "pasmonmail@gmail.com"
+    })
+    # On ne lui a pas crée de nouveau code
+    assert devlobdd.get_code_via_jaid("JA-8166") is None
+    assert resp.status_code == 200
+    assert "Il n&#39;y a aucune JA associée à cet email..." in resp.data.decode('utf-8')
 
 
 
