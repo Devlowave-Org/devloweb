@@ -38,7 +38,7 @@ def inscription(devlobdd):
 
         # On vérifie le mot de passe
         password = request.form['password']
-        if len(password) < 9:
+        if len(password) <= 8:
             return render_template('inscription.html', error="Veuillez avoir un mot de passe d'au moins 9 caractères")
 
         hashed_pass = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
