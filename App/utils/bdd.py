@@ -36,6 +36,7 @@ class DevloBDD:
         self.execute_query("DROP TABLE IF EXISTS magic_link;")
         self.execute_query("DROP TABLE IF EXISTS security;")
         self.execute_query("DROP TABLE IF EXISTS sites;")
+        self.create_bdd()
 
 
     def create_bdd(self):
@@ -93,6 +94,7 @@ class DevloBDD:
     def ja_exists(self, ja_id: str) -> bool:
         result = self.execute_query("SELECT COUNT(*) FROM users WHERE ja_id = %s", (ja_id,), fetchone=True)
         return result[0] > 0
+
 
     def activer_email_ja(self, ja_id: str):
         self.execute_query("UPDATE users SET email_verified = 1 WHERE ja_id = %s", (ja_id,))

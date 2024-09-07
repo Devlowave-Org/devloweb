@@ -3,8 +3,6 @@ from App.utils import bdd, utils
 
 
 def resend_email(devlobdd):
-    devlobdd.ja_exists("8166")
-
     if request.method == 'POST':
         if not request.form["ja_id"]:
             return render_template("resend.html", error="Veuillez remplir tous les champs")
