@@ -18,8 +18,8 @@ jobs:
         port: ${{ secrets.PORT }}
         script: |
           set -e
-          cd devloweb
+          cd devlotest/devloweb
           git pull
-          export PYTHONPATH=/home/timtonix/PycharmProjects/devloweb/
+          export PYTHONPATH=/home/timtonix/devlotest/devloweb/
           devloven/bin/python/pytest App/tests/test_inscription.py --runslow
           env
