@@ -35,7 +35,7 @@ def ja_id_only(ja_id: str) -> str:
         ja_id = ja_id.split("-")[1]
         return ja_id
     except (ValueError, IndexError) as e:
-        raise ValueError(f"Invalid JA ID: {ja_id}")
+        raise ValueError(f"Identifiant de JA invalide : {ja_id}")
 
 def etape_verification(devlobdd, ja_id):
     ja = devlobdd.get_ja_byid(ja_id)

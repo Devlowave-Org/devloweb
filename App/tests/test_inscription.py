@@ -1,12 +1,15 @@
 import os
 import time
+from base64 import encode
 from datetime import datetime
 from App.utils.bdd import DevloBDD
 import pytest
+from os import environ
 
 @pytest.fixture()
 def devlobdd():
-    return DevloBDD("devlotest")
+    return DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306, database="devlotest")
+
 
 
 def test_mauvais_id(client, devlobdd):
@@ -16,7 +19,7 @@ def test_mauvais_id(client, devlobdd):
         "ja_id": "azerty?",
         "password": "aefkdnbùgkfxdgbmfvlkbeshf"
     })
-    assert b"Invalid JA ID" in response.data
+    assert b"Identifiant de JA invalide :" in response.data
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com") is None
     assert response.status_code == 200
 
@@ -39,11 +42,11 @@ def test_mauvais_password(client, devlobdd):
     response = client.post('/inscription', data={
         "email": "timtonix@icloud.com",
         "ja_id": "JA-8166",
-        "password": "azerty..."  # -12 caractères
+        "password": "azertyui"  # -9 caractères
     })
 
     assert response.status_code == 200
-    assert 'Veuillez avoir un mot de passe d&#39;au moins 12 caractères'.encode("utf-8") in response.data
+    assert "Veuillez avoir un mot de passe d&#39;au moins 9 caractères".encode("utf-8") in response.data
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com") is None
 
 
@@ -122,7 +125,7 @@ def test_punition_verif_code(client, devlobdd):
 
 def test_code_verif_after_punished(client, devlobdd):
     # Bon en gros on reset pas la BDD après la punition ci-dessus. Et donc meme si on à le bon code ça marche pas
-    code = devlobdd.get_code_via_jaid("8166")[1]
+    code = devlobdd.get_code_via_jaid("8166")[0]
     response = req_code_verif(client,"JA-8166", code)
     assert devlobdd.get_try("127.0.0.1")[1] == 5
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 0
@@ -132,23 +135,26 @@ def test_code_verif_after_punished(client, devlobdd):
 
 def test_good_code_verification(client, devlobdd):
     devlobdd.delete_try("127.0.0.1")
-    code = devlobdd.get_code_via_jaid("8166")[1]
+    code = devlobdd.get_code_via_jaid("8166")[0]
     response = req_code_verif(client,"JA-8166", code)
     assert response.status_code == 302
     # Le compte existe et il est activé
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 1
     # On vérifie que le code a bien été supprimé
-    code = devlobdd.get_code_via_jaid("8166")
-    assert code is None
+    code = devlobdd.get_code_via_jaid("8166")[0]
+    assert code is ''
     # On vérifie aussi que les dossier des JA ont été crées
-    assert os.path.isdir("tmp/8166") is True
-    assert os.path.isfile("tmp/8166/site.json") is True
-    assert os.path.isfile("tmp/8166/site.html") is True
+    assert os.path.isdir(f"{os.getcwd()}/tmp/8166") is True
+    assert os.path.isfile(f"{os.getcwd()}/tmp/8166/site.json") is True
+    site = devlobdd.get_site_by_ja("8166")
+    assert site is not None
+
+
 
 def test_already_activated_ja(devlobdd):
     devlobdd.delete_try("127.0.0.1")
-    code = devlobdd.get_code_via_jaid("8166")
-    assert code is None
+    code = devlobdd.get_code_via_jaid("8166")[0]
+    assert code is ''
 
 
 @pytest.mark.slow
@@ -160,7 +166,7 @@ def test_wait_punition_time(client,devlobdd):
     # On désactive la JA manuellement au cas ou elle  était déjà ativé à cause du test du dessus
     devlobdd.desactiver_ja("JA-8166")
     time.sleep(1810)
-    code = devlobdd.get_code_via_jaid("8166")[1]
+    code = devlobdd.get_code_via_jaid("8166")[0]
     response = req_code_verif("JA-8166", 1234)
     assert devlobdd.get_try("127.0.0.1")[1] == 1
     response = req_code_verif(client,"JA-8166", code)
@@ -225,9 +231,8 @@ def test_good_connection(client, devlobdd):
 @pytest.mark.slow
 def test_ask_new_code(client, devlobdd):
     devlobdd.reset_bdd()
-    devlobdd.__init__("devlotest")
     # On simule une inscritpion
-    test_good_inscription(devlobdd)
+    test_good_inscription(client, devlobdd)
     assert devlobdd.get_code_via_jaid("JA-8166") is not None
     code = devlobdd.get_code_via_jaid("JA-8166")[1]
     resp = client.post('/resend', data={
@@ -238,7 +243,7 @@ def test_ask_new_code(client, devlobdd):
     assert devlobdd.get_code_via_jaid("JA-8166")[1] == code
     time.sleep(120)
     resp = client.post('/resend', data={
-        "ja_id": "JA-8166"
+        "email": "timtonix@icloud.com"
     })
     # Le code a bien été mis à jour
     assert devlobdd.get_code_via_jaid("JA-8166")[1] != code
@@ -249,12 +254,11 @@ def test_ask_new_code(client, devlobdd):
 
 def test_ask_new_code_already_active(client, devlobdd):
     devlobdd.reset_bdd()
-    devlobdd.__init__("devlotest")
     # On simule une inscritpion
     test_good_inscription(client, devlobdd)
     test_good_code_verification(client, devlobdd)
     resp = client.post('/resend', data={
-        "ja_id": "JA-8166"
+        "email": "timtonix@icloud.com"
     })
     # On ne lui a pas crée de nouveau code
     assert devlobdd.get_code_via_jaid("JA-8166") is None
@@ -262,6 +266,18 @@ def test_ask_new_code_already_active(client, devlobdd):
     assert 'Votre JA est déjà activée' in resp.data.decode('utf-8')
 
 
+def test_ask_new_code_wrong_email(client, devlobdd):
+    devlobdd.reset_bdd()
+    # On simule une inscritpion
+    test_good_inscription(client, devlobdd)
+    test_good_code_verification(client, devlobdd)
+    resp = client.post('/resend', data={
+        "email": "pasmonmail@gmail.com"
+    })
+    # On ne lui a pas crée de nouveau code
+    assert devlobdd.get_code_via_jaid("JA-8166") is None
+    assert resp.status_code == 200
+    assert "Il n&#39;y a aucune JA associée à cet email..." in resp.data.decode('utf-8')
 
 
 

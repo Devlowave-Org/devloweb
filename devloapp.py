@@ -1,3 +1,5 @@
+from encodings.utf_7 import encode
+
 from flask import render_template, Flask, session, redirect, url_for, g
 from App import home, inscription, verification, connexion, resend, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
@@ -23,10 +25,15 @@ app.wsgi_app = ProxyFix(
 
 if environ.keys().__contains__("SERVER_NAME") and environ["ENV"] == "prod":
     app.config["SERVER_NAME"] = environ["SERVER_NAME"]
+    db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306)
+
+elif environ["ENV"] == "test":
+    app.config["SERVER_NAME"] = "127.0.0.1:5555"
+    db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306, database="devlotest")
 else:
     app.config["SERVER_NAME"] = "127.0.0.1:5555"
+    db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306)
 
-db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306)
 
 db.create_bdd()
 
