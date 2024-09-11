@@ -1,12 +1,12 @@
 import pytest
 from devloapp import app
-import os
+
 
 
 app.which = "devlotest"
-os.system("rm -rf ~/PycharmProjects/devloweb/devlotest.db")
-os.system("rm -rf ~/PycharmProjects/devloweb/App/tests/devlotest.db")
 
+
+print("Chargement de conftest...")
 
 @pytest.fixture
 def client():
@@ -18,6 +18,10 @@ def pytest_addoption(parser):
     parser.addoption(
         "--runslow", action="store_true", default=False, help="run slow tests"
     )
+
+@pytest.fixture
+def cmdopt(request):
+    return request.config.getoption("--runslow")
 
 
 def pytest_configure(config):

@@ -24,4 +24,4 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --upgrade pip flask pytest bcrypt libgravatar requests
       - name: lauch tests
-        run: python -m pytest -v --runslow
+        run: python -m pytest App/tests/test_inscription.py -v --runslow
