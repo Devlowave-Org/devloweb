@@ -1,6 +1,5 @@
 import os
 import time
-from base64 import encode
 from datetime import datetime
 from App.utils.bdd import DevloBDD
 import pytest
@@ -96,8 +95,8 @@ def req_code_verif(client, ja_id, code):
 
 
 def test_mauvais_code_verif(client, devlobdd):
+    devlobdd.reset_try("127.0.0.1")
     response = req_code_verif(client, "JA-8166", 1234)
-
     assert response.status_code == 200
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 0
     assert devlobdd.get_try("127.0.0.1")[1] == 1
