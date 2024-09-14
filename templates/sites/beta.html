@@ -61,7 +61,7 @@
                         </ul>
                     </div>
                 </nav>
-                <section class="hero min-h-screen pad" style="background-image: url(image/bg.jpg);">
+                <section class="hero min-h-screen pad" style="background-image: url({{ url_for('route_tmp', ja=data["ja_id"], image=data["hero"]["image"]) }});">
                     <div class="hero-overlay"></div>
                     <div class="hero-content text-center bg-base-100 rounded-box p-8 sm:p-12 m-4">
                         <article class="max-w-md">

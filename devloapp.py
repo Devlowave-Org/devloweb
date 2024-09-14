@@ -44,6 +44,13 @@ def index(subdomain):
         return onthefly.gen_on_the_fly(subdomain, db)
     return render_template("index.html")
 
+@app.route("/tmp/<ja>/<image>", methods=("GET",))
+def route_tmp(ja, image):
+    # C'est le DASHBOARD Éditeur
+    print(ja, image)
+    return onthefly.send_image(ja, image)
+
+
 @app.route("/")
 def accueil():
     return render_template("index.html")
@@ -117,8 +124,6 @@ def route_preview():
     if is_connected(session, db):
         return home.preview(session["ja_id"])
     return redirect(url_for('route_connexion'))
-
-
 
 
 
