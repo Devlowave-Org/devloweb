@@ -1,25 +1,27 @@
-name: remote ssh command
+name: run pytest
 on:
   push:
     branches:
       - beta
+
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - name: executing remote ssh commands using password
+    - name: run les tests
       uses: appleboy/ssh-action@v1.0.1
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
+        command_timeout: '100m'
         script: |
           set -e
           cd devlotest/devloweb
           git pull
           export PYTHONPATH=/home/timtonix/devlotest/devloweb/
-          devloven/bin/python/pytest App/tests/test_inscription.py --runslow
+          devlovenv/bin/pytest App/tests/test_inscription.py -v --runslow 
           env

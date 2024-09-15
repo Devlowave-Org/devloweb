@@ -69,7 +69,7 @@
                 </ul>
             </div>
         </nav>
-        <section class="hero min-h-screen pad" style="background-image: url(../public/image/bg.jpg);">
+        <section class="hero min-h-screen pad" style="background-image: url({{ url_for('route_tmp', ja=data["ja_id"], image=data["hero"]["image"]) }});">
             <div class="hero-overlay"></div>
             <div class="hero-content text-center bg-base-100 rounded-box p-8 sm:p-12 m-4">
                 <article class="max-w-md">
@@ -80,6 +80,7 @@ Notre junior association, fondée en 2021, organise des ramassages de déchets e
                     <div class="m-2">
                         <input value="{{  data["hero"]["cta"]["text"] }}" type="text" placeholder="Découvrez notre asso" name="hero-cta-text" class="border-editor btn input text-base-200 m-4"/>
                         <input value="{{  data["hero"]["cta"]["url"] }}" type="text" placeholder="Url" name="hero-cta-url" class="border-editor input btn text-base-200"/>
+                        <input type="file" class="file-input file-input-bordered w-full max-w-xs" name="hero-image" accept="image/png, image/jpeg" />
                     </div>
                 </article>
             </div>

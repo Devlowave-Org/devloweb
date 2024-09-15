@@ -116,11 +116,13 @@ class DevloBDD:
         result = self.execute_query("SELECT ja_id, name, password, email, email_verified, email_verification_code, email_verification_date, date_signin, date_last_login, active, admin FROM users WHERE ja_id = %s", (ja_id,), fetchone=True)
         return result
 
-    def view_data_website(self, ja_id: str) -> list:
+    def view_data_website(self, ja_id: str) -> tuple:
         result = self.execute_query("SELECT ja_id, domain, theme, status FROM sites WHERE ja_id = %s", (ja_id,), fetchone=True)
         return result
+
     def get_site_by_ja(self, ja: str) -> list:
         result = self.execute_query("SELECT ja_id, domain, theme, status FROM sites WHERE ja_id = %s", (ja,), fetchone=True)
+        print(f"Result : {result}")
         return result
 
     """USED BY ADMIN PANNEL AND WEBSITE VALIDATOR"""
