@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>devloweb_editor</title>
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='src/starting_point/style.css') }}">
 
 </head>
 <body>
+<form action="/editeur/starting_point" method="post" enctype="multipart/form-data">
     <div class="carousel w-full">
         <div id="item1" class="carousel-item w-full flex flex-col">
             <h2 class="text-3xl sm:text-5xl font-bold text-center py-8 md:px-6">1️⃣ Glissez et déposez vos sections</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div class="p-2 m-2 flex flex-col items-center drag_and_drop_div border-base-content border-4 border-dashed rounded-box bg-base-content/30">
-                    <h3 class="text-2xl sm:text-4xl font-bold text-center py-4">Vos sections</h3>
-                    <img id="footer_section" class="draggable my-1 rounded-lg" src="images/footer-white-preview.png" alt="nav pc preview">
+                    <h3 class="text-2xl sm:text-4xl font-bold text-center py-4">Sections disponibles</h3>
+                    <img id="footer_section" class="draggable my-1 rounded-lg" src="{{ url_for('static', filename='src/starting_point/images/footer-white-preview.png') }}" alt="nav pc preview">
                 </div>
                 <div class="p-2 m-2 flex flex-col items-center drag_and_drop_div bg-primary/30 the-website border-primary border-4 border-dashed rounded-box">
                     <h3 class="text-2xl sm:text-4xl font-bold text-center py-4 text-primary">Votre site</h3>
-                    <img id="nav_section" class="draggable my-1 rounded-lg" src="images/nav-white-preview.png" alt="nav pc preview">
-                    <img id="hero_section" class="draggable my-1 rounded-lg" src="images/hero-white-preview.png" alt="nav pc preview">
+                    <img id="nav_section" class="draggable my-1 rounded-lg" src="{{ url_for('static', filename='src/starting_point/images/nav-white-preview.png') }}" alt="nav pc preview">
+                    <img id="hero_section" class="draggable my-1 rounded-lg" src="{{ url_for('static', filename='src/starting_point/images/hero-white-preview.png') }}" alt="nav pc preview">
                 </div>
             </div>
             <input type="hidden" id="sectionsOrderInput" name="sectionsOrder" value="" />
@@ -55,7 +56,7 @@
             <div class="flex justify-center w-full">
                 <div class="flex flex-col flex-wrap gap-6 bg-base-content/10 rounded-box p-8 shadow-lg w-full max-w-3xl m-4">
                     <p class="text-warning text-sm">Les champs ne sont pas obligatoires</p>
-                    <h3 class="text-xl font-semibold text-base-content">Vous pouvez déposer votre logo:</h3>
+                    <h3 class="text-xl font-semibold text-base-content">Vous pouvez déposer votre logo :</h3>
 
                     <!-- Logo Drop Zone -->
                     <div class="dropZone flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-400 rounded-lg p-4 cursor-pointer transition-all duration-300 hover:border-gray-600 hover:bg-base-content/20 w-full max-w-xs">
@@ -126,10 +127,11 @@
             </div>
             <div class="m-10 flex transform justify-between pointer-events-none">
                 <a href="#item2" class="btn btn-primary  pointer-events-auto">← Précédent</a>
-                <button class="btn send-btn btn-primary pointer-events-auto">Envoyer</button>
+                <button type="submit" class="btn send-btn btn-primary pointer-events-auto">Envoyer</button>
             </div>
         </div>
     </div>
+    </form>
 </body>
 </html>
 
@@ -293,7 +295,7 @@
         // Gestion du changement d'input (cas où l'utilisateur clique sur l'input)
         imageInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
-            if (file) {
+            if (file && file.type.startsWith('image/')) {
                 handleFile(file, dropPreview, dropText);
             }
         });
@@ -317,7 +319,7 @@
         });
         document.getElementById('sectionsOrderInput').value = JSON.stringify(order); // Store the order as a JSON string
     }
-    document.querySelector('.send-btn').addEventListener('click', () => {
+    document.querySelector('.poulet').addEventListener('click', () => {
         collectSectionsOrder(); // Update the sections order before submission
         submitForm(); // Call your form submission function
     });
@@ -351,7 +353,7 @@
         console.log(formData)
         // Send the POST request to the server
         try {
-            const response = await fetch('/submit-form', {
+            const response = await fetch('/editeur/starting_point', {
                 method: 'POST',
                 body: formData
             });

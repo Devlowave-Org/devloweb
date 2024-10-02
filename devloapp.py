@@ -111,9 +111,16 @@ def route_account():
     return redirect(url_for('route_connexion'))
 
 
+@app.route("/editeur/starting_point", methods=("GET", "POST"))
+def route_starting_point():
+    # C'est l'éditeur dans le panel
+    if is_connected(session, db):
+        return home.starting_point()
+    return redirect(url_for('route_connexion'))
+
 @app.route("/home/editeur", methods=("GET", "POST"))
 def route_editeur():
-    # C'est le DASHBOARD Éditeur
+    # C'est l'éditeur dans le panel
     if is_connected(session, db):
         return render_template("home/editeur.html")
     return redirect(url_for('route_connexion'))
