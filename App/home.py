@@ -19,9 +19,10 @@ def editeur():
     return render_template("editor/beta/editeur.html", data=json_site)
 
 def starting_point():
+    json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
+
     if request.method == "POST":
-        print(request.form)
-        print(request.files)
+        utils.gestion_editeur(request, json_site, session['ja_id'])
 
     return render_template("editor/starting_point.html")
 

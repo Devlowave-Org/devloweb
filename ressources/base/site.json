@@ -1,5 +1,13 @@
 {
-  "ja_id": "",
+  "general": {
+    "ja_id": "",
+    "logo": {
+      "image": "",
+      "text": ""
+    },
+    "sections": ""
+  },
+
   "nav": {
     "ja": "",
     "link": [

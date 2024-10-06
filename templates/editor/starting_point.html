@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<form name="starting_point" id="startingPointForm" action="/editeur/starting_point" method="post" enctype="multipart/form-data">
+<form name="starting_point" id="startingPointForm" action="/home/editeur/starting_point" method="post" enctype="multipart/form-data">
     <div class="carousel w-full">
         <div id="item1" class="carousel-item w-full flex flex-col">
             <h2 class="text-3xl sm:text-5xl font-bold text-center py-8 md:px-6">1️⃣ Glissez et déposez vos sections</h2>
@@ -23,7 +23,7 @@
                     <img id="hero_section" class="draggable my-1 rounded-lg" src="{{ url_for('static', filename='src/starting_point/images/hero-white-preview.png') }}" alt="nav pc preview">
                 </div>
             </div>
-            <input type="hidden" id="sectionsOrderInput" name="sectionsOrder" value="" />
+            <input type="hidden" id="sectionsOrderInput" name="general-sections" value="" />
             <div class="m-10 flex transform justify-end pointer-events-none">
                 <a href="#item2" class="btn btn-primary pointer-events-auto">Continuer →</a>
             </div>
@@ -45,7 +45,7 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" id="themeInput" name="theme" value="" />
+            <input name="general-theme" type="hidden" id="themeInput" value="" />
             <div class="m-10 flex transform justify-between pointer-events-none">
                 <a href="#item1" class="btn btn-primary  pointer-events-auto">← Précédent</a>
                 <a href="#item3" class="btn btn-primary pointer-events-auto">Continuer →</a>
@@ -62,7 +62,7 @@
                     <div class="dropZone flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-400 rounded-lg p-4 cursor-pointer transition-all duration-300 hover:border-gray-600 hover:bg-base-content/20 w-full max-w-xs">
                         <p class="dropText text-gray-500 text-sm">Déposez votre logo ici ou cliquez pour parcourir</p>
                         <img class="dropPreview hidden w-full rounded-lg" alt="Aperçu de l'image" />
-                        <input type="file" name="logo_input" class="imageInput hidden" id="logo_input" accept="image/*" value=""/>
+                        <input type="file" name="general-logo-image" class="imageInput hidden" id="logo_input" accept="image/*" value=""/>
                     </div>
 
                     <!-- Social Media Inputs -->
@@ -73,7 +73,7 @@
                         <label class="label">
                             <span class="label-text">Instagram</span>
                         </label>
-                        <input type="text" placeholder="https://www.instagram.com/..." class="input input-bordered w-full" id="instagram_input"/>
+                        <input name="footer-socials-instagram" type="text" placeholder="https://www.instagram.com/..." class="input input-bordered w-full" id="instagram_input"/>
                     </div>
 
                     <!-- Facebook Input -->
@@ -81,7 +81,7 @@
                         <label class="label">
                             <span class="label-text">Facebook</span>
                         </label>
-                        <input type="text" placeholder="https://www.facebook.com/..." class="input input-bordered w-full" id="facebook_input"/>
+                        <input name="footer-socials-facebook" type="text" placeholder="https://www.facebook.com/..." class="input input-bordered w-full" id="facebook_input"/>
                     </div>
 
                     <!-- YouTube Input -->
@@ -89,7 +89,7 @@
                         <label class="label">
                             <span class="label-text">YouTube</span>
                         </label>
-                        <input type="text" placeholder="https://www.youtube.com/..." class="input input-bordered w-full" id="youtube_input"/>
+                        <input name="footer-socials-youtube" type="text" placeholder="https://www.youtube.com/..." class="input input-bordered w-full" id="youtube_input"/>
                     </div>
 
                     <!-- TikTok Input -->
@@ -97,7 +97,7 @@
                         <label class="label">
                             <span class="label-text">TikTok</span>
                         </label>
-                        <input type="text" placeholder="https://www.tiktok.com/..." class="input input-bordered w-full" id="tiktok_input"/>
+                        <input name="footer-socials-tiktok" type="text" placeholder="https://www.tiktok.com/..." class="input input-bordered w-full" id="tiktok_input"/>
                     </div>
 
                     <!-- Discord Input -->
@@ -105,7 +105,7 @@
                         <label class="label">
                             <span class="label-text">Discord</span>
                         </label>
-                        <input type="text" placeholder="https://discord.gg/..." class="input input-bordered w-full" id="discord_input"/>
+                        <input name="footer-socials-discord" type="text" placeholder="https://discord.gg/..." class="input input-bordered w-full" id="discord_input"/>
                     </div>
 
                     <!-- Twitter Input -->
@@ -113,7 +113,7 @@
                         <label class="label">
                             <span class="label-text">Twitter</span>
                         </label>
-                        <input type="text" placeholder="https://www.twitter.com/..." class="input input-bordered w-full" id="twitter_input"/>
+                        <input name="footer-socials-twitter" type="text" placeholder="https://www.twitter.com/..." class="input input-bordered w-full" id="twitter_input"/>
                     </div>
 
                     <!-- Other Input -->
@@ -121,7 +121,7 @@
                         <label class="label">
                             <span class="label-text">Autre</span>
                         </label>
-                        <input type="text" placeholder="https://mon_autre_site.com" class="input input-bordered w-full" id="other_input"/>
+                        <input name="footer-socials-website" type="text" placeholder="https://mon_autre_site.com" class="input input-bordered w-full" id="other_input"/>
                     </div>
                 </div>
             </div>

@@ -111,7 +111,7 @@ def route_account():
     return redirect(url_for('route_connexion'))
 
 
-@app.route("/editeur/starting_point", methods=("GET", "POST"))
+@app.route("/home/editeur/starting_point", methods=("GET", "POST"))
 def route_starting_point():
     # C'est l'éditeur dans le panel
     if is_connected(session, db):
