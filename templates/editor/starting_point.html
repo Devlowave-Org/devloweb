@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<form action="/editeur/starting_point" method="post" enctype="multipart/form-data">
+<form name="starting_point" id="startingPointForm" action="/editeur/starting_point" method="post" enctype="multipart/form-data">
     <div class="carousel w-full">
         <div id="item1" class="carousel-item w-full flex flex-col">
             <h2 class="text-3xl sm:text-5xl font-bold text-center py-8 md:px-6">1️⃣ Glissez et déposez vos sections</h2>
@@ -62,7 +62,7 @@
                     <div class="dropZone flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-400 rounded-lg p-4 cursor-pointer transition-all duration-300 hover:border-gray-600 hover:bg-base-content/20 w-full max-w-xs">
                         <p class="dropText text-gray-500 text-sm">Déposez votre logo ici ou cliquez pour parcourir</p>
                         <img class="dropPreview hidden w-full rounded-lg" alt="Aperçu de l'image" />
-                        <input type="file" class="imageInput hidden" id="logo_input" accept="image/*" />
+                        <input type="file" name="logo_input" class="imageInput hidden" id="logo_input" accept="image/*" value=""/>
                     </div>
 
                     <!-- Social Media Inputs -->
@@ -261,115 +261,74 @@
             }
         }, { offset: Number.NEGATIVE_INFINITY }).element;
     }
+    document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById('startingPointForm');
 
-    // Sélectionner toutes les zones de drop
-    document.querySelectorAll('.dropZone').forEach((dropZone) => {
-        const imageInput = dropZone.querySelector('.imageInput');
-        const dropPreview = dropZone.querySelector('.dropPreview');
-        const dropText = dropZone.querySelector('.dropText');
+        // Sélectionner toutes les zones de drop
+        document.querySelectorAll('.dropZone').forEach((dropZone) => {
+            const imageInput = dropZone.querySelector('.imageInput');
+            const dropPreview = dropZone.querySelector('.dropPreview');
+            const dropText = dropZone.querySelector('.dropText');
 
-        // Gestion du clic pour déclencher l'input de fichier
-        dropZone.addEventListener('click', () => {
-            imageInput.click();
-        });
-
-        // Gestion du glisser-déposer
-        dropZone.addEventListener('dragover', (event) => {
-            event.preventDefault();
-            dropZone.classList.add('border-blue-500'); // Changer la couleur de la bordure au survol
-        });
-
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.classList.remove('border-blue-500'); // Revenir à la couleur d'origine
-        });
-
-        dropZone.addEventListener('drop', (event) => {
-            event.preventDefault();
-            dropZone.classList.remove('border-blue-500');
-            const file = event.dataTransfer.files[0];
-            if (file && file.type.startsWith('image/')) {
-                handleFile(file, dropPreview, dropText);
-            }
-        });
-
-        // Gestion du changement d'input (cas où l'utilisateur clique sur l'input)
-        imageInput.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file && file.type.startsWith('image/')) {
-                handleFile(file, dropPreview, dropText);
-            }
-        });
-    });
-    // Fonction pour afficher l'image
-    function handleFile(file, dropPreview, dropText) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            dropPreview.src = e.target.result;
-            dropPreview.classList.remove('hidden');
-            dropText.classList.add('hidden'); // Cacher le texte une fois l'image chargée
-        };
-        reader.readAsDataURL(file);
-    }
-
-    function collectSectionsOrder() {
-        const sections = document.querySelectorAll('.the-website .draggable'); // Select all draggable images in "Votre site"
-        const order = Array.from(sections).map(section => {
-            const id = section.id; // Get the source path
-            return id; // Return an object with name and path
-        });
-        document.getElementById('sectionsOrderInput').value = JSON.stringify(order); // Store the order as a JSON string
-    }
-    document.querySelector('.poulet').addEventListener('click', () => {
-        collectSectionsOrder(); // Update the sections order before submission
-        submitForm(); // Call your form submission function
-    });
-
-    async function submitForm() {
-        // Get the values from the inputs
-        const instagram = document.getElementById('instagram_input').value;
-        const facebook = document.getElementById('facebook_input').value;
-        const youtube = document.getElementById('youtube_input').value;
-        const tiktok = document.getElementById('tiktok_input').value;
-        const discord = document.getElementById('discord_input').value;
-        const twitter = document.getElementById('twitter_input').value;
-        const other_website = document.getElementById('other_input').value;
-        const logoInput = document.getElementById('logo_input').files[0]; // Get the logo file
-        const theme = document.getElementById('themeInput').value; // Get the selected theme
-        const sectionsOrder = document.getElementById('sectionsOrderInput').value; // Get the order of sections
-
-        // Prepare the form data to be sent in the POST request
-        const formData = new FormData();
-        formData.append('instagram', instagram);
-        formData.append('facebook', facebook);
-        formData.append('youtube', youtube);
-        formData.append('tiktok', tiktok);
-        formData.append('discord', discord);
-        formData.append('twitter', twitter);
-        formData.append('other', other_website);
-        formData.append('theme', theme);
-        formData.append('sectionsOrder', sectionsOrder);
-        formData.append('logo', logoInput); // Append the logo file if selected
-        formData.append('sectionsOrder', sectionsOrder); // Append the sections order
-        console.log(formData)
-        // Send the POST request to the server
-        try {
-            const response = await fetch('/editeur/starting_point', {
-                method: 'POST',
-                body: formData
+            // Gestion du clic pour déclencher l'input de fichier
+            dropZone.addEventListener('click', () => {
+                imageInput.click();
             });
 
-            // Handle the response
-            if (response.ok) {
-                const data = await response.json();
-                alert('Form submitted successfully');
-                console.log(data);
-            } else {
-                alert('Failed to submit the form');
-            }
-        } catch (error) {
-            console.error('Error submitting form:', error);
-        }
-    }
+            // Gestion du glisser-déposer
+            dropZone.addEventListener('dragover', (event) => {
+                event.preventDefault();
+                dropZone.classList.add('border-blue-500'); // Changer la couleur de la bordure au survol
+            });
 
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('border-blue-500'); // Revenir à la couleur d'origine
+            });
+
+            dropZone.addEventListener('drop', (event) => {
+                event.preventDefault();
+                dropZone.classList.remove('border-blue-500');
+                const file = event.dataTransfer.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    handleFile(file, dropPreview, dropText);
+                }
+            });
+
+            // Gestion du changement d'input (cas où l'utilisateur clique sur l'input)
+            imageInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    handleFile(file, dropPreview, dropText);
+
+                }
+            });
+        });
+
+        // Fonction pour afficher l'image
+        function handleFile(file, dropPreview, dropText) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                dropPreview.src = e.target.result;
+                dropPreview.classList.remove('hidden');
+                dropText.classList.add('hidden'); // Cacher le texte une fois l'image chargée
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function collectSectionsOrder() {
+            const sections = document.querySelectorAll('.the-website .draggable'); // Select all draggable images in "Votre site"
+            const order = Array.from(sections).map(section => {
+                const id = section.id; // Get the source path
+                return id; // Return an object with name and path
+            });
+            document.getElementById('sectionsOrderInput').value = JSON.stringify(order); // Store the order as a JSON string
+        }
+
+
+        form.addEventListener('submit', (event) => {
+            // Ici, tu peux ajouter toute logique nécessaire avant l'envoi, si besoin
+            collectSectionsOrder()
+        });
+    });
 </script>
 

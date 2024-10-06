@@ -21,6 +21,7 @@ def editeur():
 def starting_point():
     if request.method == "POST":
         print(request.form)
+        print(request.files)
 
     return render_template("editor/starting_point.html")
 
