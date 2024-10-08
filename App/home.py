@@ -18,6 +18,14 @@ def editeur():
 
     return render_template("editor/beta/editeur.html", data=json_site)
 
+def starting_point():
+    json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
+
+    if request.method == "POST":
+        utils.gestion_editeur(request, json_site, session['ja_id'])
+
+    return render_template("editor/starting_point.html")
+
 def hebergement(devlobdd):
     status_dict = {0: "Désactivé", 1: "Hébergé", 2: "En attente", 3: "Refusé"}
     site = devlobdd.get_site_by_ja(session['ja_id'])
