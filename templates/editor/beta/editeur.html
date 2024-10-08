@@ -10,7 +10,7 @@
 <div class="drawer">
     <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
     <form class="drawer-content flex flex-col" method="post" enctype="multipart/form-data">
-                <button type="submit" class="btn btn-primary m-4">ENREGISTRER</button>
+        <button type="submit" class="btn btn-primary m-4">ENREGISTRER</button>
         {% for section in data["general"]["sections"] %}
             {{ section }}
             {% if section == "nav_section" %}

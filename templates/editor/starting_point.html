@@ -321,12 +321,13 @@
                 const id = section.id; // Get the source path
                 return id; // Return an object with name and path
             });
-            document.getElementById('sectionsOrderInput').value = JSON.stringify(order); // Store the order as a JSON string
+            document.getElementById('sectionsOrderInput').value = order.join("+"); // Store the order as a JSON string
         }
 
 
         form.addEventListener('submit', (event) => {
             // Ici, tu peux ajouter toute logique nécessaire avant l'envoi, si besoin
+            console.log(document.getElementById('sectionsOrderInput').value)
             collectSectionsOrder()
         });
     });
