@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin panel</title>
-    <link rel="stylesheet" href="/static/admin_space/panel.css">
+    <link rel="stylesheet" href="/static/admin_space/css/panel.css">
 </head>
 <body>
     <div class="panel">
@@ -17,18 +17,21 @@
                 </form>
             </div>
             <div class="results">
+                <h3>Résultat(s) :</h3>
                 <div class="search-results">
-                    <ul>
-                        {% for key, result in search_results["results"].items() %}
-                            <li class="search_result_content">
-                                <form action="/admin_space/panel" method="post">
-                                    <input type="hidden" name="ja_selector_id" value="{{ result["id"] }}">
+                    {% for key, result in search_results["results"].items() %}
+                            <form action="/admin_space/panel" method="post">
+                                <div class="search_result_content">
+                                <input type="hidden" name="ja_selector_id" value="{{ result["id"] }}">
+                                <div class="svg_dash_and_result">
+                                    <img src="/static/admin_space/images/status_{{ result["status"] }}_indicator.svg" alt="status{{ result["status"] }}" id="status_indicator_svg">
+                                    -
                                     <input type="submit" name="ja_selector_{{ result[id] }}" class="ja_selector" value="{% if result["name"] %}Nom: '{{ result["name"] }}', ID: '{{ result["id"] }}', Sous-domaine: '{{ result["subdomain"] }}{% else %}{{ result }}{% endif %}">
-                                    {# Overwrite the original css from panel.css so if the ja is selected it's background is yellow and the other hover color is now blue #}
-                                    <style>
-                                        /*
-                                        {# if result["id"] == website_details["id"] #}
+                                </div>
 
+                                {# Overwrite the original css from panel.css so if the ja is selected it's background is yellow and the other hover color is now blue #}
+                                <style>
+                                    {% if result["is_selected"] == True %}
                                         input[name="ja_selector_{{ result[id] }}"] {
                                             background-color: yellow;
                                         }
@@ -36,19 +39,16 @@
                                         .ja_selector:hover{
                                             background-color: deepskyblue;
                                         }
-
-                                        {# endif #}
-                                        */
-                                    </style>
-                                </form>
-                            </li><br>
-                        {% endfor %}
-                    </ul>
+                                    {% endif %}
+                                </style>
+                            </div>
+                        </form>
+                    {% endfor %}
                 </div>
             </div>
         </div>
         <div class="website_details">
-
+            {{ website_details }}
         </div>
     </div>
 </body>

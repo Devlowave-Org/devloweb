@@ -24,7 +24,7 @@
     background-color: white;
     width: fit-content;
     position: relative;
-    right: 5%;
+    right: -1%;
 }
 
 .ja_selector:hover {
@@ -33,4 +33,28 @@
 
 #searchbar{
     width: 50%;
+    margin-bottom: 10px;
+}
+
+.search_result_content {
+    padding-right: 5px; /* Optional: adds some space between the dash and the text */
+}
+
+h2, h3{
+    margin: 0px;
+}
+
+#status_indicator_svg{
+    width: 20px;
+    height: 20px;
+}
+
+.svg_dash_and_result {
+    display: flex;
+    align-items: center; /* Vertically center the content */
+    margin-bottom: 5px;
+}
+
+#status_indicator_svg {
+    margin-right: 5px; /* Optional: add space between the SVG and the text */
 }

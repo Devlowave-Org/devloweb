@@ -128,11 +128,11 @@ class DevloBDD:
         result = self.execute_query("SELECT ja_id FROM sites", fetchall=True)
         return result
 
-    def get_website_status_based_on_ja_id(self, ja_id):
+    def get_website_status_by_id(self, ja_id):
         result = self.execute_query("SELECT status FROM sites WHERE ja_id = %s", (ja_id,), fetchone=True)
         return result
 
-    def update_website_status_based_on_ja_id(self, ja_id, status):
+    def update_website_status_by_id(self, ja_id, status):
         self.execute_query("UPDATE sites SET status = %s WHERE ja_id = %s", (status, ja_id))
 
     def get_ja_name_by_id(self, ja_id):

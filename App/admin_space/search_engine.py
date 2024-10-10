@@ -1,5 +1,9 @@
 import re
+from pprint import pprint
+
+from flask import request
 from App.utils import utils
+
 
 """CODE"""
 def search_perfect_matching(db, search_results):
@@ -11,7 +15,7 @@ def search_perfect_matching(db, search_results):
         if ja_name:
             ja_domain = db.get_ja_domain_by_id(ja_id)
             if ja_domain:
-                search_results['results']["result_1"] = generate_ja_info_dict(db, ja_id)
+                search_results['results']["result_1"] = generate_ja_info_dict(db, search_results,  ja_id)
             else:
                 search_results['results']["result_1"] = f"La JA '{ja_name[0]}', id : '{ja_id}' à un compte devloweb mais pas de site."
         else:
@@ -21,7 +25,7 @@ def search_perfect_matching(db, search_results):
         ja_id = int(utils.ja_id_only(query))
         ja_name = db.get_ja_name_by_id(ja_id)[0]
         ja_domain = db.get_ja_domain_by_id(ja_id)[0]
-        search_results['results']["result_1"] = generate_ja_info_dict(db, ja_id)
+        search_results['results']["result_1"] = generate_ja_info_dict(db, search_results, ja_id)
 
     elif re.match("^[A-Za-z]+$", query): # -> devlowave
         search_results["results"][f"result_1"] = f"format 3 - {query}"
@@ -33,6 +37,13 @@ def search_perfect_matching(db, search_results):
     if not search_results["results"]:
         search_results["results"][f"result_1"] = "Please enter a valid query."
 
+    # Set is_selected
+    if type(search_results['results']["result_1"]) is not str: # If it's not an error.
+        for key, value in search_results.items():
+            if key == "results":
+                value["result_1"]["is_selected"] = True
+
+
     return search_results
 
 
@@ -43,18 +54,21 @@ def no_query(db, search_results):
         ja_info = {
             "id": ja_id[0],
             "name": db.get_ja_name_by_id(ja_id[0])[0],
-            "subdomain": db.get_ja_domain_by_id(ja_id[0])[0]
+            "subdomain": db.get_ja_domain_by_id(ja_id[0])[0],
+            "status": str(db.get_website_status_by_id(ja_id[0])[0]),
+            "is_selected": search_results["is_selected"]
         }
         search_results["results"][f"result_{index + 1}"] = ja_info
 
     return search_results
 
 
-def generate_ja_info_dict(db, ja_id):
+def generate_ja_info_dict(db, search_results, ja_id):
     # Create a new dictionary for the result
     ja_info = {
         "id": ja_id,
         "name": db.get_ja_name_by_id(ja_id)[0],
-        "subdomain": db.get_ja_domain_by_id(ja_id)[0]
+        "subdomain": db.get_ja_domain_by_id(ja_id)[0],
+        "is_selected": search_results["is_selected"]
     }
     return ja_info
