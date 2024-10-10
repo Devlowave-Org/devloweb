@@ -1,1 +1,62 @@
-{"ja_id": "8166","nav": {"ja": "devloweb", "link": [{"display": "", "url": ""}, {"display": "", "url": ""}, {"display": "", "url": ""}, {"display": "", "url": ""}, {"display": "", "url": ""}, {"display": "", "url": ""}]}, "hero": {"title": "Ma JA d'enfer", "description": "", "image": "hero-image.jpg", "cta": {"text": "", "url": ""}}, "footer": {"title": "", "links": [{"display": "", "url": ""}, {"display": "", "url": ""}], "logo": {"image": "", "text": ""}, "socials": {"facebook": "", "twitter": "", "instagram": "", "youtube": "", "discord": "", "tiktok": ""}}}
+{
+  "ja_id": "",
+  "nav": {
+    "ja": "",
+    "link": [
+      {
+        "display": "",
+        "url": ""
+      },
+      {
+        "display": "",
+        "url": ""
+      },
+      {
+        "display": "",
+        "url": ""
+      },
+      {
+        "display": "",
+        "url": ""
+      },
+      {
+        "display": "",
+        "url": ""
+      },{
+        "display": "",
+        "url": ""
+      }]
+  },
+  "hero": {
+    "title": "",
+    "description": "",
+    "image": "",
+    "cta": {
+      "text": "",
+      "url": ""
+    }
+  },
+  "footer": {
+    "title": "",
+    "links": [
+      {
+        "display": "",
+        "url": ""
+      }, {
+        "display": "",
+        "url": ""
+      }],
+    "logo": {
+      "image": "",
+      "text": ""
+    },
+    "socials": {
+      "facebook": "",
+      "twitter": "",
+      "instagram": "",
+      "youtube": "",
+      "discord": "",
+      "tiktok": ""
+    }
+  }
+}

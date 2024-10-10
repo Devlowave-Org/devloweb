@@ -2,71 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/panel.css">
     <title>Admin panel</title>
+    <link rel="stylesheet" href="/static/admin_space/panel.css">
 </head>
 <body>
-    <div class="admin_panel">
-        <div class="search_area">
-            <form action="/admin_space" method="GET">
-                <label><strong>Search a particular JA :</strong></label>
-                <input type="text" id="search" name="query" placeholder="ja-xxxx or xxxx">
-                <input type="submit" value="Search">
-                <a href="/admin_space"><button>Back</button></a>
-            </form>
-
-            {% if search_result[1] %}
-                <table>
-                    <thead>
-                        <tr>
-                            <th>
-                                {{ search_result[0] }}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                            {% for ja_id, checkbox_parameters in zip(search_result[1], search_result[2]) %}
-                                <tr>
-                                    <td>
-                                        <form action="/admin_space" method="GET">
-                                            <input type="checkbox" {{ checkbox_parameters }}>
-                                            <input type="submit" value="{{ ja_id }}" name="query">
-                                        </form>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                    </tbody>
-                </table>
-            {% endif %}
-
-            {% if error %}
-                <p>{{ error }}</p>
-            {% endif %}
+    <div class="panel">
+        <div class="search_engine">
+            <div class="form">
+                <h2>Rechercher une JA :</h2>
+                <form action="/admin_space/panel" method="get">
+                    <input type="text" name="searchbar" id="searchbar" {% if search_results["query"] is not none %} value="{{ search_results["query"] }} {% endif %}">
+                    <input type="submit" name="searchbar_submit_button" id="searchbar_submit_button">
+                </form>
+            </div>
+            <div class="results">
+                <div class="search-results">
+                    <ul>
+                        {% for key, result in search_results["results"].items() %}
+                            <li>
+                                Nom: {{ result["name"] }}, ID: {{ result["id"] }}<br>
+                                Sous-domaine: {{ result["subdomain"] }}
+                            </li><br>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="website_details">
 
         </div>
-
-
-    <div class="website_details_area">
-        {% if website_details == None %}
-            <p>No info available or no ja selected</p>
-        {% endif %}
-        {% if website_details %}
-            <div class="website_details_area_subdomain_name">
-                example.devloweb.fr
-            </div>
-            <div class="website_details_area_website_status">
-                <label>Status of the website :</label>
-                <input type="checkbox" {{ search_result[2][0] }}>
-                {{ website_details[0] }}
-            </div>
-            {% if website_details[1]%}
-                <a href="{{ website_details[1] }}"> <button>Activate</button> </a>
-            {% endif %}
-        {% endif %}
-    </div>
-
-
     </div>
 </body>
 </html>

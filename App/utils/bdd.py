@@ -1,9 +1,6 @@
 import pymysql
 from datetime import datetime
 
-from App.admin_space.admin_space_utils import query_parameter_getter
-
-
 class DevloBDD:
     def __init__(self, user, password, host, port, database=None):
         if database is None:
@@ -127,7 +124,7 @@ class DevloBDD:
 
     """USED BY ADMIN PANNEL AND WEBSITE VALIDATOR"""
 
-    def all_ja_with_website_getter(self):
+    def fetch_all_ja_ids_with_website(self):
         result = self.execute_query("SELECT ja_id FROM sites", fetchall=True)
         return result
 
@@ -137,6 +134,14 @@ class DevloBDD:
 
     def update_website_status_based_on_ja_id(self, ja_id, status):
         self.execute_query("UPDATE sites SET status = %s WHERE ja_id = %s", (status, ja_id))
+
+    def get_ja_name_by_id(self, ja_id):
+        result = self.execute_query("SELECT name FROM users WHERE ja_id = %s", (ja_id,), fetchone=True)
+        return result
+
+    def get_ja_domain_by_id(self, ja_id):
+        result = self.execute_query("SELECT domain FROM sites WHERE ja_id = %s", (ja_id,), fetchone=True)
+        return result
 
 
     """
@@ -207,7 +212,6 @@ class DevloBDD:
 
     def delete_try(self, ip: str):
         self.execute_query("DELETE FROM security WHERE ip = %s", (ip,))
-
 
     """
     Partie site web

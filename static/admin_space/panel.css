@@ -1,0 +1,20 @@
+.panel {
+    display: flex;
+    width: 100%; /* Ensure the panel takes the full width */
+}
+
+.search_engine,
+.website_details {
+    width: 50%; /* Each section takes 50% of the width */
+    box-sizing: border-box; /* Include padding and border in the width and height calculations */
+}
+
+.search_engine {
+    border: solid 2px black;
+    padding: 10px; /* Optional: add some padding for aesthetics */
+}
+
+.website_details {
+    border: solid 2px black; /* Optional: add border for visibility */
+    padding: 10px; /* Optional: add some padding for aesthetics */
+}
