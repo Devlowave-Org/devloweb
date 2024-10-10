@@ -159,6 +159,7 @@ def internal_error(e):
 """
 ESPACE ADMIN
 """
+@app.route("/admin_space/", methods=("GET", "POST"))
 @app.route("/admin_space", methods=("GET", "POST"))
 def route_admin_space():
     return redirect("/admin_space/panel")

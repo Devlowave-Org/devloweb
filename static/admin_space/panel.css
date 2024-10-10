@@ -18,3 +18,19 @@
     border: solid 2px black; /* Optional: add border for visibility */
     padding: 10px; /* Optional: add some padding for aesthetics */
 }
+
+.ja_selector{ /*search_result_content*/
+    border: solid 2px black; /* Optional: add border for visibility */
+    background-color: white;
+    width: fit-content;
+    position: relative;
+    right: 5%;
+}
+
+.ja_selector:hover {
+    background-color: yellow;
+}
+
+#searchbar{
+    width: 50%;
+}
