@@ -8,42 +8,44 @@
 <body>
     <div class="panel">
         <div class="search_engine">
-            <div class="form">
-                <h2>Rechercher une JA :</h2>
-                <form action="/admin_space/panel" method="get">
+            <div class="searchbar_form_and_title">
+                <h2 id="searchbar_title">Rechercher une JA :</h2>
+                <form action="/admin_space/panel" method="get" class="searchbar_form">
                     <input type="text" name="searchbar" id="searchbar" placeholder="ja-8166, 8166, devlowave, devlowave.devlowave.fr" value="{% if search_results["query"] %}{{ search_results["query"] }}{% endif %}">
-                    <button id="back_button"><a href="/admin_space/panel">Back</a></button>
                     <input type="submit" name="searchbar_submit_button" id="searchbar_submit_button" value="Rechercher">
+                    <button id="back_button"><a href="/admin_space/panel">Retourner à la liste</a></button>
                 </form>
             </div>
             <div class="results">
-                <h3>Résultat(s) :</h3>
-                <div class="search-results">
+                <h3 id="results_title">Résultat(s) :</h3>
+                <div class="search_results">
                     {# If error #}
                     {% if search_results["results"]["result_1"]["error"] == "error" %}
-                        {{ search_results["results"]["result_1"]["content"] }}
+                        <div class="search_error">
+                            {{ search_results["results"]["result_1"]["content"] }}
+                        </div>
                     {% else %}
+                    {# If there's an actual result #}
                     {% for key, result in search_results["results"].items() %}
                             <form action="/admin_space/panel" method="post">
                                 <div class="search_result_content">
-                                <input type="hidden" name="ja_selector_id" value="{{ result["id"] }}">
-                                <div class="svg_dash_and_result">
-                                    <img src="/static/admin_space/images/status_{{ result["status"] }}_indicator.svg" alt="status{{ result["status"] }}" id="status_indicator_svg">
-                                    -
-                                    <input type="submit" name="ja_selector_{{ result[id] }}" class="ja_selector" value="{% if result["name"] %}Nom: '{{ result["name"] }}', ID: '{{ result["id"] }}', Sous-domaine: '{{ result["subdomain"] }}{% else %}{{ result }}{% endif %}">
-                                </div>
-
+                                    <input type="hidden" name="ja_selector_id" value="{{ result["id"] }}">
+                                    <div class="svg_dash_and_result">
+                                        <img src="/static/admin_space/images/status_{{ result["status"] }}_indicator.svg" alt="status{{ result["status"] }}" id="status_indicator_svg">
+                                        <div id="result_dash">-</div>
+                                        <input type="submit" name="ja_selector_{{ result["id"] }}" id="ja_selector" value="{{ result["name"] }},ja-{{ result["id"] }}, {{ result["subdomain"] }}">
+                                    </div>
                                 {# Overwrite the original css from panel.css so if the ja is selected it's background is yellow and the other hover color is now blue #}
                                 <style>
-                                    {% if result["is_selected"] == True %}
-                                        input[name="ja_selector_{{ result[id] }}"] {
-                                            background-color: yellow;
-                                        }
+                                {% if result["is_selected"] == True %}
+                                    input[name="ja_selector_{{ result["id"] }}"] {
+                                        background-color: yellow !important;
+                                    }
 
-                                        .ja_selector:hover{
-                                            background-color: deepskyblue;
-                                        }
-                                    {% endif %}
+                                    #ja_selector:hover{
+                                        background-color: deepskyblue;
+                                    }
+                                {% endif %}
                                 </style>
                             </div>
                         </form>
@@ -53,7 +55,9 @@
             </div>
         </div>
         <div class="website_details">
-            {{ website_details }}
+            {% if website_details %}
+                {{ website_details }}
+            {% endif %}
         </div>
     </div>
 </body>

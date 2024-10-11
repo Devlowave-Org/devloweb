@@ -14,19 +14,21 @@ def search_perfect_matching(db, search_results):
         ja_id = int(query)
         ja_name = db.get_ja_name_by_id(ja_id)
         if ja_name:
+            ja_name = ja_name[0]
             ja_domain = db.get_ja_domain_by_id(ja_id)
             if ja_domain:
                 search_results['results']["result_1"] = generate_ja_info_dict(db, search_results,  ja_id)
             else:
-                search_results['results']["result_1"] = f"La JA '{ja_name[0]}', id : '{ja_id}' à un compte devloweb mais pas de site."
+                search_results['results']["result_1"] = f"La JA '{ja_name}', ja-{ja_id} à un compte devloweb mais pas de site."
         else:
             search_results['results']["result_1"] = "Merci d'entrer un identifiant de JA existante."
 
     # format -> 'ja-8166'
     elif re.match("^ja-\d{2,5}$", query):
         ja_id = int(utils.ja_id_only(query))
-        ja_name = db.get_ja_name_by_id(ja_id)[0]
+        ja_name = db.get_ja_name_by_id(ja_id)
         if ja_name:
+            ja_name = ja_name[0]
             ja_domain = db.get_ja_domain_by_id(ja_id)
             if ja_domain:
                 search_results['results']["result_1"] = generate_ja_info_dict(db, search_results, ja_id)
@@ -36,10 +38,12 @@ def search_perfect_matching(db, search_results):
             search_results['results']["result_1"] = "Merci d'entrer un identifiant de JA existante."
 
     # format -> 'devlowave'
-    elif re.match("^[A-Za-z]+$", query):
+    elif re.match("^(?!\s)[\w\s'À-ÖØ-öø-ÿ]+(?<!\s)$", query):
         ja_name = query
+        print(db.get_ja_id_by_name(ja_name))
         ja_id = db.get_ja_id_by_name(ja_name)
         if ja_id:
+            ja_id=ja_id[0]
             ja_domain = db.get_ja_domain_by_id(ja_id)
             if ja_domain:
                 search_results['results']["result_1"] = generate_ja_info_dict(db, search_results, ja_id)

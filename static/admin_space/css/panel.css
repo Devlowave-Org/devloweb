@@ -14,6 +14,7 @@ body {
 .website_details {
     width: 50%; /* Maintain layout but font size and padding will enlarge them */
     box-sizing: border-box;
+    overflow: scroll;
 }
 
 /* Adjust the search engine container */
@@ -29,24 +30,35 @@ body {
 }
 
 /* Scale up the search result buttons */
-.ja_selector {
-    border: solid 4px black; /* Increase border size */
-    background-color: white;
-    width: fit-content;
-    position: relative;
-    right: -2%;
-    padding: 14px; /* Increase padding for larger buttons */
+#ja_selector {
+    background: none;       /* Remove the button background */
+    border: none;           /* Remove the button border */
+    padding: 0;             /* Remove padding to remove button-like shape */
+    color: inherit;         /* Keep text color as inherited from parent */
+    text-align: left;       /* Align text to the left */
+    font: inherit;          /* Use the inherited font style */
+    cursor: pointer;        /* Still make it clickable */
+    width: fit-content;     /* Adjust the width to fit the content */
+    font-size: 1rem;
+    margin-right: 100px;
+    padding-top:5px;
+    padding-bottom:5px;
+    border: solid 1px black;
 }
 
-.ja_selector:hover {
-    background-color: yellow;
+#ja_selector:hover {
+    background-color: yellow;  /* Still show the hover effect */
+}
+
+#result_dash{
+    margin-right: 10px;
+    margin-bottom: 5px;
 }
 
 /* Adjust the search bar size */
 #searchbar {
-    width: 95%; /* Make the input wider */
+    width: 50%; /* Make the input wider */
     padding: 10px; /* Add more padding to make the input taller */
-    margin-bottom: 19px; /* Increase the space between the search bar and other elements */
     border-radius: 10px ;
 }
 
@@ -70,4 +82,29 @@ body {
 
 #status_indicator_svg {
     margin-right: 9px; /* Increase space between icon and text */
+}
+
+#searchbar_title{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#results_title{
+    font-size: 2rem;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.search_results{
+    padding: 2px;
+}
+
+.search_error{
+    font-size: 1rem;
+    color: red;
+}
+
+.subdomain {
+    font-size: 0.8em; /* Make the text smaller */
+    color: grey; /* Set the text color to grey */
 }
