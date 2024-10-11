@@ -122,7 +122,7 @@ class DevloBDD:
         print(f"Result : {result}")
         return result
 
-    """USED BY ADMIN PANNEL AND WEBSITE VALIDATOR"""
+    """USED BY ADMIN PANNEL"""
 
     def fetch_all_ja_ids_with_website(self):
         result = self.execute_query("SELECT ja_id FROM sites", fetchall=True)
@@ -139,10 +139,17 @@ class DevloBDD:
         result = self.execute_query("SELECT name FROM users WHERE ja_id = %s", (ja_id,), fetchone=True)
         return result
 
+    def get_ja_id_by_name(self, name):
+        result = self.execute_query("SELECT ja_id FROM users WHERE name = %s", (name,), fetchone=True)
+        return result
+
     def get_ja_domain_by_id(self, ja_id):
         result = self.execute_query("SELECT domain FROM sites WHERE ja_id = %s", (ja_id,), fetchone=True)
         return result
 
+    def get_ja_id_by_domain(self, domain):
+        result = self.execute_query("SELECT ja_id FROM sites WHERE domain = %s", (domain,), fetchone=True)
+        return result
 
     """
     Partie Code de Vérification

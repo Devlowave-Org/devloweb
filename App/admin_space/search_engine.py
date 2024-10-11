@@ -9,7 +9,8 @@ from App.utils import utils
 def search_perfect_matching(db, search_results):
     query = search_results["query"]
 
-    if re.match("^\d{2,5}$" , query):# -> 8166
+    # format -> '8166'
+    if re.match("^\d{2,5}$" , query):
         ja_id = int(query)
         ja_name = db.get_ja_name_by_id(ja_id)
         if ja_name:
@@ -21,23 +22,53 @@ def search_perfect_matching(db, search_results):
         else:
             search_results['results']["result_1"] = "Merci d'entrer un identifiant de JA existante."
 
-    elif re.match("^ja-\d{2,5}$", query): # -> ja-8166
+    # format -> 'ja-8166'
+    elif re.match("^ja-\d{2,5}$", query):
         ja_id = int(utils.ja_id_only(query))
         ja_name = db.get_ja_name_by_id(ja_id)[0]
-        ja_domain = db.get_ja_domain_by_id(ja_id)[0]
-        search_results['results']["result_1"] = generate_ja_info_dict(db, search_results, ja_id)
+        if ja_name:
+            ja_domain = db.get_ja_domain_by_id(ja_id)
+            if ja_domain:
+                search_results['results']["result_1"] = generate_ja_info_dict(db, search_results, ja_id)
+            else:
+                search_results['results']["result_1"] = f"La JA '{ja_name[0]}', id : '{ja_id}' à un compte devloweb mais pas de site."
+        else:
+            search_results['results']["result_1"] = "Merci d'entrer un identifiant de JA existante."
 
-    elif re.match("^[A-Za-z]+$", query): # -> devlowave
-        search_results["results"][f"result_1"] = f"format 3 - {query}"
+    # format -> 'devlowave'
+    elif re.match("^[A-Za-z]+$", query):
+        ja_name = query
+        ja_id = db.get_ja_id_by_name(ja_name)
+        if ja_id:
+            ja_domain = db.get_ja_domain_by_id(ja_id)
+            if ja_domain:
+                search_results['results']["result_1"] = generate_ja_info_dict(db, search_results, ja_id)
+            else:
+                search_results['results'][
+                    "result_1"] = f"La JA '{ja_name}', id : '{ja_id}' à un compte devloweb mais pas de site."
+        else:
+            search_results['results']["result_1"] = "Merci d'entrer un nom de JA existante ou de revérifier votre entrée."
 
-    elif re.match("^[A-Za-z]+\.devlowave\.fr$", query): # -> devlowave.devlowave.fr
-        search_results["results"][f"result_1"] = f"format 4 - {query}"
+    elif re.match("^[A-Za-z]+\.devlowave\.fr$", query) or re.match("^[A-Za-z]+\.fr$", query): # -> devlowave.devlowave.fr or devlowave.fr
+        ja_domain = query
+        ja_id = db.get_ja_id_by_domain(ja_domain)
+        if ja_id:
+            ja_name = db.get_ja_name_by_id(ja_id)
+            if ja_name:
+                search_results['results']["result_1"] = generate_ja_info_dict(db, search_results, ja_id)
+        else:
+             search_results['results']["result_1"] = "Merci d'entrer un sous-domaine existant ou de revérifier votre entrée."
+
+    else:
+        search_results["results"][f"result_1"] = f"Votre entrée ne correspond à aucun format attendu, veuillez vérifier que votre requête est valide."
+
 
     # If no results were added, add a default "no results" message
-    if not search_results["results"]:
-        search_results["results"][f"result_1"] = {"error" : "error", "content" : "Please enter a valid query."}
+    if type(search_results["results"]["result_1"]) is str:
+        search_results["results"][f"result_1"] = {"error" : "error", "content" : f"{search_results["results"][f"result_1"]}"}
 
-    if search_results['results']["result_1"]["error"] == None:
+
+    if search_results["results"]["result_1"]["error"] == None:
         for key, value in search_results.items():
             if key == "results":
                 value["result_1"]["is_selected"] = True
@@ -59,7 +90,6 @@ def no_query(db, search_results):
             "error": None
         }
         search_results["results"][f"result_{index + 1}"] = ja_info
-    print(search_results)
     return search_results
 
 
@@ -69,6 +99,7 @@ def generate_ja_info_dict(db, search_results, ja_id):
         "id": ja_id,
         "name": db.get_ja_name_by_id(ja_id)[0],
         "subdomain": db.get_ja_domain_by_id(ja_id)[0],
+        "status": str(db.get_website_status_by_id(ja_id)[0]),
         "is_selected": search_results["is_selected"],
         "error": None
     }
