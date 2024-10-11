@@ -19,6 +19,10 @@
             <div class="results">
                 <h3>Résultat(s) :</h3>
                 <div class="search-results">
+                    {# If error #}
+                    {% if search_results["results"]["result_1"]["error"] == "error" %}
+                        {{ search_results["results"]["result_1"]["content"] }}
+                    {% else %}
                     {% for key, result in search_results["results"].items() %}
                             <form action="/admin_space/panel" method="post">
                                 <div class="search_result_content">
@@ -44,6 +48,7 @@
                             </div>
                         </form>
                     {% endfor %}
+                {% endif %}
                 </div>
             </div>
         </div>

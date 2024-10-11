@@ -35,10 +35,9 @@ def search_perfect_matching(db, search_results):
 
     # If no results were added, add a default "no results" message
     if not search_results["results"]:
-        search_results["results"][f"result_1"] = "Please enter a valid query."
+        search_results["results"][f"result_1"] = {"error" : "error", "content" : "Please enter a valid query."}
 
-    # Set is_selected
-    if type(search_results['results']["result_1"]) is not str: # If it's not an error.
+    if search_results['results']["result_1"]["error"] == None:
         for key, value in search_results.items():
             if key == "results":
                 value["result_1"]["is_selected"] = True
@@ -56,7 +55,8 @@ def no_query(db, search_results):
             "name": db.get_ja_name_by_id(ja_id[0])[0],
             "subdomain": db.get_ja_domain_by_id(ja_id[0])[0],
             "status": str(db.get_website_status_by_id(ja_id[0])[0]),
-            "is_selected": search_results["is_selected"]
+            "is_selected": search_results["is_selected"],
+            "error": None
         }
         search_results["results"][f"result_{index + 1}"] = ja_info
 
@@ -69,6 +69,7 @@ def generate_ja_info_dict(db, search_results, ja_id):
         "id": ja_id,
         "name": db.get_ja_name_by_id(ja_id)[0],
         "subdomain": db.get_ja_domain_by_id(ja_id)[0],
-        "is_selected": search_results["is_selected"]
+        "is_selected": search_results["is_selected"],
+        "error": None
     }
     return ja_info

@@ -5,7 +5,7 @@ def load(db):
     search_results = load_search_area(db)
     website_details = load_website_details(db)
 
-    return render_template("admin_space/panel.html", search_results=search_results, website_details=website_details)
+    return render_template("admin_space/panel.html", search_results=search_results, website_details=website_details, type_result=type(search_results["results"]["result_1"]))
 
 
 def load_search_area(db):
@@ -23,7 +23,9 @@ def load_search_area(db):
         "query" : None,
         "results" : {},
         "status" : None,
-        "is_selected" : None
+        "is_selected" : None,
+        "result_type" : None,
+        "error" : None
     }
 
     # Set the query
