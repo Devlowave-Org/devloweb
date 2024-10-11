@@ -59,7 +59,7 @@ def no_query(db, search_results):
             "error": None
         }
         search_results["results"][f"result_{index + 1}"] = ja_info
-
+    print(search_results)
     return search_results
 
 
