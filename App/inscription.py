@@ -41,7 +41,6 @@ def inscription(devlobdd):
         if len(password) <= 8:
             return render_template('inscription.html', error="Veuillez avoir un mot de passe d'au moins 9 caractères")
 
-        hashed_pass = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
 
         """
         On va maintenant utiliser la base de donnée pour :
@@ -50,6 +49,14 @@ def inscription(devlobdd):
         """
         if devlobdd.ja_exists(ja_id):
             return render_template("inscription.html", error="Vous avez déjà un compte.")
+
+        if devlobdd.get_ja_by_mail(email):
+            return render_template("inscription.html", error="Ce mail est déjà utilisé par quelqu'un")
+
+        hashed_pass = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+
+
+
 
         devlobdd.inscire_ja(ja_id, ja_api["name"], hashed_pass, email)
 
