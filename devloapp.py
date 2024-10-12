@@ -113,7 +113,7 @@ def route_account():
 
 @app.route("/home/editeur/starting_point", methods=("GET", "POST"))
 def route_starting_point():
-    # C'est l'éditeur dans le panel
+    # C'est le starting point t'as capté
     if is_connected(session, db):
         return home.starting_point()
     return redirect(url_for('route_connexion'))

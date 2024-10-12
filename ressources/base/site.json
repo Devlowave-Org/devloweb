@@ -1,6 +1,8 @@
 {
   "general": {
+    "starting_point": 0,
     "ja_id": "",
+    "theme": "",
     "logo": {
       "image": "",
       "text": ""
