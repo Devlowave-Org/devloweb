@@ -220,7 +220,7 @@ def gestion_texte(request: flask.Request, json_site: dict):
     form_dict = request.form.to_dict()
 
     # Gestion des sections (car le script JS c'est pas hyper abouti quoi...
-    if form_dict["general-sections"]:
+    if "general-section" in form_dict.keys():
         section_list = form_dict["general-sections"].split("+")
         for i, section in enumerate(section_list):
             form_dict[f"general-sections-{i}"] = section
