@@ -27,7 +27,7 @@ def starting_point():
 
     if request.method == "POST":
         utils.gestion_editeur(request, json_site, session['ja_id'])
-        return redirect(url_for('route_editeur'))
+        return redirect(url_for('route_beta'))
 
     return render_template("editor/starting_point.html")
 
