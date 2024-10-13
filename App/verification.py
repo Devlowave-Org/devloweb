@@ -22,6 +22,7 @@ def verify_email(devlobdd):
             # J'active la JA
             # et je supprime e code de verif
             utils.create_ja_folder(ja_id)
+            utils.set_default_value_to_json_site(ja_id)
             devlobdd.activer_email_ja(ja_id)
             devlobdd.delete_code(ja_id)
             devlobdd.init_website(ja_id, "", "beta")

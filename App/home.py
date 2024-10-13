@@ -13,10 +13,23 @@ def editeur():
     json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
     print(json_site)
 
+    # On vérifie qu'il a déjà fait un tour au starting_point
+    if json_site["general"]["starting_point"] == 0:
+        return redirect(url_for('route_starting_point'))
+
     if request.method == "POST":
         utils.gestion_editeur(request, json_site, session['ja_id'])
 
     return render_template("editor/beta/editeur.html", data=json_site)
+
+def starting_point():
+    json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
+
+    if request.method == "POST":
+        utils.gestion_editeur(request, json_site, session['ja_id'])
+        return redirect(url_for('route_editeur'))
+
+    return render_template("editor/starting_point.html")
 
 def hebergement(devlobdd):
     status_dict = {0: "Désactivé", 1: "Hébergé", 2: "En attente", 3: "Refusé"}

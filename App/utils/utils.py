@@ -219,8 +219,15 @@ def gestion_editeur(request: flask.Request, json_site: dict, ja_id):
 def gestion_texte(request: flask.Request, json_site: dict):
     form_dict = request.form.to_dict()
 
+    # Gestion des sections (car le script JS c'est pas hyper abouti quoi...
+    if "general-sections" in form_dict.keys():
+        section_list = form_dict["general-sections"].split("+")
+        for i, section in enumerate(section_list):
+            form_dict[f"general-sections-{i}"] = section
+        form_dict.pop("general-sections")
+
     for key, value in form_dict.items():
-        print(f"Traitement de la clé {key} avec valeur {value}")
+        print(f"Traitement de la clé {key} avec valeur : {value}")
         try:
             splited_keys = key.split("-")
             set_value_recursively(json_site, splited_keys, value)
@@ -265,3 +272,13 @@ def gestion_fichiers(request: flask.Request, json_site: dict, ja_id):
         print(f"Fichier enregistré {key}")
 
     return json_site
+
+
+def set_default_value_to_json_site(ja_id):
+    json_site = json.loads(open(f"tmp/{ja_id}/site.json").read())
+    json_site["general"]["ja_id"] = ja_id
+    json_site["general"]["theme"] = "lemonade"
+    json_site["general"]["sections"] = ["nav_section", "hero_section", "footer_section", "", ""]
+    json_site["general"]["starting_point"] = 0
+    with open(f"tmp/{ja_id}/site.json", "w") as f:
+        json.dump(json_site, f)
