@@ -2,16 +2,19 @@ import re
 
 from flask import render_template, Flask, request, session, redirect, url_for
 from App.admin_space import search_engine, details_area
+from App.admin_space.details_area import manage_hosting_demand
 
 
 def load(db):
     search_results = load_search_area(db)
 
-    # If there is a selected ja, show it's details
+    # If there is a selected ja, show its details
     if search_results["results"]["result_1"]["error"] == None:
         for key, value in search_results["results"].items():
             if value["is_selected"] == True:
                website_details = load_website_details(db, value["id"])
+               if website_details["status"] != search_results["results"]["result_1"]["status"]:
+                   search_results["results"]["result_1"]["status"] = website_details["status"]
                break
             else:
                 website_details = None
@@ -28,7 +31,6 @@ def load_search_area(db):
         "results" : {},
         "status" : None,
         "is_selected" : None,
-        "result_type" : None,
         "error" : None
     }
 
@@ -40,8 +42,8 @@ def load_search_area(db):
         else:
             query_from_searchbar = query_from_searchbar.replace(" ", "").lower()
     else:
-        if request.form.get('ja_selector_id'):
-            query_from_ja_selector = request.form.get('ja_selector_id')
+        if request.args.get('ja_selector_id'):
+            query_from_ja_selector = request.args.get('ja_selector_id')
         else:
             query_from_ja_selector = None
 

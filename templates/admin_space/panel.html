@@ -27,7 +27,7 @@
                     {% else %}
                     {# If there's an actual result #}
                     {% for key, result in search_results["results"].items() %}
-                            <form action="/admin_space/panel" method="post">
+                            <form action="/admin_space/panel" method="get">
                                 <div class="search_result_content">
                                     <input type="hidden" name="ja_selector_id" value="{{ result["id"] }}">
                                     <div class="svg_dash_and_result">
@@ -55,8 +55,33 @@
             </div>
         </div>
         <div class="website_details">
+            <h2 id="details_area_title">Détails du site :</h2>
             {% if website_details %}
-                {{ website_details }}
+                <div class="ja_id_and_name">
+                    ID : {{ website_details["id"] }} <br>
+                    Nom : {{ website_details["name"] }} <br>
+                </div>
+                <div class="ja_website_subdomain_and_status">
+                        <img src="/static/admin_space/images/status_{{ website_details["status"] }}_indicator.svg" alt="status{{ website_details["status"] }}" id="website_details_status_indicator_svg">
+                        <div id="result_dash">-</div>
+                        Sous domaine : {{ website_details["subdomain"] }}
+                </div>
+                {% if website_details["status"] == 2 %}
+                    Cette Ja a demandé une review, lien : "{{ website_details["preview_link"] }}"
+                    <form class="website_demand_acceptor" action="/admin_space/panel?searchbar={{ website_details["id"] }}" method="post">
+                        {% if website_details["host_demand"] == False %}
+                            <br>Raison :<br>
+                            <textarea name="reject_message" placeholder="Le texte entré ici sera envoyé par mail à cette JA"></textarea><br>
+                            <input type="submit" name="reject_button" value="Rejeter">
+                        {% else %}
+                            <input type="submit" name="accept_button" value="Accepter">
+                            <input type="submit" name="reject_button" value="Rejeter">
+                        {% endif %}
+
+                    </form>
+                {% endif %}
+            {% else %}
+                <p>Pas de JA selectionnée</p>
             {% endif %}
         </div>
     </div>

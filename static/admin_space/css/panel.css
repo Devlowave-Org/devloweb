@@ -43,7 +43,6 @@ body {
     margin-right: 100px;
     padding-top:5px;
     padding-bottom:5px;
-    border: solid 1px black;
 }
 
 #ja_selector:hover {
@@ -67,24 +66,19 @@ body {
     padding-right: 9px;
 }
 
-
-/* Increase the size of icons */
-#status_indicator_svg {
-    width: 38px; /* Scale up icon */
-    height: 38px;
-}
-
-.svg_dash_and_result {
+.svg_dash_and_result, .ja_website_subdomain_and_status {
     display: flex;
     align-items: center;
     margin-bottom: 9px; /* Increase margin for spacing */
 }
 
-#status_indicator_svg {
+#status_indicator_svg, #website_details_status_indicator_svg {
+    width: 38px; /* Scale up icon */
+    height: 38px;
     margin-right: 9px; /* Increase space between icon and text */
 }
 
-#searchbar_title{
+#searchbar_title, #details_area_title{
     margin-top: 0px;
     margin-bottom: 0px;
 }
