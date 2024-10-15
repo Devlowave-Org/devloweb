@@ -1,3 +1,4 @@
+<input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
 <nav class="navbar flex-auto lg:px-0">
             <div class="flex-none lg:hidden px-0 sm:px-4">
                 <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
@@ -29,27 +30,50 @@
                             </li>
                         {% endif %}
                     {% endfor %}
-
-                    <li><input value="{{ data["nav"]["link"][0]["display"] }}" type="hidden" placeholder="Lien 1" name="nav-link-0-display" class="input input-w-105px border-editor m-4"/>
-                        <input value="{{ data["nav"]["link"][0]["url"] }}" type="hidden" placeholder="url" name="nav-link-0-url" class="input input-w-105px border-editor"/></li>
-                    <li><input value="{{ data["nav"]["link"][1]["display"] }}" type="hidden" placeholder="Lien 2" name="nav-link-1-display" class="input input-w-105px border-editor m-4"/>
-                        <input value="{{ data["nav"]["link"][1]["url"] }}"  type="hidden" placeholder="url" name="nav-link-1-url" class="input input-w-105px border-editor"/></li>
-                    <li><input value="{{ data["nav"]["link"][2]["display"] }}" type="hidden" placeholder="Lien 3" name="nav-link-0-display" class="input input-w-105px border-editor m-4"/>
-                        <input value="{{ data["nav"]["link"][2]["url"] }}" type="hidden" placeholder="url" name="nav-link-2-url" class="input input-w-105px border-editor"/></li>
-                    <li><input value="{{ data["nav"]["link"][3]["display"] }}" type="hidden" placeholder="Lien 4" name="nav-link-0-display" class="input input-w-105px border-editor m-4"/>
-                        <input value="{{ data["nav"]["link"][3]["url"] }}"  type="hidden" placeholder="url" name="nav-link-3-url" class="input input-w-105px border-editor"/></li>
-                    <li><input value="{{ data["nav"]["link"][4]["display"] }}" type="hidden" placeholder="Lien 5" name="nav-link-0-display" class="input input-w-105px border-editor m-4"/>
-                        <input value="{{ data["nav"]["link"][4]["url"] }}" type="hidden" placeholder="url" name="nav-link-4-url" class="input input-w-105px border-editor"/></li>
-                    <li>
                 </ul>
+
+            <input value="{{ data["nav"]["link"][0]["display"] }}" type="hidden" placeholder="Lien 1" name="nav-link-0-display" class="input input-w-105px border-editor m-4"/>
+            <input value="{{ data["nav"]["link"][0]["url"] }}" type="hidden" placeholder="url" name="nav-link-0-url" class="input input-w-105px border-editor"/>
+            <input value="{{ data["nav"]["link"][1]["display"] }}" type="hidden" placeholder="Lien 2" name="nav-link-1-display" class="input input-w-105px border-editor m-4"/>
+            <input value="{{ data["nav"]["link"][1]["url"] }}"  type="hidden" placeholder="url" name="nav-link-1-url" class="input input-w-105px border-editor"/>
+            <input value="{{ data["nav"]["link"][2]["display"] }}" type="hidden" placeholder="Lien 3" name="nav-link-0-display" class="input input-w-105px border-editor m-4"/>
+            <input value="{{ data["nav"]["link"][2]["url"] }}" type="hidden" placeholder="url" name="nav-link-2-url" class="input input-w-105px border-editor"/>
+            <input value="{{ data["nav"]["link"][3]["display"] }}" type="hidden" placeholder="Lien 4" name="nav-link-0-display" class="input input-w-105px border-editor m-4"/>
+            <input value="{{ data["nav"]["link"][3]["url"] }}"  type="hidden" placeholder="url" name="nav-link-3-url" class="input input-w-105px border-editor"/>
+            <input value="{{ data["nav"]["link"][4]["display"] }}" type="hidden" placeholder="Lien 5" name="nav-link-0-display" class="input input-w-105px border-editor m-4"/>
+            <input value="{{ data["nav"]["link"][4]["url"] }}" type="hidden" placeholder="url" name="nav-link-4-url" class="input input-w-105px border-editor"/>
+
                 <button onclick="removeAllLinks()" class="btn btn-primary w-32 placeholder-base-content hidden lg:block">Supprimer les liens</button>
                 <div class="dropdown">
-                    <li tabindex="0" role="button" class="grid place-items-center lg:px-3 hidden lg:block"><button class="btn btn-primary w-32 placeholder-base-content"/>Ajouter un lien</button></li>
+                    <li tabindex="0" role="button" class="grid place-items-center lg:px-3 hidden lg:block"><button type="button" class="btn btn-primary w-32 placeholder-base-content"/>Ajouter un lien</button></li>
                     <div tabindex="0" class="dropdown-content flex flex-col bg-base-300 relative right-3 top-14 rounded-box p-2 items-end">
                         <input type="text" placeholder="Nom du lien" id="linkName" class="input border-dashed border-2 my-1 border-primary focus:border-gray-600 focus:outline-none"/>
                         <input type="text" placeholder="https://..." id="linkURL" class="input border-dashed border-2 my-1 border-primary focus:border-gray-600 focus:outline-none"/>
-                        <button onclick="addLink()" class="btn btn-secondary w-32 placeholder-base-content m-2"/>Enregistrer</button>
+                        <button type="button" onclick="addLink()" class="btn btn-secondary w-32 placeholder-base-content m-2"/>Enregistrer</button>
                     </div>
                 </div>
             </div>
         </nav>
+<div class="drawer-side">
+    <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
+    <div class="menu bg-base-200 min-h-full w-4/5 max-w-80 p-4 flex items-start">
+        <button onclick="removeAllLinks()" class="btn btn-primary w-32 placeholder-base-content">Supprimer les liens</button>
+        <div class="dropdown">
+            <li tabindex="0" role="button" class="grid place-items-center lg:px-3 my-2"><button type="button" class="btn btn-primary w-32 placeholder-base-content">Ajouter un lien</button></li>
+            <div tabindex="0" class="dropdown-content z-10 flex flex-col bg-base-300 my-2 rounded-box p-2 items-end">
+                <input type="text" placeholder="Nom du lien" id="mobileLinkName" class="input border-dashed border-2 my-1 border-primary focus:border-gray-600 focus:outline-none"/>
+                <input type="text" placeholder="https://..." id="mobileLinkURL" class="input border-dashed border-2 my-1 border-primary focus:border-gray-600 focus:outline-none"/>
+                <button type="button" onclick="addLink()" class="btn btn-secondary w-32 placeholder-base-content m-2">Enregistrer</button>
+            </div>
+        </div>
+        <ul id="mobileLinkList" class="text-lg">
+            {% for a in data["nav"]["link"] %}
+                        {% if a["display"] %}
+                            <li class="grid place-items-center lg:px-3">
+                                <a href="{{  a["url"] }}">{{  a["display"] }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+        </ul>
+    </div>
+</div>

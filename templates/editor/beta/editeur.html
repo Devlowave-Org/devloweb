@@ -8,8 +8,8 @@
 </head>
 <body>
 <div class="drawer">
-    <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex flex-col">
+        <form action="/editeur/beta/editeur" method="post" enctype="multipart/form-data">
         {% for section in data["general"]["sections"] %}
             {% if section == "nav_section" %}
                 {% include 'editor/beta/nav_section.html' %}
@@ -21,7 +21,8 @@
                 {% include 'editor/beta/footer_section.html' %}
             {%  endif %}
         {% endfor %}
-
+            <button type="submit" class="btn">Enregistrer</button>
+        </form>
     </div>
 </div>
 </body>
@@ -88,7 +89,8 @@
             : document.getElementById("mobileLinkURL").value;
 
         const links_nbr = document.querySelectorAll("#linkList li").length;
-
+        alert(linkURL);
+        alert(links_nbr);
         // Vérifier que les champs ne sont pas vides
         if (linkName && linkURL) {
             if (links_nbr < 6) {
@@ -112,18 +114,13 @@
                 list.appendChild(newListItem.cloneNode(true));
 
                 // Ajouter les inputs cachés
-                const inputURL = document.getElementsByName(`nav-link-${linkCount}-url`)
-                inputURL.type = "hidden";
-                inputURL.name = `nav-link-${linkCount}-url`;
+                const inputURL = document.getElementsByName(`nav-link-${links_nbr}-url`)[0]
                 inputURL.value = linkURL;
 
-                const inputName = document.getElementsByName(`nav-link-${linkCount}-url`)
-                inputName.type = "hidden";
-                inputName.name = `nav-link-${linkCount}-name`;
+                const inputName = document.getElementsByName(`nav-link-${links_nbr}-display`)[0]
                 inputName.value = linkName;
+                alert(`nav-link-${links_nbr}-display`);
 
-                list.appendChild(inputURL);
-                list.appendChild(inputName);
 
                 // Incrémenter le compteur de liens
                 linkCount++;
