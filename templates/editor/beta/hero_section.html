@@ -1,5 +1,7 @@
-        <section id="hero" class="hero min-h-screen pad" style="background-image: url(../../../static/background_preview.png);">
-            <input type="file" id="imageInput" accept="image/*" style="display: none;" />
+
+
+        <section id="hero" class="hero min-h-screen pad" style="{% if data["hero"]["image"] %}background-image: url({{ url_for('route_tmp', ja=session["ja_id"], image=data["hero"]["image"]) }}); {% endif %} url({{ url_for('route_tmp', ja=session["ja_id"], image=data["hero"]["image"]) }});">
+            <input type="file" id="imageInput" name="hero-image" accept="image/*" style="display: none;" />
             <div class="hero-overlay"></div>
             <div id="content" class="hero-content text-center bg-base-100 rounded-box p-8 sm:p-12 m-4">
                 <article class="max-w-md">

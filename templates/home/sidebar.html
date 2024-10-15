@@ -1,13 +1,13 @@
 
 <!-- Sidebar -->
 <aside
-  class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform pt-5 -translate-x-full bg-gray-50 border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+  class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform pt-3 -translate-x-full bg-gray-50 border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
   aria-label="Sidenav"
   id="drawer-navigation"
 >
-    <div class="flex items-center px-3">
-        <img class="avatar rounded-full size-14 mr-1" src="{{ url_for('static', filename="devlowave.png") }}" alt="Notre logo n'a pas  chargé">
-        <p class="text-primary self-center text-2xl">Devloweb</p>
+    <div class="flex text-primary pt-3">
+        <img class="avatar rounded-full w-10" src="{{ url_for('route_tmp', ja=session["ja_id"], image="general-logo-image.png") }}" alt="L'image n'existe pas">
+        <p>{{ session["name"] }}</p>
     </div>
   <div class="overflow-y-auto py-5 px-3 h-full bg-gray-50 dark:bg-gray-800">
     <ul class="space-y-2">
@@ -162,17 +162,29 @@
           <span class="ml-3">Discord</span>
         </a>
       </li>
+        <li>
+        <a
+          href="/logout"
+          class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-white group"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9"></path>
+          </svg>
+
+          <span class="ml-3">Me déconnecter</span>
+        </a>
+      </li>
     </ul>
   </div>
   <div
     class="absolute bottom-0 left-0 justify-center p-4 w-full flex flex-col bg-gray-50 dark:bg-gray-800 z-20">
-      <div class="flex text-primary">
-        <img class="avatar rounded w-24" src="{{ url_for('route_tmp', ja=session["ja_id"], image="general-logo-image.png") }}" alt="L'image n'existe pas">
-        <p>{{ session["name"] }}</p>
-        <a href="/logout">Me déconnecter</a>
-    </div>
-    <div class="text-sm text-gray-600 dark:text-gray-400">
-      <a href="">Copyright Devlowave 2023-2024</a> ・ <a href="">ALL</a>
+      <div class="flex items-center">
+        <img class="avatar rounded-full w-5 mr-1" src="{{ url_for('static', filename="devlowave.png") }}" alt="Notre logo n'a pas  chargé">
+        <p class="text-primary self-center">Devloweb</p>
     </div>
   </div>
 </aside>
