@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="{{ data["general"]["theme"] }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,7 @@
 <body>
 <div class="drawer">
     <div class="drawer-content flex flex-col">
+        <button type="submit" class="btn btn-warning fixed top-4 left-1/2 transform -translate-x-1/2">Enregistrer</button>
         <form action="/editeur/beta/editeur" method="post" enctype="multipart/form-data">
         {% for section in data["general"]["sections"] %}
             {% if section == "nav_section" %}
@@ -26,7 +27,6 @@
                     {% include 'editor/beta/mobilnav_section.html' %}
                 {%  endif %}
         {% endfor %}
-            <button type="submit" class="btn">Enregistrer</button>
         </form>
     </div>
 </div>

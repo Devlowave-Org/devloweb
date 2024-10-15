@@ -2885,6 +2885,12 @@ html {
     --tw-bg-opacity: 1;
     background-color: var(--fallback-b2,oklch(var(--b2)/var(--tw-bg-opacity)));
   }
+
+  .table-zebra tr.hover:hover,
+  .table-zebra tr.hover:nth-child(even):hover {
+    --tw-bg-opacity: 1;
+    background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity)));
+  }
 }
 
 .btn {
@@ -3258,6 +3264,18 @@ html {
     .btn-outline.btn-accent:hover {
       background-color: color-mix(in oklab, var(--fallback-a,oklch(var(--a)/1)) 90%, black);
       border-color: color-mix(in oklab, var(--fallback-a,oklch(var(--a)/1)) 90%, black);
+    }
+  }
+
+  .btn-outline.btn-warning:hover {
+    --tw-text-opacity: 1;
+    color: var(--fallback-wac,oklch(var(--wac)/var(--tw-text-opacity)));
+  }
+
+  @supports (color: color-mix(in oklab, black, black)) {
+    .btn-outline.btn-warning:hover {
+      background-color: color-mix(in oklab, var(--fallback-wa,oklch(var(--wa)/1)) 90%, black);
+      border-color: color-mix(in oklab, var(--fallback-wa,oklch(var(--wa)/1)) 90%, black);
     }
   }
 
@@ -3788,6 +3806,10 @@ html {
   .btn-accent {
     --btn-color: var(--fallback-a);
   }
+
+  .btn-warning {
+    --btn-color: var(--fallback-wa);
+  }
 }
 
 @supports (color: color-mix(in oklab, black, black)) {
@@ -3804,6 +3826,11 @@ html {
   .btn-outline.btn-accent.btn-active {
     background-color: color-mix(in oklab, var(--fallback-a,oklch(var(--a)/1)) 90%, black);
     border-color: color-mix(in oklab, var(--fallback-a,oklch(var(--a)/1)) 90%, black);
+  }
+
+  .btn-outline.btn-warning.btn-active {
+    background-color: color-mix(in oklab, var(--fallback-wa,oklch(var(--wa)/1)) 90%, black);
+    border-color: color-mix(in oklab, var(--fallback-wa,oklch(var(--wa)/1)) 90%, black);
   }
 }
 
@@ -3831,6 +3858,10 @@ html {
   .btn-accent {
     --btn-color: var(--a);
   }
+
+  .btn-warning {
+    --btn-color: var(--wa);
+  }
 }
 
 .btn-secondary {
@@ -3843,6 +3874,12 @@ html {
   --tw-text-opacity: 1;
   color: var(--fallback-ac,oklch(var(--ac)/var(--tw-text-opacity)));
   outline-color: var(--fallback-a,oklch(var(--a)/1));
+}
+
+.btn-warning {
+  --tw-text-opacity: 1;
+  color: var(--fallback-wac,oklch(var(--wac)/var(--tw-text-opacity)));
+  outline-color: var(--fallback-wa,oklch(var(--wa)/1));
 }
 
 .btn.glass {
@@ -3901,6 +3938,16 @@ html {
 .btn-outline.btn-accent.btn-active {
   --tw-text-opacity: 1;
   color: var(--fallback-ac,oklch(var(--ac)/var(--tw-text-opacity)));
+}
+
+.btn-outline.btn-warning {
+  --tw-text-opacity: 1;
+  color: var(--fallback-wa,oklch(var(--wa)/var(--tw-text-opacity)));
+}
+
+.btn-outline.btn-warning.btn-active {
+  --tw-text-opacity: 1;
+  color: var(--fallback-wac,oklch(var(--wac)/var(--tw-text-opacity)));
 }
 
 .btn.btn-disabled,
@@ -4810,6 +4857,10 @@ html:has(.drawer-toggle:checked) {
   left: 0px;
 }
 
+.left-1\/2 {
+  left: 50%;
+}
+
 .right-0 {
   right: 0px;
 }
@@ -4824,6 +4875,14 @@ html:has(.drawer-toggle:checked) {
 
 .top-14 {
   top: 3.5rem;
+}
+
+.top-2 {
+  top: 0.5rem;
+}
+
+.top-4 {
+  top: 1rem;
 }
 
 .z-10 {
@@ -5202,6 +5261,11 @@ html:has(.drawer-toggle:checked) {
 
 .flex-grow-0 {
   flex-grow: 0;
+}
+
+.-translate-x-1\/2 {
+  --tw-translate-x: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .-translate-x-full {
