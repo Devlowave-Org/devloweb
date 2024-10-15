@@ -11,6 +11,8 @@ import App.utils.email_api as email_api
 from threading import Thread
 import shutil
 
+from App.utils.rnja_api import get_ja
+
 
 def is_connected(session, devlobdd):
     if session.get('ja_id') is None:
@@ -275,10 +277,30 @@ def gestion_fichiers(request: flask.Request, json_site: dict, ja_id):
 
 
 def set_default_value_to_json_site(ja_id):
+    ja_from_api = get_ja(ja_id)
+
     json_site = json.loads(open(f"tmp/{ja_id}/site.json").read())
     json_site["general"]["ja_id"] = ja_id
     json_site["general"]["theme"] = "lemonade"
     json_site["general"]["sections"] = ["nav_section", "hero_section", "footer_section", "", ""]
     json_site["general"]["starting_point"] = 0
+
+    json_site["nav"]["ja"] = ja_from_api["name"]
+    json_site["hero"]["description"] = ja_from_api["description"]
+
+    json_site["footer"]["socials"]["twitter"] = ja_from_api["twitter"]
+    json_site["footer"]["socials"]["facebook"] = ja_from_api["facebook"]
+    json_site["footer"]["socials"]["instagram"] = ja_from_api["instagram"]
+    json_site["footer"]["socials"]["youtube"] = ja_from_api["youtube"]
+    json_site["footer"]["socials"]["discord"] = ja_from_api["discord"]
+    json_site["footer"]["socials"]["tiktok"] = ja_from_api["tiktok"]
+    json_site["footer"]["socials"]["website"] = ja_from_api["website"]
+
+
+
+
+
+
+
     with open(f"tmp/{ja_id}/site.json", "w") as f:
         json.dump(json_site, f)

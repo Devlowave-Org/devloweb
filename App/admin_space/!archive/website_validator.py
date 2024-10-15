@@ -18,4 +18,4 @@ def process_submit_demand(devlobdd):
     else:
         error = "No demand for this JA"
 
-    return render_template('admin_space/website_validator.html', ja_id=ja_id, error=error)
+    return render_template('admin_space/!archive/website_validator.html', ja_id=ja_id, error=error)
