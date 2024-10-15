@@ -2,8 +2,6 @@ import re
 
 from flask import render_template, Flask, request, session, redirect, url_for
 from App.admin_space import search_engine, details_area
-from App.admin_space.details_area import manage_hosting_demand
-
 
 def load(db):
     search_results = load_search_area(db)
@@ -12,16 +10,18 @@ def load(db):
     if search_results["results"]["result_1"]["error"] == None:
         for key, value in search_results["results"].items():
             if value["is_selected"] == True:
-               website_details = load_website_details(db, value["id"])
-               if website_details["status"] != search_results["results"]["result_1"]["status"]:
-                   search_results["results"]["result_1"]["status"] = website_details["status"]
+               ja_details = load_ja_details(db, value["id"])
+               if ja_details["status"] != search_results["results"]["result_1"]["status"]:
+                   search_results["results"]["result_1"]["status"] = ja_details["status"]
                break
             else:
-                website_details = None
+                ja_details = None
     else:
-        website_details = None
-
-    return render_template("admin_space/panel.html", search_results=search_results, website_details=website_details, type_result=type(search_results["results"]["result_1"]))
+        ja_details = None
+    print(request.form)
+    print(search_results)
+    print(ja_details)
+    return render_template("admin_space/panel.html", search_results=search_results, ja_details=ja_details)
 
 
 def load_search_area(db):
@@ -63,6 +63,6 @@ def load_search_area(db):
 
     return search_results
 
-def load_website_details(db, ja_id):
-    website_details = details_area.generate_details_area_dict(db, ja_id)
-    return website_details
+def load_ja_details(db, ja_id):
+    ja_details = details_area.generate_details_area_dict(db, ja_id)
+    return ja_details

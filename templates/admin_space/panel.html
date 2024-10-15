@@ -13,7 +13,9 @@
                 <form action="/admin_space/panel" method="get" class="searchbar_form">
                     <input type="text" name="searchbar" id="searchbar" placeholder="ja-8166, 8166, devlowave, devlowave.devlowave.fr" value="{% if search_results["query"] %}{{ search_results["query"] }}{% endif %}">
                     <input type="submit" name="searchbar_submit_button" id="searchbar_submit_button" value="Rechercher">
-                    <button id="back_button"><a href="/admin_space/panel">Retourner à la liste</a></button>
+                    <a id="back_button" href="/admin_space" style="text-decoration: none;">
+                        <button type="button">Back</button>
+                    </a>
                 </form>
             </div>
             <div class="results">
@@ -54,32 +56,68 @@
                 </div>
             </div>
         </div>
-        <div class="website_details">
-            <h2 id="details_area_title">Détails du site :</h2>
-            {% if website_details %}
+        <div class="ja_details">
+            <h2 id="details_area_title">Détails sur la JA (et son site) :</h2>
+            {% if ja_details %}
                 <div class="ja_id_and_name">
-                    ID : {{ website_details["id"] }} <br>
-                    Nom : {{ website_details["name"] }} <br>
+                    ID : {{ ja_details["id"] }} <br>
+                    Nom : {{ ja_details["name"] }} <br>
                 </div>
                 <div class="ja_website_subdomain_and_status">
-                        <img src="/static/admin_space/images/status_{{ website_details["status"] }}_indicator.svg" alt="status{{ website_details["status"] }}" id="website_details_status_indicator_svg">
+                        <img src="/static/admin_space/images/status_{{ ja_details["status"] }}_indicator.svg" alt="status{{ ja_details["status"] }}" id="ja_details_status_indicator_svg">
                         <div id="result_dash">-</div>
-                        Sous domaine : {{ website_details["subdomain"] }}
+                        Sous domaine : {{ ja_details["subdomain"] }}
                 </div>
-                {% if website_details["status"] == 2 %}
-                    Cette Ja a demandé une review, lien : "{{ website_details["preview_link"] }}"
-                    <form class="website_demand_acceptor" action="/admin_space/panel?searchbar={{ website_details["id"] }}" method="post">
-                        {% if website_details["host_demand"] == False %}
-                            <br>Raison :<br>
-                            <textarea name="reject_message" placeholder="Le texte entré ici sera envoyé par mail à cette JA"></textarea><br>
+
+                <form class="website_status_modifier" action="/admin_space/panel?searchbar={{ ja_details["id"] }}" method="post">
+                    {% if ja_details["status"] == 2 %}
+                        Cette Ja a demandé une review, lien : "{{ ja_details["preview_link"] }}"
+                        {% if ja_details["status_modification"] == False %}
+                            <br>Raison du rejet :<br>
+                            <textarea name="reject_message" placeholder="Le texte entré ici sera envoyé par mail à cette JA."></textarea><br>
                             <input type="submit" name="reject_button" value="Rejeter">
+                        {% elif ja_details["status_modification"] is sameas 0 %}
+                            <br>Raison de la réinitialisation:<br>
+                            <input name="accept_confirmation" value="oui"><br>
+                        {% elif ja_details["status_modification"] is sameas 1 %}
+                            <br>Êtes vous sûr de vouloir accepter la demande ? :<br>
+                            <input type="hidden" name="accept_button" value="Accepter">
+                            <input name="activate_confirmation" type="submit" value="oui">
+                            <input name="activate_confirmation" type="submit" value="non">
                         {% else %}
                             <input type="submit" name="accept_button" value="Accepter">
                             <input type="submit" name="reject_button" value="Rejeter">
                         {% endif %}
-
+                    {% else %}
+                    Gérer le site :
+                    {% if ja_details["status_modification"] is sameas 0 %}
+                        <br>Raison de la réinitialisation:<br>
+                        <textarea name="reset_message" placeholder="Le texte entré ici sera envoyé par mail à cette JA"></textarea><br>
+                        <input type="submit" name="reset_button" value="Réinitialiser">
+                    {% elif ja_details["status_modification"] is sameas 1 %}
+                        <br>Êtes vous sûr de vouloir activer le site :<br>
+                        <input type="hidden" name="activate_button" value="Activer">
+                        <input name="activate_confirmation" type="submit" value="oui">
+                        <input name="activate_confirmation" type="submit" value="non">
+                    {% elif ja_details["status_modification"] == False %}
+                        <br>Raison de la désactivation :<br>
+                        <textarea name="reject_message" placeholder="Le texte entré ici sera envoyé par mail à cette JA"></textarea><br>
+                        <input type="submit" name="reject_button" value="Désactiver">
+                    {% else %}
+                        {% if ja_details["status"] == 0 %}
+                            <input type="submit" name="activate_button" value="Activer">
+                            <input type="submit" name="deactivate_button" value="Désactiver">
+                        {% elif ja_details["status"] == 1 %}
+                            <input type="submit" name="deactivate_button" value="Désactiver">
+                            <input type="submit" name="reset_button" value="Réinitialiser">
+                        {% elif ja_details["status"] == 3 %}
+                            <input type="submit" name="activate_button" value="Activer">
+                            <input type="submit" name="reset_button" value="Réinitialiser">
+                        {% endif %}
+                    {% endif %}
                     </form>
                 {% endif %}
+
             {% else %}
                 <p>Pas de JA selectionnée</p>
             {% endif %}

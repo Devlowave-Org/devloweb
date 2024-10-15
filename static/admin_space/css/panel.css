@@ -11,7 +11,7 @@ body {
 
 /* Scale up both sections */
 .search_engine,
-.website_details {
+.ja_details {
     width: 50%; /* Maintain layout but font size and padding will enlarge them */
     box-sizing: border-box;
     overflow: scroll;
@@ -23,8 +23,8 @@ body {
     padding: 19px; /* Increase padding */
 }
 
-/* Adjust the website details container */
-.website_details {
+/* Adjust the ja details container */
+.ja_details {
     border: solid 4px black;
     padding: 19px;
 }
@@ -72,7 +72,7 @@ body {
     margin-bottom: 9px; /* Increase margin for spacing */
 }
 
-#status_indicator_svg, #website_details_status_indicator_svg {
+#status_indicator_svg, #ja_details_status_indicator_svg {
     width: 38px; /* Scale up icon */
     height: 38px;
     margin-right: 9px; /* Increase space between icon and text */
