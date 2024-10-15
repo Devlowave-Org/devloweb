@@ -54,26 +54,3 @@
                 </div>
             </div>
         </nav>
-<div class="drawer-side">
-    <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
-    <div class="menu bg-base-200 min-h-full w-4/5 max-w-80 p-4 flex items-start">
-        <button onclick="removeAllLinks()" class="btn btn-primary w-32 placeholder-base-content">Supprimer les liens</button>
-        <div class="dropdown">
-            <li tabindex="0" role="button" class="grid place-items-center lg:px-3 my-2"><button type="button" class="btn btn-primary w-32 placeholder-base-content">Ajouter un lien</button></li>
-            <div tabindex="0" class="dropdown-content z-10 flex flex-col bg-base-300 my-2 rounded-box p-2 items-end">
-                <input type="text" placeholder="Nom du lien" id="mobileLinkName" class="input border-dashed border-2 my-1 border-primary focus:border-gray-600 focus:outline-none"/>
-                <input type="text" placeholder="https://..." id="mobileLinkURL" class="input border-dashed border-2 my-1 border-primary focus:border-gray-600 focus:outline-none"/>
-                <button type="button" onclick="addLink()" class="btn btn-secondary w-32 placeholder-base-content m-2">Enregistrer</button>
-            </div>
-        </div>
-        <ul id="mobileLinkList" class="text-lg">
-            {% for a in data["nav"]["link"] %}
-                        {% if a["display"] %}
-                            <li class="grid place-items-center lg:px-3">
-                                <a href="{{  a["url"] }}">{{  a["display"] }}</a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-        </ul>
-    </div>
-</div>

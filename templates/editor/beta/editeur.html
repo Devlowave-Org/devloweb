@@ -21,6 +21,11 @@
                 {% include 'editor/beta/footer_section.html' %}
             {%  endif %}
         {% endfor %}
+        {% for section in data["general"]["sections"] %}
+            {% if section == "nav_section" %}
+                    {% include 'editor/beta/mobilnav_section.html' %}
+                {%  endif %}
+        {% endfor %}
             <button type="submit" class="btn">Enregistrer</button>
         </form>
     </div>
