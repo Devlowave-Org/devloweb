@@ -1,19 +1,15 @@
-from encodings.utf_7 import encode
-
-from flask import render_template, Flask, session, redirect, url_for, g
+from flask import render_template, Flask, session, redirect, url_for
 from App import home, inscription, verification, connexion, resend, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
 from App.utils.utils import is_connected
 from werkzeug.middleware.proxy_fix import ProxyFix
-from App.admin_space import admin_space
+from App.admin_space import admin_panel
 from os import path, getcwd, environ
-from json import load
 from dotenv import load_dotenv
 
 env = path.join(getcwd(), '.env')
 if path.exists(env):
     load_dotenv(env)
-
 
 app = Flask(__name__)
 app.secret_key = "banane"
@@ -170,13 +166,14 @@ def internal_error(e):
 """
 ESPACE ADMIN
 """
+@app.route("/admin_space/", methods=("GET", "POST"))
 @app.route("/admin_space", methods=("GET", "POST"))
 def route_admin_space():
-    return admin_space.load_panel(db)
+    return redirect("/admin_space/panel")
 
-@app.route("/admin_space/website_validator", methods=("GET", "POST"))
+@app.route("/admin_space/panel", methods=("GET", "POST"))
 def route_admin_space_website_validator():
-    return admin_space.load_website_validator(db)
+    return admin_panel.load(db)
 
 
 if __name__ == "__main__":
