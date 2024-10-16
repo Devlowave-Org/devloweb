@@ -296,11 +296,5 @@ def set_default_value_to_json_site(ja_id):
     json_site["footer"]["socials"]["tiktok"] = ja_from_api["tiktok"]
     json_site["footer"]["socials"]["website"] = ja_from_api["website"]
 
-
-
-
-
-
-
     with open(f"tmp/{ja_id}/site.json", "w") as f:
         json.dump(json_site, f)

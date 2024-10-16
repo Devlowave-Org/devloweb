@@ -5103,6 +5103,11 @@ html:has(.drawer-toggle:checked) {
   aspect-ratio: 1 / 1;
 }
 
+.size-6 {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 .h-10 {
   height: 2.5rem;
 }
@@ -5609,6 +5614,11 @@ html:has(.drawer-toggle:checked) {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.bg-base-content {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-bc,oklch(var(--bc)/var(--tw-bg-opacity)));
+}
+
 .bg-gradient-to-br {
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
 }
@@ -5630,6 +5640,18 @@ html:has(.drawer-toggle:checked) {
 
 .fill-current {
   fill: currentColor;
+}
+
+.fill-primary {
+  fill: var(--fallback-p,oklch(var(--p)/1));
+}
+
+.fill-primary-content {
+  fill: var(--fallback-pc,oklch(var(--pc)/1));
+}
+
+.fill-base-content {
+  fill: var(--fallback-bc,oklch(var(--bc)/1));
 }
 
 .stroke-current {
