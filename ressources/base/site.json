@@ -46,6 +46,9 @@
       "url": ""
     }
   },
+  "members": [
+    { "image":  "", "role": "", "name": ""}
+  ],
   "footer": {
     "title": "",
     "links": [

@@ -69,7 +69,7 @@ def search_perfect_matching(db, search_results):
 
     # If no results were added, add a default "no results" message
     if type(search_results["results"]["result_1"]) is str:
-        search_results["results"][f"result_1"] = {"error" : "error", "content" : f"{search_results["results"][f"result_1"]}"}
+        search_results["results"][f"result_1"] = {"error" : "error", "content" : f"{search_results['results']['result_1']}"}
 
 
     if search_results["results"]["result_1"]["error"] == None:
