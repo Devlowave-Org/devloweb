@@ -6,7 +6,7 @@
   id="drawer-navigation"
 >
   <div class="overflow-y-auto py-5 px-3 h-full">
-    <ul class="space-y-2">
+    <ul class="menu space-y-2">
         <li>
             <div class="flex pt-3">
                 <img class="avatar rounded-full w-10" src="{{ url_for('route_tmp', ja=session["ja_id"], image="general-logo-image.png") }}" alt="L'image n'existe pas">
@@ -18,7 +18,7 @@
           href="/home"
           class="flex items-center p-2 hover:bg-base-content/20"
         >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="flex-shrink-0 w-6 h-6 transition duration-75"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -37,7 +37,7 @@
         >
           <svg
             aria-hidden="true"
-            class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+            class="w-6 h-6 transition duration-75"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +53,7 @@
           href="/home/editeur"
           class="flex items-center p-2 "
         >
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+          <svg  xmlns="http://www.w3.org/2000/svg" fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="w-6 h-6  transition duration-75">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
               <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
@@ -67,7 +67,7 @@
           href="/home/hebergement"
           class="flex items-center p-2 "
           ><svg
-            class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+            class="w-6 h-6 transition  duration-75"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -90,7 +90,7 @@
     <!-- Divider -->
 
     <ul
-      class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700"
+      class="menu pt-5 mt-5 space-y-2 border-primary border-t"
     >
       <li>
         <a
@@ -99,7 +99,7 @@
         >
           <svg
             aria-hidden="true"
-            class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+            class="flex-shrink-0 w-6 h-6  transition duration-75"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +121,7 @@
         >
           <svg
             aria-hidden="true"
-            class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+            class="flex-shrink-0 w-6 h-6 transition duration-75 "
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -141,7 +141,7 @@
           class="flex items-center p-2 "
         >
           <svg
-            class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+            class="flex-shrink-0 w-6 h-6 transition duration-75 "
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -162,7 +162,7 @@
           href="/logout"
           class="flex items-center p-2 "
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="flex-shrink-0 w-6 h-6  transition duration-75"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -173,14 +173,12 @@
           <span class="ml-3">Me déconnecter</span>
         </a>
       </li>
-        <li>
+    </ul>
       <div class="absolute bottom-0 left-0 justify-center p-4 w-full flex flex-col z-20">
           <div class="flex items-center">
             <img class="avatar rounded-full w-5 mr-1" src="{{ url_for('static', filename="devlowave.png") }}" alt="Notre logo n'a pas  chargé">
             <p class="self-center">Devloweb</p>
         </div>
       </div>
-    </li>
-    </ul>
   </div>
 </aside>
