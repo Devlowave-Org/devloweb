@@ -9,8 +9,9 @@
 <body>
 <div class="drawer">
     <div class="drawer-content flex flex-col">
+    <form action="/editeur/beta/editeur" method="post" enctype="multipart/form-data">
         <button type="submit" class="btn btn-warning fixed top-4 left-1/2 transform -translate-x-1/2 z-10">Enregistrer</button>
-        <form action="/editeur/beta/editeur" method="post" enctype="multipart/form-data">
+
         {% for section in data["general"]["sections"] %}
             {% if section == "nav_section" %}
                 {% include 'editor/beta/nav_section.html' %}
