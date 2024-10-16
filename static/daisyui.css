@@ -5172,6 +5172,10 @@ html:has(.drawer-toggle:checked) {
   min-height: 100vh;
 }
 
+.min-h-48 {
+  min-height: 12rem;
+}
+
 .w-10 {
   width: 2.5rem;
 }
@@ -5231,6 +5235,10 @@ html:has(.drawer-toggle:checked) {
 .min-w-fit {
   min-width: -moz-fit-content;
   min-width: fit-content;
+}
+
+.min-w-48 {
+  min-width: 12rem;
 }
 
 .max-w-3xl {
