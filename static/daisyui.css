@@ -5103,13 +5103,12 @@ html:has(.drawer-toggle:checked) {
   aspect-ratio: 1 / 1;
 }
 
-.size-6 {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
 .h-10 {
   height: 2.5rem;
+}
+
+.h-24 {
+  height: 6rem;
 }
 
 .h-3 {
@@ -5171,6 +5170,10 @@ html:has(.drawer-toggle:checked) {
 
 .w-10 {
   width: 2.5rem;
+}
+
+.w-24 {
+  width: 6rem;
 }
 
 .w-3 {
@@ -5614,11 +5617,6 @@ html:has(.drawer-toggle:checked) {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-base-content {
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-bc,oklch(var(--bc)/var(--tw-bg-opacity)));
-}
-
 .bg-gradient-to-br {
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
 }
@@ -5644,14 +5642,6 @@ html:has(.drawer-toggle:checked) {
 
 .fill-primary {
   fill: var(--fallback-p,oklch(var(--p)/1));
-}
-
-.fill-primary-content {
-  fill: var(--fallback-pc,oklch(var(--pc)/1));
-}
-
-.fill-base-content {
-  fill: var(--fallback-bc,oklch(var(--bc)/1));
 }
 
 .stroke-current {
@@ -5781,10 +5771,6 @@ html:has(.drawer-toggle:checked) {
 
 .pt-20 {
   padding-top: 5rem;
-}
-
-.pt-3 {
-  padding-top: 0.75rem;
 }
 
 .pt-5 {
@@ -6205,10 +6191,6 @@ svg {
   .sm\:mx-6 {
     margin-left: 1.5rem;
     margin-right: 1.5rem;
-  }
-
-  .sm\:hidden {
-    display: none;
   }
 
   .sm\:max-w-md {
