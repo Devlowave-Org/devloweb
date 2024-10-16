@@ -10,13 +10,13 @@
         <li>
             <div class="flex pt-3">
                 <img class="avatar rounded-full w-10" src="{{ url_for('route_tmp', ja=session["ja_id"], image="general-logo-image.png") }}" alt="L'image n'existe pas">
-                <p>{{ session["name"] }}</p>
+                <p class="flex items-center p-2">{{ session["name"] }}</p>
             </div>
         </li>
              <li>
         <a
           href="/home"
-          class="flex items-center p-2 "
+          class="flex items-center p-2 hover:bg-base-content/20"
         >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
             aria-hidden="true"
