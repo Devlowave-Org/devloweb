@@ -4885,6 +4885,18 @@ html:has(.drawer-toggle:checked) {
   top: 1rem;
 }
 
+.left-4 {
+  left: 1rem;
+}
+
+.bottom-4 {
+  bottom: 1rem;
+}
+
+.bottom-12 {
+  bottom: 3rem;
+}
+
 .z-10 {
   z-index: 10;
 }
