@@ -18,7 +18,23 @@ def gen_on_the_fly(domain_name, devlobdd):
     return render_template(f"sites/{ja_site[2]}.html", data=json_site)
 
 def send_image(ja_id, image_name):
+    if len(image_name.split(".")) < 2 :
+        return send_image_without_filename(ja_id, image_name)
+
     image_path = f"tmp/{ja_id}/{image_name}"
     if os.path.exists(image_path):
         return send_file(image_path, mimetype='image/gif')
+    else: return abort(404)
+
+def send_image_without_filename(ja_id, image_name):
+    image_path = f"tmp/{ja_id}/"
+
+    # Parcours tous les fichiers du répertoire
+    for file in os.listdir(image_path):
+        # Sépare le nom du fichier et son extension
+        file_name, file_extension = os.path.splitext(file)
+
+        # Vérifie si le nom du fichier correspond
+        if file_name == image_name:
+            return send_file(os.path.join(image_path, file), mimetype='image/gif')
     else: return abort(404)

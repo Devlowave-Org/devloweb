@@ -1,7 +1,6 @@
 from flask import request, render_template, session, redirect, url_for
 from App.utils import bdd, utils
 import bcrypt
-from libgravatar import Gravatar
 
 def connexion(devlobdd):
     if 'email' in session:
@@ -41,7 +40,7 @@ def connexion(devlobdd):
         session['ip'] = ip
         session['ja_id'] = ja[0]
         session['name'] = ja[1]
-        session['avatar'] = Gravatar(email).get_image()
+        session['avatar'] = "general-logo-image"
         return redirect('/home')
 
     return render_template("connexion.html")

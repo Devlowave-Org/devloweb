@@ -5119,8 +5119,9 @@ html:has(.drawer-toggle:checked) {
   height: 2.5rem;
 }
 
-.h-16 {
-  height: 4rem;
+daisyui-integrazion
+.h-24 {
+  height: 6rem;
 }
 
 .h-3 {
@@ -5186,6 +5187,10 @@ html:has(.drawer-toggle:checked) {
 
 .w-10 {
   width: 2.5rem;
+}
+
+.w-24 {
+  width: 6rem;
 }
 
 .w-3 {
@@ -5673,6 +5678,10 @@ html:has(.drawer-toggle:checked) {
   fill: currentColor;
 }
 
+.fill-primary {
+  fill: var(--fallback-p,oklch(var(--p)/1));
+}
+
 .stroke-current {
   stroke: currentColor;
 }
@@ -5805,10 +5814,6 @@ html:has(.drawer-toggle:checked) {
 
 .pt-20 {
   padding-top: 5rem;
-}
-
-.pt-3 {
-  padding-top: 0.75rem;
 }
 
 .pt-5 {
@@ -6233,10 +6238,6 @@ svg {
   .sm\:mx-6 {
     margin-left: 1.5rem;
     margin-right: 1.5rem;
-  }
-
-  .sm\:hidden {
-    display: none;
   }
 
   .sm\:max-w-md {
