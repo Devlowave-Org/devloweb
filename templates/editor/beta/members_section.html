@@ -1,31 +1,43 @@
 <section class="bg-base-300 text-base-content py-12">
-    <h2 class="mb-5 font-bold text-4xl sm:text-5xl text-primary text-center my-4">Nos membres</h2>
-    <div class="flex justify-center">
-        <div class="flex flex-wrap justify-center">
-            <div class="max-w-full flex justify-center m-4">
-                <div class="flex flex-col items-center w-60 m-4">
-                    <img src="../../devloweb_editor/public/images/profil.png" alt="profil" class="rounded-full w-48 my-5 mx-10">
-                    <p class="font-medium text-base-content">Thomas Beline</p>
-                    <p class="font-light text-base-content">Pdg de kernahub</p>
+<div class="flex justify-center w-full">
+        <input
+    name="hero-title"
+    type="text"
+    placeholder="Titre"
+    value=""
+    class="input border-dashed border-2 border-primary focus:border-gray-600 focus:outline-none mb-5 font-bold text-4xl sm:text-5xl text-primary text-center my-4 placeholder-primary p-4 w-96 h-16 bg-base-300" />
+</div>
+    <div class="flex justify-center flex-wrap">
+    <div class="flex flex-wrap justify-center">
+        <div class="max-w-full flex justify-center m-4">
+            <div class="flex flex-col items-center w-60 m-4">
+                <div class="rounded-full w-48 h-48 overflow-hidden my-5 mx-10">
+                    <img src="{% if data["members"][0]["image"] %}{{ url_for('route_tmp', ja=session["ja_id"], image=data["hero"]["image"]) }} {% endif %} {{ url_for('static', filename="add_image.svg") }}"  alt="profil" class="object-cover w-48 h-48 bg-white">
                 </div>
+                <p class="font-medium text-base-content">Timtonix</p>
+                <p class="font-light text-base-content">Président Fondateur</p>
             </div>
         </div>
-        <div class="flex flex-wrap justify-center">
-            <div class="max-w-full flex justify-center m-4">
-                <div class="flex flex-col items-center w-60 m-4">
-                    <img src="../../devloweb_editor/public/images/profil.png" alt="profil" class="rounded-full w-48 my-5 mx-10">
-                    <p class="font-medium text-base-content">Thomas Beline</p>
-                    <p class="font-light text-base-content">Pdg de kernahub</p>
+    </div>
+    <div class="flex flex-wrap justify-center">
+        <div class="max-w-full flex justify-center m-4">
+            <div class="flex flex-col items-center w-60 m-4">
+                <div class="rounded-full w-48 h-48 overflow-hidden my-5 mx-10">
+                    <img src="./image/profil_1.jpeg" alt="profil" class="w-48">
                 </div>
-            </div>
+                <p class="font-medium text-base-content">Samuelaligator</p>
+                <p class="font-light text-base-content">Spécialiste clonage</p>
         </div>
-        <div class="flex flex-wrap justify-center">
-            <div class="max-w-full flex justify-center m-4">
-                <div class="flex flex-col items-center w-60 m-4">
-                    <img src="../../devloweb_editor/public/images/profil.png" alt="profil" class="rounded-full w-48 my-5 mx-10">
-                    <p class="font-medium text-base-content">Thomas Beline</p>
-                    <p class="font-light text-base-content">Pdg de kernahub</p>
+        </div>
+    </div>
+    <div class="flex flex-wrap justify-center">
+        <div class="max-w-full flex justify-center m-4">
+            <div class="flex flex-col items-center w-60 m-4">
+                <div class="rounded-full w-48 h-48 overflow-hidden my-5 mx-10">
+                    <img src="./image/profil_2.jpeg" alt="profil" class="w-48">
                 </div>
+                <p class="font-medium text-base-content">Eloi</p>
+                <p class="font-light text-base-content">Ingénieur en micro-plancton</p>
             </div>
         </div>
     </div>
