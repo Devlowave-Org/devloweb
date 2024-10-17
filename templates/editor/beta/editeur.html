@@ -11,7 +11,6 @@
     <div class="drawer-content flex flex-col">
     <form action="/editeur/beta/editeur" method="post" enctype="multipart/form-data">
         <button type="submit" class="btn btn-warning fixed top-4 left-1/2 transform -translate-x-1/2 z-10">Enregistrer</button>
-
         {% for section in data["general"]["sections"] %}
             {% if section == "nav_section" %}
                 {% include 'editor/beta/nav_section.html' %}
@@ -98,8 +97,6 @@
             : document.getElementById("mobileLinkURL").value;
 
         const links_nbr = document.querySelectorAll("#linkList li").length;
-        alert(linkURL);
-        alert(links_nbr);
         // Vérifier que les champs ne sont pas vides
         if (linkName && linkURL) {
             if (links_nbr < 6) {
@@ -122,13 +119,7 @@
                 mobileList.appendChild(newListItem);
                 list.appendChild(newListItem.cloneNode(true));
 
-                // Ajouter les inputs cachés
-                const inputURL = document.getElementsByName(`nav-link-${links_nbr}-url`)[0]
-                inputURL.value = linkURL;
 
-                const inputName = document.getElementsByName(`nav-link-${links_nbr}-display`)[0]
-                inputName.value = linkName;
-                alert(`nav-link-${links_nbr}-display`);
 
 
                 // Incrémenter le compteur de liens
@@ -149,7 +140,8 @@
 
     function removeAllLinks() {
         const list = document.getElementById("linkList");
-        const mobileList = document.getElementById("mobileLinkList")
+        const mobileList = document.getElementById("mobileLinkList");
+        const links_nbr = document.querySelectorAll("#linkList li").length;
         list.innerHTML = ''; // Supprime tout le contenu de la liste
         mobileList.innerHTML = '';
     }
