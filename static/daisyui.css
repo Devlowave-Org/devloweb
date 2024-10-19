@@ -5625,12 +5625,21 @@ html:has(.drawer-toggle:checked) {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.bg-primary-content {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-pc,oklch(var(--pc)/var(--tw-bg-opacity)));
+}
+
 .fill-current {
   fill: currentColor;
 }
 
 .fill-primary {
   fill: var(--fallback-p,oklch(var(--p)/1));
+}
+
+.fill-secondary {
+  fill: var(--fallback-s,oklch(var(--s)/1));
 }
 
 .stroke-current {
@@ -5938,6 +5947,15 @@ html:has(.drawer-toggle:checked) {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-secondary {
+  --tw-text-opacity: 1;
+  color: var(--fallback-s,oklch(var(--s)/var(--tw-text-opacity)));
+}
+
+.text-base-content\/70 {
+  color: var(--fallback-bc,oklch(var(--bc)/0.7));
 }
 
 .antialiased {
