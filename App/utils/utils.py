@@ -1,5 +1,6 @@
 import json
 import os
+from curses.ascii import isdigit
 from re import fullmatch, compile
 import random
 from datetime import datetime, timedelta
@@ -173,7 +174,7 @@ def create_ja_folder(jaid):
 """
 Gestion de l'éditeur
 """
-def set_value_recursively(dictionary, keys, value):
+def set_value_recursively(json_site, keys, value):
     """
     Fonction récursive pour définir une valeur dans un dictionnaire imbriqué.
 
@@ -188,21 +189,22 @@ def set_value_recursively(dictionary, keys, value):
     key = keys[0]
 
     # Si le segment est un index numérique (pour une liste)
+    # Car oui, on vérifie qu'a ce moment, json_site est une liste.
     if key.isdigit():
         key = int(key)
-        if not isinstance(dictionary, list) or key >= len(dictionary):
+        if not isinstance(json_site, list) or key >= len(json_site):
             raise ValueError("Index invalide pour une liste.")
 
     # Si c'est le dernier segment, on met la valeur
-    if len(keys) == 1:
-        dictionary[key] = value
+    if len(keys) == 1 and key in json_site:
+        json_site[key] = value
         return
 
     # Navigue dans la structure imbriquée et appelle récursivement
-    if isinstance(dictionary, dict) and key in dictionary:
-        set_value_recursively(dictionary[key], keys[1:], value)
-    elif isinstance(dictionary, list) and isinstance(key, int):
-        set_value_recursively(dictionary[key], keys[1:], value)
+    if isinstance(json_site, dict) and key in json_site:
+        set_value_recursively(json_site[key], keys[1:], value)
+    elif isinstance(json_site, list) and isinstance(key, int):
+        set_value_recursively(json_site[key], keys[1:], value)
     else:
         raise KeyError(f"Clé introuvable : {key}")
 
@@ -220,17 +222,25 @@ def gestion_editeur(request: flask.Request, json_site: dict, ja_id):
 def gestion_texte(request: flask.Request, json_site: dict):
     form_dict = request.form.to_dict()
 
-    # Gestion des sections (car le script JS c'est pas hyper abouti quoi...
+    # Gestion des sections
     if "general-sections" in form_dict.keys():
         section_list = form_dict["general-sections"].split("+")
         for i, section in enumerate(section_list):
             form_dict[f"general-sections-{i}"] = section
         form_dict.pop("general-sections")
 
+
     for key, value in form_dict.items():
         print(f"Traitement de la clé {key} avec valeur : {value}")
         try:
             splited_keys = key.split("-")
+
+            # Ajout dynamique de membres
+            if "members-list" in key and splited_keys[2].isdigit():
+                # SI le tableau fait la meme taille que l'index on rajoute une case
+                if len(json_site["members"]["list"]) == int(splited_keys[2]):
+                    json_site["members"]["list"].append({"image": "", "role": "", "name": ""})
+
             set_value_recursively(json_site, splited_keys, value)
         except (KeyError, ValueError) as e:
             print(f"Erreur lors de la mise à jour pour {key}: {e}")
@@ -267,12 +277,12 @@ def gestion_fichiers(request: flask.Request, json_site: dict, ja_id):
             try:
                 splited_keys = key.split("-")
                 set_value_recursively(json_site, splited_keys, filename)
+                file.save(os.path.join(f"tmp/{ja_id}/", filename))
+                print(f"Fichier enregistré {key}")
             except (KeyError, ValueError) as e:
                 print(f"Erreur lors de la mise à jour pour {key}: {e}")
-            file.save(os.path.join(f"tmp/{ja_id}/", filename))
         else:
             print("Fichier non autorisé")
-        print(f"Fichier enregistré {key}")
 
     return json_site
 
