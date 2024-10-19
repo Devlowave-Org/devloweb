@@ -175,6 +175,7 @@ def create_ja_folder(jaid):
 Gestion de l'éditeur
 """
 def set_value_recursively(json_site, keys, value):
+    print(f"Voici nos clés {keys}")
     """
     Fonction récursive pour définir une valeur dans un dictionnaire imbriqué.
 
@@ -195,10 +196,18 @@ def set_value_recursively(json_site, keys, value):
         if not isinstance(json_site, list) or key >= len(json_site):
             raise ValueError("Index invalide pour une liste.")
 
-    # Si c'est le dernier segment, on met la valeur
+
+    # Si c'est le dernier segment, on met la valeur str
     if len(keys) == 1 and key in json_site:
         json_site[key] = value
         return
+
+    # Ici pour l'entier
+    if len(keys) == 1 and isinstance(json_site, list):
+        json_site[key] = value
+        return
+
+
 
     # Navigue dans la structure imbriquée et appelle récursivement
     if isinstance(json_site, dict) and key in json_site:
