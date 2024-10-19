@@ -3,24 +3,23 @@ import os
 from re import fullmatch, compile
 import random
 from datetime import datetime, timedelta
-
 import flask
 from werkzeug.utils import secure_filename
-
 import App.utils.email_api as email_api
 from threading import Thread
 import shutil
-
 from App.utils.rnja_api import get_ja
 
 
 def is_connected(session, devlobdd):
     if session.get('ja_id') is None:
         return False
+
     if not devlobdd.ja_exists(session.get('ja_id')):
         print(f"ON DÉCONNECTE {session['ja_id']} !")
         session.clear()
         return False
+
     return True
 
 
@@ -298,3 +297,12 @@ def set_default_value_to_json_site(ja_id):
 
     with open(f"tmp/{ja_id}/site.json", "w") as f:
         json.dump(json_site, f)
+
+
+def create_session(ja_id, ja_name, ip, email):
+    from flask import session
+    session['email'] = email
+    session['ip'] = ip
+    session['ja_id'] = ja_id
+    session['name'] = ja_name
+    session['avatar'] = "general-logo-image"

@@ -31,16 +31,11 @@ def connexion(devlobdd):
 
 
         if not bcrypt.checkpw(password.encode('utf-8'), ja[2].encode()):
-            print("Tentative de connexion avec un mauvais mot de passe")
             utils.add_a_try(devlobdd, ip)
             return render_template("connexion.html", error="Mail ou mot de passe incorrect")
 
-        print("Il a réussi le parcours du combattant.")
-        session['email'] = email
-        session['ip'] = ip
-        session['ja_id'] = ja[0]
-        session['name'] = ja[1]
-        session['avatar'] = "general-logo-image"
+        # Création de sa session / cookies
+        utils.create_session(ja[0], ja[1], ip, email)
         return redirect('/home')
 
     return render_template("connexion.html")
