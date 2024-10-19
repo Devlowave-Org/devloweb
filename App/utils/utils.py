@@ -220,7 +220,7 @@ def gestion_editeur(request: flask.Request, json_site: dict, ja_id):
 def gestion_texte(request: flask.Request, json_site: dict):
     form_dict = request.form.to_dict()
 
-    # Gestion des sections (car le script JS c'est pas hyper abouti quoi...
+    # Gestion des sections
     if "general-sections" in form_dict.keys():
         section_list = form_dict["general-sections"].split("+")
         for i, section in enumerate(section_list):
@@ -267,12 +267,12 @@ def gestion_fichiers(request: flask.Request, json_site: dict, ja_id):
             try:
                 splited_keys = key.split("-")
                 set_value_recursively(json_site, splited_keys, filename)
+                file.save(os.path.join(f"tmp/{ja_id}/", filename))
+                print(f"Fichier enregistré {key}")
             except (KeyError, ValueError) as e:
                 print(f"Erreur lors de la mise à jour pour {key}: {e}")
-            file.save(os.path.join(f"tmp/{ja_id}/", filename))
         else:
             print("Fichier non autorisé")
-        print(f"Fichier enregistré {key}")
 
     return json_site
 
