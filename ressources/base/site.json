@@ -46,9 +46,12 @@
       "url": ""
     }
   },
-  "members": [
+  "members": {
+    "title": "",
+    "list": [
     { "image":  "", "role": "", "name": ""}
-  ],
+  ]
+  },
   "footer": {
     "title": "",
     "links": [

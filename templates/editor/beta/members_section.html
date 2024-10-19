@@ -7,18 +7,22 @@
     value=""
     class="input border-dashed border-2 border-primary focus:border-gray-600 focus:outline-none mb-5 font-bold text-4xl sm:text-5xl text-primary text-center my-4 placeholder-primary p-4 w-96 h-16 bg-base-300" />
 </div>
-    <div class="flex justify-center flex-wrap">
+{% for membre in data["members"]["list"] %}
+	    <div class="flex justify-center flex-wrap">
     <div class="flex flex-wrap justify-center">
         <div class="max-w-full flex justify-center m-4">
             <div class="flex flex-col items-center w-60 m-4">
                 <div class="rounded-full w-48 h-48 overflow-hidden my-5 mx-10">
-                    <img src="{% if data["members"][0]["image"] %}{{ url_for('route_tmp', ja=session["ja_id"], image=data["hero"]["image"]) }} {% endif %} {{ url_for('static', filename="add_image.svg") }}"  alt="profil" class="object-cover w-48 h-48 bg-white">
+                    <img src="{% if data["members"][0]["image"] %}{{ url_for('route_tmp', ja=session["ja_id"], image=membre["image"]) }} {% endif %} {{ url_for('static', filename="add_image.svg") }}"  alt="profil" class="object-cover w-48 h-48 bg-white">
                 </div>
-                <p class="font-medium text-base-content">Timtonix</p>
-                <p class="font-light text-base-content">Président Fondateur</p>
+                <p class="font-medium text-base-content">{{ membre["name"] }}</p>
+                <p class="font-light text-base-content">{{ membre["name"]["role"] }}</p>
             </div>
         </div>
     </div>
+{% endfor %}
+
+
     <div class="flex flex-wrap justify-center">
         <!-- Open the modal using ID.showModal() method -->
         <button class="btn" type="button" onclick="my_modal_1.showModal()">open modal</button>
