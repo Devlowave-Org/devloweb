@@ -26,6 +26,9 @@ def verify_email(devlobdd):
             devlobdd.activer_email_ja(ja_id)
             devlobdd.delete_code(ja_id)
             devlobdd.init_website(ja_id, "", "beta")
+            # Je lui crée toutes ses variables de sessions
+            ja = devlobdd.get_ja_byid(ja_id)
+            utils.create_session(ja[0], ja[1], request.remote_addr, ja[3])
             return redirect(url_for("route_home"))
         else:
             # Sinon je lui fais passer un sale quart d'heure

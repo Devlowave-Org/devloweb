@@ -1,7 +1,7 @@
 import re
 
 from flask import request, render_template, session, redirect, flash, url_for
-from App.utils import utils, cloudflare
+from App.utils import utils
 import json
 
 

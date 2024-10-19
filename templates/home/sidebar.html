@@ -5,14 +5,14 @@
   aria-label="Sidenav"
   id="drawer-navigation"
 >
-  <div class="overflow-y-auto py-5 px-3 h-full">
-    <ul class="menu space-y-2">
-        <li>
-            <div class="rounded-full w-24 h-24 overflow-hidden my-5 mx-10">
-                <img src="{{ url_for('route_tmp', ja=session["ja_id"], image="general-logo-image") }}" class="w-24" alt="L'image n'existe pas">
+  <div class="overflow-y-auto pt-2 px-3 h-full">
+      <div class="flex flex-wrap flex-col items-center p-2">
+          <div class="avatar online rounded-full w-20 h-20">
+                <img src="{{ url_for('route_tmp', ja=session["ja_id"], image="general-logo-image") }}" class="rounded-full w-20 h-20 object-cover overflow-hidden" alt="L'image n'existe pas">
             </div>
-            <p class="ml-2">{{ session["name"] }}</p>
-        </li>
+            <p class="font-bold text-wrap">{{ session["name"] }}</p>
+      </div>
+    <ul class="menu space-y-2">
          <li>
         <a
           href="/home"
