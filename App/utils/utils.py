@@ -254,7 +254,9 @@ def gestion_fichiers(request: flask.Request, json_site: dict, ja_id):
         # On oblige à ce que la clée soit une image sinon on peut mettre des images partout
         if "image" not in key:
             continue
+
         file = request.files[key]
+        print(file.filename)
         if file.filename == '':
             continue
 

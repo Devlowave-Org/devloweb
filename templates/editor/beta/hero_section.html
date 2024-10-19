@@ -10,9 +10,7 @@
                     placeholder="Titre"
                     value="{{ data["hero"]["title"] }}"
                     class="input border-dashed border-2 border-primary focus:border-gray-600 focus:outline-none mb-5 text-4xl sm:text-5xl text-primary font-bold placeholder-primary w-full py-8 text-center" />
-            <textarea name="hero-description" class="input border-dashed border-2 border-primary focus:border-gray-600 focus:outline-none textarea textarea-bordered w-full min-h-64 mb-5 text-lg sm:text-xl">
-                {{ data["hero"]["description"] }}
-            </textarea>
+            <textarea name="hero-description" class="input border-dashed border-2 border-primary focus:border-gray-600 focus:outline-none textarea textarea-bordered w-full min-h-64 mb-5 text-lg sm:text-xl">{{ data["hero"]["description"] }}</textarea>
         </article>
     </div>
 </section>
