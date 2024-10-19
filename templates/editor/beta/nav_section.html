@@ -16,6 +16,9 @@
                 </label>
             </div>
             <div class="flex-1 justify-end lg:justify-start px-0 sm:px-8">
+                <div class="rounded-full w-24 h-24 overflow-hidden my-5 mx-10">
+                            <img src="{{ url_for('route_tmp', ja=data["general"]["ja_id"], image=data["general"]["logo"]["image"]) }}" alt="profil" class="w-24">
+                        </div>
                 <input
                         name="nav-ja"
                         type="text"
