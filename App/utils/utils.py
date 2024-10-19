@@ -196,7 +196,7 @@ def set_value_recursively(json_site, keys, value):
             raise ValueError("Index invalide pour une liste.")
 
     # Si c'est le dernier segment, on met la valeur
-    if len(keys) == 1:
+    if len(keys) == 1 and key in json_site:
         json_site[key] = value
         return
 
