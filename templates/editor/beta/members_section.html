@@ -7,46 +7,63 @@
     value=""
     class="input border-dashed border-2 border-primary focus:border-gray-600 focus:outline-none mb-5 font-bold text-4xl sm:text-5xl text-primary text-center my-4 placeholder-primary p-4 w-96 h-16 bg-base-300" />
 </div>
-    <div class="flex justify-center flex-wrap">
+<div class="flex justify-center" id="members">
     <div class="flex flex-wrap justify-center">
         <div class="max-w-full flex justify-center m-4">
             <div class="flex flex-col items-center w-60 m-4">
-                <div class="rounded-full w-48 h-48 overflow-hidden my-5 mx-10">
-                    <img src="{% if data["members"][0]["image"] %}{{ url_for('route_tmp', ja=session["ja_id"], image=data["hero"]["image"]) }} {% endif %} {{ url_for('static', filename="add_image.svg") }}"  alt="profil" class="object-cover w-48 h-48 bg-white">
-                </div>
-                <p class="font-medium text-base-content">Timtonix</p>
-                <p class="font-light text-base-content">Président Fondateur</p>
+            <!-- Open the modal using ID.showModal() method -->
+                <button class="btn w-48 h-48 overflow-hidden my-5 mx-10" type="button" onclick="add_member.showModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="fill-current text-base-content size-24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                    </svg>
+                </button>
+                <p class="font-medium text-base-content">Ajouter un membre</p>
             </div>
         </div>
-    </div>
-    <div class="flex flex-wrap justify-center">
-        <!-- Open the modal using ID.showModal() method -->
-        <button class="btn" type="button" onclick="my_modal_1.showModal()">open modal</button>
-        <dialog id="my_modal_1" class="modal">
-          <div class="modal-box">
-            <h3 class="text-lg font-bold">Hello!</h3>
-              <input type="file" id="membreinput" name="members-0-image" accept="image/*" value=""/>
-              <label for="nom">Nom du membre</label>
-              <input type="text" id="nom" name="members-0-name">
-              <label for="role">Role du membre dans l'association</label>
-              <input type="text" id="role" name="members-0-role">
-            <p class="py-4">Press ESC key or click the button below to close</p>
+        <dialog id="add_member" class="modal">
+          <div class="modal-box flex flex-col items-center m-1 bg-primary-content">
+            <h3 class="text-lg font-bold">Ajouter un membre !</h3>
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onclick="add_member.close()" type="button">✕</button>
+
+              <div class="form-control w-full max-w-xs">
+              <label for="membreAvatar" class="label-text">Photo</label>
+              <input type="file" id="membreAvatar" name="" accept="image/*" value="" class="file-input file-input-bordered file-input-primary w-full max-w-xs m-2"/>
+              <label for="nom" class="input input-primary input-bordered flex items-center gap-2 m-2">
+                  Nom
+                <input type="text" id="nom" name="" class="grow" placeholder="Candice Dubois">
+              </label>
+              <label for="role" class="input input-primary input-bordered flex items-center gap-2 m-2">
+                  Rôle
+                  <input type="text" id="role" name="" class="grow" placeholder="Représentante">
+              </label>
+              </div>
             <div class="modal-action">
                 <!-- if there is a button in form, it will close the modal -->
-                <button class="btn" type="submit">Ajouter</button>
+                <button class="btn btn-primary" type="submit">Ajouter</button>
             </div>
           </div>
         </dialog>
     </div>
+    {% for membre in data["members"]["list"] %}
+    <membres>
     <div class="flex flex-wrap justify-center">
         <div class="max-w-full flex justify-center m-4">
             <div class="flex flex-col items-center w-60 m-4">
                 <div class="rounded-full w-48 h-48 overflow-hidden my-5 mx-10">
-                    <img src="./image/profil_2.jpeg" alt="profil" class="w-48">
+                    <img src="{% if membre["image"] %}{{ url_for('route_tmp', ja=session["ja_id"], image=membre["image"]) }} {% else %}{{ url_for('static', filename="add_image.svg") }}{% endif %}"  alt="profil" class="object-cover w-48 h-48 bg-white">
                 </div>
-                <p class="font-medium text-base-content">Eloi</p>
-                <p class="font-light text-base-content">Ingénieur en micro-plancton</p>
+                <p class="font-medium text-base-content">{{ membre["name"] }}</p>
+                <p class="font-light text-base-content">{{ membre["role"] }}</p>
             </div>
         </div>
     </div>
+    </membres>
+{% endfor %}
+</div>
 </section>
+    <script>
+        const members_nbr = document.querySelectorAll("#members membres").length;
+        document.getElementById("membreAvatar").name = `members-list-${members_nbr}-image`
+        document.getElementById("nom").name = `members-list-${members_nbr}-name`
+        document.getElementById("role").name = `members-list-${members_nbr}-role`
+    </script>
