@@ -12,7 +12,6 @@
         <div class="max-w-full flex justify-center m-4">
             <div class="flex flex-col items-center w-60 m-4">
                 <div class="rounded-full w-48 h-48 overflow-hidden my-5 mx-10">
-                    <input type="file" name="members-0-image">
                     <img src="{% if data["members"][0]["image"] %}{{ url_for('route_tmp', ja=session["ja_id"], image=data["hero"]["image"]) }} {% endif %} {{ url_for('static', filename="add_image.svg") }}"  alt="profil" class="object-cover w-48 h-48 bg-white">
                 </div>
                 <p class="font-medium text-base-content">Timtonix</p>
@@ -26,7 +25,7 @@
         <dialog id="my_modal_1" class="modal">
           <div class="modal-box">
             <h3 class="text-lg font-bold">Hello!</h3>
-              <input type="file" name="members-0-image" accept="image/*">
+              <input type="file" id="membreinput" name="members-0-image" accept="image/*" value=""/>
               <label for="nom">Nom du membre</label>
               <input type="text" id="nom" name="members-0-name">
               <label for="role">Role du membre dans l'association</label>

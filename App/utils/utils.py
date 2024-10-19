@@ -256,7 +256,7 @@ def gestion_fichiers(request: flask.Request, json_site: dict, ja_id):
             continue
 
         file = request.files[key]
-        print(file.filename)
+        print(f"Traintement de l'image de {key} : {file.filename}.")
         if file.filename == '':
             continue
 
