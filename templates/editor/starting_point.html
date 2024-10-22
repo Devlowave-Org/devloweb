@@ -322,8 +322,8 @@
         function collectSectionsOrder() {
             const sections = document.querySelectorAll('.the-website .draggable'); // Select all draggable images in "Votre site"
             const order = Array.from(sections).map(section => {
-                const id = section.id; // Get the source path
-                return id; // Return an object with name and path
+                 // Get the source path
+                return section.id; // Return an object with name and path
             });
             document.getElementById('sectionsOrderInput').value = order.join("+"); // Store the order as a JSON string
         }
