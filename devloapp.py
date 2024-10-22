@@ -3,7 +3,7 @@ from App import home, inscription, verification, connexion, resend, onthefly, fo
 from App.utils.bdd import DevloBDD
 from App.utils.utils import is_connected
 from werkzeug.middleware.proxy_fix import ProxyFix
-from App.admin_space import admin_panel
+from App.admin_space.archive import admin_panel
 from os import path, getcwd, environ
 from dotenv import load_dotenv
 
