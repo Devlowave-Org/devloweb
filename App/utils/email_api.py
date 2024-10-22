@@ -68,7 +68,9 @@ class DevloMail:
         part2 = MIMEText(html, "html")
 
         message.attach(part1)
-        message.attach(part2)
+
+        print(target)
+        print(message)
 
         with smtplib.SMTP_SSL(self.host, self.port, context=self.context) as server:
             server.login(self.sender, self.app_pass)

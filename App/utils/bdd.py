@@ -1,3 +1,5 @@
+from traceback import print_tb
+
 import pymysql
 from datetime import datetime
 
@@ -79,6 +81,11 @@ class DevloBDD:
         self.connection()  # Connection avec la base de données.
         query = """UPDATE users SET password = %s WHERE ja_id = %s"""
         self.execute_query(query, (password, ja_id))
+
+    def change_email(self, ja_id: str, email: str):
+        self.connection()  # Connection avec la base de données.
+        query = """UPDATE users SET email = %s, email_verified = 0, email_verification_date = %s WHERE ja_id = %s"""
+        self.execute_query(query, (email, datetime.now(), ja_id))
 
     def change_theme(self, ja_id: str, theme: str):
         self.execute_query("UPDATE sites SET theme = %s WHERE ja_id = %s", (theme, ja_id))

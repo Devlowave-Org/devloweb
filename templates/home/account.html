@@ -54,8 +54,9 @@
 
           <div class="card-body" id="edit_data" hidden="hidden">
             <h2 class="card-title text-2xl font-bold mb-4">Mon compte : </h2>
-
+            <form method="post" action="#">
             <div class="grid gap-4">
+
               <!-- ID JA -->
               <div class="bg-base-200 p-4 rounded-lg">
                 <div class="text-sm opacity-70 mb-1">Identifiant JA</div>
@@ -72,7 +73,7 @@
               <div class="bg-base-200 p-4 rounded-lg">
                 <div class="text-sm opacity-70 mb-1">Adresse Email</div>
                   <label>
-                      <input type="text" value="{{ session['email'] or 'Adresse Email' }}" class="input input-bordered w-full max-w-xs" />
+                      <input type="text" value="{{ session['email'] or 'Adresse Email' }}" class="input input-bordered w-full max-w-xs" name="email"/>
                   </label>
               </div>
 
@@ -80,7 +81,7 @@
               <div class="bg-base-200 p-4 rounded-lg">
                 <div class="text-sm opacity-70 mb-1">Mot de passe</div>
                   <label>
-                      <input type="password" placeholder="••••••••••••" class="input input-bordered w-full max-w-xs" />
+                      <input type="password" placeholder="••••••••••••" class="input input-bordered w-full max-w-xs" name="password-1" />
                   </label>
               </div>
 
@@ -88,7 +89,7 @@
               <div class="bg-base-200 p-4 rounded-lg">
                 <div class="text-sm opacity-70 mb-1">Confirmation du mot de passe</div>
                   <label>
-                      <input type="password" placeholder="••••••••••••" class="input input-bordered w-full max-w-xs" />
+                      <input type="password" placeholder="••••••••••••" class="input input-bordered w-full max-w-xs" name="password-2" />
                   </label>
               </div>
 
@@ -102,6 +103,7 @@
             <div class="card-actions justify-end mt-4">
               <button class="btn btn-primary" onclick="window.location.reload()">Actualiser</button>
             </div>
+              </form>
           </div>
         </div>
       </main>

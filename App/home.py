@@ -51,5 +51,18 @@ def preview(ja_id):
 
 
 def account(db):
-    account_infos = db.get_ja_byid(session['ja_id'])
-    return render_template('home/account.html', account_infos=account_infos)
+    if request.method == 'GET':
+        account_infos = db.get_ja_byid(session['ja_id'])
+        return render_template('home/account.html', account_infos=account_infos)
+    elif request.method == 'POST':
+        if request.form["password-2"] is not "" and request.form["password-1"] is not "" \
+            and request.form["password-2"] == request.form["password-2"]:
+            db.change_password(ja_id=session['ja_id'], password=request.form["password-2"])
+            print('password_change')
+
+        if request.form["email"] is not "":
+            utils.etape_verification(db, session['ja_id'])
+            db.change_email(session['ja_id'], request.form["email"])
+
+        account_infos = db.get_ja_byid(session['ja_id'])
+        return render_template('home/account.html', account_infos=account_infos)

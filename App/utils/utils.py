@@ -47,6 +47,7 @@ def etape_verification(devlobdd, ja_id):
     devlomail = email_api.DevloMail()
     mailer_thread = Thread(target=devlomail.verification_email, args=(mail, code))
     mailer_thread.start()
+    print("fait")
 
 
 def create_verification_code(devlobdd) -> str:
@@ -84,7 +85,8 @@ def verif_code(devlobdd, ja_id, code):
 
 def update_verif_code(devlobdd, row):
     create_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S.%f")
-    mail = devlobdd.get_ja_byid(ja_id=row[0])[0]
+    print(row)
+    mail = devlobdd.get_ja_byid(ja_id=row[1])[3]
 
     delta = datetime.now() - create_date
     if delta.seconds < 120:
@@ -93,7 +95,7 @@ def update_verif_code(devlobdd, row):
         code = create_verification_code(devlobdd)
         devlobdd.update_code(row[0], code)
         devlomail = email_api.DevloMail()
-        mailer_thread = Thread(target=devlomail.send_verification_email, args=(mail, code))
+        mailer_thread = Thread(target=devlomail.verification_email, args=(mail, code))
         mailer_thread.start()
         return True
 
