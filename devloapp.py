@@ -103,7 +103,7 @@ def route_home():
 @app.route("/home/account")
 def route_account():
     if is_connected(session, db):
-        return home.account()
+        return home.account(db)
     return redirect(url_for('route_connexion'))
 
 

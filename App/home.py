@@ -1,6 +1,8 @@
 import re
 
 from flask import request, render_template, session, redirect, flash, url_for
+
+from App.tests.test_inscription import devlobdd
 from App.utils import utils
 import json
 
@@ -48,5 +50,6 @@ def preview(ja_id):
     return render_template("sites/beta.html", data=json_site)
 
 
-def account():
-    return render_template('home/account.html')
+def account(db):
+    account_infos = db.get_ja_byid(session['ja_id'])
+    return render_template('home/account.html', account_infos=account_infos)
