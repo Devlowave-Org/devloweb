@@ -42,7 +42,7 @@ class DevloBDD:
         self.connection()
         self.cursor.execute("CREATE TABLE IF NOT EXISTS users (id INT PRIMARY KEY AUTO_INCREMENT, ja_id INT, name TEXT, password TEXT, email TEXT, email_verified BOOL DEFAULT FALSE, email_verification_code TEXT, email_verification_date TEXT, date_signin TEXT, date_last_login TEXT, active BOOL DEFAULT 1, admin BOOL DEFAULT 0);")
         self.cursor.execute("CREATE TABLE IF NOT EXISTS security (id INT PRIMARY KEY AUTO_INCREMENT, ip TEXT, try INT DEFAULT 1,first TEXT, last TEXT, punition TEXT);")
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS sites(id INT PRIMARY KEY AUTO_INCREMENT, ja_id TEXT, domain TEXT, theme TEXT, status INT DEFAULT 0);")
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS sites(id INT PRIMARY KEY AUTO_INCREMENT, ja_id TEXT, domain TEXT, theme TEXT, status INT DEFAULT 0, date_creation TEXT, date_validation TEXT, date_last_status_change TEXT, last_change_status_by TEXT DEFAULT null, accepted_by TEXT DEFAULT null);")
         self.cursor.execute("CREATE TABLE IF NOT EXISTS magic_link(id INT PRIMARY KEY AUTO_INCREMENT, ja_id TEXT, code TEXT, date TEXT);")
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
@@ -121,11 +121,11 @@ class DevloBDD:
         return result
 
     def view_data_website(self, ja_id: str) -> tuple:
-        result = self.execute_query("SELECT ja_id, domain, theme, status FROM sites WHERE ja_id = %s", (ja_id,), fetchone=True)
+        result = self.execute_query("SELECT ja_id, domain, theme, status, date_creation, date_validation, date_last_status_change, last_change_status_by FROM sites WHERE ja_id = %s", (ja_id,), fetchone=True)
         return result
 
     def get_site_by_ja(self, ja: str) -> list:
-        result = self.execute_query("SELECT ja_id, domain, theme, status FROM sites WHERE ja_id = %s", (ja,), fetchone=True)
+        result = self.execute_query("SELECT ja_id, domain, theme, status, date_creation, date_validation, date_last_status_change, last_change_status_by FROM sites WHERE ja_id = %s", (ja,), fetchone=True)
         print(f"Result : {result}")
         return result
 
