@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="bumblebee">
+  <head>
+    <meta charset="UTF-8" data-theme="bumblebee"/>
+    <title>Panel</title>
+  </head>
+  <body>
+    {% include 'admin_space/components/sidebar.html' %}
+
+    {% include 'admin_space/components/navbar.html'%}
+
+    <div id="content">
+        {% if session['sidebar_selector'] == "Infos" %}
+            {% include 'admin_space/components/frames/Infos.html' %}
+        {% elif session['sidebar_selector'] == 'Gestion des comptes' %}
+            {% include 'admin_space/components/frames/Gestion des comptes.html' %}
+        {% elif session['sidebar_selector'] == 'Gestion des sites' %}
+            {% include 'admin_space/components/frames/Gestion des sites.html' %}
+        {% elif session['sidebar_selector'] == 'Demandes d\'hébergement' %}
+            {% include 'admin_space/components/frames/Demandes d\'hébergement.html' %}
+        {% endif %}
+    </div>
+
+  </body>
+</html>
+
+<style>
+     #content {
+        margin-top: 80px;   {# Navbar size #}
+        margin-left: 250px; {# Sidebar size #}
+        flex: 1;
+        background-color: #f4f4f4;
+        overflow-y: scroll;
+    }
+</style>

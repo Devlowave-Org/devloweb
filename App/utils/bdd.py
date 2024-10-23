@@ -124,31 +124,12 @@ class DevloBDD:
 
     """USED BY ADMIN PANNEL"""
 
-    def fetch_all_ja_ids_with_website(self):
-        result = self.execute_query("SELECT ja_id FROM sites", fetchall=True)
+    def fetch_all_ja_name_and_id(self) -> list:
+        result = self.execute_query("SELECT name, ja_id FROM users", fetchall=True)
         return result
 
-    def get_website_status_by_id(self, ja_id):
-        result = self.execute_query("SELECT status FROM sites WHERE ja_id = %s", (ja_id,), fetchone=True)
-        return result
-
-    def update_website_status_by_id(self, ja_id, status):
-        self.execute_query("UPDATE sites SET status = %s WHERE ja_id = %s", (status, ja_id))
-
-    def get_ja_name_by_id(self, ja_id):
-        result = self.execute_query("SELECT name FROM users WHERE ja_id = %s", (ja_id,), fetchone=True)
-        return result
-
-    def get_ja_id_by_name(self, name):
+    def get_ja_id_by_name(self, name: str) -> list:
         result = self.execute_query("SELECT ja_id FROM users WHERE name = %s", (name,), fetchone=True)
-        return result
-
-    def get_ja_domain_by_id(self, ja_id):
-        result = self.execute_query("SELECT domain FROM sites WHERE ja_id = %s", (ja_id,), fetchone=True)
-        return result
-
-    def get_ja_id_by_domain(self, domain):
-        result = self.execute_query("SELECT ja_id FROM sites WHERE domain = %s", (domain,), fetchone=True)
         return result
 
     """

@@ -171,14 +171,10 @@ ESPACE ADMIN
 def route_admin_space():
     return redirect("/admin_space/panel")
 
+@app.route("/admin_space/panel/", methods=("GET", "POST"))
 @app.route("/admin_space/panel", methods=("GET", "POST"))
 def route_admin_space_panel():
     return panel.load(db)
-
-@app.route("/admin_space/panel/Infos", methods=("GET", "POST"))
-@app.route("/admin_space/panel/infos", methods=("GET", "POST"))
-def route_admin_space_panel_infos_section():
-    return panel.load_infos_section(db)
 
 
 if __name__ == "__main__":

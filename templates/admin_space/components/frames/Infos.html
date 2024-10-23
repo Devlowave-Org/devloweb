@@ -1,0 +1,155 @@
+<div id="Infos_block">
+
+    {# If the user hasn't searched anything' #}
+    {% if not session['searchbar_query'] %}
+        <div id="no_query">
+            <h2>Liste de toutes les JA ayant un compte :</h2>
+            <form action="/admin_space/panel" method="post">
+                <ul>
+                    {% for ja in search_result %}
+                        <li id="no_query_result">
+                            <input type="submit" name="ja_selector" id="ja_selector" value="{{ ja[0]}} - {{ ja[1] }}">
+                        </li>
+                    {% endfor %}
+                </ul>
+            </form>
+        </div>
+
+    {# If the user has searched something #}
+    {% else %}
+        {% if search_result["error"] %}
+            <div id="error">
+                <p>{{ search_result["error"] }}</p>
+            </div>
+        {% else %}
+            <h2 id="main_title">Informations sur {{ search_result["account"]["Nom"] }} - {{ search_result["account"]["Id"] }} :</h2>
+            <div id="blocks_container">
+                <div id="account_block">
+                    <h3>Compte :</h3>
+                    {% for key, value in search_result["account"].items() %}
+                        {% if key == "Erreur" %}
+                            <div id="error">
+                                <p>{{ value }}</p>
+                            </div>
+                        {% else %}
+                        <div id="result_info">{{ key }} : {{ value }}</div>
+                            {% if key=="Permissions administrateur" %}
+                                <form action="/admin_space/panel" method="post">
+                                    <button name="sidebar_selector" value="Gestion des comptes">Gérer le compte</button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div id="website_block">
+                    <h3>Site :</h3>
+                    {% for key, value in search_result["website"].items() %}
+                        {% if key == "Erreur" %}
+                            <div id="error">
+                                <p>{{ value }}</p>
+                            </div>
+                        {% else %}
+                            <div id="result_info">{{ key }} : {{ value }}</div>
+                            {% if key == "Date du dernier changement de status" %}
+                                <form action="/admin_space/panel" method="post">
+                                    <button name="sidebar_selector" value="Gestion des sites">Gérer le site</button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+
+</div>
+
+<style>
+    #no_query h2{
+        padding-top: 20px;
+        padding-left: 0px;
+        padding-bottom: 10px;
+    }
+
+    #no_query{
+        padding-left: 25px;
+    }
+
+    #ja_selector{
+        height: 30px;
+    }
+    #no_query_result{
+        padding-top: 10px;
+    }
+    #no_query_result :hover{
+
+        background-color: yellow;
+    }
+
+    #blocks_container {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+        overflow: scroll;
+    }
+
+    #account_block, #website_block {
+        flex: 1;
+        background-color: white;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #result_info {
+        margin-bottom: 10px;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background-color: #007BFF;
+    }
+
+    #error p {
+        color: #f00;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    button {
+        background-color: #45a049;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    button :hover {
+        background-color: #0056b3;
+    }
+
+    #main_title{
+        padding-left: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    h3{
+        padding-bottom: 10px;
+    }
+</style>

@@ -1,0 +1,44 @@
+<div id="navbar_container">
+    <nav id="navbar">
+        <form action="/admin_space/panel" method="post">
+            <input type="text" name="searchbar" placeholder="Search" id="searchbar" {% if session["searchbar_query"] %} value="{{session["searchbar_query"]}} {% endif %}">
+        </form>
+    </nav>
+</div>
+
+<style>
+    #navbar {
+        margin-left: 250px; /* Offset by the navbar width */
+        width: calc(100% - 250px); /* Full width minus navbar */
+        height: 80px;
+        background-color: #333;
+        color: white;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        position: fixed;
+        top: 0;
+        z-index: 1;
+    }
+
+    form {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+    }
+
+    #searchbar {
+        background-color: #444;
+        border: solid 1px white;
+        padding: 10px;
+        border-radius: 5px;
+        color: white;
+        width: 300px;
+        box-sizing: border-box;
+    }
+
+    #searchbar::placeholder {
+        color: #ccc;
+    }
+</style>
