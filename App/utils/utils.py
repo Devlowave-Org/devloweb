@@ -168,7 +168,10 @@ def create_ja_folder(jaid):
         os.mkdir(folder_path)
 
     try:
-        shutil.copytree(base_path, folder_path, dirs_exist_ok=True)
+        if not os.listdir(folder_path):  # Vérifie que le dossier est vide
+            shutil.copytree(base_path, folder_path, dirs_exist_ok=True)
+        else:
+            print("Le dossier n'est pas vide, donc rien n'a été copié.")
     except RuntimeError:
         print("Une erreur s'est produite")
 
