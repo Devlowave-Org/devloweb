@@ -243,7 +243,7 @@ class DevloBDD:
         return result
 
     def ask_hebergement(self, ja_id):
-        self.execute_query("UPDATE sites SET status = 2 WHERE ja_id = %s", (ja_id,))
+        self.execute_query("UPDATE sites SET status = 2, date_creation = %s WHERE ja_id = %s", (datetime.now(), ja_id))
 
 
     def set_domain_name(self, ja_id, domain):

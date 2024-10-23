@@ -1,27 +1,68 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="bumblebee">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <title>Hébergement</title>
     {% include 'tailwind.html' %}
-  </head>
-  <body style="font-family: 'Inter', sans-serif;">
+</head>
+<body style="font-family: 'Inter', sans-serif;">
     <div class="antialiased">
-      {% include 'home/sidebar.html' %}
-      <main
-        class="p-4 md:ml-64 h-auto pt-20  min-h-screen"
-      >
-        <h1 class="text-2xl lg:text-3xl font-semibold">Status du site de {{ session['name'] }}</h1>
-        <p>Statut actuel : {{ status }}</p>
-          <p class="text-red-400 font-bold " >{{ error }}</p>
-          <form action="" method="post" class="flex">
-              <label for="domain">Nom de domaine</label>
-              <input type="text" name="domain" id="domain"
-                class="lowercase bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block max-w-lg p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="{{ session["name"].lower() }}" value="{{ domain }}" required><p>.devlowave.fr</p>
-              <button type="submit" name="heberger" value="heberger">Héberger</button>
-          </form>
-      </main>
+        {% include 'home/sidebar.html' %}
+        <main class="p-4 md:ml-64 h-auto pt-20  min-h-screen">
+            <div class="card bg-base-100 shadow-xl">
+                <h2 class="card-title text-2xl font-bold mb-4">Informations sur le site de {{ session['name'] }} : </h2>
+                <div class="card-body" id="show_data">
+                    <div class="grid gap-4">
+                        <!-- Status Site JA -->
+                        <div class="bg-base-200 p-4 rounded-lg">
+                            <div class="text-sm opacity-70 mb-1">Status Actuel</div>
+                            <div class="font-semibold">{{ status }}</div>
+                        </div>
+
+                        <!-- URL Site JA -->
+                        <div class="bg-base-200 p-4 rounded-lg">
+                            <div class="text-sm opacity-70 mb-1">URL du site</div>
+                            <div class="font-semibold">{{ domain or 'ERROR' }}.devlowave.fr</div>
+                        </div>
+                        <br>
+                        <div class="card-actions justify-end mt-4">
+                            <button class="btn btn-primary" onclick="window.location.reload()">Actualiser</button>
+                            <button class="btn btn-primary" onclick="showForm()">Héberger</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" id="edit_data" hidden="hidden">
+                    <div class="grid gap-4">
+                        <form action="" method="post">
+                            <!-- Status Site JA -->
+                            <div class="bg-base-200 p-4 rounded-lg">
+                                <div class="text-sm opacity-70 mb-1">Status Actuel</div>
+                                <div class="font-semibold">{{ status }}</div>
+                            </div>
+                            <br>
+                            <!-- URL Site JA -->
+                            <div class="bg-base-200 p-4 rounded-lg">
+                                <div class="text-sm opacity-70 mb-1">URL du site</div>
+                                <label>
+                                    <input type="text" name="domain" id="domain" class="input input-bordered w-full max-w-xs" placeholder="{{ session["name"].lower() }}" value="{{ domain or session["name"].lower() }}" required>
+                                    .devlowave.fr
+                                </label>
+                            </div>
+                            <br>
+                            <div class="card-actions justify-end mt-4">
+                                <button class="btn btn-primary" onclick="showForm()" name="heberger" value="heberger">Héberger</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
-  </body>
+</body>
+<script>
+    function showForm(){
+        document.getElementById('show_data').hidden = true;
+        document.getElementById('edit_data').hidden = false;
+    }
+</script>
 </html>
