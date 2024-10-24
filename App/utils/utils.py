@@ -247,7 +247,7 @@ def gestion_texte(request: flask.Request, json_site: dict):
             # Ajout dynamique de membres
             if "members-list" in key and splited_keys[2].isdigit():
                 # SI le tableau fait la meme taille que l'index on rajoute une case
-                if len(json_site["members"]["list"]) == int(splited_keys[2]):
+                if len(json_site["members"]["list"]) == int(splited_keys[2]) and value is not '':
                     json_site["members"]["list"].append({"image": "", "role": "", "name": ""})
 
             set_value_recursively(json_site, splited_keys, value)
