@@ -1,6 +1,7 @@
 import re
-
+from bcrypt import hashpw, gensalt
 from flask import request, render_template, session, redirect, flash, url_for
+from App.tests.test_inscription import devlobdd
 from App.utils import utils
 import json
 
@@ -48,5 +49,21 @@ def preview(ja_id):
     return render_template("sites/beta.html", data=json_site)
 
 
-def account():
-    return render_template('home/account.html')
+def account(db):
+    if request.method == 'GET':
+        account_infos = db.get_ja_byid(session['ja_id'])
+        return render_template('home/account.html', account_infos=account_infos)
+    elif request.method == 'POST':
+        account_infos_old = db.get_ja_byid(session['ja_id'])
+        if request.form["password-2"] is not "" and request.form["password-1"] is not "" \
+            and request.form["password-2"] == request.form["password-2"]:
+            hashed_password = hashpw(request.form["password-2"].encode("utf-8"), gensalt())
+            db.change_password(ja_id=session['ja_id'], password=hashed_password)
+            print('password_change')
+
+        if request.form["email"] is not "" and request.form["email"] != account_infos_old[3]:
+            db.change_email(session['ja_id'], request.form["email"])
+            utils.etape_verification(db, session['ja_id'])
+
+        account_infos = db.get_ja_byid(session['ja_id'])
+        return render_template('home/account.html', account_infos=account_infos)

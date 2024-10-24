@@ -55,9 +55,6 @@ def inscription(devlobdd):
 
         hashed_pass = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
 
-
-
-
         devlobdd.inscire_ja(ja_id, ja_api["name"], hashed_pass, email)
 
         # On lui envoie un mail avec le code.
