@@ -22,6 +22,5 @@ jobs:
           set -e
           cd devlotest/devloweb
           git pull
-          export PYTHONPATH=/home/timtonix/devlotest/devloweb/
-          devlovenv/bin/pytest App/tests/test_inscription.py -v --runslow 
+          export PYTHONPATH=/home/deploy/devloweb/devlovenv/bin/pytest App/tests/test_inscription.py -v --runslow 
           env
