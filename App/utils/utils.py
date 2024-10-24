@@ -1,6 +1,5 @@
 import json
 import os
-from curses.ascii import isdigit
 from re import fullmatch, compile
 import random
 from datetime import datetime, timedelta
@@ -201,7 +200,6 @@ def set_value_recursively(json_site, keys, value):
         if not isinstance(json_site, list) or key >= len(json_site):
             raise ValueError("Index invalide pour une liste.")
 
-
     # Si c'est le dernier segment, on met la valeur str
     if len(keys) == 1 and key in json_site:
         json_site[key] = value
@@ -211,8 +209,6 @@ def set_value_recursively(json_site, keys, value):
     if len(keys) == 1 and isinstance(json_site, list):
         json_site[key] = value
         return
-
-
 
     # Navigue dans la structure imbriquée et appelle récursivement
     if isinstance(json_site, dict) and key in json_site:
@@ -243,7 +239,6 @@ def gestion_texte(request: flask.Request, json_site: dict):
             form_dict[f"general-sections-{i}"] = section
         form_dict.pop("general-sections")
 
-
     for key, value in form_dict.items():
         print(f"Traitement de la clé {key} avec valeur : {value}")
         try:
@@ -260,6 +255,7 @@ def gestion_texte(request: flask.Request, json_site: dict):
             print(f"Erreur lors de la mise à jour pour {key}: {e}")
 
     return json_site
+
 
 def allowed_file(filename):
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'mov'}
@@ -311,6 +307,7 @@ def set_default_value_to_json_site(ja_id):
     json_site["general"]["starting_point"] = 0
 
     json_site["nav"]["ja"] = ja_from_api["name"]
+    json_site["hero"]["title"] = ja_from_api["name"]
     json_site["hero"]["description"] = ja_from_api["description"]
 
     json_site["footer"]["socials"]["twitter"] = ja_from_api["twitter"]
