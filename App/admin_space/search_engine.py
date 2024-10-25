@@ -1,5 +1,6 @@
 import re
 from flask import request
+from datetime import datetime
 from App.utils.utils import ja_id_only
 
 
@@ -118,14 +119,22 @@ def generate_no_query_host_demands_list(db):
 
     for index, host in enumerate(db.fetch_all_host_demands()):
         no_query_host_demands_list[str(index)] = {
-            "name" : db.get_name_by_id(host[1])[0],
+            "name": db.get_name_by_id(host[1])[0],
             'id': host[1],
             "subdomain": host[2],
-            'demand_date' : host[5]
+            'demand_date': host[5]
         }
 
+    # Sort the list by parsing the demand_date into datetime objects
+    sorted_list = dict(
+        sorted(
+            no_query_host_demands_list.items(),
+            key=lambda item: datetime.strptime(item[1]['demand_date'], '%Y-%m-%d %H:%M:%S.%f')
+        )
+    )
 
-    return no_query_host_demands_list
+    return sorted_list
+
 
 
 def retrieve_host_demand(db, query):
