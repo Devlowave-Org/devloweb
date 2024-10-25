@@ -7,7 +7,9 @@ import json
 
 
 def index(devlobdd):
-    return render_template('home/index.html')
+    example_sites = devlobdd.get_random_domain()
+    print(example_sites)
+    return render_template('home/index.html', example_sites=example_sites)
 
 
 def editeur():
@@ -34,13 +36,13 @@ def starting_point():
 
 def hebergement(devlobdd):
     status_dict = {0: "Désactivé", 1: "Hébergé", 2: "En attente", 3: "Refusé"}
-    site = devlobdd.get_site_by_ja(session['ja_id'])
     if request.method == "POST" and request.form["heberger"] == "heberger":
         if not re.fullmatch(r"[a-z0-9]{1,15}", request.form["domain"]):
             return render_template("home/hebergement.html", error="Le nom de domaine doit contenir des lettres minuscules et ne doit avoir plus de 15 caractères")
         devlobdd.ask_hebergement(session['ja_id'])
         devlobdd.set_domain_name(session['ja_id'], request.form["domain"])
 
+    site = devlobdd.get_site_by_ja(session['ja_id'])
     return render_template("home/hebergement.html", status=status_dict[site[3]], domain=site[1])
 
 

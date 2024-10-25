@@ -243,9 +243,12 @@ class DevloBDD:
     def ask_hebergement(self, ja_id):
         self.execute_query("UPDATE sites SET status = 2, date_creation = %s WHERE ja_id = %s", (datetime.now(), ja_id))
 
-
     def set_domain_name(self, ja_id, domain):
         self.execute_query("UPDATE sites SET domain = %s WHERE ja_id = %s", (domain, ja_id))
+
+    def get_random_domain(self):
+        result = self.execute_query("SELECT domain FROM sites WHERE status=1 ORDER BY RAND() LIMIT 5", fetchall=True)
+        return result
 
     """
     partie magic link
