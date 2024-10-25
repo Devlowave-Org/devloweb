@@ -1,12 +1,15 @@
 import re
-
+from bcrypt import hashpw, gensalt
 from flask import request, render_template, session, redirect, flash, url_for
+from App.tests.test_inscription import devlobdd
 from App.utils import utils
 import json
 
 
 def index(devlobdd):
-    return render_template('home/index.html')
+    example_sites = devlobdd.get_random_domain()
+    print(example_sites)
+    return render_template('home/index.html', example_sites=example_sites)
 
 
 def editeur():
@@ -33,13 +36,13 @@ def starting_point():
 
 def hebergement(devlobdd):
     status_dict = {0: "Désactivé", 1: "Hébergé", 2: "En attente", 3: "Refusé"}
-    site = devlobdd.get_site_by_ja(session['ja_id'])
     if request.method == "POST" and request.form["heberger"] == "heberger":
         if not re.fullmatch(r"[a-z0-9]{1,15}", request.form["domain"]):
             return render_template("home/hebergement.html", error="Le nom de domaine doit contenir des lettres minuscules et ne doit avoir plus de 15 caractères")
         devlobdd.ask_hebergement(session['ja_id'])
         devlobdd.set_domain_name(session['ja_id'], request.form["domain"])
 
+    site = devlobdd.get_site_by_ja(session['ja_id'])
     return render_template("home/hebergement.html", status=status_dict[site[3]], domain=site[1])
 
 
@@ -48,5 +51,21 @@ def preview(ja_id):
     return render_template("sites/beta.html", data=json_site)
 
 
-def account():
-    return render_template('home/account.html')
+def account(db):
+    if request.method == 'GET':
+        account_infos = db.get_ja_byid(session['ja_id'])
+        return render_template('home/account.html', account_infos=account_infos)
+    elif request.method == 'POST':
+        account_infos_old = db.get_ja_byid(session['ja_id'])
+        if request.form["password-2"] is not "" and request.form["password-1"] is not "" \
+            and request.form["password-2"] == request.form["password-2"]:
+            hashed_password = hashpw(request.form["password-2"].encode("utf-8"), gensalt())
+            db.change_password(ja_id=session['ja_id'], password=hashed_password)
+            print('password_change')
+
+        if request.form["email"] is not "" and request.form["email"] != account_infos_old[3]:
+            db.change_email(session['ja_id'], request.form["email"])
+            utils.etape_verification(db, session['ja_id'])
+
+        account_infos = db.get_ja_byid(session['ja_id'])
+        return render_template('home/account.html', account_infos=account_infos)

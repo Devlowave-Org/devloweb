@@ -7,14 +7,113 @@
   </head>
   <body style="font-family: 'Inter', sans-serif;">
     <div class="antialiased">
-    {% include 'home/sidebar.html' %}
-    <main class="p-4 md:ml-64 h-auto pt-20  min-h-screen">
-      <h1 class="text-2xl lg:text3xl font-bold">Mon compte :</h1>
-      <p>{{ session['email'] }}</p>
-      <p>{{ session['ja_id'] }}</p>
-      <p>{{ session['ip'] }}</p>
-    </main>
+      {% include 'home/sidebar.html' %}
+      <main class="p-4 md:ml-64 h-auto pt-20 min-h-screen">
+        <!-- Section des données de session -->
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body" id="show_data">
+            <h2 class="card-title text-2xl font-bold mb-4">Mon compte : </h2>
+
+            <div class="grid gap-4">
+              <!-- ID JA -->
+              <div class="bg-base-200 p-4 rounded-lg">
+                <div class="text-sm opacity-70 mb-1">Identifiant JA</div>
+                <div class="font-semibold">{{ session['ja_id'] or 'Non défini' }}</div>
+              </div>
+
+              <!-- Name JA -->
+              <div class="bg-base-200 p-4 rounded-lg">
+                <div class="text-sm opacity-70 mb-1">Nom de la JA</div>
+                <div class="font-semibold">{{ account_infos[1] or 'Non défini' }}</div>
+              </div>
+
+              <!-- Email -->
+              <div class="bg-base-200 p-4 rounded-lg">
+                <div class="text-sm opacity-70 mb-1">Adresse Email</div>
+                <div class="font-semibold">{{ session['email'] or 'Non défini' }}</div>
+              </div>
+
+              <!-- Password -->
+              <div class="bg-base-200 p-4 rounded-lg">
+                <div class="text-sm opacity-70 mb-1">Mot de passe</div>
+                <div class="font-semibold">••••••••••••</div>
+              </div>
+
+              <!-- Adresse IP -->
+              <div class="bg-base-200 p-4 rounded-lg">
+                <div class="text-sm opacity-70 mb-1">Votre adresse IP</div>
+                <div class="font-semibold">{{ session['ip'] or 'Non défini' }}</div>
+              </div>
+            </div>
+            <br>
+            <div class="card-actions justify-end mt-4">
+              <button class="btn btn-primary" onclick="window.location.reload()">Actualiser</button>
+              <button class="btn btn-primary" onclick="showForm()">Modifier mes identifiants</button>
+            </div>
+          </div>
+
+          <div class="card-body" id="edit_data" hidden="hidden">
+            <h2 class="card-title text-2xl font-bold mb-4">Mon compte : </h2>
+            <form method="post" action="#">
+            <div class="grid gap-4">
+
+              <!-- ID JA -->
+              <div class="bg-base-200 p-4 rounded-lg">
+                <div class="text-sm opacity-70 mb-1">Identifiant JA</div>
+                <div class="font-semibold">{{ session['ja_id'] or 'Non défini' }}</div>
+              </div>
+
+              <!-- Name JA -->
+              <div class="bg-base-200 p-4 rounded-lg">
+                <div class="text-sm opacity-70 mb-1">Nom de la JA</div>
+                <div class="font-semibold">{{ account_infos[1] or 'Non défini' }}</div>
+              </div>
+
+              <!-- Email -->
+              <div class="bg-base-200 p-4 rounded-lg">
+                <div class="text-sm opacity-70 mb-1">Adresse Email</div>
+                  <label>
+                      <input type="text" value="{{ session['email'] or 'Adresse Email' }}" class="input input-bordered w-full max-w-xs" name="email"/>
+                  </label>
+              </div>
+
+              <!-- Password -->
+              <div class="bg-base-200 p-4 rounded-lg">
+                <div class="text-sm opacity-70 mb-1">Mot de passe</div>
+                  <label>
+                      <input type="password" placeholder="••••••••••••" class="input input-bordered w-full max-w-xs" name="password-1" />
+                  </label>
+              </div>
+
+              <!-- Password V2 -->
+              <div class="bg-base-200 p-4 rounded-lg">
+                <div class="text-sm opacity-70 mb-1">Confirmation du mot de passe</div>
+                  <label>
+                      <input type="password" placeholder="••••••••••••" class="input input-bordered w-full max-w-xs" name="password-2" />
+                  </label>
+              </div>
+
+              <!-- Adresse IP -->
+              <div class="bg-base-200 p-4 rounded-lg">
+                <div class="text-sm opacity-70 mb-1">Votre adresse IP</div>
+                <div class="font-semibold">{{ session['ip'] or 'Non défini' }}</div>
+              </div>
+            </div>
+            <br>
+            <div class="card-actions justify-end mt-4">
+              <button class="btn btn-primary" onclick="window.location.reload()">Actualiser</button>
+            </div>
+              </form>
+          </div>
+        </div>
+      </main>
     </div>
   </body>
+
+<script>
+    function showForm(){
+        document.getElementById('show_data').hidden = true;
+        document.getElementById('edit_data').hidden = false;
+    }
+</script>
 </html>
--

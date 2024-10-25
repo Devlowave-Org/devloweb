@@ -1,6 +1,5 @@
 import json
 import os
-from curses.ascii import isdigit
 from re import fullmatch, compile
 import random
 from datetime import datetime, timedelta
@@ -47,6 +46,7 @@ def etape_verification(devlobdd, ja_id):
     devlomail = email_api.DevloMail()
     mailer_thread = Thread(target=devlomail.verification_email, args=(mail, code))
     mailer_thread.start()
+    print("fait")
 
 
 def create_verification_code(devlobdd) -> str:
@@ -84,7 +84,8 @@ def verif_code(devlobdd, ja_id, code):
 
 def update_verif_code(devlobdd, row):
     create_date = datetime.strptime(row[2], "%Y-%m-%d %H:%M:%S.%f")
-    mail = devlobdd.get_ja_byid(ja_id=row[0])[0]
+    print(row)
+    mail = devlobdd.get_ja_byid(ja_id=row[1])[3]
 
     delta = datetime.now() - create_date
     if delta.seconds < 120:
@@ -93,7 +94,7 @@ def update_verif_code(devlobdd, row):
         code = create_verification_code(devlobdd)
         devlobdd.update_code(row[0], code)
         devlomail = email_api.DevloMail()
-        mailer_thread = Thread(target=devlomail.send_verification_email, args=(mail, code))
+        mailer_thread = Thread(target=devlomail.verification_email, args=(mail, code))
         mailer_thread.start()
         return True
 
@@ -166,7 +167,10 @@ def create_ja_folder(jaid):
         os.mkdir(folder_path)
 
     try:
-        shutil.copytree(base_path, folder_path, dirs_exist_ok=True)
+        if not os.listdir(folder_path):  # Vérifie que le dossier est vide
+            shutil.copytree(base_path, folder_path, dirs_exist_ok=True)
+        else:
+            print("Le dossier n'est pas vide, donc rien n'a été copié.")
     except RuntimeError:
         print("Une erreur s'est produite")
 
@@ -196,7 +200,6 @@ def set_value_recursively(json_site, keys, value):
         if not isinstance(json_site, list) or key >= len(json_site):
             raise ValueError("Index invalide pour une liste.")
 
-
     # Si c'est le dernier segment, on met la valeur str
     if len(keys) == 1 and key in json_site:
         json_site[key] = value
@@ -206,8 +209,6 @@ def set_value_recursively(json_site, keys, value):
     if len(keys) == 1 and isinstance(json_site, list):
         json_site[key] = value
         return
-
-
 
     # Navigue dans la structure imbriquée et appelle récursivement
     if isinstance(json_site, dict) and key in json_site:
@@ -238,7 +239,6 @@ def gestion_texte(request: flask.Request, json_site: dict):
             form_dict[f"general-sections-{i}"] = section
         form_dict.pop("general-sections")
 
-
     for key, value in form_dict.items():
         print(f"Traitement de la clé {key} avec valeur : {value}")
         try:
@@ -247,7 +247,7 @@ def gestion_texte(request: flask.Request, json_site: dict):
             # Ajout dynamique de membres
             if "members-list" in key and splited_keys[2].isdigit():
                 # SI le tableau fait la meme taille que l'index on rajoute une case
-                if len(json_site["members"]["list"]) == int(splited_keys[2]):
+                if len(json_site["members"]["list"]) == int(splited_keys[2]) and value is not '':
                     json_site["members"]["list"].append({"image": "", "role": "", "name": ""})
 
             set_value_recursively(json_site, splited_keys, value)
@@ -255,6 +255,7 @@ def gestion_texte(request: flask.Request, json_site: dict):
             print(f"Erreur lors de la mise à jour pour {key}: {e}")
 
     return json_site
+
 
 def allowed_file(filename):
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'mov'}
@@ -306,6 +307,7 @@ def set_default_value_to_json_site(ja_id):
     json_site["general"]["starting_point"] = 0
 
     json_site["nav"]["ja"] = ja_from_api["name"]
+    json_site["hero"]["title"] = ja_from_api["name"]
     json_site["hero"]["description"] = ja_from_api["description"]
 
     json_site["footer"]["socials"]["twitter"] = ja_from_api["twitter"]

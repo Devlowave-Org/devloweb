@@ -100,10 +100,10 @@ def route_home():
     return redirect(url_for('route_connexion'))
 
 
-@app.route("/home/account")
+@app.route("/home/account", methods=("GET", "POST"))
 def route_account():
     if is_connected(session, db):
-        return home.account()
+        return home.account(db)
     return redirect(url_for('route_connexion'))
 
 
