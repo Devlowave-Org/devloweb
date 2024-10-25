@@ -33,7 +33,6 @@ class DevloBDD:
         self.execute_query("DROP TABLE IF EXISTS magic_link;")
         self.execute_query("DROP TABLE IF EXISTS security;")
         self.execute_query("DROP TABLE IF EXISTS sites;")
-        self.execute_query("DROP TABLE IF EXISTS data_analysis;")
         self.create_bdd()
 
 
@@ -43,7 +42,6 @@ class DevloBDD:
         self.cursor.execute("CREATE TABLE IF NOT EXISTS security (id INT PRIMARY KEY AUTO_INCREMENT, ip TEXT, try INT DEFAULT 1,first TEXT, last TEXT, punition TEXT);")
         self.cursor.execute("CREATE TABLE IF NOT EXISTS sites(id INT PRIMARY KEY AUTO_INCREMENT, ja_id TEXT, domain TEXT, theme TEXT, status INT DEFAULT 0, date_creation TEXT, date_validation TEXT, date_last_status_change TEXT, last_change_status_by TEXT DEFAULT null, accepted_by TEXT DEFAULT null);")
         self.cursor.execute("CREATE TABLE IF NOT EXISTS magic_link(id INT PRIMARY KEY AUTO_INCREMENT, ja_id TEXT, code TEXT, date TEXT);")
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS data_analysis(id INT PRIMARY KEY AUTO_INCREMENT, path TEXT, date TEXT, ip_address TEXT)")
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -249,7 +247,7 @@ class DevloBDD:
         self.execute_query("UPDATE sites SET domain = %s WHERE ja_id = %s", (domain, ja_id))
 
     def get_random_domain(self):
-        result = self.execute_query("SELECT domain FROM sites ORDER BY RAND() LIMIT 5", fetchall=True)
+        result = self.execute_query("SELECT domain FROM sites WHERE status=1 ORDER BY RAND() LIMIT 5", fetchall=True)
         return result
 
     """
