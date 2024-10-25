@@ -7,8 +7,6 @@ def generate_no_query_infos_list(db):
 
 
 def retrieve_infos(db, query):
-    search_result = {}
-
     # format -> '8166'
     if re.match("^\d{2,5}$" , query):
         ja_id = int(query)
@@ -114,3 +112,18 @@ def generate_info_dict(ja_infos, website_infos):
               search_result["website"]["status"] = "Site inaccessible, la demande d'hébergement à eté refusée ou le site à été desactivé"
 
     return search_result
+
+
+def generate_no_query_host_demands_list(db):
+    no_query_host_demands_list = {}
+
+    for index, host in enumerate(db.fetch_all_host_demands()):
+        no_query_host_demands_list[str(index)] = {
+            "name" : db.get_name_by_id(host[1])[0],
+            'id': host[1],
+            "subdomain": host[2],
+            'demand_date' : None # I don't have it in my db yet
+        }
+
+
+    return no_query_host_demands_list

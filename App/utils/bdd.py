@@ -1,6 +1,7 @@
 import pymysql
 from datetime import datetime
 
+
 class DevloBDD:
     def __init__(self, user, password, host, port, database=None):
         if database is None:
@@ -130,6 +131,14 @@ class DevloBDD:
 
     def get_ja_id_by_name(self, name: str) -> list:
         result = self.execute_query("SELECT ja_id FROM users WHERE name = %s", (name,), fetchone=True)
+        return result
+
+    def fetch_all_host_demands(self):
+        result = self.execute_query("SELECT * FROM sites WHERE status = 2", fetchall=True)
+        return result
+
+    def get_name_by_id(self, ja_id):
+        result = self.execute_query("SELECT name FROM users WHERE ja_id = %s", (ja_id,), fetchone=True)
         return result
 
     """

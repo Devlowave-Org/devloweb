@@ -43,14 +43,27 @@ def load(db):
         else:
             pass
 
-
-
-
     if session['sidebar_selector'] == "Infos":
-        if session['searchbar_query'] is None:
-            search_result = search_engine.generate_no_query_infos_list(db)
-        else:
-            search_result = search_engine.retrieve_infos(db, session['searchbar_query'])
-
+        search_result = load_infos(db)
+    elif session['sidebar_selector'] == "Demandes d\'hébergement":
+        search_result = load_hosting(db)
 
     return render_template("admin_space/panel.html", search_result=search_result)
+
+
+def load_infos(db):
+    if session['searchbar_query'] is None:
+        search_result = search_engine.generate_no_query_infos_list(db)
+    else:
+        search_result = search_engine.retrieve_infos(db, session['searchbar_query'])
+
+    return search_result
+
+
+def load_hosting(db):
+    if session['searchbar_query'] is None:
+        search_result = search_engine.generate_no_query_host_demands_list(db)
+    else:
+        search_result = {"website": {"q": 1}}
+
+    return search_result
