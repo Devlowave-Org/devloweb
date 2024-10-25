@@ -7,7 +7,9 @@ import json
 
 
 def index(devlobdd):
-    return render_template('home/index.html')
+    example_sites = devlobdd.get_random_domain()
+    print(example_sites)
+    return render_template('home/index.html', example_sites=example_sites)
 
 
 def editeur():
