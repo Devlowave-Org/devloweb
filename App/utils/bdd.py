@@ -120,7 +120,7 @@ class DevloBDD:
         return result
 
     def view_data_website(self, ja_id: str) -> tuple:
-        result = self.execute_query("SELECT ja_id, domain, theme, status, date_creation, date_validation, date_last_status_change, last_change_status_by FROM sites WHERE ja_id = %s", (ja_id,), fetchone=True)
+        result = self.execute_query("SELECT ja_id, domain, theme, status, date_creation, date_validation, accepted_by, date_last_status_change, last_change_status_by FROM sites WHERE ja_id = %s", (ja_id,), fetchone=True)
         return result
 
     def get_site_by_ja(self, ja: str) -> list:

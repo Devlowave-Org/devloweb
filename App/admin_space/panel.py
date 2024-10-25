@@ -8,7 +8,7 @@ def load(db):
     page_has_changed = None
 
     if request.form.get('sidebar_selector'):
-        if request.form.get('sidebar_selector') != session['sidebar_selector']:
+        if request.form.get('sidebar_selector') != session.get('sidebar_selector'):
             page_has_changed = True
         else:
             page_has_changed = False
@@ -43,16 +43,16 @@ def load(db):
         else:
             pass
 
-    if session['sidebar_selector'] == "Infos":
+    if session.get('sidebar_selector') == "Infos" or None:
         search_result = load_infos(db)
-    elif session['sidebar_selector'] == "Demandes d\'hébergement":
+    elif session.get('sidebar_selector') == "Demandes d\'hébergement":
         search_result = load_hosting(db)
 
     return render_template("admin_space/panel.html", search_result=search_result)
 
 
 def load_infos(db):
-    if session['searchbar_query'] is None:
+    if session.get('searchbar_query') is None:
         search_result = search_engine.generate_no_query_infos_list(db)
     else:
         search_result = search_engine.retrieve_infos(db, session['searchbar_query'])
@@ -61,9 +61,10 @@ def load_infos(db):
 
 
 def load_hosting(db):
-    if session['searchbar_query'] is None:
+
+    if session.get('searchbar_query') is None:
         search_result = search_engine.generate_no_query_host_demands_list(db)
     else:
-        search_result = {"website": {"q": 1}}
+        search_result = search_engine.retrieve_host_demand(db, session['searchbar_query'])
 
     return search_result

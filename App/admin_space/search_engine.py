@@ -1,6 +1,9 @@
 import re
+from flask import request
 from App.utils.utils import ja_id_only
 
+
+"""INFOS"""
 def generate_no_query_infos_list(db):
     no_query_infos_list = db.fetch_all_ja_name_and_id()
     return no_query_infos_list
@@ -40,7 +43,7 @@ def retrieve_infos(db, query):
         if ja_id:
             ja_infos = db.get_ja_byid(ja_id)
             website_infos = db.view_data_website(ja_id)
-            if website_infos:
+            if website_infos[3] != 0:
                 search_result = generate_info_dict(ja_infos, website_infos)
             else:
                 website_infos = [f"La JA {ja_name} n'a pas de site web"]
@@ -64,9 +67,6 @@ def generate_info_dict(ja_infos, website_infos):
             "account": {
                 "Erreur": ja_infos[0],
             },
-            "website": {
-
-            }
         }
     else:
         search_result = {
@@ -81,9 +81,6 @@ def generate_info_dict(ja_infos, website_infos):
                 "Compte activé": "Oui" if ja_infos[9] == 1 else "Non",
                 "Permissions administrateur": "Oui" if ja_infos[10] == 1 else "Non",
             },
-            "website": {
-
-            }
         }
 
 
@@ -95,12 +92,12 @@ def generate_info_dict(ja_infos, website_infos):
           search_result["website"] = {
             "Sous domaine": f"{website_infos[1]}.devlowave.fr",
             "theme": website_infos[2],
-            "status": "",
-            "Hebergé depuis" : None, # Also needs the host demand date or host accept/reject date
-            "Demande d'hébergement accepté par" : None,# Also needs the admin that accepted or rejected the host demand
-            "Date de la demande d'hébergement" : None, # Also needs the date of the demand
-            "Dernier changement de status fait par": None,
-            "Date du dernier changement de status": None,
+            "status": "", # Will be set later on
+            "Date de la demande d'hébergement" : website_infos[4] if website_infos[4] != None else "Cette JA n'a jamais demandé à avoir un site",
+            "Demande validée le": website_infos[5] if website_infos[5] != None else "Pas encore validée" ,
+            "Demande d'hébergement accepté par": website_infos[6] if website_infos[6] != None else "Pas encore validée",  # Also needs the admin that accepted or rejected the host demand
+            "Dernier changement de status fait par": website_infos[7] if website_infos[7] != None else "Status jamais changé",
+            "Date du dernier changement de status": website_infos[8] if website_infos[8] != None else "Status jamais changé",
           }
           if website_infos[3] == 0:
               search_result["website"]["status"] = "Aucune demande d'hébergement n'a été effectué"
@@ -114,6 +111,8 @@ def generate_info_dict(ja_infos, website_infos):
     return search_result
 
 
+
+"""HOST MANAGEMENT"""
 def generate_no_query_host_demands_list(db):
     no_query_host_demands_list = {}
 
@@ -122,8 +121,118 @@ def generate_no_query_host_demands_list(db):
             "name" : db.get_name_by_id(host[1])[0],
             'id': host[1],
             "subdomain": host[2],
-            'demand_date' : None # I don't have it in my db yet
+            'demand_date' : host[5]
         }
 
 
     return no_query_host_demands_list
+
+
+def retrieve_host_demand(db, query):
+    # format -> '8166'
+    if re.match("^\d{2,5}$", query):
+        ja_id = int(query)
+        search_result = generate_host_demand_dict(db, ja_id)
+
+
+    # format -> 'ja-8166'
+    elif re.match("^ja-\d{2,5}$", query):
+        ja_id = int(ja_id_only(query))
+        search_result = generate_host_demand_dict(db, ja_id)
+
+
+    # format -> 'devlowave'
+    elif re.match("^(?!\s)[\w\s'À-ÖØ-öø-ÿ]+(?<!\s)$", query):
+        ja_name = query
+        ja_id = db.get_ja_id_by_name(ja_name)
+        search_result = generate_host_demand_dict(db, ja_id)
+
+    else:
+        search_result = {
+            "error": "Merci de rechercher une JA avec un format correct. Exemples : ja-8166, 8166 ou devlowave"}
+
+    return search_result
+
+
+
+def host_demand_dict_maker(db, website_infos, ja_id):
+    if website_infos[0] == f"La JA {ja_id} n'a pas de site web":
+        search_result = {
+            "Erreur" : website_infos[0]
+        }
+    elif website_infos[0] == f"La JA {ja_id} n'a pas de demandes en cours":
+        search_result = {
+            "Erreur" : website_infos[0]
+        }
+    elif website_infos[0] == "Cette JA n'existe pas et/ou n'a pas de site web":
+        search_result = {
+            "Erreur" : website_infos[0]
+        }
+    else :
+          search_result = {
+            "JA": f"{db.get_name_by_id(ja_id)[0]} - {ja_id}",
+            "Sous domaine": f"{website_infos[1]}.devlowave.fr",
+            "theme": website_infos[2],
+            "Date de la demande d'hébergement" : website_infos[4],
+            "Lien de la preview": None,
+            "status_modification": "e",
+            "JA_name": db.get_name_by_id(ja_id)[0],
+          }
+
+    if search_result["status_modification"]:
+        print("a")
+        search_result["status_modification"] = manage_status_modification(db, ja_id)
+
+    print("b")
+
+    return search_result
+
+
+def generate_host_demand_dict(db, ja_id):
+    if ja_id:
+        ja_id = ja_id[0]
+        website_infos = db.view_data_website(ja_id)
+        if website_infos:
+            if website_infos[3] == 2:
+                search_result = host_demand_dict_maker(db, website_infos, ja_id)
+                manage_status_modification(db, ja_id)
+            else:
+                website_infos = [f"La JA {ja_id} n'a pas de demandes en cours"]
+                search_result = host_demand_dict_maker(db, website_infos, ja_id)
+        else:
+            website_infos = [f"La JA {ja_id} n'a pas de site web"]
+            search_result = host_demand_dict_maker(db, website_infos, ja_id)
+    else:
+        website_infos = ["Cette JA n'existe pas et/ou n'a pas de site web"]
+        search_result = host_demand_dict_maker(db, website_infos, ja_id)
+
+    return search_result
+
+
+def manage_status_modification(db, ja_id):
+    if request.form.get("accept_button") or request.form.get("activate_button"):
+        if request.form.get("accept_confirmation") == "oui" or request.form.get("activate_confirmation") == "oui":
+            db.update_website_status_by_id(ja_id, 1)
+            # Also need to send the mail here
+            return True
+        elif request.form.get("activate_confirmation") == "non" or request.form.get("accept_confirmation") == "non":
+            return request.form.get("activate_button")
+        return 1
+    elif request.form.get("reject_button") or request.form.get("deactivate_button"):
+        if request.form.get("reject_message"):
+            db.update_website_status_by_id(ja_id, 3)
+            # Also need to send the mail here
+            return request.form.get("reject_message")
+        return False
+
+    elif request.form.get("reset_button"):
+        if request.form.get("reset_message"):
+            db.update_website_status_by_id(ja_id, 0)
+            # Also delete the website and all
+            # Also need to send the mail here
+            return request.form.get("reset_message")
+        return 0
+
+    # Otherwise (it is not supposed to happen)
+    else:
+        return None
