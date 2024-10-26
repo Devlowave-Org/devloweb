@@ -1,7 +1,7 @@
 from flask import render_template, Flask, session, redirect, url_for
 from App import home, inscription, verification, connexion, resend, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
-from App.utils.utils import is_connected
+from App.utils.utils import is_connected, is_admin
 from werkzeug.middleware.proxy_fix import ProxyFix
 from App.admin_space import admin_panel
 from os import path, getcwd, environ
@@ -129,7 +129,6 @@ def route_preview():
     return redirect(url_for('route_connexion'))
 
 
-
 @app.route("/editeur/beta/editeur", methods=("GET", "POST"))
 def route_beta():
     if is_connected(session, db):
@@ -174,6 +173,14 @@ def route_admin_space():
 @app.route("/admin_space/panel", methods=("GET", "POST"))
 def route_admin_space_website_validator():
     return admin_panel.load(db)
+
+
+@app.route("/admin_space/preview/<ja_id>", methods=("GET", "POST"))
+def route_admin_preview(ja_id):
+    # C'est le DASHBOARD Éditeur
+    if is_admin(session, db):
+        return home.preview(ja_id)
+    return redirect(url_for('route_connexion'))
 
 
 if __name__ == "__main__":
