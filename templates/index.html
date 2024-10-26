@@ -34,12 +34,20 @@
                                 <path d="m149.86 149.217.023.063s3.115 13.543 5.257 19.286c2.056 5.511 6.176 2.624 6.477 2.394.301-.23 3.609-4.021 5.309-15.901.871-6.09 5.36-16.572 6.395-18.595 1.035-2.023 6.529-9.832 13.301-13.025 6.773-3.193 15.324-.37 15.324-.37s-11.369 2.646-15.035 8.133c-3.667 5.487-6.49 9.055-7.365 13.066-.875 4.011-5.022 18.397-5.022 18.397s-3.572 14.898-7.618 20.452c-4.047 5.555-3.94 4.928-5.525 5.526-1.698.64-5.602.29-7.351-1.028-1.75-1.318-3.309-2.244-4.86-5.122-.987-1.832-7.03-27.701-7.03-27.701s-.646-1.723-1.113-2.469c-.467-.745-.513-.746-.513-.746s1.743-2.92 3.49-3.327c1.748-.407 4.923.313 5.857.967z"/>
                             </svg>Devloweb</a>
                     </div>
+                    {% if session.get("ja_id") %}
+                        <div class="flex justify-end">
+                        <ul class="menu menu-horizontal text-base hidden lg:flex">
+                            <li class="btn-primary btn grid place-items-center lg:px-3 mr-4"><a href="home">Mon compte</a></li>
+                        </ul>
+                    </div>
+                    {% else %}
                     <div class="flex justify-end">
                         <ul class="menu menu-horizontal text-base hidden lg:flex">
                             <li class="grid place-items-center lg:px-3"><a href="connexion">Se connecter</a></li>
                             <li class="btn-primary btn grid place-items-center lg:px-3 mr-4"><a href="inscription">S'inscrire</a></li>
                         </ul>
                     </div>
+                    {% endif %}
                 </nav>
                 <section class="hero min-h-screen pad" style="background-image: url({{ url_for('static', filename="home-bg.jpg") }});">
                     <div class="hero-overlay"></div>
