@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 import App.utils.email_api as email_api
 from threading import Thread
 import shutil
-from App.utils.rnja_api import get_ja
+from App.utils.rnja_api import get_ja, ja_exists
 
 
 def is_connected(session, devlobdd):
@@ -21,6 +21,11 @@ def is_connected(session, devlobdd):
         return False
 
     return True
+
+def is_admin(session, devlobdd):
+    if session.get('admin') == 1 and ja_exists(session.get('ja_id')):
+        return True
+    return False
 
 
 def email_validator(email: str) -> bool:
@@ -322,10 +327,11 @@ def set_default_value_to_json_site(ja_id):
         json.dump(json_site, f)
 
 
-def create_session(ja_id, ja_name, ip, email):
+def create_session(ja_id, ja_name, ip, email, admin):
     from flask import session
     session['email'] = email
     session['ip'] = ip
     session['ja_id'] = ja_id
     session['name'] = ja_name
+    session["admin"] = admin
     session['avatar'] = "general-logo-image"

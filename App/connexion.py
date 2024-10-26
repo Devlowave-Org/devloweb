@@ -35,7 +35,7 @@ def connexion(devlobdd):
             return render_template("connexion.html", error="Mail ou mot de passe incorrect")
 
         # Création de sa session / cookies
-        utils.create_session(ja[0], ja[1], ip, email)
+        utils.create_session(ja[0], ja[1], ip, email, ja[-1])
         return redirect('/home')
 
     return render_template("connexion.html")

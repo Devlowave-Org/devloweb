@@ -44,13 +44,13 @@
                             <div class="bg-base-200 p-4 rounded-lg">
                                 <div class="text-sm opacity-70 mb-1">URL du site</div>
                                 <label>
-                                    <input type="text" name="domain" id="domain" class="input input-bordered w-full max-w-xs" placeholder="{{ session["name"].lower() }}" value="{{ domain or session["name"].lower() }}" required>
+                                    <input type="text" name="domain" id="domain" class="input input-bordered w-full max-w-xs" placeholder="{{ session["name"].lower() }}" value="" required>
                                     .devlowave.fr
                                 </label>
                             </div>
                             <br>
                             <div class="card-actions justify-end mt-4">
-                                <button class="btn btn-primary" onclick="showForm()" name="heberger" value="heberger">Héberger</button>
+                                <button id="heberger" class="btn btn-primary" onclick="showForm()" name="heberger" >Héberger</button>
                             </div>
                         </form>
                     </div>
@@ -63,6 +63,8 @@
     function showForm(){
         document.getElementById('show_data').hidden = true;
         document.getElementById('edit_data').hidden = false;
+        document.getElementById('heberger').textContent = "Valider"
+
     }
 </script>
 </html>
