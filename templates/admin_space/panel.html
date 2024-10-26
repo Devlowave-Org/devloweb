@@ -10,14 +10,18 @@
     {% include 'admin_space/components/navbar.html'%}
 
     <div id="content">
-        {% if session['sidebar_selector'] == "Infos" %}
+        {% if session["sidebar_selector"] %}
+            {% if session['sidebar_selector'] == "Infos" %}
+                {% include 'admin_space/components/frames/Infos.html' %}
+            {% elif session['sidebar_selector'] == 'Gestion des comptes' %}
+                {% include 'admin_space/components/frames/Gestion des comptes.html' %}
+            {% elif session['sidebar_selector'] == 'Gestion des sites' %}
+                {% include 'admin_space/components/frames/Gestion des sites.html' %}
+            {% elif session['sidebar_selector'] == 'Demandes d\'hébergement' %}
+                {% include 'admin_space/components/frames/Demandes d\'hébergement.html' %}
+            {% endif %}
+        {% else %}
             {% include 'admin_space/components/frames/Infos.html' %}
-        {% elif session['sidebar_selector'] == 'Gestion des comptes' %}
-            {% include 'admin_space/components/frames/Gestion des comptes.html' %}
-        {% elif session['sidebar_selector'] == 'Gestion des sites' %}
-            {% include 'admin_space/components/frames/Gestion des sites.html' %}
-        {% elif session['sidebar_selector'] == 'Demandes d\'hébergement' %}
-            {% include 'admin_space/components/frames/Demandes d\'hébergement.html' %}
         {% endif %}
     </div>
 

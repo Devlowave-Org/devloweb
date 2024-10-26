@@ -47,6 +47,8 @@ def load(db):
         search_result = load_infos(db)
     elif session.get('sidebar_selector') == "Demandes d\'hébergement":
         search_result = load_hosting(db)
+    else:
+        search_result = load_infos(db)
 
     return render_template("admin_space/panel.html", search_result=search_result)
 
@@ -61,7 +63,6 @@ def load_infos(db):
 
 
 def load_hosting(db):
-
     if session.get('searchbar_query') is None:
         search_result = search_engine.generate_no_query_host_demands_list(db)
     else:
