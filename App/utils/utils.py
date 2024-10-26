@@ -16,14 +16,14 @@ def is_connected(session, devlobdd):
         return False
 
     if not devlobdd.ja_exists(session.get('ja_id')):
-        print(f"ON DÉCONNECTE {session['ja_id']} !")
         session.clear()
         return False
 
     return True
 
 def is_admin(session, devlobdd):
-    if session.get('admin') == 1 and ja_exists(session.get('ja_id')):
+    print(session.get("admin"))
+    if session.get('admin') == 1:
         return True
     return False
 
