@@ -15,8 +15,7 @@ app = Flask(__name__)
 app.secret_key = "banane"
 app.which = "devlobdd"
 app.config["UPLOAD_FOLDER"] = "tmp/"
-
-
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
 
 if environ.keys().__contains__("SERVER_NAME") and environ["ENV"] == "prod":
     app.config["SERVER_NAME"] = environ["SERVER_NAME"]
