@@ -15,8 +15,8 @@
                         </label>
                     </div>
                     <div class="flex-1 flex flex-row-reverse lg:flex-row lg:justify-start px-0 sm:px-8 items-center">
-                        <div class="rounded-full w-24 h-24 overflow-hidden my-5 mx-10">
-                            <img src="{{ url_for('route_tmp', ja=data["general"]["ja_id"], image=data["general"]["logo"]["image"]) }}" alt="profil" class="w-24">
+                        <div class="avatar online rounded-full w-20 h-20">
+                            <img src="{{ url_for('route_tmp', ja=data["general"]["ja_id"], image=data["general"]["logo"]["image"]) }}" class="rounded-full w-20 h-20 object-cover overflow-hidden" alt="L'image n'existe pas">
                         </div>
                         <a href="#" class="btn btn-ghost text-lg sm:text-xl">{{ data["nav"]["ja"] }}</a>
                     </div>
