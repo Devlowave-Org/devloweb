@@ -1,4 +1,4 @@
-from flask import render_template, Flask, session, redirect, url_for
+from flask import render_template, Flask, session, redirect, url_for, request, jsonify
 from App import home, inscription, verification, connexion, resend, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
 from App.utils.utils import is_connected, is_admin
@@ -30,6 +30,18 @@ else:
 
 
 db.create_bdd()
+
+# Création de la BDD analytics, uniquement si la variable d'environnement est sur True
+if environ["ANALYTICS"] == "True":
+    db.create_bdd_analytics()
+
+@app.before_request
+def before_request():
+    # Si l'url est celle de la collecte de l'Analytics et qu'elles sont désactivé, erreur 403
+    if request.path == url_for("accueil") and environ["ANALYTICS"] == "False":
+        return jsonify({"status": "error", "message": "Collecte de données désactivée pour cette environnement!"}), 403
+    # Sinon on continue
+
 
 @app.route("/", subdomain="<subdomain>")
 def index(subdomain):

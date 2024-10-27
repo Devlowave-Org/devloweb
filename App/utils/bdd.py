@@ -35,6 +35,13 @@ class DevloBDD:
         self.execute_query("DROP TABLE IF EXISTS sites;")
         self.create_bdd()
 
+    def reset_bdd_analytics(self):
+        self.execute_query("DROP TABLE IF EXISTS devloanalytics.visitors")
+        self.execute_query("DROP TABLE IF EXISTS devloanalytics.sessions")
+        self.execute_query("DROP TABLE IF EXISTS devloanalytics.page_views")
+        self.execute_query("DROP TABLE IF EXISTS devloanalytics.errors")
+        self.create_bdd_analytics()
+
 
     def create_bdd(self):
         self.connection()
@@ -42,6 +49,16 @@ class DevloBDD:
         self.cursor.execute("CREATE TABLE IF NOT EXISTS security (id INT PRIMARY KEY AUTO_INCREMENT, ip TEXT, try INT DEFAULT 1,first TEXT, last TEXT, punition TEXT);")
         self.cursor.execute("CREATE TABLE IF NOT EXISTS sites(id INT PRIMARY KEY AUTO_INCREMENT, ja_id TEXT, domain TEXT, theme TEXT, status INT DEFAULT 0, date_creation TEXT, date_validation TEXT, date_last_status_change TEXT, last_change_status_by TEXT DEFAULT null, accepted_by TEXT DEFAULT null);")
         self.cursor.execute("CREATE TABLE IF NOT EXISTS magic_link(id INT PRIMARY KEY AUTO_INCREMENT, ja_id TEXT, code TEXT, date TEXT);")
+        self.cursor.close()  # Fermeture du curseur.
+        self.connector.commit()  # Enregistrement dans la base de donnée.
+        self.connector.close()  # Fermeture de la connexion.
+
+    def create_bdd_analytics(self):
+        self.connection()
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS devloanalytics.visitors(visitor_id INT AUTO_INCREMENT PRIMARY KEY, device_type VARCHAR(20), os VARCHAR(50), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);")
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS devloanalytics.sessions (session_id INT AUTO_INCREMENT PRIMARY KEY, visitor_id INT, start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, end_time TIMESTAMP NULL, FOREIGN KEY (visitor_id) REFERENCES visitors(visitor_id));")
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS devloanalytics.page_views(page_view_id INT AUTO_INCREMENT PRIMARY KEY, session_id INT, page_url VARCHAR(255), load_time_ms INT, is_bounce BOOLEAN DEFAULT FALSE, timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (session_id) REFERENCES sessions(session_id));")
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS devloanalytics.errors(error_id INT AUTO_INCREMENT PRIMARY KEY, session_id INT, page_url VARCHAR(255), error_code INT, timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (session_id) REFERENCES sessions(session_id));")
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
