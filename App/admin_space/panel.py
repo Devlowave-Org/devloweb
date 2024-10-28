@@ -3,7 +3,7 @@ import App.admin_space.search_engine as search_engine
 import re
 
 def load(db):
-    print(request.form)
+    print(session.get("searchbar_query"))
     search_result = None
     page_has_changed = None
 
@@ -11,7 +11,10 @@ def load(db):
         if request.form.get('sidebar_selector') != session.get('sidebar_selector'):
             page_has_changed = True
         else:
-            page_has_changed = False
+            if session.get("searchbar_query") != request.form.get('searchbar_query'):
+                page_has_changed = False
+            else:
+                page_has_changed = True
 
         session['sidebar_selector'] = request.form.get('sidebar_selector')
 
@@ -47,6 +50,11 @@ def load(db):
         search_result = load_infos(db)
     elif session.get('sidebar_selector') == "Demandes d\'hébergement":
         search_result = load_hosting(db)
+        if search_result.get("status_modification") == 9:  # Arbitrary flag
+            print(search_result)
+            return redirect("/admin_space/panel")
+    elif session.get('sidebar_selector') == "Gestion des sites":
+        print(db.fetch_all_websites())
     else:
         search_result = load_infos(db)
 

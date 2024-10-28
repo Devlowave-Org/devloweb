@@ -53,7 +53,9 @@
 
                                 </form>
                             {% elif key=="JA_name" %}
-                                <div></div>
+
+                            {% elif key=="Lien de la preview" %}
+                                <div id="result_info">{{ key }} : <a href="{{ value }}" target="_blank">Preview</a></div>
                             {% else %}
                                 <div id="result_info">{{ key }} : {{ value }}</div>
                             {% endif %}
@@ -154,6 +156,10 @@
     textarea{
         width: 320px;
         height: 155px;
+    }
+
+    #result_info a{
+        all: revert;
     }
 
 </style>

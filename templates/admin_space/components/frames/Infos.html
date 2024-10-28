@@ -54,9 +54,9 @@
                                 <form action="/admin_space/panel" method="post">
                                     <button name="sidebar_selector" value="Gestion des sites">Gérer le site</button>
                                 </form>
-                            {% elif key == "status" %}
+                            {% elif key == "status" and value == "Votre attention est requise, une demande d'hébergement est en cours !"%}
                                 <form action="/admin_space/panel" method="post">
-                                    <button name="sidebar_selector" value="Demandes d\'hébergement">Traiter la demande</button>
+                                    <button name="sidebar_selector" value="Demandes d'hébergement">Traiter la demande</button>
                                 </form>
                             {% endif %}
                         {% endif %}

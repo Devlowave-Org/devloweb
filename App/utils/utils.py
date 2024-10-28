@@ -23,7 +23,7 @@ def is_connected(session, devlobdd):
     return True
 
 def is_admin(session, devlobdd):
-    if session.get('admin') == 1 and ja_exists(session.get('ja_id')):
+    if session.get('admin') == 1:
         return True
     return False
 

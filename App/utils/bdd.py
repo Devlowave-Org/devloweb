@@ -134,6 +134,10 @@ class DevloBDD:
         result = self.execute_query("SELECT name, ja_id FROM users", fetchall=True)
         return result
 
+    def fetch_all_websites(self):
+        result = self.execute_query("SELECT * FROM sites", fetchall=True)
+        return result
+
     def get_ja_id_by_name(self, name: str) -> list:
         result = self.execute_query("SELECT ja_id FROM users WHERE name = %s", (name,), fetchone=True)
         return result
@@ -144,6 +148,14 @@ class DevloBDD:
 
     def get_name_by_id(self, ja_id):
         result = self.execute_query("SELECT name FROM users WHERE ja_id = %s", (ja_id,), fetchone=True)
+        return result
+
+    def get_email_by_id(self, ja_id):
+        result = self.execute_query("SELECT email FROM users WHERE ja_id = %s", (ja_id,), fetchone=True)
+        return result
+
+    def get_subdomain_by_id(self, ja_id):
+        result = self.execute_query("SELECT domain FROM sites WHERE ja_id = %s", (ja_id,), fetchone=True)
         return result
 
     """
@@ -223,8 +235,25 @@ class DevloBDD:
         self.execute_query("INSERT INTO sites(ja_id, domain, theme) VALUES (%s, %s, %s)",
                             (ja_id, domain, theme))
 
-    def enable_website(self, ja_id):
+    def activate_website(self, ja_id, changer, enable_date=datetime.now()):
         self.execute_query("UPDATE sites SET status = 1 WHERE ja_id = %s", (ja_id,))
+        self.execute_query("UPDATE sites SET date_validation = %s WHERE ja_id = %s", (enable_date, ja_id))
+        self.execute_query("UPDATE sites SET date_last_status_change = %s WHERE ja_id = %s", (enable_date, ja_id))
+        self.execute_query("UPDATE sites SET last_change_status_by = %s WHERE ja_id = %s", (changer, ja_id))
+        self.execute_query("UPDATE sites SET accepted_by = %s WHERE ja_id = %s", (changer, ja_id))
+
+    def enable_website(self, ja_id, changer, enable_date=datetime.now()):
+        self.execute_query("UPDATE sites SET status = 1 WHERE ja_id = %s", (ja_id,))
+        self.execute_query("UPDATE sites SET date_last_status_change = %s WHERE ja_id = %s", (enable_date, ja_id))
+        self.execute_query("UPDATE sites SET last_change_status_by = %s WHERE ja_id = %s", (changer, ja_id))
+
+    def disable_website(self, ja_id, changer, enable_date=datetime.now()):
+        self.execute_query("UPDATE sites SET status = 3 WHERE ja_id = %s", (ja_id,))
+        self.execute_query("UPDATE sites SET date_last_status_change = %s WHERE ja_id = %s", (enable_date, ja_id))
+        self.execute_query("UPDATE sites SET last_change_status_by = %s WHERE ja_id = %s", (changer, ja_id))
+
+    def reset_website(self, ja_id):
+        self.execute_query("UPDATE sites SET status = 0 WHERE ja_id = %s", (ja_id,))
 
     def get_ja_by_domain(self, domain):
         result = self.execute_query("SELECT ja_id, domain, theme, status FROM sites  WHERE domain=%s", (domain,), fetchone=True)

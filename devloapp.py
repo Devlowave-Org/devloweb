@@ -168,12 +168,16 @@ ESPACE ADMIN
 @app.route("/admin_space/", methods=("GET", "POST"))
 @app.route("/admin_space", methods=("GET", "POST"))
 def route_admin_space():
-    return redirect("/admin_space/panel")
+    if is_admin(session, db):
+        return panel.load(db)
+    return redirect(url_for('route_connexion'))
 
 @app.route("/admin_space/panel/", methods=("GET", "POST"))
 @app.route("/admin_space/panel", methods=("GET", "POST"))
 def route_admin_space_panel():
-    return panel.load(db)
+    if is_admin(session, db):
+        return panel.load(db)
+    return redirect(url_for('route_connexion'))
 
 
 @app.route("/admin_space/preview/<ja_id>", methods=("GET", "POST"))
