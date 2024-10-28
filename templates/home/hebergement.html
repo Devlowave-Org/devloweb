@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body" id="edit_data" hidden="hidden">
+                <div class="card-body hidden" id="edit_data">
                     <div class="grid gap-4">
                         <form action="" method="post">
                             <!-- Status Site JA -->
@@ -61,10 +61,9 @@
 </body>
 <script>
     function showForm(){
-        document.getElementById('show_data').hidden = true;
-        document.getElementById('edit_data').hidden = false;
+        document.getElementById('show_data').classList.toggle('hidden');
+        document.getElementById('edit_data').classList.toggle('hidden');
         document.getElementById('heberger').textContent = "Valider"
-
     }
 </script>
 </html>

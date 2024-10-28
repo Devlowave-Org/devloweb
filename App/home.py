@@ -1,6 +1,6 @@
 import re
 from bcrypt import hashpw, gensalt
-from flask import request, render_template, session, redirect, flash, url_for
+from flask import request, render_template, session, redirect, url_for
 from App.tests.test_inscription import devlobdd
 from App.utils import utils
 import json

@@ -1,9 +1,10 @@
-from flask import render_template, Flask, session, redirect, url_for
+from flask import render_template, Flask, session, redirect, url_for, request, jsonify
 from App import home, inscription, verification, connexion, resend, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
 from App.utils.utils import is_connected, is_admin
 from werkzeug.middleware.proxy_fix import ProxyFix
 from App.admin_space import admin_panel
+from App.Analytics.Analytics import get_analytics
 from os import path, getcwd, environ
 from dotenv import load_dotenv
 
@@ -30,6 +31,18 @@ else:
 
 
 db.create_bdd()
+
+# Création de la BDD analytics, uniquement si la variable d'environnement est sur True
+if environ["ANALYTICS"] == "True":
+    db.create_bdd_analytics()
+
+@app.before_request
+def before_request():
+    # Si l'url est celle de la collecte de l'Analytics et qu'elles sont désactivé, erreur 403
+    if request.path == url_for("collect_data") and environ["ANALYTICS"] == "False":
+        return jsonify({"status": "error", "message": "Collecte de données désactivée pour cette environnement!"}), 403
+    # Sinon on continue
+
 
 @app.route("/", subdomain="<subdomain>")
 def index(subdomain):
@@ -179,6 +192,13 @@ def route_admin_preview(ja_id):
     if is_admin(session, db):
         return home.preview(ja_id)
     return redirect(url_for('route_connexion'))
+
+"""
+Espace Analytics
+"""
+@app.route("/collect", methods=["POST"])
+def collect_data():
+    return get_analytics(db)
 
 
 if __name__ == "__main__":
