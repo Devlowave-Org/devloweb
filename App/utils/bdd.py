@@ -1,9 +1,6 @@
 import pymysql
 from datetime import datetime
 
-from flask import request
-
-
 class DevloBDD:
     def __init__(self, user, password, host, port, database=None):
         if database is None:
@@ -299,8 +296,8 @@ class DevloBDD:
     Partie Analytics
     """
 
-    def create_session(self, session_id, device_type, os, user_agent):
-        self.execute_query("INSERT INTO devloanalytics.sessions(session_id, device_type, os, user_agent, ip) VALUES (%s, %s, %s, %s, %s)", (session_id, device_type, os, user_agent, request.remote_addr))
+    def create_session(self, session_id, device_type, os, user_agent, ip):
+        self.execute_query("INSERT INTO devloanalytics.sessions(session_id, device_type, os, user_agent, ip) VALUES (%s, %s, %s, %s, %s)", (session_id, device_type, os, user_agent, ip))
 
     def add_page_viewed(self, session_id, page_url, time_on_last_page, is_bounce, timestamp):
         self.execute_query("INSERT INTO devloanalytics.page_views(session_id, page_url, time_on_last_page, is_bounce, timestamp) VALUES (%s, %s, %s, %s, %s)", (session_id, page_url, time_on_last_page, is_bounce, timestamp))

@@ -25,7 +25,7 @@ def id_analytics_sessions(db, data):
     if 'visitor_id' not in session or session["visitor_id_expires_at"] < datetime.now(timezone.utc):
         session_id = str(uuid4())
 
-        db.create_session(session_id, data["deviceInfo"]["deviceType"], data["deviceInfo"]["os"], data["deviceInfo"]["browser"])
+        db.create_session(session_id, data["deviceInfo"]["deviceType"], data["deviceInfo"]["os"], data["deviceInfo"]["browser"], request.remote_addr)
 
         session['visitor_id'] = session_id
         session['visitor_id_expires_at'] = datetime.now(timezone.utc) + timedelta(minutes=30)
