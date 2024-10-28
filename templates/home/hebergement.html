@@ -22,7 +22,7 @@
                         <!-- URL Site JA -->
                         <div class="bg-base-200 p-4 rounded-lg">
                             <div class="text-sm opacity-70 mb-1">URL du site</div>
-                            <div class="font-semibold">{{ domain or 'pashebergé' }}.devlowave.fr</div>
+                            <div class="font-semibold">{% if domain %}<div class="badge badge-success gap-2">{{ domain }}</div>{% else %}<div class="badge badge-error gap-2">pasdedomaine</div>{% endif %}.devlowave.fr</div>
                         </div>
                         <br>
                         <div class="card-actions justify-end mt-4">
