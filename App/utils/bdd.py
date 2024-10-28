@@ -1,6 +1,9 @@
 import pymysql
 from datetime import datetime
 
+from flask import request
+
+
 class DevloBDD:
     def __init__(self, user, password, host, port, database=None):
         if database is None:
@@ -55,10 +58,9 @@ class DevloBDD:
 
     def create_bdd_analytics(self):
         self.connection()
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS devloanalytics.visitors(visitor_id INT AUTO_INCREMENT PRIMARY KEY, device_type VARCHAR(20), os VARCHAR(50), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);")
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS devloanalytics.sessions (session_id INT AUTO_INCREMENT PRIMARY KEY, visitor_id INT, start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, end_time TIMESTAMP NULL, FOREIGN KEY (visitor_id) REFERENCES visitors(visitor_id));")
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS devloanalytics.page_views(page_view_id INT AUTO_INCREMENT PRIMARY KEY, session_id INT, page_url VARCHAR(255), load_time_ms INT, is_bounce BOOLEAN DEFAULT FALSE, timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (session_id) REFERENCES sessions(session_id));")
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS devloanalytics.errors(error_id INT AUTO_INCREMENT PRIMARY KEY, session_id INT, page_url VARCHAR(255), error_code INT, timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (session_id) REFERENCES sessions(session_id));")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS devloanalytics.sessions( id INT AUTO_INCREMENT PRIMARY KEY, session_id VARCHAR(255), os TEXT, user_agent TEXT, start_time TEXT DEFAULT CURRENT_TIMESTAMP, end_time TEXT, ip TEXT, UNIQUE KEY (session_id));""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS devloanalytics.page_views(id INT AUTO_INCREMENT PRIMARY KEY, session_id VARCHAR(255), page_url TEXT, time_on_last_page INT, is_bounce BOOLEAN DEFAULT FALSE, timestamp TEXT DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (session_id) REFERENCES devloanalytics.sessions(session_id));""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS devloanalytics.errors(id INT AUTO_INCREMENT PRIMARY KEY, session_id VARCHAR(255), page_url TEXT, error_code INT, timestamp TEXT DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (session_id) REFERENCES devloanalytics.sessions(session_id));""")
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -292,3 +294,13 @@ class DevloBDD:
 
     def delete_magic_link(self, ja_id):
         self.execute_query("DELETE FROM magic_link WHERE ja_id = %s", (ja_id,))
+
+    """
+    Partie Analytics
+    """
+
+    def create_session(self, session_id, device_type, os, user_agent):
+        self.execute_query("INSERT INTO devloanalytics.sessions(session_id, device_type, os, user_agent, ip) VALUES (%s, %s, %s, %s, %s)", (session_id, device_type, os, user_agent, request.remote_addr))
+
+    def add_page_viewed(self, session_id, page_url, time_on_last_page, is_bounce, timestamp):
+        self.execute_query("INSERT INTO devloanalytics.page_views(session_id, page_url, time_on_last_page, is_bounce, timestamp) VALUES (%s, %s, %s, %s, %s)", (session_id, page_url, time_on_last_page, is_bounce, timestamp))

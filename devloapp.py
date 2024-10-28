@@ -4,8 +4,10 @@ from App.utils.bdd import DevloBDD
 from App.utils.utils import is_connected, is_admin
 from werkzeug.middleware.proxy_fix import ProxyFix
 from App.admin_space import admin_panel
+from App.Analytics.Analytics import get_analytics
 from os import path, getcwd, environ
 from dotenv import load_dotenv
+from datetime import timedelta
 
 env = path.join(getcwd(), '.env')
 if path.exists(env):
@@ -38,7 +40,7 @@ if environ["ANALYTICS"] == "True":
 @app.before_request
 def before_request():
     # Si l'url est celle de la collecte de l'Analytics et qu'elles sont désactivé, erreur 403
-    if request.path == url_for("accueil") and environ["ANALYTICS"] == "False":
+    if request.path == url_for("collect_data") and environ["ANALYTICS"] == "False":
         return jsonify({"status": "error", "message": "Collecte de données désactivée pour cette environnement!"}), 403
     # Sinon on continue
 
@@ -191,6 +193,13 @@ def route_admin_preview(ja_id):
     if is_admin(session, db):
         return home.preview(ja_id)
     return redirect(url_for('route_connexion'))
+
+"""
+Espace Analytics
+"""
+@app.route("/collect", methods=["POST"])
+def collect_data():
+    return get_analytics(db)
 
 
 if __name__ == "__main__":
