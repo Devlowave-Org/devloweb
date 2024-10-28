@@ -54,7 +54,7 @@ def load(db):
             print(search_result)
             return redirect("/admin_space/panel")
     elif session.get('sidebar_selector') == "Gestion des sites":
-        print(db.fetch_all_websites())
+        search_result = load_website(db)
     else:
         search_result = load_infos(db)
 
@@ -75,5 +75,13 @@ def load_hosting(db):
         search_result = search_engine.generate_no_query_host_demands_list(db)
     else:
         search_result = search_engine.retrieve_host_demand(db, session['searchbar_query'])
+
+    return search_result
+
+def load_website(db):
+    if session.get('searchbar_query') is None:
+        search_result = search_engine.generate_no_query_websites_list(db)
+    else:
+        search_result = search_engine.retrieve_website(db, session['searchbar_query'])
 
     return search_result
