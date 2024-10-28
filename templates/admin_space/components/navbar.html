@@ -1,0 +1,65 @@
+<div id="navbar_container">
+    <nav id="navbar">
+        <form action="/admin_space/panel" method="post">
+            <div class="searchbar-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="loupe_svg">
+                    <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+                </svg>
+                <input type="text" name="searchbar" placeholder="Search" id="searchbar" {% if session["searchbar_query"] %} value="{{session["searchbar_query"]}} {% endif %}">
+            </div>
+        </form>
+    </nav>
+</div>
+
+<style>
+    #navbar {
+        margin-left: 250px;
+        width: calc(100% - 250px);
+        height: 80px;
+        background-color: #333;
+        color: white;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        position: fixed;
+        top: 0;
+        z-index: 1;
+    }
+
+    form {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+    }
+
+    .searchbar-container {
+        position: relative;
+        width: 300px;
+    }
+
+    #searchbar {
+        background-color: #444;
+        border: solid 1px white;
+        padding: 10px 10px 10px 35px;
+        border-radius: 5px;
+        color: white;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    #searchbar::placeholder {
+        color: #ccc;
+    }
+
+    #loupe_svg {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        width: 15px;
+        height: 15px;
+        fill: #ccc;
+        pointer-events: none;
+    }
+</style>

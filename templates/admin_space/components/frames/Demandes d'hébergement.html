@@ -1,0 +1,165 @@
+<div id="Infos_block">
+
+    {# If the user hasn't searched anything' #}
+    {% if not session['searchbar_query'] %}
+        <div id="no_query">
+            <h2>Liste de toutes les JA ayant une demande d'hébergement en cours :</h2>
+            <form action="/admin_space/panel" method="post">
+                <ul>
+                    {% for key, ja in search_result.items() %}
+                        <li id="no_query_result">
+                            <input type="submit" name="ja_selector" id="ja_selector" value="{{ ja["name"]}} - {{ ja["id"] }}, pour {{ ja["subdomain"]}}.devlowave.fr depuis {{ ja["demand_date"] }}">
+                        </li>
+                    {% endfor %}
+                </ul>
+            </form>
+        </div>
+
+    {# If the user has searched something #}
+    {% else %}
+        {% if search_result["error"] %}
+            <div id="error">
+                <p>{{ search_result["error"] }}</p>
+            </div>
+        {% else %}
+            <h2 id="main_title">Demande d'hébergement de {{ search_result["JA"]}}</h2>
+                <div id="website_block">
+                    {% for key, value in search_result.items() %}
+                        {% if key == "Erreur" %}
+                            <div id="error">
+                                <p>{{ value }}</p>
+                            </div>
+                        {% else %}
+                            {% if key == "status_modification" %}
+                                <form action="/admin_space/panel" method="post" id="host_management_form">
+
+                                    {% if search_result["status_modification"] == False %}
+                                        <br>Raison du rejet :<br>
+                                        <input type="hidden" name="searchbar" value="{{ search_result["JA_name"] }}">
+                                        <textarea name="reject_message" placeholder="Le texte entré ici sera envoyé par mail à cette JA."></textarea><br>
+                                        <input type="submit" name="reject_button" id="reject_button" value="Rejeter">
+                                        <input type="submit" name="cancel_reject" id="cancel_reject" value="Annuler le rejet">
+                                    {% elif search_result["status_modification"] is sameas 1 %}
+                                        <br>Êtes vous sûr de vouloir accepter la demande ? :<br>
+                                        <input type="hidden" name="accept_button" value="Accepter">
+                                        <input type="hidden" name="searchbar" value="{{ search_result["JA_name"] }}">
+                                        <input name="activate_confirmation" id="accept_button" type="submit" value="oui">
+                                        <input name="activate_confirmation" id="accept_button" type="submit" value="non">
+                                    {% else %}
+                                        <input type="hidden" name="searchbar" value="{{ search_result["JA_name"] }}">
+                                        <input type="submit" name="accept_button" id="accept_button" value="Accepter">
+                                        <input type="submit" name="reject_button" id="reject_button" value="Rejeter">
+                                    {% endif %}
+
+                                </form>
+                            {% elif key=="JA_name" %}
+
+                            {% elif key=="Lien de la preview" %}
+                                <div id="result_info">{{ key }} : <a href="{{ value }}" target="_blank">Preview</a></div>
+                            {% else %}
+                                <div id="result_info">{{ key }} : {{ value }}</div>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+        {% endif %}
+    {% endif %}
+
+</div>
+
+<style>
+    #no_query h2{
+        padding-top: 20px;
+        padding-left: 0px;
+        padding-bottom: 10px;
+    }
+
+    #no_query{
+        padding-left: 25px;
+    }
+
+    #ja_selector{
+        height: 30px;
+    }
+    #no_query_result{
+        padding-top: 10px;
+    }
+    #no_query_result :hover{
+
+        background-color: yellow;
+    }
+
+    #website_block {
+        background-color: white;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #result_info {
+        margin-bottom: 10px;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background-color: #007BFF;
+    }
+
+    #error p {
+        color: #f00;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    button {
+        background-color: #45a049;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    button :hover {
+        background-color: #0056b3;
+    }
+
+    #main_title{
+        padding-left: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    h3{
+        padding-bottom: 10px;
+    }
+
+    #host_management_form{
+        display: revert;
+    }
+
+    #accept_button, #reject_button, #cancel_reject {
+        all: revert;
+    }
+
+    textarea{
+        width: 320px;
+        height: 155px;
+    }
+
+    #result_info a{
+        all: revert;
+    }
+
+</style>

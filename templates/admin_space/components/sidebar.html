@@ -1,0 +1,85 @@
+<div id="sidebar_container">
+    <aside id="sidebar">
+        <h2><a href="/admin_space/panel">admin panel</a></h2>
+        <form action="/admin_space/panel" method="post">
+            <ul>
+                <li id="{{ 'active' if session['sidebar_selector'] == 'Infos' else '' }}">
+                    <input type="submit" name="sidebar_selector" value="Infos">
+                </li>
+                <li id="{{ 'active' if session['sidebar_selector'] == 'Gestion des comptes' else '' }}">
+                    <input type="submit" name="sidebar_selector" value="Gestion des comptes">
+                </li>
+                <li id="{{ 'active' if session['sidebar_selector'] == 'Gestion des sites' else '' }}">
+                    <input type="submit" name="sidebar_selector" value="Gestion des sites">
+                </li>
+                <li id="{{ 'active' if session['sidebar_selector'] == 'Demandes d\'hébergement' else '' }}">
+                    <input type="submit" name="sidebar_selector" value="Demandes d'hébergement">
+                </li>
+            </ul>
+        </form>
+    </aside>
+</div>
+
+
+<style>
+
+input, a{
+    all: unset;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: arial, sans-serif;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#sidebar {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100%;
+}
+
+#sidebar h2 {
+    margin-bottom: 20px;
+}
+
+#sidebar ul {
+    list-style-type: none;
+}
+
+#sidebar ul li {
+    margin: 15px 0;
+}
+
+#sidebar ul li input {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    width: 90%;
+    transition: background 0.3s;
+    box-sizing: border-box;
+}
+
+#sidebar ul li input:hover {
+    background-color: #575757;
+}
+
+#active input {
+    background-color: #575757;
+    font-weight: bold;
+}
+
+</style>

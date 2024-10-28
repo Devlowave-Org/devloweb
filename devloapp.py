@@ -3,7 +3,7 @@ from App import home, inscription, verification, connexion, resend, onthefly, fo
 from App.utils.bdd import DevloBDD
 from App.utils.utils import is_connected, is_admin
 from werkzeug.middleware.proxy_fix import ProxyFix
-from App.admin_space import admin_panel
+from App.admin_space import panel
 from App.Analytics.Analytics import get_analytics
 from os import path, getcwd, environ
 from dotenv import load_dotenv
@@ -181,9 +181,12 @@ ESPACE ADMIN
 def route_admin_space():
     return redirect("/admin_space/panel")
 
+@app.route("/admin_space/panel/", methods=("GET", "POST"))
 @app.route("/admin_space/panel", methods=("GET", "POST"))
-def route_admin_space_website_validator():
-    return admin_panel.load(db)
+def route_admin_space_panel():
+    if is_admin(session, db):
+        return panel.load(db)
+    return redirect(url_for('route_connexion'))
 
 
 @app.route("/admin_space/preview/<ja_id>", methods=("GET", "POST"))
