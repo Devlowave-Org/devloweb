@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin panel</title>
+    <link rel="stylesheet" href="/admin_space/archive/css/panel.css">
+</head>
+<body>
+    <div class="panel">
+        <div class="search_engine">
+            <div class="searchbar_form_and_title">
+                <h2 id="searchbar_title">Rechercher une JA :</h2>
+                <form action="/admin_space/panel" method="get" class="searchbar_form">
+                    <input type="text" name="searchbar" id="searchbar" placeholder="ja-8166, 8166, devlowave, devlowave.devlowave.fr" value="{% if search_results["query"] %}{{ search_results["query"] }}{% endif %}">
+                    <input type="submit" name="searchbar_submit_button" id="searchbar_submit_button" value="Rechercher">
+                    <a id="back_button" href="/admin_space" style="text-decoration: none;">
+                        <button type="button">Back</button>
+                    </a>
+                </form>
+            </div>
+            <div class="results">
+                <h3 id="results_title">Résultat(s) :</h3>
+                <div class="search_results">
+                    {# If error #}
+                    {% if search_results["results"]["result_1"]["error"] == "error" %}
+                        <div class="search_error">
+                            {{ search_results["results"]["result_1"]["content"] }}
+                        </div>
+                    {% else %}
+                    {# If there's an actual result #}
+                    {% for key, result in search_results["results"].items() %}
+                            <form action="/admin_space/panel" method="get">
+                                <div class="search_result_content">
+                                    <input type="hidden" name="ja_selector_id" value="{{ result["id"] }}">
+                                    <div class="svg_dash_and_result">
+                                        <img src="/static/admin_space/images/status_{{ result["status"] }}_indicator.svg" alt="status{{ result["status"] }}" id="status_indicator_svg">
+                                        <div id="result_dash">-</div>
+                                        <input type="submit" name="ja_selector_{{ result["id"] }}" id="ja_selector" value="{{ result["name"] }},ja-{{ result["id"] }}, {{ result["subdomain"] }}">
+                                    </div>
+                                {# Overwrite the original css from panel.css so if the ja is selected it's background is yellow and the other hover color is now blue #}
+                                <style>
+                                {% if result["is_selected"] == True %}
+                                    input[name="ja_selector_{{ result["id"] }}"] {
+                                        background-color: yellow !important;
+                                    }
+
+                                    #ja_selector:hover{
+                                        background-color: deepskyblue;
+                                    }
+                                {% endif %}
+                                </style>
+                            </div>
+                        </form>
+                    {% endfor %}
+                {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="ja_details">
+            <h2 id="details_area_title">Détails sur la JA (et son site) :</h2>
+            {% if ja_details %}
+                <div class="ja_id_and_name">
+                    ID : {{ ja_details["id"] }} <br>
+                    Nom : {{ ja_details["name"] }} <br>
+                </div>
+                <div class="ja_website_subdomain_and_status">
+                        <img src="/static/admin_space/images/status_{{ ja_details["status"] }}_indicator.svg" alt="status{{ ja_details["status"] }}" id="ja_details_status_indicator_svg">
+                        <div id="result_dash">-</div>
+                        Sous domaine : {{ ja_details["subdomain"] }}
+                </div>
+
+                <form class="website_status_modifier" action="/admin_space/panel?searchbar={{ ja_details["id"] }}" method="post">
+                    {% if ja_details["status"] == 2 %}
+                        Cette Ja a demandé une review, lien : "{{ ja_details["preview_link"] }}"
+                        {% if ja_details["status_modification"] == False %}
+                            <br>Raison du rejet :<br>
+                            <textarea name="reject_message" placeholder="Le texte entré ici sera envoyé par mail à cette JA."></textarea><br>
+                            <input type="submit" name="reject_button" value="Rejeter">
+                        {% elif ja_details["status_modification"] is sameas 0 %}
+                            <br>Raison de la réinitialisation:<br>
+                            <input name="accept_confirmation" value="oui"><br>
+                        {% elif ja_details["status_modification"] is sameas 1 %}
+                            <br>Êtes vous sûr de vouloir accepter la demande ? :<br>
+                            <input type="hidden" name="accept_button" value="Accepter">
+                            <input name="activate_confirmation" type="submit" value="oui">
+                            <input name="activate_confirmation" type="submit" value="non">
+                        {% else %}
+                            <input type="submit" name="accept_button" value="Accepter">
+                            <input type="submit" name="reject_button" value="Rejeter">
+                        {% endif %}
+                    {% else %}
+                    Gérer le site :
+                    {% if ja_details["status_modification"] is sameas 0 %}
+                        <br>Raison de la réinitialisation:<br>
+                        <textarea name="reset_message" placeholder="Le texte entré ici sera envoyé par mail à cette JA"></textarea><br>
+                        <input type="submit" name="reset_button" value="Réinitialiser">
+                    {% elif ja_details["status_modification"] is sameas 1 %}
+                        <br>Êtes vous sûr de vouloir activer le site :<br>
+                        <input type="hidden" name="activate_button" value="Activer">
+                        <input name="activate_confirmation" type="submit" value="oui">
+                        <input name="activate_confirmation" type="submit" value="non">
+                    {% elif ja_details["status_modification"] == False %}
+                        <br>Raison de la désactivation :<br>
+                        <textarea name="reject_message" placeholder="Le texte entré ici sera envoyé par mail à cette JA"></textarea><br>
+                        <input type="submit" name="reject_button" value="Désactiver">
+                    {% else %}
+                        {% if ja_details["status"] == 0 %}
+                            <input type="submit" name="activate_button" value="Activer">
+                            <input type="submit" name="deactivate_button" value="Désactiver">
+                        {% elif ja_details["status"] == 1 %}
+                            <input type="submit" name="deactivate_button" value="Désactiver">
+                            <input type="submit" name="reset_button" value="Réinitialiser">
+                        {% elif ja_details["status"] == 3 %}
+                            <input type="submit" name="activate_button" value="Activer">
+                            <input type="submit" name="reset_button" value="Réinitialiser">
+                        {% endif %}
+                    {% endif %}
+                    </form>
+                {% endif %}
+
+            {% else %}
+                <p>Pas de JA selectionnée</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
