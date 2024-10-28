@@ -22,12 +22,12 @@
                         <!-- URL Site JA -->
                         <div class="bg-base-200 p-4 rounded-lg">
                             <div class="text-sm opacity-70 mb-1">URL du site</div>
-                            <div class="font-semibold">{{ domain or 'ERROR' }}.devlowave.fr</div>
+                            <div class="font-semibold">{{ domain or 'pashebergé' }}.devlowave.fr</div>
                         </div>
                         <br>
                         <div class="card-actions justify-end mt-4">
                             <button class="btn btn-primary" onclick="window.location.reload()">Actualiser</button>
-                            <button class="btn btn-primary" onclick="showForm()">Héberger</button>
+                            <button class="btn btn-accent" onclick="showForm()">Héberger</button>
                         </div>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                             </div>
                             <br>
                             <div class="card-actions justify-end mt-4">
-                                <button id="heberger" class="btn btn-primary" onclick="showForm()" name="heberger" >Héberger</button>
+                                <button id="heberger" class="btn btn-accent" onclick="showForm()" name="heberger" >Héberger</button>
                             </div>
                         </form>
                     </div>
