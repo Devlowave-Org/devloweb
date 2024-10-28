@@ -55,7 +55,7 @@ class DevloBDD:
 
     def create_bdd_analytics(self):
         self.connection()
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS devloanalytics.sessions( id INT AUTO_INCREMENT PRIMARY KEY, session_id VARCHAR(255), os TEXT, user_agent TEXT, start_time TEXT DEFAULT CURRENT_TIMESTAMP, end_time TEXT, ip TEXT, UNIQUE KEY (session_id));""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS devloanalytics.sessions( id INT AUTO_INCREMENT PRIMARY KEY, session_id VARCHAR(255), device_type TEXT, os TEXT, user_agent TEXT, start_time TEXT DEFAULT CURRENT_TIMESTAMP, end_time TEXT, ip TEXT, UNIQUE KEY (session_id));""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS devloanalytics.page_views(id INT AUTO_INCREMENT PRIMARY KEY, session_id VARCHAR(255), page_url TEXT, time_on_last_page INT, is_bounce BOOLEAN DEFAULT FALSE, timestamp TEXT DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (session_id) REFERENCES devloanalytics.sessions(session_id));""")
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS devloanalytics.errors(id INT AUTO_INCREMENT PRIMARY KEY, session_id VARCHAR(255), page_url TEXT, error_code INT, timestamp TEXT DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (session_id) REFERENCES devloanalytics.sessions(session_id));""")
         self.cursor.close()  # Fermeture du curseur.
