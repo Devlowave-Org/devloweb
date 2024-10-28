@@ -7,7 +7,6 @@ from App.admin_space import admin_panel
 from App.Analytics.Analytics import get_analytics
 from os import path, getcwd, environ
 from dotenv import load_dotenv
-from datetime import timedelta
 
 env = path.join(getcwd(), '.env')
 if path.exists(env):
