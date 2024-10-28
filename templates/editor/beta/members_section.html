@@ -7,7 +7,7 @@
     value=""
     class="input border-dashed border-2 border-primary focus:border-gray-600 focus:outline-none mb-5 font-bold text-4xl sm:text-5xl text-primary text-center my-4 placeholder-primary p-4 w-96 h-16 bg-base-300" />
 </div>
-<div class="flex justify-center" id="members">
+<div class="flex justify-center flex-wrap" id="members">
     <div class="flex flex-wrap justify-center">
         <div class="max-w-full flex justify-center m-4">
             <div class="flex flex-col items-center w-60 m-4">
@@ -46,7 +46,7 @@
     </div>
     {% for membre in data["members"]["list"] %}
     <membres>
-    <div class="flex flex-wrap justify-center">
+    <div class="flex justify-center">
         <div class="flex flex-wrap justify-center">
             <div class="max-w-full flex justify-center m-4">
                 <div class="flex flex-col items-center w-60 m-4">
