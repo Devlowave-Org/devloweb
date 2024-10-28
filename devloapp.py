@@ -1,9 +1,10 @@
-from flask import render_template, Flask, session, redirect, url_for
+from flask import render_template, Flask, session, redirect, url_for, request, jsonify
 from App import home, inscription, verification, connexion, resend, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
 from App.utils.utils import is_connected, is_admin
 from werkzeug.middleware.proxy_fix import ProxyFix
 from App.admin_space import panel
+from App.Analytics.Analytics import get_analytics
 from os import path, getcwd, environ
 from dotenv import load_dotenv
 
@@ -15,9 +16,7 @@ app = Flask(__name__)
 app.secret_key = "banane"
 app.which = "devlobdd"
 app.config["UPLOAD_FOLDER"] = "tmp/"
-app.wsgi_app = ProxyFix(
-    app.wsgi_app, x_for=1, x_proto=0, x_host=1, x_prefix=1
-)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
 
 if environ.keys().__contains__("SERVER_NAME") and environ["ENV"] == "prod":
     app.config["SERVER_NAME"] = environ["SERVER_NAME"]
@@ -32,6 +31,18 @@ else:
 
 
 db.create_bdd()
+
+# Création de la BDD analytics, uniquement si la variable d'environnement est sur True
+if environ["ANALYTICS"] == "True":
+    db.create_bdd_analytics()
+
+@app.before_request
+def before_request():
+    # Si l'url est celle de la collecte de l'Analytics et qu'elles sont désactivé, erreur 403
+    if request.path == url_for("collect_data") and environ["ANALYTICS"] == "False":
+        return jsonify({"status": "error", "message": "Collecte de données désactivée pour cette environnement!"}), 403
+    # Sinon on continue
+
 
 @app.route("/", subdomain="<subdomain>")
 def index(subdomain):
@@ -168,9 +179,7 @@ ESPACE ADMIN
 @app.route("/admin_space/", methods=("GET", "POST"))
 @app.route("/admin_space", methods=("GET", "POST"))
 def route_admin_space():
-    if is_admin(session, db):
-        return panel.load(db)
-    return redirect(url_for('route_connexion'))
+    return redirect("/admin_space/panel")
 
 @app.route("/admin_space/panel/", methods=("GET", "POST"))
 @app.route("/admin_space/panel", methods=("GET", "POST"))
@@ -186,6 +195,13 @@ def route_admin_preview(ja_id):
     if is_admin(session, db):
         return home.preview(ja_id)
     return redirect(url_for('route_connexion'))
+
+"""
+Espace Analytics
+"""
+@app.route("/collect", methods=["POST"])
+def collect_data():
+    return get_analytics(db)
 
 
 if __name__ == "__main__":

@@ -16,24 +16,27 @@
                         <!-- Status Site JA -->
                         <div class="bg-base-200 p-4 rounded-lg">
                             <div class="text-sm opacity-70 mb-1">Status Actuel</div>
-                            <div class="font-semibold">{{ status }}</div>
+                            {% if status == "Hébergé" %}<div class="badge badge-success gap-2">
+                            {% elif status == "Désactivé" or status == "Refusé" %}<div class="badge badge-error gap-2">
+                            {% elif status == "En attente" %}<div class="badge badge-warning gap-2">
+                            {% endif %}<div class="font-semibold">{{ status }}</div></div>
                         </div>
 
                         <!-- URL Site JA -->
                         <div class="bg-base-200 p-4 rounded-lg">
                             <div class="text-sm opacity-70 mb-1">URL du site</div>
-                            <div class="font-semibold">{{ domain or 'ERROR' }}.devlowave.fr</div>
+                            <div class="font-semibold">{% if domain %}<div class="badge badge-success gap-2">{{ domain }}</div>{% else %}<div class="badge badge-error gap-2">pasdedomaine</div>{% endif %}.devlowave.fr</div>
                         </div>
                         <br>
                         <div class="card-actions justify-end mt-4">
                             <button class="btn btn-primary" onclick="window.location.reload()">Actualiser</button>
-                            <button class="btn btn-primary" onclick="showForm()">Héberger</button>
+                            <button class="btn btn-accent" onclick="showForm()">Héberger</button>
                         </div>
                     </div>
                 </div>
-                <div class="card-body" id="edit_data" hidden="hidden">
+                <div class="card-body hidden" id="edit_data">
                     <div class="grid gap-4">
-                        <form action="" method="post">
+                        <form action="/home/hebergement" method="post">
                             <!-- Status Site JA -->
                             <div class="bg-base-200 p-4 rounded-lg">
                                 <div class="text-sm opacity-70 mb-1">Status Actuel</div>
@@ -50,7 +53,7 @@
                             </div>
                             <br>
                             <div class="card-actions justify-end mt-4">
-                                <button id="heberger" class="btn btn-primary" onclick="showForm()" name="heberger" >Héberger</button>
+                                <button id="heberger" class="btn btn-accent" onclick="showForm()" name="heberger" value="heberger">Héberger</button>
                             </div>
                         </form>
                     </div>
@@ -61,10 +64,9 @@
 </body>
 <script>
     function showForm(){
-        document.getElementById('show_data').hidden = true;
-        document.getElementById('edit_data').hidden = false;
+        document.getElementById('show_data').classList.toggle('hidden');
+        document.getElementById('edit_data').classList.toggle('hidden');
         document.getElementById('heberger').textContent = "Valider"
-
     }
 </script>
 </html>
