@@ -1,7 +1,7 @@
 from flask import render_template, Flask, session, redirect, url_for
 from App import home, inscription, verification, connexion, resend, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
-from App.utils.utils import is_connected, is_admin
+from App.utils.utils import is_connected
 from werkzeug.middleware.proxy_fix import ProxyFix
 from App.admin_space import admin_panel
 from os import path, getcwd, environ
@@ -15,7 +15,9 @@ app = Flask(__name__)
 app.secret_key = "banane"
 app.which = "devlobdd"
 app.config["UPLOAD_FOLDER"] = "tmp/"
-app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
+app.wsgi_app = ProxyFix(
+    app.wsgi_app, x_for=1, x_proto=0, x_host=1, x_prefix=1
+)
 
 if environ.keys().__contains__("SERVER_NAME") and environ["ENV"] == "prod":
     app.config["SERVER_NAME"] = environ["SERVER_NAME"]
@@ -25,8 +27,8 @@ elif environ["ENV"] == "test":
     app.config["SERVER_NAME"] = "127.0.0.1:5555"
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306, database="devlotest")
 else:
-    app.config["SERVER_NAME"] = "127.0.0.1:5555"
-    db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306)
+    app.config["SERVER_NAME"] = environ["SERVER_NAME"]
+    db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], environ["DB_IP"], int(environ["DB_PORT"]), database=environ["DB_NAME"])
 
 
 db.create_bdd()
@@ -98,10 +100,10 @@ def route_home():
     return redirect(url_for('route_connexion'))
 
 
-@app.route("/home/account", methods=("GET", "POST"))
+@app.route("/home/account")
 def route_account():
     if is_connected(session, db):
-        return home.account(db)
+        return home.account()
     return redirect(url_for('route_connexion'))
 
 
@@ -125,6 +127,7 @@ def route_preview():
     if is_connected(session, db):
         return home.preview(session["ja_id"])
     return redirect(url_for('route_connexion'))
+
 
 
 @app.route("/editeur/beta/editeur", methods=("GET", "POST"))
@@ -171,14 +174,6 @@ def route_admin_space():
 @app.route("/admin_space/panel", methods=("GET", "POST"))
 def route_admin_space_website_validator():
     return admin_panel.load(db)
-
-
-@app.route("/admin_space/preview/<ja_id>", methods=("GET", "POST"))
-def route_admin_preview(ja_id):
-    # C'est le DASHBOARD Éditeur
-    if is_admin(session, db):
-        return home.preview(ja_id)
-    return redirect(url_for('route_connexion'))
 
 
 if __name__ == "__main__":

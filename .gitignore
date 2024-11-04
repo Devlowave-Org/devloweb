@@ -171,6 +171,9 @@ dmypy.json
 cython_debug/
 
 devlovenv
+
+node_modules/
+
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
@@ -323,5 +326,3 @@ $RECYCLE.BIN/
 devloweb.db
 */devloweb.db
 tmp/
-.idea
-config.json
