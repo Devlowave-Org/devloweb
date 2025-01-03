@@ -23,7 +23,9 @@ if environ.keys().__contains__("SERVER_NAME") and environ["ENV"] == "prod":
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306)
 
 if environ["ENV"] == "dev":
+    app.config["SERVER_NAME"] = environ["SERVER_NAME"]
     app.config["DEBUG"] = True
+    db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306)
 
 elif environ["ENV"] == "test":
     app.config["SERVER_NAME"] = "127.0.0.1:5555"
