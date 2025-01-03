@@ -43,6 +43,7 @@ if environ["ANALYTICS"] == "True":
 @app.before_request
 def before_request():
     print("before request")
+    print(request.path)
     # Si l'url est celle de la collecte de l'Analytics et qu'elles sont désactivé, erreur 403
     if request.path == url_for("collect_data") and environ["ANALYTICS"] == "False":
         return jsonify({"status": "error", "message": "Collecte de données désactivée pour cette environnement!"}), 403
