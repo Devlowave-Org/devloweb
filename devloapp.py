@@ -13,7 +13,7 @@ if path.exists(env):
     load_dotenv(env)
 
 app = Flask(__name__)
-app.secret_key = "banane"
+app.secret_key = environ["FLASK_KEY"]
 app.which = "devlobdd"
 app.config["UPLOAD_FOLDER"] = "tmp/"
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
