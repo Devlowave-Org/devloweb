@@ -71,6 +71,7 @@ def route_tmp(ja, image):
 
 @app.route("/")
 def accueil():
+    print("accueil")
     return render_template("index.html")
 
 
