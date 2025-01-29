@@ -58,6 +58,9 @@ def before_request():
 @app.route("/", subdomain="<subdomain>")
 def index(subdomain):
     print(f"Acces depuis {subdomain} !")
+    if not subdomain:
+        return render_template("index.html")
+
     if subdomain != "devlowave":
         return onthefly.gen_on_the_fly(subdomain, db)
     return render_template("index.html")
@@ -67,15 +70,6 @@ def route_tmp(ja, image):
     # C'est le DASHBOARD Éditeur
     print(ja, image)
     return onthefly.send_image(ja, image)
-
-
-@app.route("/")
-def accueil():
-    print("accueil")
-    return render_template("index.html")
-
-
-
 """
 ESPACE INSCRIPTION/CONNEXION
 """
