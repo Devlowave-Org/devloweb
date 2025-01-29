@@ -36,7 +36,7 @@ else:
     app.config["SERVER_NAME"] = "127.0.0.1:5555"
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306)
 
-app.config["SERVER_NAME"] = "devlowave.fr"
+app.config["SERVER_NAME"] = None
 db.create_bdd()
 
 # Création de la BDD analytics, uniquement si la variable d'environnement est sur True
@@ -47,8 +47,9 @@ if environ["ANALYTICS"] == "True":
 def before_request():
     print(app.config["SERVER_NAME"])
     print("before request")
-    print(request.path, request.url)
-    print(f"Host Header: {request.headers.get('Host')}")
+    host = request.headers.get("Host", "")
+    subdomain = host.split(".")[0] if "." in host else None
+    print(f"Manually detected subdomain: {subdomain}")
     # Si l'url est celle de la collecte de l'Analytics et qu'elles sont désactivé, erreur 403
     if request.path == url_for("collect_data") and environ["ANALYTICS"] == "False":
         return jsonify({"status": "error", "message": "Collecte de données désactivée pour cette environnement!"}), 403
@@ -58,9 +59,6 @@ def before_request():
 @app.route("/", subdomain="<subdomain>")
 def index(subdomain):
     print(f"Acces depuis {subdomain} !")
-    if not subdomain:
-        return render_template("index.html")
-
     if subdomain != "devlowave":
         return onthefly.gen_on_the_fly(subdomain, db)
     return render_template("index.html")
@@ -70,6 +68,15 @@ def route_tmp(ja, image):
     # C'est le DASHBOARD Éditeur
     print(ja, image)
     return onthefly.send_image(ja, image)
+
+
+@app.route("/")
+def accueil():
+    print("accueil")
+    return render_template("index.html")
+
+
+
 """
 ESPACE INSCRIPTION/CONNEXION
 """
