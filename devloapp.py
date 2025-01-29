@@ -36,7 +36,7 @@ else:
     app.config["SERVER_NAME"] = "127.0.0.1:5555"
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306)
 
-
+app.config["SERVER_NAME"] = "devlowave.fr"
 db.create_bdd()
 
 # Création de la BDD analytics, uniquement si la variable d'environnement est sur True
