@@ -22,7 +22,7 @@ if environ.keys().__contains__("SERVER_NAME") and environ["ENV"] == "prod":
     app.config["SERVER_NAME"] = environ["SERVER_NAME"]
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306)
 
-if environ["ENV"] == "dev":
+elif environ["ENV"] == "dev":
     app.config["SERVER_NAME"] = environ["SERVER_NAME"]
     app.config["DEBUG"] = True
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306)
@@ -30,7 +30,9 @@ if environ["ENV"] == "dev":
 elif environ["ENV"] == "test":
     app.config["SERVER_NAME"] = "127.0.0.1:5555"
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306, database="devlotest")
+
 else:
+    print("CONFIGURATION NOT FOUND")
     app.config["SERVER_NAME"] = "127.0.0.1:5555"
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306)
 
