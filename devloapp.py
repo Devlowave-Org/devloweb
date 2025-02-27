@@ -17,7 +17,12 @@ app.which = "devlobdd"
 app.config["UPLOAD_FOLDER"] = "tmp/"
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
 
-if environ.keys().__contains__("SERVER_NAME") and environ["ENV"] == "prod":
+if environ["ENV"] == "custom":
+    print(environ["SERVER_NAME"])
+    app.config["SERVER_NAME"] = "verbose-broccoli-pqjv9g7jj672r7x-5000.app.github.dev"
+    db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], environ["DB_HOST"], 3306, database=environ["DB_NAME"])
+
+elif environ.keys().__contains__("SERVER_NAME") and environ["ENV"] == "prod":
     app.config["SERVER_NAME"] = environ["SERVER_NAME"]
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306)
 
@@ -183,4 +188,5 @@ def route_admin_preview(ja_id):
 
 if __name__ == "__main__":
     # therms-and-conditions
+    print(app.config["SERVER_NAME"])
     app.run(host="127.0.0.1", port=5555, debug=True)

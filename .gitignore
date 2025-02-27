@@ -325,3 +325,4 @@ devloweb.db
 tmp/
 .idea
 config.json
+node_modules/
