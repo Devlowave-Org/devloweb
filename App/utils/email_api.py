@@ -6,10 +6,10 @@ from email.mime.multipart import MIMEMultipart
 
 class DevloMail:
     def __init__(self):
-        self.host = 'smtp.gmail.com'
-        self.port = 465
-        self.sender = "devlowave.offi@gmail.com"
-        self.app_pass = os.environ['GMAIL_APP']
+        self.host = os.environ["SMTP_HOST"]
+        self.port = os.environ["SMTP_PORT"]
+        self.sender = os.environ["SMTP_USER"]
+        self.app_pass = os.environ['SMPT_PASSWORD']
         self.context = ssl.create_default_context()
 
     def verification_email(self, target, code):
