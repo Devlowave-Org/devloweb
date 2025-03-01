@@ -15,13 +15,19 @@ app = Flask(__name__)
 app.secret_key = "banane"
 app.which = "devlobdd"
 app.config["UPLOAD_FOLDER"] = "tmp/"
+app.config["SMTP_PASSWORD"] = environ["SMTP_PASSWORD"]
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
 
 if environ["ENV"] == "custom":
     print(environ["SERVER_NAME"])
-    app.config["SERVER_NAME"] = "127.0.0.1:5000"
+    app.config["SERVER_NAME"] = "devlo.vaatigames.ovh"
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], environ["DB_HOST"], 3306, database=environ["DB_NAME"])
-
+    
+elif environ["ENV"] == "custom":
+    print(environ["SERVER_NAME"])
+    app.config["SERVER_NAME"] = "127.0.0.1:5555"
+    db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], environ["DB_HOST"], 3306, database=environ["DB_NAME"])
+    
 elif environ.keys().__contains__("SERVER_NAME") and environ["ENV"] == "prod":
     app.config["SERVER_NAME"] = environ["SERVER_NAME"]
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306)
@@ -185,6 +191,4 @@ def route_admin_preview(ja_id):
 
 
 if __name__ == "__main__":
-    # therms-and-conditions
-    print(app.config["SMTP_PASSWORD"])
-    app.run(host="127.0.0.1", port=5555, debug=True)
+    app.run(host="0.0.0.0", port=5555, debug=True)
