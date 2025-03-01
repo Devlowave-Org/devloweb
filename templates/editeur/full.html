@@ -16,22 +16,20 @@
         
         {% for section in data["general"]["sections"] %}
             {% if section == "nav_section" %}
-                {% include 'editor/beta/nav_section.html' %}
+                {% include 'editeur/sections/nav_section.html' %}
             {%  endif %}
             {% if section == "hero_section" %}
-                {% include 'editor/beta/hero_section.html' %}
+                {% include 'editeur/sections/hero_section.html' %}
             {%  endif %}
             {% if section == "members_section" %}
-                {% include 'editor/beta/members_section.html' %}
+                {% include 'editeur/sections/members_section.html' %}
             {%  endif %}
             {% if section == "footer_section" %}
-                {% include 'editor/beta/footer_section.html' %}
+                {% include 'editeur/sections/footer_section.html' %}
             {%  endif %}
-        {% endfor %}
-        {% for section in data["general"]["sections"] %}
             {% if section == "nav_section" %}
-                    {% include 'editor/beta/mobilnav_section.html' %}
-                {%  endif %}
+                {% include 'editeur/sections/mobilnav_section.html' %}
+            {%  endif %}
         {% endfor %}
         </form>
     </div>

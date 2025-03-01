@@ -12,22 +12,20 @@
             <div class="drawer-content flex flex-col">
             {% for section in data["general"]["sections"] %}
             {% if section == "nav_section" %}
-                {% include 'sites/nav_section.html' %}
+                {% include 'sections/nav_section.html' %}
             {%  endif %}
             {% if section == "hero_section" %}
-                {% include 'sites/hero_section.html' %}
+                {% include 'sections/hero_section.html' %}
             {%  endif %}
             {% if section == "members_section" %}
-                {% include 'sites/members_section.html' %}
+                {% include 'sections/members_section.html' %}
             {%  endif %}
             {% if section == "footer_section" %}
-                {% include 'sites/footer_section.html' %}
+                {% include 'sections/footer_1.html' %}
             {%  endif %}
-        {% endfor %}
-        {% for section in data["general"]["sections"] %}
             {% if section == "nav_section" %}
-                    {% include 'sites/mobilnav_section.html' %}
-                {%  endif %}
+                {% include 'sections/mobilnav_section.html' %}
+            {%  endif %}
         {% endfor %}
 
 

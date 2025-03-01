@@ -1,4 +1,4 @@
-from flask import render_template, Flask, session, redirect, url_for
+from flask import render_template, Flask, session, redirect, url_for, send_file, send_from_directory
 from App import home, inscription, verification, connexion, resend, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
 from App.utils.utils import is_connected, is_admin
@@ -19,7 +19,7 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
 
 if environ["ENV"] == "custom":
     print(environ["SERVER_NAME"])
-    app.config["SERVER_NAME"] = "verbose-broccoli-pqjv9g7jj672r7x-5000.app.github.dev"
+    app.config["SERVER_NAME"] = "127.0.0.1:5000"
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], environ["DB_HOST"], 3306, database=environ["DB_NAME"])
 
 elif environ.keys().__contains__("SERVER_NAME") and environ["ENV"] == "prod":
@@ -48,7 +48,9 @@ def route_tmp(ja, image):
     # C'est le DASHBOARD Éditeur
     print(ja, image)
     #if image == "general-logo-image":
-    return onthefly.send_image(ja, image)
+    if path.exists(f"tmp/{ja}/{image}"):
+        return onthefly.send_image(ja, image)
+    return send_file("static/devlowave.png")
 
 
 @app.route("/")
@@ -111,7 +113,7 @@ def route_account():
     return redirect(url_for('route_connexion'))
 
 
-@app.route("/home/editeur/starting_point", methods=("GET", "POST"))
+@app.route("/home/editeur/setup", methods=("GET", "POST"))
 def route_starting_point():
     # C'est le starting point t'as capté
     if is_connected(session, db):
@@ -133,7 +135,7 @@ def route_preview():
     return redirect(url_for('route_connexion'))
 
 
-@app.route("/editeur/beta/editeur", methods=("GET", "POST"))
+@app.route("/home/editeur/full", methods=("GET", "POST"))
 def route_beta():
     if is_connected(session, db):
         return home.editeur()

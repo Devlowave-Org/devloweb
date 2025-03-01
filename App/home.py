@@ -23,7 +23,7 @@ def editeur():
     if request.method == "POST":
         utils.gestion_editeur(request, json_site, session['ja_id'])
 
-    return render_template("editor/beta/editeur.html", data=json_site)
+    return render_template("editeur/full.html", data=json_site)
 
 def starting_point():
     json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
@@ -32,7 +32,7 @@ def starting_point():
         utils.gestion_editeur(request, json_site, session['ja_id'])
         return redirect(url_for('route_beta'))
 
-    return render_template("editor/starting_point.html", data=json_site)
+    return render_template("editer/setup.html", data=json_site)
 
 def hebergement(devlobdd):
     status_dict = {0: "Désactivé", 1: "Hébergé", 2: "En attente", 3: "Refusé"}
@@ -49,7 +49,7 @@ def hebergement(devlobdd):
 
 def preview(ja_id):
     json_site = json.loads(open(f"tmp/{ja_id}/site.json").read())
-    return render_template("sites/beta.html", data=json_site)
+    return render_template("layouts/0.html", data=json_site)
 
 
 def account(db):
