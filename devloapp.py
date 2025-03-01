@@ -20,10 +20,10 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
 
 if environ["ENV"] == "custom":
     print(environ["SERVER_NAME"])
-    app.config["SERVER_NAME"] = "devlo.vaatigames.ovh"
+    app.config["SERVER_NAME"] = "fuzzy-sniffle-jwj694rjj5gcpr59-5000.app.github.dev"
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], environ["DB_HOST"], 3306, database=environ["DB_NAME"])
     
-elif environ["ENV"] == "custom":
+elif environ["ENV"] == "dev":
     print(environ["SERVER_NAME"])
     app.config["SERVER_NAME"] = "127.0.0.1:5555"
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], environ["DB_HOST"], 3306, database=environ["DB_NAME"])

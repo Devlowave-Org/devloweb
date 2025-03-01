@@ -5,7 +5,7 @@
     <title>Panel</title>
     {% include 'tailwind.html' %}
   </head>
-  <body style="font-family: 'Inter', sans-serif;">
+  <body>
     <div class="antialiased">
     {% include 'home/sidebar.html' %}
     <main class="p-4 md:ml-64 h-auto pt-20 min-h-screen">
@@ -29,7 +29,7 @@
 
               <div class="card bg-base-100 w-full shadow-sm">
                 <div class="card-body">
-                  <h2 class="card-title font-bold md:text-2xl">Tutoriels</h2>
+                  <h2 class="card-title font-bold md:text-2xl">Exemples de Site Web</h2>
                   <div class="flex flex-row gap-4">
                     {% for i in example_sites %}
                     <li>

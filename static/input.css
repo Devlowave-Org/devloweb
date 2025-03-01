@@ -4,8 +4,10 @@
   themes: all;
 }
 
+@custom-variant dark (&:where([data-theme=coffee], [data-theme=coffee] *));
+
 @theme {
-  --font-display: "Satoshi", "sans-serif";
+  --font-sans: "Satoshi", "sans-serif";
 }
 
 @layer utilities {
