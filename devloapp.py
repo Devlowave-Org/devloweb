@@ -186,6 +186,4 @@ def route_admin_preview(ja_id):
 
 
 if __name__ == "__main__":
-    # therms-and-conditions
-    print(app.config["SMTP_PASSWORD"])
     app.run(host="127.0.0.1", port=5555, debug=True)
