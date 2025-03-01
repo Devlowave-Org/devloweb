@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<form name="starting_point" id="startingPointForm" action="/home/editeur/starting_point" method="post" enctype="multipart/form-data">
+<form name="starting_point" id="startingPointForm" action="/home/editeur/setup" method="post" enctype="multipart/form-data">
     <input type="hidden" name="general-starting_point" value="1">
     <div class="carousel w-full">
         <div id="item1" class="carousel-item w-full flex flex-col">
@@ -16,14 +16,14 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div class="p-2 m-2 flex flex-col items-center drag_and_drop_div border-base-content border-4 border-dashed rounded-box bg-base-content/30">
                     <h3 class="text-2xl sm:text-4xl font-bold text-center py-4">Sections disponibles</h3>
-                    <img id="hero_section" class="draggable my-1 rounded-lg" src="{{ url_for('static', filename='src/starting_point/images/hero-white-preview.png') }}" alt="nav pc preview">
-                    <img id="members_section" class="draggable my-1 rounded-lg" src="{{ url_for('static', filename='src/starting_point/images/members-white-preview.png') }}" alt="nav pc preview">
+                    <img id="hero_section" class="draggable my-1 rounded-lg" src="{{ url_for('static', filename='sections/hero-white-preview.png') }}" alt="nav pc preview">
+                    <img id="members_section" class="draggable my-1 rounded-lg" src="{{ url_for('static', filename='sections/members-white-preview.png') }}" alt="nav pc preview">
 
                 </div>
                 <div class="p-2 m-2 flex flex-col items-center drag_and_drop_div bg-primary/30 the-website border-primary border-4 border-dashed rounded-box">
                     <h3 class="text-2xl sm:text-4xl font-bold text-center py-4 text-primary">Votre site</h3>
-                    <img id="nav_section" class="draggable my-1 rounded-lg" src="{{ url_for('static', filename='src/starting_point/images/nav-white-preview.png') }}" alt="nav pc preview">
-                    <img id="footer_section" class="draggable my-1 rounded-lg" src="{{ url_for('static', filename='src/starting_point/images/footer-white-preview.png') }}" alt="nav pc preview">
+                    <img id="nav_section" class="draggable my-1 rounded-lg" src="{{ url_for('static', filename='sections/nav-white-preview.png') }}" alt="nav pc preview">
+                    <img id="footer_section" class="draggable my-1 rounded-lg" src="{{ url_for('static', filename='sections/footer-white-preview.png') }}" alt="nav pc preview">
 
                 </div>
             </div>

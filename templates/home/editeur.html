@@ -10,15 +10,14 @@
     <div class="flex-1 antialiased">
       {% include 'home/sidebar.html' %}
       <main
-        class="p-4 md:ml-64 h-auto pt-5 min-h-screen text-neutral"
+        class="md:ml-64 max-h-screen text-neutral"
       >
         <iframe
           id="inlineFrameExample"
           title="Inline Frame Example"
-          class="w-full min-h-screen"
+          class="w-full h-screen max-h-screen"
           src="{{ url_for('route_beta') }}">
         </iframe>
-
       </main>
     </div>
   </body>

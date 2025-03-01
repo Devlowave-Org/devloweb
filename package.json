@@ -1,15 +1,17 @@
 {
   "name": "devloweb-css",
-  "description": "🌱 publish your digital garden and notes as a website",
+  "description": "🔥 Burn style into CSS",
   "scripts": {
     "css": "npx @tailwindcss/cli -i ./static/input.css -o ./static/output.css -m",
-    "dev": "npx @tailwindcss/cli -i ./static/input.css -o ./static/output.css --watch"
+    "dev": "npx @tailwindcss/cli -i ./static/input.css -o ./static/output.css --watch",
+    "css:local": "tailwindcss.exe -i ./static/input.css -o ./static/output.css -m",
+    "dev:local": "tailwindcss.exe -i ./static/input.css -o ./static/output.css --watch"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.0.9",
     "tailwindcss": "^4.0.9"
   },
   "devDependencies": {
-    "daisyui": "^5.0.0-beta.9"
+    "daisyui": "^5.0.0"
   }
 }

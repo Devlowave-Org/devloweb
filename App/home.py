@@ -32,7 +32,7 @@ def starting_point():
         utils.gestion_editeur(request, json_site, session['ja_id'])
         return redirect(url_for('route_beta'))
 
-    return render_template("editer/setup.html", data=json_site)
+    return render_template("editeur/setup.html", data=json_site)
 
 def hebergement(devlobdd):
     status_dict = {0: "Désactivé", 1: "Hébergé", 2: "En attente", 3: "Refusé"}
