@@ -14,28 +14,35 @@
             <br>
             <div class="grid gap-4">
               <!-- Tutoriels -->
-              <div class="bg-base-200 p-4 rounded-lg">
-                <div class="text-sm opacity-70 mb-1">
-                    <h4 class="card-title text-2xl font-bold mb-4">Nos tutoriels: </h4>
-                </div>
-                <div class="font-semibold">
-                    <iframe width="560" height="315" src="https://drive.google.com/file/d/1jM6dbxatf08OHHU5v7cd_5CcLLi6rKvy/view?usp=sharing" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <div class="card bg-base-100 w-full shadow-sm">
+                <div class="card-body">
+                  <h2 class="card-title font-bold md:text-2xl">Tutoriels</h2>
+                  <div class="flex flex-row gap-4">
+                    <iframe class="rounded-lg border-2 border-base-300" width="480" height="260" src="https://www.youtube.com/embed/GBIIQ0kP15E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe class="rounded-lg border-2 border-base-300" width="480" height="260" src="https://www.youtube.com/embed/4yQZoLmicU0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </div>
+                  <div class="card-actions justify-end">
+                    <a class="btn btn-error" href="">Voir plus de vidéos</a>
+                  </div>
                 </div>
               </div>
 
-              <!-- Tutoriels -->
-              <div class="bg-base-200 p-4 rounded-lg">
-                <div class="text-sm opacity-70 mb-1">
-                    <h4 class="card-title text-2xl font-bold mb-4">Fait grâce à Devloweb: </h4>
-                </div>
-                <div class="font-semibold">
+              <div class="card bg-base-100 w-full shadow-sm">
+                <div class="card-body">
+                  <h2 class="card-title font-bold md:text-2xl">Tutoriels</h2>
+                  <div class="flex flex-row gap-4">
                     {% for i in example_sites %}
-                        <li>
-                            <a href="https://{{ i[0] }}.devlowave.fr/" class="link link-primary">{{ i[0] }}</a>
-                        </li>
+                    <li>
+                        <a href="https://{{ i[0] }}.devlowave.fr/" class="link link-primary">{{ i[0] }}</a>
+                    </li>
                     {% endfor%}
+                  </div>
+                  <div class="card-actions justify-end">
+                    <a class="btn btn-primary" href="">Liste des sites</a>
+                  </div>
                 </div>
               </div>
+
             <br>
             </div>
           </div>

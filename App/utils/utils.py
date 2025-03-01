@@ -230,6 +230,7 @@ def gestion_editeur(request: flask.Request, json_site: dict, ja_id):
 
     # Enregistrement du dictionnaire dans le fichier JSON
     print(f"SITE À JOUR{json_site}")
+    json_site["general"]["ja_id"] = ja_id
     with open(f"tmp/{ja_id}/site.json", "w") as f:
         json.dump(json_site, f)
 

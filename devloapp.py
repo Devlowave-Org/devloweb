@@ -47,6 +47,7 @@ def index(subdomain):
 def route_tmp(ja, image):
     # C'est le DASHBOARD Éditeur
     print(ja, image)
+    #if image == "general-logo-image":
     return onthefly.send_image(ja, image)
 
 
@@ -151,11 +152,6 @@ def logout():
     return redirect(url_for('accueil'))
 
 
-"""
-ESPACE ERREURS
-"""
-
-
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('error/404.html'), 404
@@ -188,5 +184,5 @@ def route_admin_preview(ja_id):
 
 if __name__ == "__main__":
     # therms-and-conditions
-    print(app.config["SERVER_NAME"])
+    print(app.config["SMTP_PASSWORD"])
     app.run(host="127.0.0.1", port=5555, debug=True)

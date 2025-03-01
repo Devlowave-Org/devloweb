@@ -42,8 +42,9 @@ def hebergement(devlobdd):
         devlobdd.ask_hebergement(session['ja_id'])
         devlobdd.set_domain_name(session['ja_id'], request.form["domain"])
 
-    site = devlobdd.get_site_by_ja(session['ja_id'])
-    return render_template("home/hebergement.html", status=status_dict[site[3]], domain=site[1])
+    site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
+    print(site, "JSON")
+    return render_template("home/hebergement.html", status=status_dict[site["general"]["statut"]], domain=site["general"]["domain"])
 
 
 def preview(ja_id):
