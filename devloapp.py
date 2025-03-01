@@ -23,9 +23,9 @@ if environ["ENV"] == "custom":
     app.config["SERVER_NAME"] = "fuzzy-sniffle-jwj694rjj5gcpr59-5000.app.github.dev"
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], environ["DB_HOST"], 3306, database=environ["DB_NAME"])
     
-elif environ["ENV"] == "dev":
+elif environ["ENV"] == "vaatiprod":
     print(environ["SERVER_NAME"])
-    app.config["SERVER_NAME"] = "127.0.0.1:5555"
+    app.config["SERVER_NAME"] = "devlo.vaatigames.ovh"
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], environ["DB_HOST"], 3306, database=environ["DB_NAME"])
     
 elif environ.keys().__contains__("SERVER_NAME") and environ["ENV"] == "prod":
