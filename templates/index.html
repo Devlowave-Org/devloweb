@@ -35,11 +35,11 @@
                             </svg>Devloweb</a>
                     </div>
                     {% if session.get("ja_id") %}
-                        <div class="flex justify-end">
+                        <div class="flex justify-end md:hidden">
                             <a class="btn-primary btn items-center lg:px-3 mr-4" href="home">Mon compte</a>
                         </div>
                     {% else %}
-                    <div class="flex justify-end">
+                    <div class="flex justify-end md:hidden">
                         <a class="btn-primary btn items-center lg:px-3 mr-4" href="connexion">Se connecter</a>
                         <a class="btn-primary btn items-center lg:px-3 mr-4" href="inscription">S'inscrire</a>
                     </div>
