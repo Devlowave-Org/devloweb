@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="bumblebee">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Panel</title>
-    {% include 'tailwind.html' %}
-  </head>
-  <body>
-    <div class="antialiased">
-    {% include 'home/sidebar.html' %}
-    <main class="p-4 md:ml-64 h-auto pt-20 min-h-screen">
+{% extends "base.html" %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+    <main class="p-4 h-auto pt-20 min-h-screen">
       <h1 class="text-4xl lg:text3xl font-bold">Bienvenue sur Devloweb, {{ session['name'] }}!</h1>
         <div class="card-body" id="show_data">
             <br>
@@ -47,6 +42,4 @@
             </div>
           </div>
     </main>
-    </div>
-  </body>
-</html>
+{% endblock %}
