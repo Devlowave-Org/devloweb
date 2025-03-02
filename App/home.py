@@ -4,7 +4,7 @@ from flask import request, render_template, session, redirect, flash, url_for
 from App.tests.test_inscription import devlobdd
 from App.utils import utils
 import json
-
+import os
 
 def index(devlobdd):
     example_sites = devlobdd.get_random_domain()
@@ -14,8 +14,7 @@ def index(devlobdd):
 
 def editeur():
     json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
-    print(json_site)
-
+    sections = os.listdir("templates/editeur/sections/")
     # On vérifie qu'il a déjà fait un tour au starting_point
     if json_site["general"]["starting_point"] == 0:
         return redirect(url_for('route_starting_point'))
@@ -23,7 +22,7 @@ def editeur():
     if request.method == "POST":
         utils.gestion_editeur(request, json_site, session['ja_id'])
 
-    return render_template("editeur/full.html", data=json_site)
+    return render_template("editeur/full.html", data=json_site, sections=sections)
 
 def starting_point():
     json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
