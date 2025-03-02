@@ -49,7 +49,7 @@ def hebergement(devlobdd):
 
 def preview(ja_id):
     json_site = json.loads(open(f"tmp/{ja_id}/site.json").read())
-    return render_template("layouts/0.html", data=json_site)
+    return render_template("layouts/preview.html", data=json_site)
 
 
 def account(db):

@@ -13,6 +13,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 # Copier le code de l'application dans l'image
 COPY . /app/
+RUN mkdir -p /app/tmp/1234
 
 # Commande par défaut pour exécuter l'application
 ENTRYPOINT ["python3"]
