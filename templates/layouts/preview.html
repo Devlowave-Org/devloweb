@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="{{ data["general"]["theme"] }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ data["nav"]["ja"] }}</title>
+        {% include 'tailwind.html' %}
+    </head>
+    <body>
+        <div class="drawer">
+            <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+            <div class="drawer-content flex flex-col">
+            {% for section in data["general"]["sections"] %}
+            {% if section == "nav_section" %}
+                {% include 'sections/nav_section.html' %}
+            {%  endif %}
+            {% if section == "hero_section" %}
+                {% include 'sections/hero_section.html' %}
+            {%  endif %}
+            {% if section == "members_section" %}
+                {% include 'sections/members_section.html' %}
+            {%  endif %}
+            {% if section == "footer_section" %}
+                {% include 'sections/footer_1.html' %}
+            {%  endif %}
+            {% if section == "nav_section" %}
+                {% include 'sections/mobilnav_section.html' %}
+            {%  endif %}
+        {% endfor %}
+
+
+
+            </div>
+
+        </div>
+    </body>
+</html>

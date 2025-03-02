@@ -1,7 +1,7 @@
 from flask import render_template, Flask, session, redirect, url_for, send_file, send_from_directory
 from App import home, inscription, verification, connexion, resend, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
-from App.utils.utils import is_connected, is_admin
+from App.utils.utils import is_connected, is_admin, set_default_value_to_json_site, create_ja_folder
 from werkzeug.middleware.proxy_fix import ProxyFix
 from App.admin_space import admin_panel
 from os import path, getcwd, environ
@@ -19,8 +19,7 @@ app.config["SMTP_PASSWORD"] = environ["SMTP_PASSWORD"]
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
 
 if environ["ENV"] == "custom":
-    print(environ["SERVER_NAME"])
-    app.config["SERVER_NAME"] = "fuzzy-sniffle-jwj694rjj5gcpr59-5000.app.github.dev"
+    app.config["SERVER_NAME"] = "127.0.0.1:5000"
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], environ["DB_HOST"], 3306, database=environ["DB_NAME"])
     
 elif environ["ENV"] == "vaatiprod":
@@ -189,6 +188,8 @@ def route_admin_preview(ja_id):
         return home.preview(ja_id)
     return redirect(url_for('route_connexion'))
 
+create_ja_folder(1234)
+set_default_value_to_json_site(1234)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5555, debug=True)

@@ -9,9 +9,3 @@
 @theme {
   --font-sans: "Satoshi", "sans-serif";
 }
-
-@layer utilities {
-  svg {
-    @apply text-primary-content;
-  }
-}

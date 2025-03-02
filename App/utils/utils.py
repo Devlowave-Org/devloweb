@@ -309,8 +309,10 @@ def set_default_value_to_json_site(ja_id):
     json_site = json.loads(open(f"tmp/{ja_id}/site.json").read())
     json_site["general"]["ja_id"] = ja_id
     json_site["general"]["theme"] = "lemonade"
-    json_site["general"]["sections"] = ["nav_section", "hero_section", "footer_section", "", ""]
+    json_site["general"]["sections"] = ["nav_section", "hero_section", "footer_section"]
     json_site["general"]["starting_point"] = 0
+    json_site["general"]["statut"] = 0,
+    json_site["general"]["domain"] = "",
 
     json_site["nav"]["ja"] = ja_from_api["name"]
     json_site["hero"]["title"] = ja_from_api["name"]
