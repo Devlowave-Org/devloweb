@@ -41,11 +41,10 @@ else:
 
 db.create_bdd()
 
+
 @app.route("/", subdomain="<subdomain>")
-def index(subdomain):
+def accueil(subdomain):
     print(f"Acces depuis {subdomain} !")
-    if subdomain != "devlowave":
-        return onthefly.gen_on_the_fly(subdomain, db)
     return render_template("index.html")
 
 @app.route("/tmp/<ja>/<image>", methods=("GET",))
@@ -58,9 +57,6 @@ def route_tmp(ja, image):
     return send_file("static/devlowave.png")
 
 
-@app.route("/")
-def accueil():
-    return render_template("index.html")
 
 
 
