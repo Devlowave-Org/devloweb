@@ -45,7 +45,7 @@ db.create_bdd()
 @app.route("/", subdomain="<subdomain>")
 def accueil(subdomain):
     print(f"Acces depuis {subdomain} !")
-    return render_template("index.html", domain=subdomain)
+    return render_template("index.html")
 
 @app.route("/tmp/<ja>/<image>", methods=("GET",))
 def route_tmp(ja, image):
