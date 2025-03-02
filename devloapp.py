@@ -42,11 +42,15 @@ else:
 db.create_bdd()
 
 
-@app.route("/", subdomain="<subdomain>")
+@app.route("/")
 def accueil(subdomain):
-    print(f"Acces depuis {subdomain} !")
     return render_template("index.html")
 
+@app.route("/", subdomain="<subdomain>")
+def index(subdomain):
+    print(f"Acces depuis {subdomain} !")
+    return render_template("index.html", subdomain=subdomain)
+    
 @app.route("/tmp/<ja>/<image>", methods=("GET",))
 def route_tmp(ja, image):
     # C'est le DASHBOARD Éditeur
