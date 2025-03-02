@@ -46,7 +46,7 @@ def index(subdomain):
     return render_template("index.html")
 
 @app.route("/")
-def accueil(subdomain):
+def accueil():
     return render_template("index.html") 
 
 @app.route("/tmp/<ja>/<image>", methods=("GET",))
