@@ -141,7 +141,7 @@ def test_good_code_verification(client, devlobdd):
     assert devlobdd.get_ja_by_mail("timtonix@icloud.com")[4] == 1
     # On vérifie que le code a bien été supprimé
     code = devlobdd.get_code_via_jaid("8166")[0]
-    assert code is ''
+    assert code == ''
     # On vérifie aussi que les dossier des JA ont été crées
     assert os.path.isdir(f"{os.getcwd()}/tmp/8166") is True
     assert os.path.isfile(f"{os.getcwd()}/tmp/8166/site.json") is True
@@ -153,7 +153,7 @@ def test_good_code_verification(client, devlobdd):
 def test_already_activated_ja(devlobdd):
     devlobdd.delete_try("127.0.0.1")
     code = devlobdd.get_code_via_jaid("8166")[0]
-    assert code is ''
+    assert code == ''
 
 
 @pytest.mark.slow
