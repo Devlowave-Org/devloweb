@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="{{ data["general"]["theme"] }}">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
     {% include 'tailwind.html' %}
 </head>
 <body>
-<div class="drawer">
+<div class="drawer" data-theme="{{ data["general"]["theme"] }}">
     <div class="drawer-content flex flex-col">
         <div class="toast toast-top toast-center">
             <div class="alert alert-success hidden" id="toast">
