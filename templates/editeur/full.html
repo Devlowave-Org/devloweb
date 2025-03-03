@@ -8,7 +8,8 @@
 </head>
 <body>
 <form action="{{ url_for("route_beta") }}" method="post" enctype="multipart/form-data">
-<div class="drawer" data-theme="{{ data["general"]["theme"] }}">
+<div class="drawer" data-theme="{{ data['general']['theme'] }}">
+    <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex flex-col">
         {% for section in data["general"]["sections"] %}
         {% include 'editeur/sections/' + section + '.html' %}
