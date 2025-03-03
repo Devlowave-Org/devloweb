@@ -10,12 +10,15 @@
 <form action="{{ url_for("route_beta") }}" method="post" enctype="multipart/form-data">
 <div class="drawer" data-theme="{{ data["general"]["theme"] }}">
     <div class="drawer-content flex flex-col">
+        {% for section in data["general"]["sections"] %}
+        {% include 'editeur/sections/' + section + '.html' %}
+        {% endfor %}
+        
         <div class="toast toast-top toast-center">
             <div class="alert alert-success hidden" id="toast">
               <span>Site sauvegardé !</span>
             </div>
-          </div>
-        
+        </div>
         <div class="fixed bottom-10 w-full flex flex-row justify-center items-center">
             <div class="bg-base-300 z-150 p-2 rounded-xl">
                 <button type="button" class="btn btn-success" onclick="add_section_modal.showModal()">
@@ -30,9 +33,6 @@
                 </button>
             </div>
         </div>
-        {% for section in data["general"]["sections"] %}
-        {% include 'editeur/sections/' + section + '.html' %}
-        {% endfor %}
     </div>
     {% include 'editeur/sections/mobilnav_section.html' %}
 </div>
