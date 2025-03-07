@@ -186,8 +186,5 @@ def route_admin_preview(ja_id):
         return home.preview(ja_id)
     return redirect(url_for('route_connexion'))
 
-create_ja_folder(1234)
-set_default_value_to_json_site(1234)
-
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5555, debug=True)
+    app.run(host="127.0.0.1", port=5555, debug=True)

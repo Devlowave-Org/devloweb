@@ -4,17 +4,16 @@ from flask import request, render_template, session, redirect, flash, url_for
 from App.tests.test_inscription import devlobdd
 from App.utils import utils
 import json
-import os
+from os import listdir
 
 def index(devlobdd):
     example_sites = devlobdd.get_random_domain()
-    print(example_sites)
     return render_template('home/index.html', example_sites=example_sites)
 
 
 def editeur():
     json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
-    sections = os.listdir("templates/editeur/sections/")
+    sections = listdir("templates/editeur/sections/")
     # On vérifie qu'il a déjà fait un tour au starting_point
     if json_site["general"]["starting_point"] == 0:
         return redirect(url_for('route_starting_point'))
@@ -42,7 +41,6 @@ def hebergement(devlobdd):
         devlobdd.set_domain_name(session['ja_id'], request.form["domain"])
 
     site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
-    print(site, "JSON")
     return render_template("home/hebergement.html", status=status_dict[site["general"]["statut"]], domain=site["general"]["domain"])
 
 
@@ -61,7 +59,6 @@ def account(db):
             and request.form["password-2"] == request.form["password-2"]:
             hashed_password = hashpw(request.form["password-2"].encode("utf-8"), gensalt())
             db.change_password(ja_id=session['ja_id'], password=hashed_password)
-            print('password_change')
 
         if request.form["email"] != "" and request.form["email"] != account_infos_old[3]:
             db.change_email(session['ja_id'], request.form["email"])
