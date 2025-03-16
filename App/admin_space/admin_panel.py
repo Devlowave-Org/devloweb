@@ -21,7 +21,7 @@ def load(db):
     print(request.form)
     print(search_results)
     print(ja_details)
-    return render_template("admin_space/panel.html", search_results=search_results, ja_details=ja_details)
+    return render_template("admin/panel.html", search_results=search_results, ja_details=ja_details)
 
 
 def load_search_area(db):
