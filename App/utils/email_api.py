@@ -9,7 +9,7 @@ class DevloMail:
         self.host = os.environ["SMTP_HOST"]
         self.port = os.environ["SMTP_PORT"]
         self.sender = os.environ["SMTP_USER"]
-        self.app_pass = os.environ['SMPT_PASSWORD']
+        self.app_pass = os.environ['SMTP_PASSWORD']
         self.context = ssl.create_default_context()
 
     def verification_email(self, target, code):
