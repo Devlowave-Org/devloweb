@@ -1,7 +1,7 @@
 from flask import render_template, Flask, session, redirect, url_for, send_file, send_from_directory
 from App import home, inscription, verification, connexion, resend, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
-from App.utils.utils import is_connected, is_admin, set_default_value_to_json_site, create_ja_folder
+from App.utils.utils import is_connected, is_admin
 from werkzeug.middleware.proxy_fix import ProxyFix
 from App.admin_space import admin_panel
 from os import path, getcwd, environ
@@ -28,6 +28,7 @@ elif environ["ENV"] == "vaatiprod":
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], environ["DB_HOST"], 3306, database=environ["DB_NAME"])
     
 elif environ.keys().__contains__("SERVER_NAME") and environ["ENV"] == "prod":
+    print(environ["SERVER_NAME"])
     app.config["SERVER_NAME"] = environ["SERVER_NAME"]
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306)
 
@@ -47,6 +48,7 @@ def index(subdomain):
 
 @app.route("/")
 def accueil():
+
     return render_template("index.html") 
 
 @app.route("/tmp/<ja>/<image>", methods=("GET",))
