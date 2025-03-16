@@ -1,4 +1,4 @@
-from flask import render_template, Flask, session, redirect, url_for, send_file, send_from_directory
+from flask import render_template, Flask, session, redirect, url_for, send_file, request
 from App import home, inscription, verification, connexion, resend, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
 from App.utils.utils import is_connected, is_admin
@@ -41,6 +41,7 @@ else:
 
 db.create_bdd()
 
+
 @app.route("/", subdomain="<subdomain>")
 def index(subdomain):
     print(f"Acces depuis {subdomain} !")
@@ -48,8 +49,8 @@ def index(subdomain):
 
 @app.route("/")
 def accueil():
-
-    return render_template("index.html") 
+    print(request.host)
+    return render_template("index.html", subdomain=request.host.split(".")[0])
 
 @app.route("/tmp/<ja>/<image>", methods=("GET",))
 def route_tmp(ja, image):
@@ -189,4 +190,4 @@ def route_admin_preview(ja_id):
     return redirect(url_for('route_connexion'))
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5555, debug=True)
+    app.run(debug=True)
