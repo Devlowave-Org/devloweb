@@ -169,7 +169,7 @@ def create_ja_folder(jaid):
     base_path = os.path.join(os.getcwd(), "ressources/base/")
     print("création du dossier JA : ", folder_path)
     if not os.path.exists(folder_path):
-        os.mkdir(folder_path)
+        os.makedirs(folder_path)
 
     try:
         if not os.listdir(folder_path):  # Vérifie que le dossier est vide

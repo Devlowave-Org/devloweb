@@ -23,7 +23,7 @@ def resend_email(devlobdd):
             utils.etape_verification(devlobdd, ja_id)
         if devlobdd.ja_exists(ja_id):
             utils.update_verif_code(devlobdd, row)
-            return render_template("verification.html", ok="Le code a bien été envoyé")
+            return redirect(url_for("route_verification"))
         return render_template("resend.html", error="Une erreur est survenue")
 
     return render_template('resend.html')
