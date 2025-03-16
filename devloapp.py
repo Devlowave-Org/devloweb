@@ -1,7 +1,7 @@
-from flask import render_template, Flask, session, redirect, url_for
+from flask import render_template, Flask, session, redirect, url_for, send_file, send_from_directory
 from App import home, inscription, verification, connexion, resend, onthefly, forgot_password
 from App.utils.bdd import DevloBDD
-from App.utils.utils import is_connected, is_admin
+from App.utils.utils import is_connected, is_admin, set_default_value_to_json_site, create_ja_folder
 from werkzeug.middleware.proxy_fix import ProxyFix
 from App.admin_space import admin_panel
 from os import path, getcwd, environ
@@ -15,9 +15,19 @@ app = Flask(__name__)
 app.secret_key = "banane"
 app.which = "devlobdd"
 app.config["UPLOAD_FOLDER"] = "tmp/"
+app.config["SMTP_PASSWORD"] = environ["SMTP_PASSWORD"]
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
 
-if environ.keys().__contains__("SERVER_NAME") and environ["ENV"] == "prod":
+if environ["ENV"] == "custom":
+    app.config["SERVER_NAME"] = "127.0.0.1:5000"
+    db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], environ["DB_HOST"], 3306, database=environ["DB_NAME"])
+    
+elif environ["ENV"] == "vaatiprod":
+    print(environ["SERVER_NAME"])
+    app.config["SERVER_NAME"] = "devlo.vaatigames.ovh"
+    db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], environ["DB_HOST"], 3306, database=environ["DB_NAME"])
+    
+elif environ.keys().__contains__("SERVER_NAME") and environ["ENV"] == "prod":
     app.config["SERVER_NAME"] = environ["SERVER_NAME"]
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306)
 
@@ -28,26 +38,27 @@ else:
     app.config["SERVER_NAME"] = "127.0.0.1:5555"
     db = DevloBDD(environ["DB_USERNAME"], environ["DB_PASSWORD"], "localhost", 3306)
 
-
 db.create_bdd()
 
 @app.route("/", subdomain="<subdomain>")
 def index(subdomain):
     print(f"Acces depuis {subdomain} !")
-    if subdomain != "devlowave":
-        return onthefly.gen_on_the_fly(subdomain, db)
-    return render_template("index.html")
+    return render_template("index.html", subdomain=subdomain)
+
+@app.route("/")
+def accueil():
+    return render_template("index.html") 
 
 @app.route("/tmp/<ja>/<image>", methods=("GET",))
 def route_tmp(ja, image):
     # C'est le DASHBOARD Éditeur
     print(ja, image)
-    return onthefly.send_image(ja, image)
+    #if image == "general-logo-image":
+    if path.exists(f"tmp/{ja}/{image}"):
+        return onthefly.send_image(ja, image)
+    return send_file("static/devlowave.png")
 
 
-@app.route("/")
-def accueil():
-    return render_template("index.html")
 
 
 
@@ -105,7 +116,7 @@ def route_account():
     return redirect(url_for('route_connexion'))
 
 
-@app.route("/home/editeur/starting_point", methods=("GET", "POST"))
+@app.route("/home/editeur/setup", methods=("GET", "POST"))
 def route_starting_point():
     # C'est le starting point t'as capté
     if is_connected(session, db):
@@ -127,7 +138,7 @@ def route_preview():
     return redirect(url_for('route_connexion'))
 
 
-@app.route("/editeur/beta/editeur", methods=("GET", "POST"))
+@app.route("/home/editeur/full", methods=("GET", "POST"))
 def route_beta():
     if is_connected(session, db):
         return home.editeur()
@@ -144,11 +155,6 @@ def route_hebergement():
 def logout():
     session.clear()
     return redirect(url_for('accueil'))
-
-
-"""
-ESPACE ERREURS
-"""
 
 
 @app.errorhandler(404)
@@ -180,7 +186,5 @@ def route_admin_preview(ja_id):
         return home.preview(ja_id)
     return redirect(url_for('route_connexion'))
 
-
 if __name__ == "__main__":
-    # therms-and-conditions
     app.run(host="127.0.0.1", port=5555, debug=True)

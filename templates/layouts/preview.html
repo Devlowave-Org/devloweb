@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="{{ data["general"]["theme"] }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ data["nav"]["ja"] }}</title>
+        {% include 'tailwind.html' %}
+    </head>
+    <body>
+        <div class="drawer">
+            <div class="toast toast-top toast-center">
+                <div class="alert alert-info">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c-4.714 0-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536C4.93 2 7.286 2 12 2s7.071 0 8.535 1.464C22 4.93 22 7.286 22 12s0 7.071-1.465 8.535C19.072 22 16.714 22 12 22" opacity="0.5"/><path fill="currentColor" d="M12 17.75a.75.75 0 0 0 .75-.75v-6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75M12 7a1 1 0 1 1 0 2a1 1 0 0 1 0-2"/></svg>
+                  <span>Vous regarder une version de test de votre site.
+                  </span>
+                  <a class="link" href="/home">Revenir au panel de gestion.</a>
+                </div>
+            </div>
+            <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+            <div class="drawer-content flex flex-col">
+                {% for section in data["general"]["sections"] %}
+                {% include 'sections/' + section + '.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="{{ data["general"]["theme"] }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ data["nav"]["ja"] }}</title>
+        {% include 'tailwind.html' %}
+    </head>
+    <body>
+        <div class="drawer">
+            <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+            <div class="drawer-content flex flex-col">
+                {% for section in data["general"]["sections"] %}
+                {% include 'sections/' + section + '.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>

@@ -4,18 +4,16 @@ from flask import request, render_template, session, redirect, flash, url_for
 from App.tests.test_inscription import devlobdd
 from App.utils import utils
 import json
-
+from os import listdir
 
 def index(devlobdd):
     example_sites = devlobdd.get_random_domain()
-    print(example_sites)
     return render_template('home/index.html', example_sites=example_sites)
 
 
 def editeur():
     json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
-    print(json_site)
-
+    sections = listdir("templates/editeur/sections/")
     # On vérifie qu'il a déjà fait un tour au starting_point
     if json_site["general"]["starting_point"] == 0:
         return redirect(url_for('route_starting_point'))
@@ -23,7 +21,7 @@ def editeur():
     if request.method == "POST":
         utils.gestion_editeur(request, json_site, session['ja_id'])
 
-    return render_template("editor/beta/editeur.html", data=json_site)
+    return render_template("editeur/full.html", data=json_site, sections=sections)
 
 def starting_point():
     json_site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
@@ -32,7 +30,7 @@ def starting_point():
         utils.gestion_editeur(request, json_site, session['ja_id'])
         return redirect(url_for('route_beta'))
 
-    return render_template("editor/starting_point.html", data=json_site)
+    return render_template("editeur/setup.html", data=json_site)
 
 def hebergement(devlobdd):
     status_dict = {0: "Désactivé", 1: "Hébergé", 2: "En attente", 3: "Refusé"}
@@ -42,13 +40,13 @@ def hebergement(devlobdd):
         devlobdd.ask_hebergement(session['ja_id'])
         devlobdd.set_domain_name(session['ja_id'], request.form["domain"])
 
-    site = devlobdd.get_site_by_ja(session['ja_id'])
-    return render_template("home/hebergement.html", status=status_dict[site[3]], domain=site[1])
+    site = json.loads(open(f"tmp/{session['ja_id']}/site.json").read())
+    return render_template("home/hebergement.html", status=status_dict[site["general"]["statut"]], domain=site["general"]["domain"])
 
 
 def preview(ja_id):
     json_site = json.loads(open(f"tmp/{ja_id}/site.json").read())
-    return render_template("sites/beta.html", data=json_site)
+    return render_template("layouts/preview.html", data=json_site)
 
 
 def account(db):
@@ -57,13 +55,12 @@ def account(db):
         return render_template('home/account.html', account_infos=account_infos)
     elif request.method == 'POST':
         account_infos_old = db.get_ja_byid(session['ja_id'])
-        if request.form["password-2"] is not "" and request.form["password-1"] is not "" \
+        if request.form["password-2"] != "" and request.form["password-1"] != "" \
             and request.form["password-2"] == request.form["password-2"]:
             hashed_password = hashpw(request.form["password-2"].encode("utf-8"), gensalt())
             db.change_password(ja_id=session['ja_id'], password=hashed_password)
-            print('password_change')
 
-        if request.form["email"] is not "" and request.form["email"] != account_infos_old[3]:
+        if request.form["email"] != "" and request.form["email"] != account_infos_old[3]:
             db.change_email(session['ja_id'], request.form["email"])
             utils.etape_verification(db, session['ja_id'])
 

@@ -1,0 +1,11 @@
+<section class="hero min-h-screen pad" style="background-image: url({{ url_for('route_tmp', ja=data["general"]["ja_id"], image=data["hero"]["image"]) }});">
+    <div class="hero-overlay"></div>
+    <div class="hero-content text-center bg-base-100 rounded-box p-8 sm:p-12 m-4">
+        <article class="max-w-md">
+            <h1 class="mb-5 font-bold text-4xl sm:text-5xl text-primary-content">{{ data["hero"]["title"] }}</h1>
+            <p class="mb-5 text-lg sm:text-xl">
+                {{ data["hero"]["description"] }}
+            </p>
+        </article>
+    </div>
+</section>

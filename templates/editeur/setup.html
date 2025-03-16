@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mise En Route</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link   rel="stylesheet" href="{{ url_for('static', filename='output.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for("static", filename="devlowave.ico") }}">
+    <link href="https://fonts.cdnfonts.com/css/satoshi" rel="stylesheet">
+</head>
+<body>
+<form name="starting_point" id="startingPointForm" action="/home/editeur/setup" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="general-starting_point" value="1">
+    <div class="carousel w-full">
+        <div id="item1" class="carousel-item w-full flex flex-col">
+            <h2 class="text-3xl sm:text-5xl font-bold text-center py-8 md:px-6">1️⃣ Glissez et déposez vos sections</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div class="p-2 m-2 flex flex-col items-center drag_and_drop_div border-base-content border-4 border-dashed rounded-box bg-base-content/30">
+                    <h3 class="text-2xl sm:text-4xl font-bold text-center py-4">Sections disponibles</h3>
+                    <img id="hero_section" class="draggable my-1 rounded-lg" src="{{ url_for('static', filename='sections/hero-white-preview.png') }}" alt="nav pc preview">
+                    <img id="members_section" class="draggable my-1 rounded-lg" src="{{ url_for('static', filename='sections/members-white-preview.png') }}" alt="nav pc preview">
+
+                </div>
+                <div class="p-2 m-2 flex flex-col items-center drag_and_drop_div bg-primary/30 the-website border-primary border-4 border-dashed rounded-box">
+                    <h3 class="text-2xl sm:text-4xl font-bold text-center py-4 text-primary">Votre site</h3>
+                    <img id="nav_section" class="draggable my-1 rounded-lg" src="{{ url_for('static', filename='sections/nav-white-preview.png') }}" alt="nav pc preview">
+                    <img id="footer_section" class="draggable my-1 rounded-lg" src="{{ url_for('static', filename='sections/footer-white-preview.png') }}" alt="nav pc preview">
+
+                </div>
+            </div>
+            <input type="hidden" id="sectionsOrderInput" name="general-sections" value="" />
+            <div class="m-10 flex transform justify-end pointer-events-none">
+                <a href="#item2" class="btn btn-primary pointer-events-auto">Continuer →</a>
+            </div>
+        </div>
+        <div id="item2" class="carousel-item w-full flex-col">
+            <h2 class="text-4xl sm:text-5xl font-bold text-center p-12">2️⃣ Choisissez votre thème</h2>
+            <div class="mx-6 flex flex-col items-center sm:items-start sm:flex-row flex-grow-0 justify-around">
+                <div class="sm:mx-6 mb-6">
+                    <div class=" rounded-box grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7"><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="light"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="light"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">light</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="dark"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="dark"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">dark</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="cupcake"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="cupcake"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">cupcake</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="bumblebee"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="bumblebee"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">bumblebee</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="emerald"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="emerald"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">emerald</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="corporate"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="corporate"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">corporate</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="synthwave"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="synthwave"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">synthwave</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="retro"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="retro"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">retro</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="cyberpunk"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="cyberpunk"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">cyberpunk</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="valentine"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="valentine"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">valentine</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="halloween"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="halloween"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">halloween</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="garden"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="garden"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">garden</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="forest"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="forest"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">forest</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="aqua"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="aqua"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">aqua</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="lofi"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="lofi"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">lofi</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="pastel"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="pastel"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">pastel</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="fantasy"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="fantasy"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">fantasy</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="wireframe"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="wireframe"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">wireframe</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="black"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="black"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">black</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="luxury"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="luxury"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">luxury</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="dracula"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="dracula"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">dracula</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="cmyk"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="cmyk"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">cmyk</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="autumn"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="autumn"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">autumn</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="business"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="business"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">business</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="acid"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="acid"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">acid</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="lemonade"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="lemonade"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">lemonade</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="night"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="night"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">night</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="coffee"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="coffee"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">coffee</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="winter"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="winter"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">winter</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="dim"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="dim"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">dim</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="nord"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="nord"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">nord</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div><div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="sunset"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="sunset"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">sunset</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div>
+                    <div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="caramellatte"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="caramellatte"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">caramellatte</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div>
+                    <div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="abyss"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="abyss"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">abyss</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div>
+                    <div class="border-base-content/20 hover:border-base-content/40 overflow-hidden rounded-lg border outline outline-2 outline-offset-2 outline-transparent" data-act-class="!outline-base-content" data-set-theme="silk"><div class="bg-base-100 text-base-content w-full cursor-pointer font-sans" data-theme="silk"><div class="grid grid-cols-5 grid-rows-3"><div class="bg-base-200 col-start-1 row-span-2 row-start-1"></div> <div class="bg-base-300 col-start-1 row-start-3"></div> <div class="bg-base-100 col-span-4 col-start-2 row-span-3 row-start-1 flex flex-col gap-1 p-2"><div class="font-bold">silk</div> <div class="flex flex-wrap gap-1"><div class="bg-primary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-primary-content text-sm font-bold">A</div></div> <div class="bg-secondary flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-secondary-content text-sm font-bold">A</div></div> <div class="bg-accent flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-accent-content text-sm font-bold">A</div></div> <div class="bg-neutral flex aspect-square w-5 items-center justify-center rounded lg:w-6"><div class="text-neutral-content text-sm font-bold">A</div></div></div></div></div></div></div>
+                </div>
+                </div>
+                <div id="theme" class="p-6 rounded-lg shadow-lg bg-base-100 text-base-content border border-base-content space-y-4 max-h-[335px] max-w-72">
+                    <h1 class="text-2xl font-bold max-w-40">Exemple de changement de thème</h1>
+
+                    <!-- Boutons -->
+                    <div class="flex flex-col">
+                        <button class="btn btn-primary m-1">Couleur Primaire</button>
+                        <button class="btn btn-secondary m-1">Couleur Secondaire</button>
+                        <button class="btn btn-accent m-1">Couleur Tertiaire</button>
+                    </div>
+                </div>
+            </div>
+            <input name="general-theme" type="hidden" id="themeInput" value="" />
+            <div class="m-10 flex transform justify-between pointer-events-none">
+                <a href="#item1" class="btn btn-primary  pointer-events-auto">← Précédent</a>
+                <a href="#item3" class="btn btn-primary pointer-events-auto">Continuer →</a>
+            </div>
+        </div>
+        <div id="item3" class="carousel-item w-full flex-col">
+            <h2 class="text-4xl sm:text-5xl font-bold text-center p-12">3️⃣ Formulaires à remplir si besoin</h2>
+            <div class="flex justify-center w-full">
+                <div class="flex flex-col flex-wrap gap-6 bg-base-content/10 rounded-box p-8 shadow-lg w-full max-w-3xl m-4">
+                    <p class="text-warning text-sm">Les champs ne sont pas obligatoires</p>
+                    <h3 class="text-xl font-semibold text-base-content">Vous pouvez déposer votre logo :</h3>
+
+                    <!-- Logo Drop Zone -->
+                    <div class="dropZone flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-400 rounded-lg p-4 cursor-pointer transition-all duration-300 hover:border-gray-600 hover:bg-base-content/20 w-full max-w-xs">
+                        <p class="dropText text-gray-500 text-sm">Déposez votre logo ici ou cliquez pour parcourir</p>
+                        <img class="dropPreview hidden w-full rounded-lg" alt="Aperçu de l'image" />
+                        <input type="file" name="general-logo-image" class="imageInput hidden" id="logo_input" accept="image/*" value=""/>
+                    </div>
+
+                    <!-- Social Media Inputs -->
+                    <h3 class="text-xl font-semibold text-base-content mt-6">Vous pouvez renseigner vos réseaux sociaux:</h3>
+
+                    <!-- Instagram Input -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Instagram</span>
+                        </label>
+                        <input name="footer-socials-instagram" type="text" placeholder="https://www.instagram.com/..." class="input input-bordered w-full" value="{{ data["footer"]["socials"]["instagram"] }}" id="instagram_input"/>
+                    </div>
+
+                    <!-- Facebook Input -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Facebook</span>
+                        </label>
+                        <input name="footer-socials-facebook" type="text" placeholder="https://www.facebook.com/..." class="input input-bordered w-full" value="{{ data["footer"]["socials"]["facebook"] }}" id="facebook_input"/>
+                    </div>
+
+                    <!-- YouTube Input -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">YouTube</span>
+                        </label>
+                        <input name="footer-socials-youtube" type="text" placeholder="https://www.youtube.com/..." class="input input-bordered w-full" value="{{ data["footer"]["socials"]["youtube"] }}" id="youtube_input"/>
+                    </div>
+
+                    <!-- TikTok Input -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">TikTok</span>
+                        </label>
+                        <input name="footer-socials-tiktok" type="text" placeholder="https://www.tiktok.com/..." class="input input-bordered w-full" value="{{ data["footer"]["socials"]["tiktok"] }}" id="tiktok_input"/>
+                    </div>
+
+                    <!-- Discord Input -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Discord</span>
+                        </label>
+                        <input name="footer-socials-discord" type="text" placeholder="https://discord.gg/..." class="input input-bordered w-full" value="{{ data["footer"]["socials"]["discord"] }}" id="discord_input"/>
+                    </div>
+
+                    <!-- Twitter Input -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Twitter</span>
+                        </label>
+                        <input name="footer-socials-twitter" type="text" placeholder="https://www.twitter.com/..." class="input input-bordered w-full" value="{{ data["footer"]["socials"]["twitter"] }}" id="twitter_input"/>
+                    </div>
+
+                    <!-- Other Input -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Autre</span>
+                        </label>
+                        <input name="footer-socials-website" type="text" placeholder="https://mon_autre_site.com" class="input input-bordered w-full" value="{{ data["footer"]["socials"]["website"] }}" id="other_input"/>
+                    </div>
+                </div>
+            </div>
+            <div class="m-10 flex transform justify-between pointer-events-none">
+                <a href="#item2" class="btn btn-primary  pointer-events-auto">← Précédent</a>
+                <button type="submit" class="btn send-btn btn-primary pointer-events-auto">Envoyer</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>
+
+<script>
+    const targetDiv = document.getElementById('theme');
+
+    // Update the theme when a button is clicked
+    document.querySelectorAll('[data-set-theme]').forEach(button => {
+        button.addEventListener('click', function() {
+            const theme = this.getAttribute('data-set-theme');
+            targetDiv.removeAttribute('data-theme');
+            targetDiv.setAttribute('data-theme', theme);
+
+            // Update the hidden input field with the selected theme
+            document.getElementById('themeInput').value = theme;
+        });
+    });
+
+    const draggables = document.querySelectorAll(".draggable");
+    const containers = document.querySelectorAll(".drag_and_drop_div");
+
+    // Variable pour stocker la copie temporaire sur mobile
+    let tempClone = null;
+
+    // Ajout des événements pour desktop et mobile
+    draggables.forEach(draggable => {
+        // Événement desktop (dragstart)
+        draggable.addEventListener("dragstart", () => {
+            draggable.classList.add("opacity-50");
+        });
+
+        // Événement desktop (dragend)
+        draggable.addEventListener("dragend", () => {
+            draggable.classList.remove("opacity-50");
+        });
+
+        // Événement mobile (touchstart)
+        draggable.addEventListener("touchstart", function(event) {
+            draggable.classList.add("opacity-50");
+            // Créer une copie de l'élément
+            tempClone = draggable.cloneNode(true);
+
+            // Appliquer des styles pour rendre la copie visible et mobile
+            tempClone.style.position = "absolute";
+            tempClone.style.width = "250px"
+            tempClone.style.opacity = "0.5";
+            tempClone.style.pointerEvents = "none"; // Empêcher toute interaction avec la copie
+            tempClone.style.zIndex = "1000"; // Assurer que la copie est au-dessus des autres éléments
+
+            // Ajouter la copie au body
+            document.body.appendChild(tempClone);
+
+            // Initialiser la position de la copie
+            moveClone(event.touches[0]);
+
+            event.preventDefault(); // Empêcher le comportement par défaut
+        });
+
+        // Événement mobile (touchmove)
+        draggable.addEventListener("touchmove", function(event) {
+            if (tempClone) {
+                // Déplacer la copie
+                moveClone(event.touches[0]);
+            }
+
+            event.preventDefault(); // Empêcher le comportement par défaut
+        });
+
+        // Événement mobile (touchend)
+        draggable.addEventListener("touchend", function(event) {
+            draggable.classList.remove("opacity-50");
+            // Supprimer la copie temporaire
+            if (tempClone) {
+                tempClone.remove();
+                tempClone = null;
+            }
+
+            // Gérer le placement logique de l'élément
+            const container = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY).closest(".drag_and_drop_div");
+            if (container) {
+                const afterElement = getDragAfterElement(container, event.changedTouches[0].clientY);
+                if (afterElement == null) {
+                    container.appendChild(draggable);
+                } else {
+                    container.insertBefore(draggable, afterElement);
+                }
+            }
+
+            event.preventDefault(); // Empêcher le comportement par défaut
+        });
+    });
+
+    // Ajout des événements pour les containers (dragover sur desktop)
+    containers.forEach(container => {
+        container.addEventListener("dragover", e => {
+            e.preventDefault();
+            const afterElement = getDragAfterElement(container, e.clientY);
+            const draggable = document.querySelector(".opacity-50");
+            if (afterElement == null) {
+                container.appendChild(draggable);
+            } else {
+                container.insertBefore(draggable, afterElement);
+            }
+        });
+    });
+
+    // Fonction pour déplacer la copie temporaire
+    function moveClone(touch) {
+        const offsetX = 50; // Décalage pour que la copie ne soit pas directement sous le doigt
+        const offsetY = 50;
+
+        tempClone.style.left = `${touch.pageX - offsetX}px`;
+        tempClone.style.top = `${touch.pageY - offsetY}px`;
+    }
+
+    // Fonction pour trouver l'élément après lequel insérer le draggable
+    function getDragAfterElement(container, y) {
+        const draggableElements = [...container.querySelectorAll('.draggable:not(.opacity-50)')];
+
+        return draggableElements.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+            if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child };
+            } else {
+                return closest;
+            }
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById('startingPointForm');
+
+        // Sélectionner toutes les zones de drop
+        document.querySelectorAll('.dropZone').forEach((dropZone) => {
+            const imageInput = dropZone.querySelector('.imageInput');
+            const dropPreview = dropZone.querySelector('.dropPreview');
+            const dropText = dropZone.querySelector('.dropText');
+
+            // Gestion du clic pour déclencher l'input de fichier
+            dropZone.addEventListener('click', () => {
+                imageInput.click();
+            });
+
+            // Gestion du glisser-déposer
+            dropZone.addEventListener('dragover', (event) => {
+                event.preventDefault();
+                dropZone.classList.add('border-blue-500'); // Changer la couleur de la bordure au survol
+            });
+
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('border-blue-500'); // Revenir à la couleur d'origine
+            });
+
+            dropZone.addEventListener('drop', (event) => {
+                event.preventDefault();
+                dropZone.classList.remove('border-blue-500');
+                const file = event.dataTransfer.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    handleFile(file, dropPreview, dropText);
+                }
+            });
+
+            // Gestion du changement d'input (cas où l'utilisateur clique sur l'input)
+            imageInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    handleFile(file, dropPreview, dropText);
+
+                }
+            });
+        });
+
+        // Fonction pour afficher l'image
+        function handleFile(file, dropPreview, dropText) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                dropPreview.src = e.target.result;
+                dropPreview.classList.remove('hidden');
+                dropText.classList.add('hidden'); // Cacher le texte une fois l'image chargée
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function collectSectionsOrder() {
+            const sections = document.querySelectorAll('.the-website .draggable'); // Select all draggable images in "Votre site"
+            const order = Array.from(sections).map(section => {
+                 // Get the source path
+                return section.id; // Return an object with name and path
+            });
+            document.getElementById('sectionsOrderInput').value = order.join("+"); // Store the order as a JSON string
+        }
+
+
+        form.addEventListener('submit', (event) => {
+            // Ici, tu peux ajouter toute logique nécessaire avant l'envoi, si besoin
+            console.log(document.getElementById('sectionsOrderInput').value)
+            collectSectionsOrder()
+        });
+    });
+</script>
+

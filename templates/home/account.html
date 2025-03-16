@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="bumblebee">
-  <head>
-    <meta charset="UTF-8" data-theme="bumblebee"/>
-    <title>Panel</title>
-    {% include 'tailwind.html' %}
-  </head>
-  <body style="font-family: 'Inter', sans-serif;">
-    <div class="antialiased">
-      {% include 'home/sidebar.html' %}
-      <main class="p-4 md:ml-64 h-auto pt-20 min-h-screen">
+{% extends "home/layout.html" %}
+
+{% block title %}Espace Compte{% endblock %}
+
+{% block content %}
+    <main class="p-2 md:p-4 h-auto pt-20 min-h-screen">
         <!-- Section des données de session -->
         <div class="card bg-base-100 shadow-xl">
           <div class="card-body" id="show_data">
@@ -107,13 +102,10 @@
           </div>
         </div>
       </main>
-    </div>
-  </body>
-
 <script>
     function showForm(){
         document.getElementById('show_data').hidden = true;
         document.getElementById('edit_data').hidden = false;
     }
 </script>
-</html>
+{% endblock %}

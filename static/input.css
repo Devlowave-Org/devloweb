@@ -1,9 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer utilities {
-  svg {
-    @apply text-primary-content;
-  }
+@plugin "daisyui" {
+  themes: all;
+}
+
+@custom-variant dark (&:where([data-theme=coffee], [data-theme=coffee] *));
+
+@theme {
+  --font-sans: "Satoshi", "sans-serif";
 }

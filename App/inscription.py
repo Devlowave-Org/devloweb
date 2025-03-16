@@ -32,7 +32,9 @@ def inscription(devlobdd):
         if not utils.email_validator(email):
             return render_template('inscription.html', error="Veuillez remplir un email valide")
 
-        ja_api = rnja_api.ja_exists(ja_id)
+        #ja_api = rnja_api.ja_exists(ja_id)
+        ja_api = {}
+        ja_api["name"] = "DEBUG"
         if not ja_api:
             return render_template("inscription.html", error="Désolé mais cette JA n'existe pas (encore).")
 
@@ -52,11 +54,9 @@ def inscription(devlobdd):
 
         if devlobdd.get_ja_by_mail(email):
             return render_template("inscription.html", error="Ce mail est déjà utilisé par quelqu'un")
-
         hashed_pass = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
 
-        devlobdd.inscire_ja(ja_id, ja_api["name"], hashed_pass, email)
-
+        devlobdd.inscire_ja(ja_id, ja_api["name"], hashed_pass, email)    
         # On lui envoie un mail avec le code.
         utils.etape_verification(devlobdd, ja_id)
         end = time.time()

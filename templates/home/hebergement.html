@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="bumblebee">
-<head>
-    <meta charset="UTF-8" />
-    <title>Hébergement</title>
-    {% include 'tailwind.html' %}
-</head>
-<body style="font-family: 'Inter', sans-serif;">
-    <div class="antialiased">
-        {% include 'home/sidebar.html' %}
-        <main class="p-4 md:ml-64 h-auto pt-20  min-h-screen">
+{% extends "home/layout.html" %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+    <main class="p-2 md:p-4 h-auto pt-20 min-h-screen">
             <div class="card bg-base-100 shadow-xl">
-                <h2 class="card-title text-2xl font-bold mb-4">Informations sur le site de {{ session['name'] }} : </h2>
                 <div class="card-body" id="show_data">
+                    <h2 class="card-title text-2xl font-bold mb-4">Informations sur le site de {{ session['name'] }} : </h2>
                     <div class="grid gap-4">
                         <!-- Status Site JA -->
                         <div class="bg-base-200 p-4 rounded-lg">
@@ -22,7 +17,11 @@
                         <!-- URL Site JA -->
                         <div class="bg-base-200 p-4 rounded-lg">
                             <div class="text-sm opacity-70 mb-1">URL du site</div>
-                            <div class="font-semibold">{{ domain or 'ERROR' }}.devlowave.fr</div>
+                            {% if domain == "" %}
+                                <div class="font-semibold">Votre site n'as actuellement aucun domaine.</div>
+                            {% else %}
+                                <div class="font-semibold">{{ domain  }}.devlowave.fr</div>
+                            {% endif %}
                         </div>
                         <br>
                         <div class="card-actions justify-end mt-4">
@@ -55,16 +54,19 @@
                         </form>
                     </div>
                 </div>
+                <script>
+                    const showForm = () => {
+                        const show_data = document.getElementById('show_data');
+                        const edit_data = document.getElementById('edit_data');
+                        if (show_data.hidden == false) {
+                            show_data.hidden = true;
+                            edit_data.hidden = false;
+                        } else {
+                            show_data.hidden = false;
+                            edit_data.hidden = true;
+                        }
+                    }
+                </script>
             </div>
         </main>
-    </div>
-</body>
-<script>
-    function showForm(){
-        document.getElementById('show_data').hidden = true;
-        document.getElementById('edit_data').hidden = false;
-        document.getElementById('heberger').textContent = "Valider"
-
-    }
-</script>
-</html>
+{% endblock %}

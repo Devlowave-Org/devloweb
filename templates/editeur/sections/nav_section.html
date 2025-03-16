@@ -1,41 +1,38 @@
-<input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
 <nav class="navbar bg-primary-content flex-auto lg:px-0">
-            <div class="flex-none lg:hidden px-0 sm:px-4">
-                <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
-                    <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            class="inline-block h-6 w-6 stroke-current">
-                        <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </label>
-            </div>
-            <div class="flex-1 justify-end lg:justify-start px-0 sm:px-8">
-                <div class="rounded-full w-24 h-24 overflow-hidden my-5 mx-10">
-                            <img src="{{ url_for('route_tmp', ja=data["general"]["ja_id"], image=data["general"]["logo"]["image"]) }}" alt="profil" class="w-24">
-                        </div>
-                <input
-                        name="nav-ja"
-                        type="text"
-                        placeholder="Nom_de_votre_JA"
-                        value="{{  data["nav"]["ja"] }}"
-                        class="input border-dashed border-2 w-56 border-primary focus:border-gray-600 focus:outline-none font-bold placeholder-base-content sm:text-xl" />
-            </div>
-            <div class="flex justify-end">
-                <ul id="linkList" class="menu menu-horizontal text-base hidden lg:flex">
-                    {% for a in data["nav"]["link"] %}
-                        {% if a["display"] %}
-                            <li class="grid place-items-center lg:px-3">
-                                <a href="{{  a["url"] }}">{{  a["display"] }}</a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
+  <div class="flex-1 justify-end lg:justify-start px-0 sm:px-8 flex flex-row items-center">
+    <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          class="inline-block h-6 w-6 stroke-current">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </label>
+    <div class="rounded-full w-10 h-10 overflow-hidden my-5 md:mx-10">
+      <img src="{{ url_for('route_tmp', ja=data["general"]["ja_id"], image=data["general"]["logo"]["image"]) }}" alt="profil" class="w-24">
+    </div>
+    <input
+      name="nav-ja"
+      type="text"
+      placeholder="Nom_de_votre_JA"
+      value="{{  data['nav']['ja'] }}"
+      class="input border-dashed border-2 w-56 border-primary focus:border-gray-600 focus:outline-none font-bold placeholder-base-content sm:text-xl" />
+  </div>
+  <div class="flex justify-end">
+      <ul id="linkList" class="menu menu-horizontal text-base hidden lg:flex">
+          {% for a in data["nav"]["link"] %}
+              {% if a["display"] %}
+                  <li class="grid place-items-center lg:px-3">
+                      <a href="{{  a["url"] }}">{{  a["display"] }}</a>
+                  </li>
+              {% endif %}
+          {% endfor %}
+      </ul>
 
             <input value="{{ data["nav"]["link"][0]["display"] }}" type="hidden" placeholder="Lien 1" name="nav-link-0-display" class="input input-w-105px border-editor m-4"/>
             <input value="{{ data["nav"]["link"][0]["url"] }}" type="hidden" placeholder="url" name="nav-link-0-url" class="input input-w-105px border-editor"/>
