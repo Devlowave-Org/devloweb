@@ -1,6 +1,7 @@
 import pymysql
 from datetime import datetime
 
+
 class DevloBDD:
     def __init__(self, user, password, host, port, database=None):
         if database is None:
@@ -35,6 +36,13 @@ class DevloBDD:
         self.execute_query("DROP TABLE IF EXISTS sites;")
         self.create_bdd()
 
+    def reset_bdd_analytics(self):
+        self.execute_query("DROP TABLE IF EXISTS devloanalytics.visitors")
+        self.execute_query("DROP TABLE IF EXISTS devloanalytics.sessions")
+        self.execute_query("DROP TABLE IF EXISTS devloanalytics.page_views")
+        self.execute_query("DROP TABLE IF EXISTS devloanalytics.errors")
+        self.create_bdd_analytics()
+
 
     def create_bdd(self):
         self.connection()
@@ -42,6 +50,15 @@ class DevloBDD:
         self.cursor.execute("CREATE TABLE IF NOT EXISTS security (id INT PRIMARY KEY AUTO_INCREMENT, ip TEXT, try INT DEFAULT 1,first TEXT, last TEXT, punition TEXT);")
         self.cursor.execute("CREATE TABLE IF NOT EXISTS sites(id INT PRIMARY KEY AUTO_INCREMENT, ja_id TEXT, domain TEXT, theme TEXT, status INT DEFAULT 0, date_creation TEXT, date_validation TEXT, date_last_status_change TEXT, last_change_status_by TEXT DEFAULT null, accepted_by TEXT DEFAULT null);")
         self.cursor.execute("CREATE TABLE IF NOT EXISTS magic_link(id INT PRIMARY KEY AUTO_INCREMENT, ja_id TEXT, code TEXT, date TEXT);")
+        self.cursor.close()  # Fermeture du curseur.
+        self.connector.commit()  # Enregistrement dans la base de donnée.
+        self.connector.close()  # Fermeture de la connexion.
+
+    def create_bdd_analytics(self):
+        self.connection()
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS devloanalytics.sessions( id INT AUTO_INCREMENT PRIMARY KEY, session_id VARCHAR(255), device_type TEXT, os TEXT, user_agent TEXT, start_time TEXT DEFAULT CURRENT_TIMESTAMP, end_time TEXT, ip TEXT, UNIQUE KEY (session_id));""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS devloanalytics.page_views(id INT AUTO_INCREMENT PRIMARY KEY, session_id VARCHAR(255), page_url TEXT, time_on_last_page INT, is_bounce BOOLEAN DEFAULT FALSE, timestamp TEXT DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (session_id) REFERENCES devloanalytics.sessions(session_id));""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS devloanalytics.errors(id INT AUTO_INCREMENT PRIMARY KEY, session_id VARCHAR(255), page_url TEXT, error_code INT, timestamp TEXT DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (session_id) REFERENCES devloanalytics.sessions(session_id));""")
         self.cursor.close()  # Fermeture du curseur.
         self.connector.commit()  # Enregistrement dans la base de donnée.
         self.connector.close()  # Fermeture de la connexion.
@@ -119,7 +136,7 @@ class DevloBDD:
         return result
 
     def view_data_website(self, ja_id: str) -> tuple:
-        result = self.execute_query("SELECT ja_id, domain, theme, status, date_creation, date_validation, date_last_status_change, last_change_status_by FROM sites WHERE ja_id = %s", (ja_id,), fetchone=True)
+        result = self.execute_query("SELECT ja_id, domain, theme, status, date_creation, date_validation, accepted_by, date_last_status_change, last_change_status_by FROM sites WHERE ja_id = %s", (ja_id,), fetchone=True)
         return result
 
     def get_site_by_ja(self, ja: str) -> list:
@@ -129,31 +146,32 @@ class DevloBDD:
 
     """USED BY ADMIN PANNEL"""
 
-    def fetch_all_ja_ids_with_website(self):
-        result = self.execute_query("SELECT ja_id FROM sites", fetchall=True)
+    def fetch_all_ja_name_and_id(self) -> list:
+        result = self.execute_query("SELECT name, ja_id FROM users", fetchall=True)
         return result
 
-    def get_website_status_by_id(self, ja_id):
-        result = self.execute_query("SELECT status FROM sites WHERE ja_id = %s", (ja_id,), fetchone=True)
+    def fetch_all_websites(self):
+        result = self.execute_query("SELECT * FROM sites", fetchall=True)
         return result
 
-    def update_website_status_by_id(self, ja_id, status):
-        self.execute_query("UPDATE sites SET status = %s WHERE ja_id = %s", (status, ja_id))
-
-    def get_ja_name_by_id(self, ja_id):
-        result = self.execute_query("SELECT name FROM users WHERE ja_id = %s", (ja_id,), fetchone=True)
-        return result
-
-    def get_ja_id_by_name(self, name):
+    def get_ja_id_by_name(self, name: str) -> list:
         result = self.execute_query("SELECT ja_id FROM users WHERE name = %s", (name,), fetchone=True)
         return result
 
-    def get_ja_domain_by_id(self, ja_id):
-        result = self.execute_query("SELECT domain FROM sites WHERE ja_id = %s", (ja_id,), fetchone=True)
+    def fetch_all_host_demands(self):
+        result = self.execute_query("SELECT * FROM sites WHERE status = 2", fetchall=True)
         return result
 
-    def get_ja_id_by_domain(self, domain):
-        result = self.execute_query("SELECT ja_id FROM sites WHERE domain = %s", (domain,), fetchone=True)
+    def get_name_by_id(self, ja_id):
+        result = self.execute_query("SELECT name FROM users WHERE ja_id = %s", (ja_id,), fetchone=True)
+        return result
+
+    def get_email_by_id(self, ja_id):
+        result = self.execute_query("SELECT email FROM users WHERE ja_id = %s", (ja_id,), fetchone=True)
+        return result
+
+    def get_subdomain_by_id(self, ja_id):
+        result = self.execute_query("SELECT domain FROM sites WHERE ja_id = %s", (ja_id,), fetchone=True)
         return result
 
     """
@@ -233,8 +251,25 @@ class DevloBDD:
         self.execute_query("INSERT INTO sites(ja_id, domain, theme) VALUES (%s, %s, %s)",
                             (ja_id, domain, theme))
 
-    def enable_website(self, ja_id):
+    def activate_website(self, ja_id, changer, enable_date=datetime.now()):
         self.execute_query("UPDATE sites SET status = 1 WHERE ja_id = %s", (ja_id,))
+        self.execute_query("UPDATE sites SET date_validation = %s WHERE ja_id = %s", (enable_date, ja_id))
+        self.execute_query("UPDATE sites SET date_last_status_change = %s WHERE ja_id = %s", (enable_date, ja_id))
+        self.execute_query("UPDATE sites SET last_change_status_by = %s WHERE ja_id = %s", (changer, ja_id))
+        self.execute_query("UPDATE sites SET accepted_by = %s WHERE ja_id = %s", (changer, ja_id))
+
+    def enable_website(self, ja_id, changer, enable_date=datetime.now()):
+        self.execute_query("UPDATE sites SET status = 1 WHERE ja_id = %s", (ja_id,))
+        self.execute_query("UPDATE sites SET date_last_status_change = %s WHERE ja_id = %s", (enable_date, ja_id))
+        self.execute_query("UPDATE sites SET last_change_status_by = %s WHERE ja_id = %s", (changer, ja_id))
+
+    def disable_website(self, ja_id, changer, enable_date=datetime.now()):
+        self.execute_query("UPDATE sites SET status = 3 WHERE ja_id = %s", (ja_id,))
+        self.execute_query("UPDATE sites SET date_last_status_change = %s WHERE ja_id = %s", (enable_date, ja_id))
+        self.execute_query("UPDATE sites SET last_change_status_by = %s WHERE ja_id = %s", (changer, ja_id))
+
+    def reset_website(self, ja_id):
+        self.execute_query("UPDATE sites SET status = 0 WHERE ja_id = %s", (ja_id,))
 
     def get_ja_by_domain(self, domain):
         result = self.execute_query("SELECT ja_id, domain, theme, status FROM sites  WHERE domain=%s", (domain,), fetchone=True)
@@ -275,3 +310,13 @@ class DevloBDD:
 
     def delete_magic_link(self, ja_id):
         self.execute_query("DELETE FROM magic_link WHERE ja_id = %s", (ja_id,))
+
+    """
+    Partie Analytics
+    """
+
+    def create_session(self, session_id, device_type, os, user_agent, ip):
+        self.execute_query("INSERT INTO devloanalytics.sessions(session_id, device_type, os, user_agent, ip) VALUES (%s, %s, %s, %s, %s)", (session_id, device_type, os, user_agent, ip))
+
+    def add_page_viewed(self, session_id, page_url, time_on_last_page, is_bounce, timestamp):
+        self.execute_query("INSERT INTO devloanalytics.page_views(session_id, page_url, time_on_last_page, is_bounce, timestamp) VALUES (%s, %s, %s, %s, %s)", (session_id, page_url, time_on_last_page, is_bounce, timestamp))

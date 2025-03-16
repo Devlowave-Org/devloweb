@@ -76,3 +76,81 @@ class DevloMail:
 
 
 
+    def send_host_demand_acceptation_mail(self, target):
+        message = MIMEMultipart("alternative")
+        message["Subject"] = "Site accepté"
+        message["From"] = self.sender
+        message["To"] = target
+
+        text = """\
+                Ceci est un message de Devloweb"""
+        text = text.format()
+
+
+        html = """\
+                <html>
+                  <body>
+                    <p>Salut !<br>
+                        Ceci est un message de Devloweb,<br>
+                        Le site de ta JA a été accepté par un administrateur !<br>
+                        Il est disponible à : <a href="https://{server_name}/reset_password?code={code}&email={email}">Réinitialiser !</a><br>
+                    </p>
+                  </body>
+                </html>
+                """
+        html = html.format(email=target, server_name=os.environ['SERVER_NAME'])
+
+
+        self.send_mail(text, html, message, target)
+
+    def send_host_demand_reject_mail(self, target, reason):
+        message = MIMEMultipart("alternative")
+        message["Subject"] = "Site rejeté"
+        message["From"] = self.sender
+        message["To"] = target
+
+        text = """\
+                Ceci est un message de Devloweb"""
+        text = text.format(reason=reason)
+
+
+        html = """\
+                <html>
+                  <body>
+                    <p>Salut !<br>
+                        Ceci est un message de Devloweb,<br>
+                        Le site de ta JA a été refusé par un administrateur.<br>
+                        Il a indiqué la raison suivante :<br>
+                        {reason}
+                    </p>
+                  </body>
+                </html>
+                """
+        html = html.format(reason=reason, email=target, server_name=os.environ['SERVER_NAME'])
+
+        self.send_mail(text, html, message, target)
+
+    def send_host_demand_accept_mail(self, target, link):
+        message = MIMEMultipart("alternative")
+        message["Subject"] = "Site accepté"
+        message["From"] = self.sender
+        message["To"] = target
+
+        text = """\
+                       Ceci est un message de Devloweb"""
+        text = text.format(link=link)
+
+        html = """\
+                       <html>
+                         <body>
+                           <p>Salut !<br>
+                               Ceci est un message de Devloweb,<br>
+                               Le site de ta JA a été accepté par un administrateur.<br>
+                               Il est disponible à l'adresse suivante : <a href="{link}">{link}</a>
+                           </p>
+                         </body>
+                       </html>
+                       """
+        html = html.format(link=link, email=target, server_name=os.environ['SERVER_NAME'])
+
+        self.send_mail(text, html, message, target)

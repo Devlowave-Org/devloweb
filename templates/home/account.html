@@ -47,7 +47,7 @@
             </div>
           </div>
 
-          <div class="card-body" id="edit_data" hidden="hidden">
+          <div class="card-body hidden" id="edit_data">
             <h2 class="card-title text-2xl font-bold mb-4">Mon compte : </h2>
             <form method="post" action="#">
             <div class="grid gap-4">
@@ -104,8 +104,8 @@
       </main>
 <script>
     function showForm(){
-        document.getElementById('show_data').hidden = true;
-        document.getElementById('edit_data').hidden = false;
+        document.getElementById('show_data').classList.toggle('hidden');
+        document.getElementById('edit_data').classList.toggle('hidden');
     }
 </script>
 {% endblock %}

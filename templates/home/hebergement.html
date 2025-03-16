@@ -1,38 +1,42 @@
-{% extends "home/layout.html" %}
-
-{% block title %}Accueil{% endblock %}
-
-{% block content %}
-    <main class="p-2 md:p-4 h-auto pt-20 min-h-screen">
+<!DOCTYPE html>
+<html lang="en" data-theme="bumblebee">
+<head>
+    <meta charset="UTF-8" />
+    <title>Hébergement</title>
+    {% include 'tailwind.html' %}
+</head>
+<body style="font-family: 'Inter', sans-serif;">
+    <div class="antialiased">
+        {% include 'home/sidebar.html' %}
+        <main class="p-4 md:ml-64 h-auto pt-20  min-h-screen">
             <div class="card bg-base-100 shadow-xl">
+                <h2 class="card-title text-2xl font-bold mb-4">Informations sur le site de {{ session['name'] }} : </h2>
                 <div class="card-body" id="show_data">
-                    <h2 class="card-title text-2xl font-bold mb-4">Informations sur le site de {{ session['name'] }} : </h2>
                     <div class="grid gap-4">
                         <!-- Status Site JA -->
                         <div class="bg-base-200 p-4 rounded-lg">
                             <div class="text-sm opacity-70 mb-1">Status Actuel</div>
-                            <div class="font-semibold">{{ status }}</div>
+                            {% if status == "Hébergé" %}<div class="badge badge-success gap-2">
+                            {% elif status == "Désactivé" or status == "Refusé" %}<div class="badge badge-error gap-2">
+                            {% elif status == "En attente" %}<div class="badge badge-warning gap-2">
+                            {% endif %}<div class="font-semibold">{{ status }}</div></div>
                         </div>
 
                         <!-- URL Site JA -->
                         <div class="bg-base-200 p-4 rounded-lg">
                             <div class="text-sm opacity-70 mb-1">URL du site</div>
-                            {% if domain == "" %}
-                                <div class="font-semibold">Votre site n'as actuellement aucun domaine.</div>
-                            {% else %}
-                                <div class="font-semibold">{{ domain  }}.devlowave.fr</div>
-                            {% endif %}
+                            <div class="font-semibold">{% if domain %}<div class="badge badge-success gap-2">{{ domain }}</div>{% else %}<div class="badge badge-error gap-2">pasdedomaine</div>{% endif %}.devlowave.fr</div>
                         </div>
                         <br>
                         <div class="card-actions justify-end mt-4">
                             <button class="btn btn-primary" onclick="window.location.reload()">Actualiser</button>
-                            <button class="btn btn-primary" onclick="showForm()">Héberger</button>
+                            <button class="btn btn-accent" onclick="showForm()">Héberger</button>
                         </div>
                     </div>
                 </div>
-                <div class="card-body" id="edit_data" hidden="hidden">
+                <div class="card-body hidden" id="edit_data">
                     <div class="grid gap-4">
-                        <form action="" method="post">
+                        <form action="/home/hebergement" method="post">
                             <!-- Status Site JA -->
                             <div class="bg-base-200 p-4 rounded-lg">
                                 <div class="text-sm opacity-70 mb-1">Status Actuel</div>
@@ -49,24 +53,20 @@
                             </div>
                             <br>
                             <div class="card-actions justify-end mt-4">
-                                <button id="heberger" class="btn btn-primary" onclick="showForm()" name="heberger" >Héberger</button>
+                                <button id="heberger" class="btn btn-accent" onclick="showForm()" name="heberger" value="heberger">Héberger</button>
                             </div>
                         </form>
                     </div>
                 </div>
-                <script>
-                    const showForm = () => {
-                        const show_data = document.getElementById('show_data');
-                        const edit_data = document.getElementById('edit_data');
-                        if (show_data.hidden == false) {
-                            show_data.hidden = true;
-                            edit_data.hidden = false;
-                        } else {
-                            show_data.hidden = false;
-                            edit_data.hidden = true;
-                        }
-                    }
-                </script>
             </div>
         </main>
-{% endblock %}
+    </div>
+</body>
+<script>
+    function showForm(){
+        document.getElementById('show_data').classList.toggle('hidden');
+        document.getElementById('edit_data').classList.toggle('hidden');
+        document.getElementById('heberger').textContent = "Valider"
+    }
+</script>
+</html>

@@ -1,13 +1,13 @@
 <section class="bg-base-300 text-base-content py-12">
     <h2 class="mb-5 font-bold text-4xl sm:text-5xl text-primary text-center my-4">Nos membres</h2>
-    <div class="flex justify-center">
+    <div class="flex justify-center flex-wrap">
         {% for membre in data["members"]["list"] %}
             <membres>
-            <div class="flex flex-wrap justify-center">
+            <div class="flex justify-center">
                 <div class="max-w-full flex justify-center m-4">
                     <div class="flex flex-col items-center w-60 m-4">
                         <div class="rounded-full w-48 h-48 overflow-hidden my-5 mx-10">
-                            <img src="{% if membre["image"] %}{{ url_for('route_tmp', ja=session["ja_id"], image=membre["image"]) }} {% else %}{{ url_for('static', filename="add_image.svg") }}{% endif %}"  alt="profil" class="object-cover w-48 h-48 bg-white">
+                            <img src="{% if membre["image"] %}{{ url_for('route_tmp', ja=data["general"]["ja_id"], image=membre["image"]) }} {% else %}{{ url_for('static', filename="add_image.svg") }}{% endif %}"  alt="profil" class="object-cover w-48 h-48 bg-white">
                         </div>
                         <p class="font-medium text-base-content">{{ membre["name"] }}</p>
                         <p class="font-light text-base-content">{{ membre["role"] }}</p>
