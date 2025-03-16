@@ -1,6 +1,6 @@
 {% extends "home/layout.html" %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Hébergement{% endblock %}
 
 {% block content %}
     <main class="p-2 md:p-4 h-auto pt-20 min-h-screen">
@@ -49,7 +49,7 @@
                             </div>
                             <br>
                             <div class="card-actions justify-end mt-4">
-                                <button id="heberger" class="btn btn-primary" onclick="showForm()" name="heberger" >Héberger</button>
+                                <button id="heberger" class="btn btn-primary" onclick="showForm()" name="heberger" value="heberger" >Héberger</button>
                             </div>
                         </form>
                     </div>
@@ -58,7 +58,7 @@
                     const showForm = () => {
                         const show_data = document.getElementById('show_data');
                         const edit_data = document.getElementById('edit_data');
-                        if (show_data.hidden == false) {
+                        if (show_data.hidden === false) {
                             show_data.hidden = true;
                             edit_data.hidden = false;
                         } else {
